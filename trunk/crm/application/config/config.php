@@ -23,6 +23,8 @@ ini_set("display_errors", 1);
 define('SURL', 'http://localhost/');
 define('URL', 'http://localhost/index.php?url=');
 
+define('URL', 'http://localhost/GoGoTown/trunk/crm/');
+define('RESTURL', 'http://localhost/GoGoTown/trunk/crm/index.php?url=');
 /**
  * Configuration for: Folders
  * Here you define where your folders are. Unless you have renamed them, there's no need to change this.
