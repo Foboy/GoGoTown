@@ -14,6 +14,15 @@ class Login extends Controller
     {
         parent::__construct();
     }
+    
+    /**
+     * 当用户未登陆时跳转到此action,返回未登陆数据
+     */
+    function unloginresponse(){
+    	$result = new DataResult();
+    	$result->Error = ErrorType::Unlogin;
+    	print json_encode($result);
+    }
 
     /**
      * Index, default action (shows the login form), when you do login/index
@@ -31,6 +40,7 @@ class Login extends Controller
         // show the view
         $this->view->render('login/index');
     }
+    
 
     /**
      * The login action, when you do login/login

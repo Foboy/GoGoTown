@@ -20,8 +20,10 @@ ini_set("display_errors", 1);
  * if you are using a (different) port, then put this in here, like http://mydomain:8888/subfolder/
  * Note: The trailing slash is important!
  */
+
 define('URL', 'http://localhost/GoGoTown/trunk/crm/');
 define('RESTURL', 'http://localhost/GoGoTown/trunk/crm/index.php?url=');
+
 
 /**
  * Configuration for: Folders

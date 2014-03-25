@@ -1,5 +1,5 @@
 ﻿angular.module('gogotowncrm', ['ngRoute', 'ui.router', 'ngRestUrls']).
- config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRouterProvider', function ($provide, $httpProvider, $routeProvider, $stateProvider, $urlRouterProvider) {
+ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRouterProvider', '$resturls', function ($provide, $httpProvider, $routeProvider, $stateProvider, $urlRouterProvider, $resturls) {
 
      $routeProvider
         .when('/home', { template: '', controller: function () { } })
@@ -15,7 +15,7 @@
         .when('/finance/:steps?/:pageIndex?', { template: '', controller: function () { } })
         .when('/client/:sorts?/:pageIndex?', { template: '', controller: function () { } })
         .otherwise({ redirectTo: '/home' });
-
+     /*
      $stateProvider
          .state("main", {
              url: "",
@@ -45,13 +45,13 @@
          .state('main.sales', { url: '/sales*path', templateUrl: 'partials/sales.html', controller: SalesMainCtrl })
          .state('main.finance', { url: '/finance*path', templateUrl: 'partials/finance.html', controller: FinanceMainCtrl })
          .state('main.client', { url: '/client*path', templateUrl: 'partials/client.html', controller: ClientMainCtrl });
-
+     */
      $httpProvider.interceptors.push(function () {
          return {
              'response': function (response) {
                  if (response && typeof response.data === 'object') {
                      if (response.data.Error == 11) {
-                         setTimeout(function () { window.location.href = 'login.html'; }, 3000);
+                         setTimeout(function () { window.location.href = $resturls['login_page']; }, 0);
                      }
                  }
                  return response || $q.when(response);
