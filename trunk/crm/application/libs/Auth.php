@@ -16,7 +16,7 @@ class Auth
         // redirect user to login page
         if (!isset($_SESSION['user_logged_in'])) {
             Session::destroy();
-            header('location: ' . RESTURL . 'login/unloginresponse');
+            header('location: ' . URL . 'login/unloginresponse');
         }
     }
 }

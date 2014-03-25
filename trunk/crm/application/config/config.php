@@ -20,8 +20,8 @@ ini_set("display_errors", 1);
  * if you are using a (different) port, then put this in here, like http://mydomain:8888/subfolder/
  * Note: The trailing slash is important!
  */
+define('SURL', 'http://localhost/');
 define('URL', 'http://localhost/index.php?url=');
-define('RESTURL', 'http://localhost/index.php?url=');
 
 /**
  * Configuration for: Folders

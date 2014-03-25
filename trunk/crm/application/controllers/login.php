@@ -229,9 +229,9 @@ class Login extends Controller
         $registration_successful = $login_model->registerNewUser();
 
         if ($registration_successful == true) {
-            header('location: ' . RESTURL . 'login/index');
+            header('location: ' . URL . 'login/index');
         } else {
-            header('location: ' . RESTURL . 'login/register');
+            header('location: ' . URL . 'login/register');
         }
     }
 

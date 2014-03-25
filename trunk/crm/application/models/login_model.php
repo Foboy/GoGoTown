@@ -538,6 +538,7 @@ class LoginModel
      */
     private function sendVerificationEmail($user_id, $user_email, $user_activation_hash)
     {
+    	return true;
         // create PHPMailer object (this is easily possible as we auto-load the according class(es) via composer)
         $mail = new PHPMailer;
 

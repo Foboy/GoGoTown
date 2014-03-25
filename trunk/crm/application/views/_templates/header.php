@@ -7,11 +7,12 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS -->
-    <link rel="stylesheet" href="<?php echo URL; ?>public/css/reset.css" />
-    <link rel="stylesheet" href="<?php echo URL; ?>public/css/style.css" />
+    <link rel="stylesheet" href="<?php echo SURL; ?>public/css/reset.css" />
+    <link rel="stylesheet" href="<?php echo SURL; ?>public/css/style.css" />
     <!-- in case you wonder: That's the cool-kids-protocol-free way to load jQuery -->
     <script type="text/javascript" src="//code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="<?php echo URL; ?>public/js/application.js"></script>
+    <script type="text/javascript" src="
+      <?php echo SURL; ?>public/js/application.js"></script>
 </head>
 <body>
 
@@ -20,50 +21,51 @@
     </div>
 
     <div class='title-box'>
-        <a href="<?php echo URL; ?>">My Application</a>
+        <a href="
+      <?php echo SURL; ?>">My Application</a>
     </div>
 
     <div class="header">
         <div class="header_left_box">
         <ul id="menu">
             <li <?php if ($this->checkForActiveController($filename, "index")) { echo ' class="active" '; } ?> >
-                <a href="<?php echo RESTURL; ?>index/index">Index</a>
+                <a href="<?php echo URL; ?>index/index">Index</a>
             </li>
             <li <?php if ($this->checkForActiveController($filename, "help")) { echo ' class="active" '; } ?> >
-                <a href="<?php echo RESTURL; ?>help/index">Help</a>
+                <a href="<?php echo URL; ?>help/index">Help</a>
             </li>
             <li <?php if ($this->checkForActiveController($filename, "overview")) { echo ' class="active" '; } ?> >
-                <a href="<?php echo RESTURL; ?>overview/index">Overview</a>
+                <a href="<?php echo URL; ?>overview/index">Overview</a>
             </li>
             <?php if (Session::get('user_logged_in') == true):?>
             <li <?php if ($this->checkForActiveController($filename, "dashboard")) { echo ' class="active" '; } ?> >
-                <a href="<?php echo RESTURL; ?>dashboard/index">Dashboard</a>
+                <a href="<?php echo URL; ?>dashboard/index">Dashboard</a>
             </li>
             <?php endif; ?>
             <?php if (Session::get('user_logged_in') == true):?>
             <li <?php if ($this->checkForActiveController($filename, "note")) { echo ' class="active" '; } ?> >
-                <a href="<?php echo RESTURL; ?>note/index">My Notes</a>
+                <a href="<?php echo URL; ?>note/index">My Notes</a>
             </li>
             <?php endif; ?>
 
             <?php if (Session::get('user_logged_in') == true):?>
                 <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> >
-                    <a href="<?php echo RESTURL; ?>login/showprofile">My Account</a>
+                    <a href="<?php echo URL; ?>login/showprofile">My Account</a>
                     <ul class="sub-menu">
                         <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> >
-                            <a href="<?php echo RESTURL; ?>login/changeaccounttype">Change account type</a>
+                            <a href="<?php echo URL; ?>login/changeaccounttype">Change account type</a>
                         </li>
                         <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> >
-                            <a href="<?php echo RESTURL; ?>login/uploadavatar">Upload an avatar</a>
+                            <a href="<?php echo URL; ?>login/uploadavatar">Upload an avatar</a>
                         </li>
                         <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> >
-                            <a href="<?php echo RESTURL; ?>login/editusername">Edit my username</a>
+                            <a href="<?php echo URL; ?>login/editusername">Edit my username</a>
                         </li>
                         <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> >
-                            <a href="<?php echo RESTURL; ?>login/edituseremail">Edit my email</a>
+                            <a href="<?php echo URL; ?>login/edituseremail">Edit my email</a>
                         </li>
                         <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> >
-                            <a href="<?php echo RESTURL; ?>login/logout">Logout</a>
+                            <a href="<?php echo URL; ?>login/logout">Logout</a>
                         </li>
                     </ul>
                 </li>
@@ -72,10 +74,10 @@
             <!-- for not logged in users -->
             <?php if (Session::get('user_logged_in') == false):?>
                 <li <?php if ($this->checkForActiveControllerAndAction($filename, "login/index")) { echo ' class="active" '; } ?> >
-                    <a href="<?php echo RESTURL; ?>login/index">Login</a>
+                    <a href="<?php echo URL; ?>login/index">Login</a>
                 </li>
                 <li <?php if ($this->checkForActiveControllerAndAction($filename, "login/register")) { echo ' class="active" '; } ?> >
-                    <a href="<?php echo RESTURL; ?>login/register">Register</a>
+                    <a href="<?php echo URL; ?>login/register">Register</a>
                 </li>
             <?php endif; ?>
         </ul>
