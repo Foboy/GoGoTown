@@ -24,6 +24,10 @@ ini_set("display_errors", 1);
 define('URL', 'http://localhost/GoGoTown/trunk/crm/');
 define('RESTURL', 'http://localhost/GoGoTown/trunk/crm/index.php?url=');
 
+// define('URL', 'http://localhost/index.php?url=');
+// define('RESTURL', 'http://localhost/index.php?url=');
+
+
 
 /**
  * Configuration for: Folders
