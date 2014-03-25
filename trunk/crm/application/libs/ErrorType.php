@@ -1,0 +1,9 @@
+<?php
+
+class ErrorType
+{
+	const Success = 0;
+	const Failed = 1;
+	const LoginFailed = 2;
+	const Unlogin = 11;
+}
