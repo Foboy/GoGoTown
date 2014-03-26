@@ -297,7 +297,7 @@ class LoginModel
             // clean the input
             $user_name = strip_tags($_POST['user_name']);
             
-            $shop_id = trim($_POST['shop_id']);
+            $shop_id = intval($_POST['shop_id']);
 
             // crypt the user's password with the PHP 5.5's password_hash() function, results in a 60 character
             // hash string. the PASSWORD_DEFAULT constant is defined by the PHP 5.5, or if you are using PHP 5.3/5.4,
