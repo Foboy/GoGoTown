@@ -37,20 +37,19 @@ class LoginModel
 
         // get user's data
         // (we check if the password fits the password_hash via password_verify() some lines below)
-        $sth = $this->db->prepare("SELECT user_id,
-                                          user_name,
-                                          user_email,
-                                          user_password_hash,
-                                          user_active,
-                                          user_account_type,
-                                          user_failed_logins,
-                                          user_last_failed_login
-                                   FROM   users
-                                   WHERE  (user_name = :user_name OR user_email = :user_name)
-                                          AND user_provider_type = :provider_type");
+        $sth = $this->db->prepare("SELECT
+									`crm_users`.`ID`,
+									`crm_users`.`Shop_ID`,
+									`crm_users`.`Type`,
+									`crm_users`.`Account`,
+									`crm_users`.`Password`,
+									`crm_users`.`Last_Login`,
+									`crm_users`.`State`
+									FROM `gogotowncrm`.`crm_users`
+                                   WHERE Account = :user_name");
         // DEFAULT is the marker for "normal" accounts (that have a password etc.)
         // There are other types of accounts that don't have passwords etc. (FACEBOOK)
-        $sth->execute(array(':user_name' => $_POST['user_name'], ':provider_type' => 'DEFAULT'));
+        $sth->execute(array(':user_name' => $_POST['user_name']));
         $count =  $sth->rowCount();
         // if there's NOT one result
         if ($count != 1) {
