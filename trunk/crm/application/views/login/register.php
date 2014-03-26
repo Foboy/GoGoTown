@@ -13,6 +13,11 @@
                 <span style="display: block; font-size: 14px; color: #999;">(only letters and numbers, 2 to 64 characters)</span>
             </label>
             <input id="login_input_username" class="login_input" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required />
+            <label for="login_input_shopid">
+                ShopID
+                <span style="display: block; font-size: 14px; color: #999;">(must be numbers)</span>
+            </label>
+            <input id="login_input_shopid" class="login_input" type="number" name="shop_id" required />
             <label for="login_input_password_new">
                 Password (min. 6 characters!
                 <span class="login-form-password-pattern-reminder">

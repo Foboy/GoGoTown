@@ -266,7 +266,6 @@ class LoginModel
      */
     public function registerNewUser()
     {
-    	$shop_id = 10;
     	$user_type = 1;
     	
         // perform all necessary form checks
@@ -276,6 +275,8 @@ class LoginModel
             $_SESSION["feedback_negative"][] = FEEDBACK_USERNAME_FIELD_EMPTY;
         } elseif (empty($_POST['user_password_new']) OR empty($_POST['user_password_repeat'])) {
             $_SESSION["feedback_negative"][] = FEEDBACK_PASSWORD_FIELD_EMPTY;
+        } elseif (empty($_POST['shop_id'])) {
+            $_SESSION["feedback_negative"][] = FEEDBACK_SHOPID_FIELD_EMPTY;
         } elseif ($_POST['user_password_new'] !== $_POST['user_password_repeat']) {
             $_SESSION["feedback_negative"][] = FEEDBACK_PASSWORD_REPEAT_WRONG;
         } elseif (strlen($_POST['user_password_new']) < 6) {
@@ -287,6 +288,7 @@ class LoginModel
         } elseif (!empty($_POST['user_name'])
             AND strlen($_POST['user_name']) <= 64
             AND strlen($_POST['user_name']) >= 2
+        	AND is_numeric($_POST['shop_id'])
             AND preg_match('/^[a-z\d]{2,64}$/i', $_POST['user_name'])
             AND !empty($_POST['user_password_new'])
             AND !empty($_POST['user_password_repeat'])
@@ -294,6 +296,8 @@ class LoginModel
 
             // clean the input
             $user_name = strip_tags($_POST['user_name']);
+            
+            $shop_id = trim($_POST['shop_id']);
 
             // crypt the user's password with the PHP 5.5's password_hash() function, results in a 60 character
             // hash string. the PASSWORD_DEFAULT constant is defined by the PHP 5.5, or if you are using PHP 5.3/5.4,
