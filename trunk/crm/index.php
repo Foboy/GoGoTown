@@ -13,6 +13,7 @@
  */
 
 // Load application config (error reporting, database credentials etc.)
+require 'application/config/urlconfig.php';
 require 'application/config/config.php';
 
 // The auto-loader to load the php-login related internal stuff automatically

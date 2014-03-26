@@ -20,12 +20,7 @@ ini_set("display_errors", 1);
  * if you are using a (different) port, then put this in here, like http://mydomain:8888/subfolder/
  * Note: The trailing slash is important!
  */
-define('SURL', 'http://localhost/');
-define('URL', 'http://localhost/index.php?url=');
-/*
-define('SURL', 'http://localhost/GoGoTown/trunk/crm/');
-define('URL', 'http://localhost/GoGoTown/trunk/crm/index.php?url=');
-*/
+
 /**
  * Configuration for: Folders
  * Here you define where your folders are. Unless you have renamed them, there's no need to change this.
