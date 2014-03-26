@@ -123,7 +123,9 @@ class LoginModel
                 $cookie_string = $cookie_string_first_part . ':' . $cookie_string_hash;
 
                 // set cookie
-                setcookie('rememberme', $cookie_string, time() + COOKIE_RUNTIME, "/", COOKIE_DOMAIN);
+                setcookie('rememberme', $cookie_string, time() + COOKIE_RUNTIME);//, '/', COOKIE_DOMAIN
+              
+            
             }
 
             // return true to make clear the login was successful
@@ -232,7 +234,7 @@ class LoginModel
         // set the remember-me-cookie to ten years ago (3600sec * 365 days * 10).
         // that's obviously the best practice to kill a cookie via php
         // @see http://stackoverflow.com/a/686166/1114320
-        setcookie('rememberme', false, time() - (3600 * 3650), '/', COOKIE_DOMAIN);
+        setcookie('rememberme', false, time() - (3600 * 3650));//, '/', COOKIE_DOMAIN
 
         // delete the session
         Session::destroy();
@@ -246,7 +248,7 @@ class LoginModel
         // set the rememberme-cookie to ten years ago (3600sec * 365 days * 10).
         // that's obviously the best practice to kill a cookie via php
         // @see http://stackoverflow.com/a/686166/1114320
-        setcookie('rememberme', false, time() - (3600 * 3650), '/', COOKIE_DOMAIN);
+        setcookie('rememberme', false, time() - (3600 * 3650));//, '/', COOKIE_DOMAIN
     }
 
     /**

@@ -51,7 +51,7 @@ class Login extends Controller
         $login_model = $this->loadModel('Login');
         // perform the login method, put result (true or false) into $login_successful
         $login_successful = $login_model->login();
-
+        
         // check login status
         if ($login_successful) {
             // if YES, then move user to dashboard/index (btw this is a browser-redirection, not a rendered view!)
