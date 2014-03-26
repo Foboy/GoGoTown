@@ -39,7 +39,7 @@ create table Crm_Bills
    Go_Coin              int,
    Type                 int,
    Amount               decimal,
-   Create_Time          timestamp,
+   Create_Time          bigint(20),
    primary key (ID)
 );
 
@@ -64,7 +64,7 @@ create table Crm_Logs
    Type                 int,
    Content              varchar(128),
    Target               varchar(32),
-   Create_Time          timestamp,
+   Create_Time          bigint(20),
    primary key (ID)
 );
 
@@ -79,8 +79,8 @@ create table Crm_Message_Send_List
    Message_ID           int,
    Title                varchar(64),
    Content              varchar(512),
-   Create_Time          timestamp,
-   Read_Time            timestamp,
+   Create_Time          bigint(20),
+   Read_Time            bigint(20),
    State                int,
    Type                 int,
    primary key (ID)
@@ -96,7 +96,7 @@ create table Crm_Messages
    Type                 int,
    Title                varchar(64),
    Content              varchar(512),
-   Create_Time          timestamp,
+   Create_Time          bigint(20),
    State                int,
    primary key (ID)
 );
@@ -110,7 +110,7 @@ create table Crm_PMerchant_Customers
    Shop_ID              int,
    Customer_ID          int,
    Times                int,
-   Last_Time            timestamp
+   Last_Time            bigint(20)
 );
 
 /*==============================================================*/
@@ -122,7 +122,7 @@ create table Crm_PShop_Customers
    Shop_ID              int,
    Customer_ID          int,
    Times                int,
-   Last_Time            timestamp
+   Last_Time            bigint(20)
 );
 
 /*==============================================================*/
@@ -134,8 +134,8 @@ create table Crm_Rank
    Shop_ID              int,
    Customer_ID          int,
    Rank                 int,
-   Begin_Time           timestamp,
-   End_Time             timestamp,
+   Begin_Time           bigint(20),
+   End_Time             bigint(20),
    primary key (ID)
 );
 
@@ -179,10 +179,12 @@ create table Crm_Users
    Type                 int,
    Account              varchar(32),
    Password             varchar(64),
-   Last_Login           timestamp,
+   Last_Login           bigint(20),
    State                int,
    Faileds              int,
-   Last_Failed          timestamp,
+   Last_Failed          bigint(20),
+   Token                varchar(64),
+   Create_Time          bigint(20),
    primary key (ID)
 );
 
@@ -193,8 +195,9 @@ create table Crm_Validation
 (
    ID                   int not null auto_increment,
    Code                 varchar(8),
-   Expire_Time          timestamp,
+   Expire_Time          bigint(20),
    Type                 int,
    Usable               int,
    primary key (ID)
 );
+
