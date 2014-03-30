@@ -18,6 +18,22 @@
 	line-height: 150px;
 }
 
+.form-group{
+	position: relative;
+}
+.form-control{
+	height: 42px;
+}
+.login-field-icon {
+color: #bfc9ca;
+font-size: 16px;
+position: absolute;
+right: 15px;
+top: 13px;
+-webkit-transition: 0.25s;
+transition: 0.25s;
+}
+
 .footer{text-align: center; height: 40px; margin-top: 60px;}
 
 /*index*/
