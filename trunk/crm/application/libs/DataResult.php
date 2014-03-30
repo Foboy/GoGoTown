@@ -16,3 +16,18 @@ class DataResult
 		$this->Error = ErrorType::Success;
 	}
 }
+class PageDataResult
+{
+	public $pageindex;
+
+	public $pagesize;
+
+	public $totalcount;
+
+	public $Data;
+
+	public function __construct(){
+		$this->Data=new DataResult();
+		$this->Error = ErrorType::Success;
+	}
+}
