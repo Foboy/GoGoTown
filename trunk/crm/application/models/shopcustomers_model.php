@@ -3,6 +3,7 @@
  * @author yangchao
  * @email:66954011@qq.com
  * @date: 2014/3/30 18:50:30
+ * 商家客户表包括（销售机会客户，自由客户，GOGO客户在该商家已有消费记录客户）
  */
 class ShopCustomersModel {
 	public function __construct(Database $db) {

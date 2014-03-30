@@ -3,6 +3,7 @@
  * @author yangchao
  * @email:66954011@qq.com
  * @date: 2014/3/30 18:40:43
+ * GOGO客户信息表
  */
 class GogoCustomersModel {
 	public function __construct(Database $db) {

@@ -4,6 +4,7 @@
  * @author yangchao
 * @email:66954011@qq.com
 * @date: 2014/3/30 18:26:21
+* 商家自有客户信息表
 */
 class CustomersModel {
 	public function __construct(Database $db) {

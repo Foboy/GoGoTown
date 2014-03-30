@@ -3,6 +3,7 @@
  * @author yangchao
  * @email:66954011@qq.com
  * @date: 2014/3/30 18:47:09
+ * 商家商圈GOGO客户对应表
  */
 class PmerchantCustomersModel {
 	public function __construct(Database $db) {

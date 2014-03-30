@@ -3,6 +3,7 @@
  * @author yangchao
  * @email:66954011@qq.com
  * @date: 2014/3/30 18:49:33
+ * 商家客户等级设置表
  */
 class RankSetModel {
 	public function __construct(Database $db) {

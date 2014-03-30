@@ -3,6 +3,7 @@
  * @author yangchao
  * @email:66954011@qq.com
  * @date: 2014/3/30 18:53:00
+ * 验证码表
  */
 class ValidationModel {
 	public function __construct(Database $db) {

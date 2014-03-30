@@ -3,6 +3,7 @@
  * @author yangchao
  * @email:66954011@qq.com
  * @date: 2014/3/30 18:48:23
+ * 商家公海客户对应表
  */
 class PshopCustomersModel {
 	public function __construct(Database $db) {

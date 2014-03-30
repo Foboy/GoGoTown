@@ -3,6 +3,7 @@
  * @author yangchao
  * @email:66954011@qq.com
  * @date: 2014/3/30 18:49:04
+ * 客户等级对应表
  */
 class RankModel {
 	public function __construct(Database $db) {

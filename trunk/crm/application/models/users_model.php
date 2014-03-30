@@ -3,6 +3,7 @@
  * @author yangchao
  * @email:66954011@qq.com
  * @date: 2014/3/30 18:52:16
+ * 商家账号以及收银员账号表
  */
 class UsersModel {
 	public function __construct(Database $db) {

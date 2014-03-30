@@ -3,6 +3,7 @@
  * @author yangchao
  * @email:66954011@qq.com
  * @date: 2014/3/30 18:44:18
+ * 商家对客户发送信息列表
  */
 class MessageSendListModel {
 	public function __construct(Database $db) {
