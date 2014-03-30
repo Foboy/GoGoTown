@@ -45,7 +45,7 @@ transition: 0.25s;
 .navbar-static-side{
 	width: 200px;
 }
-.nav li a i{
+#side-menu li a i{
 	margin-right: 10px;
 }
 

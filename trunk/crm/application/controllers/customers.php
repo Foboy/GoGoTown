@@ -1,5 +1,12 @@
 <?php
-
+class customermeta
+{
+	public $name;
+	public  $phone;
+	public  $sex;
+	public  $birthday;
+	public  $remark;
+}
 class customers extends Controller
 {
 	/**
@@ -19,20 +26,42 @@ class customers extends Controller
 		$result = new DataResult();
 		json_encode($result);
 	}
+	public  function  get()
+	{
+		$result = new DataResult();
+	
+		$customers_model = $this->loadModel('Customers');
+	
+		$result->Data = $customers_model ->get(20);
+		$result->Error=ErrorType::Success;
+	
+		print  json_encode($result);
+	}
 	public  function  search()
 	{
 		$result = new DataResult();
 		
-		$customers_model = $this->loadModel('customers');
+		$customers_model = $this->loadModel('Customers');
 		
-		$result = $customers_model ->search('','','');
+		$result = $customers_model ->search();
 		$result->Error=ErrorType::Success;
 		
-		return  json_encode($result);
+		print  json_encode($result);
 	}
+public  function  del()
+{
+	$result = new DataResult();
 	
+	$customers_model = $this->loadModel('Customers');
+	
+	$result->Data = $customers_model ->delete(20);
+	$result->Error=ErrorType::Success;
+	
+	print  json_encode($result);
+}
 	public function  add()
 	{
+		
 		$result = new DataResult();
 		
 // 		if (!isset($_POST['name']) OR empty($_POST['name'])) {
@@ -52,18 +81,34 @@ class customers extends Controller
 // 		$phone=$_POST['phone'];	
 // 		$rank=$_POST['rank'];
 		
-		$name="test";
-		$phone="13888888";
-		$rank="11";
+		$_customermeta=new customermeta();
 		
-		$customers_model = $this->loadModel('customers');
+		$_customermeta->name="test";
+		$_customermeta->phone="13888888";
+		$_customermeta->sex="11";
+		$_customermeta->birthday= time();
+		$_customermeta->remark="放多久11";
 		
-		$result->Data=$customers_model->insert($name,$phone,$rank);
+// 		$result->Data=$_customermeta;
 		
-		return json_encode($result);
+// 		$customers_model = $this->loadModel('customers');
+		$customers_model = $this->loadModel('Customers');
+		
+		$result->Data=$customers_model->insert($_customermeta->name,$_customermeta->phone,$_customermeta->sex,$_customermeta->birthday,$_customermeta->remark);
+		
+		print json_encode($result);
 	
 	}
+public function searchBP()
+{
+	$result = new PageDataResult();
+	$customers_model = $this->loadModel('Customers');
 
+	$result = $customers_model ->searchByPages("","","","","",0,5);
+	$result->Error=ErrorType::Success;
+	
+	print  json_encode($result);
+}
 
 
 }
