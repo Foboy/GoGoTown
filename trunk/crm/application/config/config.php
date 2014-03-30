@@ -20,7 +20,12 @@ ini_set("display_errors", 1);
  * if you are using a (different) port, then put this in here, like http://mydomain:8888/subfolder/
  * Note: The trailing slash is important!
  */
-
+define('SURL', 'http://127.0.0.1/crm/');
+define('URL', 'http://127.0.0.1/crm/index.php?url=');
+/*
+define('SURL', 'http://localhost/GoGoTown/trunk/crm/');
+define('URL', 'http://localhost/GoGoTown/trunk/crm/index.php?url=');
+*/
 /**
  * Configuration for: Folders
  * Here you define where your folders are. Unless you have renamed them, there's no need to change this.
@@ -71,7 +76,7 @@ define('AVATAR_DEFAULT_IMAGE', 'default.jpg');
 define('COOKIE_RUNTIME', 1209600);
 // the domain where the cookie is valid for, for local development ".127.0.0.1" and ".localhost" will work
 // IMPORTANT: always put a dot in front of the domain, like ".mydomain.com" !
-define('COOKIE_DOMAIN', 'localhsot');
+define('COOKIE_DOMAIN', '.localhost');
 
 /**
  * Configuration for: Database
@@ -209,7 +214,6 @@ define("FEEDBACK_USER_DOES_NOT_EXIST", "This user does not exist.");
 // The "login failed"-message is a security improved feedback that doesn't show a potential attacker if the user exists or not
 define("FEEDBACK_LOGIN_FAILED", "Login failed.");
 define("FEEDBACK_USERNAME_FIELD_EMPTY", "Username field was empty.");
-define("FEEDBACK_SHOPID_FIELD_EMPTY", "Shopid field was empty.");
 define("FEEDBACK_PASSWORD_FIELD_EMPTY", "Password field was empty.");
 define("FEEDBACK_EMAIL_FIELD_EMPTY", "Email and passwords fields were empty.");
 define("FEEDBACK_EMAIL_AND_PASSWORD_FIELDS_EMPTY", "Email field was empty.");

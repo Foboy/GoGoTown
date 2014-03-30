@@ -17,34 +17,34 @@
         .otherwise({ redirectTo: '/home' });
      /*
      $stateProvider
-         .state("main", {
-             url: "",
-             templateUrl: 'partials/main.html'
-         })
-         .state("boss", {
-             url: "^/boss",
-             templateUrl: 'partials/boss.html',
-             controller: UserBossMainCtrl
-         })
-         .state('main.home', {
-             url: '/home',
-             templateUrl: 'partials/home.html',
-             controller: HomeMainCtrl
-         })
-         .state("main.product", {
-             url: "/product*path",
-             templateUrl: 'partials/product.html',
-             controller: ProductMainCtrl
-         })
-         .state('main.user', { url: '/user*path', templateUrl: 'partials/userinfo.html', controller: UserMainCtrl })
-         .state('main.mytimeshaft', { url: '/mytimeshaft*path', templateUrl: 'partials/mytimeshaft.html', controller: UserTimeShaftCtrl })
-         .state('main.staffmangement', { url: '/staffmangement*path', templateUrl: 'partials/staffmangement.html', controller: StaffMangementCtrl })
-         .state('main.changepassword', { url: '/changepassword*path', templateUrl: 'partials/changepassword.html', controller: UserMainCtrl })
-         .state('main.changeemail', { url: '/changeemail*path', templateUrl: 'partials/changeemail.html', controller: UserMainCtrl })
-         .state('main.enterpriseinfo', { url: '/enterpriseinfo*path', templateUrl: 'partials/enterpriseinfo.html', controller: EnterPriseInfoCtrl })
-         .state('main.sales', { url: '/sales*path', templateUrl: 'partials/sales.html', controller: SalesMainCtrl })
-         .state('main.finance', { url: '/finance*path', templateUrl: 'partials/finance.html', controller: FinanceMainCtrl })
-         .state('main.client', { url: '/client*path', templateUrl: 'partials/client.html', controller: ClientMainCtrl });
+     .state("main", {
+     url: "",
+     templateUrl: 'partials/main.html'
+     })
+     .state("boss", {
+     url: "^/boss",
+     templateUrl: 'partials/boss.html',
+     controller: UserBossMainCtrl
+     })
+     .state('main.home', {
+     url: '/home',
+     templateUrl: 'partials/home.html',
+     controller: HomeMainCtrl
+     })
+     .state("main.product", {
+     url: "/product*path",
+     templateUrl: 'partials/product.html',
+     controller: ProductMainCtrl
+     })
+     .state('main.user', { url: '/user*path', templateUrl: 'partials/userinfo.html', controller: UserMainCtrl })
+     .state('main.mytimeshaft', { url: '/mytimeshaft*path', templateUrl: 'partials/mytimeshaft.html', controller: UserTimeShaftCtrl })
+     .state('main.staffmangement', { url: '/staffmangement*path', templateUrl: 'partials/staffmangement.html', controller: StaffMangementCtrl })
+     .state('main.changepassword', { url: '/changepassword*path', templateUrl: 'partials/changepassword.html', controller: UserMainCtrl })
+     .state('main.changeemail', { url: '/changeemail*path', templateUrl: 'partials/changeemail.html', controller: UserMainCtrl })
+     .state('main.enterpriseinfo', { url: '/enterpriseinfo*path', templateUrl: 'partials/enterpriseinfo.html', controller: EnterPriseInfoCtrl })
+     .state('main.sales', { url: '/sales*path', templateUrl: 'partials/sales.html', controller: SalesMainCtrl })
+     .state('main.finance', { url: '/finance*path', templateUrl: 'partials/finance.html', controller: FinanceMainCtrl })
+     .state('main.client', { url: '/client*path', templateUrl: 'partials/client.html', controller: ClientMainCtrl });
      */
      $httpProvider.interceptors.push(function () {
          return {
@@ -58,11 +58,11 @@
              }
          };
      });
- }])
+ } ])
     .value('$anchorScroll', angular.noop)
     .run(
       ['$rootScope', '$state', '$stateParams',
       function ($rootScope, $state, $stateParams) {
           $rootScope.$state = $state;
           $rootScope.$stateParams = $stateParams;
-      }]);;
+      } ]); ;
