@@ -14,18 +14,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
-/**
- * Configuration for: Base URL
- * This is the base url of our app. if you go live with your app, put your full domain name here.
- * if you are using a (different) port, then put this in here, like http://mydomain:8888/subfolder/
- * Note: The trailing slash is important!
- */
-define('SURL', 'http://127.0.0.1/crm/');
-define('URL', 'http://127.0.0.1/crm/index.php?url=');
-/*
-define('SURL', 'http://localhost/GoGoTown/trunk/crm/');
-define('URL', 'http://localhost/GoGoTown/trunk/crm/index.php?url=');
-*/
+
 /**
  * Configuration for: Folders
  * Here you define where your folders are. Unless you have renamed them, there's no need to change this.

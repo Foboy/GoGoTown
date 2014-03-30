@@ -97,28 +97,26 @@ class CustomersModel {
 		return true;
 	}
 	// 分页查询customers
-	public function searchByPages($name,$sex,$phone,$birthady,$remark, $pageindex, $pagesize) {
+	public function searchByPages($name,$sex,$phone,$birthady, $pageindex, $pagesize) {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = " select id,name,sex,phone,birthady,remark from crm_customers where  ( name = :name or :name='' )  and  ( sex = :sex or :sex=0 )  and  ( phone = :phone or :phone='' )  and  ( birthady = :birthady or :birthady=0 )  and  ( remark = :remark or :remark='' )  limit $lastpagenum,$pagesize" ;
+		$sql = " select id,name,sex,phone,birthady,remark from crm_customers where  ( name = :name or :name='' )  and  ( sex = :sex or :sex=0 )  and  ( phone = :phone or :phone='' )  and  ( birthady = :birthady or :birthady=0 )  limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':name' => $name,
                    ':sex' => $sex,
                    ':phone' => $phone,
-                   ':birthady' => $birthady,
-                   ':remark' => $remark
+                   ':birthady' => $birthady
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_customers where  ( name = :name or :name='' )  and  ( sex = :sex or :sex=0 )  and  ( phone = :phone or :phone='' )  and  ( birthady = :birthady or :birthady=0 )  and  ( remark = :remark or :remark='' ) " );
+		$query = $this->db->prepare ( " select count(*)  from crm_customers where  ( name = :name or :name='' )  and  ( sex = :sex or :sex=0 )  and  ( phone = :phone or :phone='' )  and  ( birthady = :birthady or :birthady=0 )   " );
 		$query->execute ( array (
 ':name' => $name,
                    ':sex' => $sex,
                    ':phone' => $phone,
-                   ':birthady' => $birthady,
-                   ':remark' => $remark
+                   ':birthady' => $birthady
 		) );
 		$totalcount = $query->fetchColumn ( 0 );
 		

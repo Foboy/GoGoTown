@@ -6,4 +6,5 @@ class ErrorType
 	const Failed = 1;
 	const LoginFailed = 2;
 	const Unlogin = 11;
+	const RequestParamsFailed = 3;
 }

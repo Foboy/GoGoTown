@@ -1,114 +1,122 @@
 <?php
-class customermeta
-{
-	public $name;
-	public  $phone;
-	public  $sex;
-	public  $birthday;
-	public  $remark;
-}
-class customers extends Controller
-{
+
+class ShopCustomers extends Controller {
 	/**
 	 * Construct this object by extending the basic Controller class
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-	
+	public function __construct() {
+		parent::__construct ();
+		
 		// VERY IMPORTANT: All controllers/areas that should only be usable by logged-in users
 		// need this line! Otherwise not-logged in users could do actions. If all of your pages should only
 		// be usable by logged-in users: Put this line into libs/Controller->__construct
-	//	Auth::handleLogin();
+		// Auth::handleLogin();
 	}
-	
-	public function info(){
-		$result = new DataResult();
-		json_encode($result);
-	}
-	public  function  get()
-	{
-		$result = new DataResult();
-	
-		$customers_model = $this->loadModel('Customers');
-	
-		$result->Data = $customers_model ->get(20);
-		$result->Error=ErrorType::Success;
-	
-		print  json_encode($result);
-	}
-	public  function  search()
-	{
-		$result = new DataResult();
-		
-		$customers_model = $this->loadModel('Customers');
-		
-		$result = $customers_model ->search();
-		$result->Error=ErrorType::Success;
-		
-		print  json_encode($result);
-	}
-public  function  del()
-{
-	$result = new DataResult();
-	
-	$customers_model = $this->loadModel('Customers');
-	
-	$result->Data = $customers_model ->delete(20);
-	$result->Error=ErrorType::Success;
-	
-	print  json_encode($result);
-}
-	public function  add()
-	{
-		
-		$result = new DataResult();
-		
-// 		if (!isset($_POST['name']) OR empty($_POST['name'])) {
-// 			$result->Error=ErrorType::Failed;
-// 			return json_encode($result);
-// 		}
-// 		if (!isset($_POST['phone']) OR empty($_POST['phone'])) {
-// 			$result->Error=ErrorType::Failed;
-// 			return json_encode($result);
-// 		}
-// 		if (!isset($_POST['rank']) OR empty($_POST['rank'])) {
-// 			$result->Error=ErrorType::Failed;
-// 			return json_encode($result);
-// 		}
-		
-// 		$name=$_POST['name'];
-// 		$phone=$_POST['phone'];	
-// 		$rank=$_POST['rank'];
-		
-		$_customermeta=new customermeta();
-		
-		$_customermeta->name="test";
-		$_customermeta->phone="13888888";
-		$_customermeta->sex="11";
-		$_customermeta->birthday= time();
-		$_customermeta->remark="放多久11";
-		
-// 		$result->Data=$_customermeta;
-		
-// 		$customers_model = $this->loadModel('customers');
-		$customers_model = $this->loadModel('Customers');
-		
-		$result->Data=$customers_model->insert($_customermeta->name,$_customermeta->phone,$_customermeta->sex,$_customermeta->birthday,$_customermeta->remark);
-		
-		print json_encode($result);
-	
-	}
-public function searchBP()
-{
-	$result = new PageDataResult();
-	$customers_model = $this->loadModel('Customers');
 
-	$result = $customers_model ->searchByPages("","","","","",0,5);
-	$result->Error=ErrorType::Success;
+	/*
+	 * 根据ID获取商家自有客户信息
+	 * parms:id
+	*/
+	public function get() {
+		$result = new DataResult ();
+		if (! isset ( $_POST ['id'] ) or empty ( $_POST ['id'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			return json_encode ( $result );
+		}
+		
+		$customers_model = $this->loadModel ( 'Customers' );
+		
+		$result->Data = $customers_model->get ( $_POST ['id']  );
+		$result->Error = ErrorType::Success;
+		
+		return  json_encode ( $result );
+	}
+	/*
+	 * 根据ID删除商家自有客户信息
+	 * parms:id
+	*/
+	public function del() {
+		$result = new DataResult ();
+		
+		if (! isset ( $_POST ['id'] ) or empty ( $_POST ['id'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			return json_encode ( $result );
+		}
+		
+		$customers_model = $this->loadModel ( 'Customers' );
+		
+		$result->Data = $customers_model->delete ( $_POST ['id'] );
+		$result->Error = ErrorType::Success;
+		
+		return  json_encode ( $result );
+	}
+	/*
+	 * 添加商家自有客户信息
+	* parms:name,sex,phone,birthday,remark
+	*/
+	public function add() {
+		$result = new DataResult ();
+		
+	if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			return json_encode ( $result );
+		}
+		if (! isset ( $_POST ['sex'] ) or empty ( $_POST ['sex'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			return json_encode ( $result );
+		}
+		if (! isset ( $_POST ['phone'] ) or empty ( $_POST ['phone'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			return json_encode ( $result );
+		}
+
+		if (! isset ( $_POST ['birthady'] ) or empty ( $_POST ['birthady'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			return json_encode ( $result );
+		}
+		if (! isset ( $_POST ['remark'] ) or empty ( $_POST ['remark'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			return json_encode ( $result );
+		}
+		$customers_model = $this->loadModel ( 'Customers' );
+		
+		$result->Data = $customers_model->insert ($_POST ['name'],$_POST ['sex'],$_POST ['phone'],$_POST ['birthady'],$_POST ['remark']);
+		
+		return json_encode ( $result );
+	}
 	
-	print  json_encode($result);
-}
-
-
+	/*
+	 * 分页查询添加商家自有客户信息
+	* parms:name,sex,phone,birthday,remark
+	*/
+	public function searchBP() {
+		$result = new PageDataResult ();
+		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			return json_encode ( $result );
+		}
+		if (! isset ( $_POST ['phone'] ) or empty ( $_POST ['phone'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			return json_encode ( $result );
+		}
+		if (! isset ( $_POST ['sex'] ) or empty ( $_POST ['sex'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			return json_encode ( $result );
+		}
+		if (! isset ( $_POST ['birthady'] ) or empty ( $_POST ['birthady'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			return json_encode ( $result );
+		}
+		if (! isset ( $_POST ['pageindex'] ) or empty ( $_POST ['pageindex'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			return json_encode ( $result );
+		}
+		
+		$customers_model = $this->loadModel ( 'Customers' );
+		
+		$result = $customers_model->searchByPages ( $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['birthady'],  $_POST ['pageindex'] , 10 );
+		$result->Error = ErrorType::Success;
+		
+		return  json_encode ( $result );
+	}
 }
