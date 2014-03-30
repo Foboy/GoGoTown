@@ -33,7 +33,6 @@ class Controller
     public function loadModel($name)
     {
         $path = MODELS_PATH . strtolower($name) . '_model.php';
-
         if (file_exists($path)) {
             require MODELS_PATH . strtolower($name) . '_model.php';
             // The "Model" has a capital letter as this is the second part of the model class name,

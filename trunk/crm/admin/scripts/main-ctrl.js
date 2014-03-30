@@ -1,12 +1,14 @@
-﻿function MainCtrl($scope, $http, $resturls)
-{
-    $http.post($resturls["login_info"], {}).success(function (data) {
-        console.log(data);
-        if (data.Error) {
-            //alert(data.ErrorMessage);
-        }
-    }).
-    error(function (data, status, headers, config) {
-        $scope.CurrentUser = {};
-    });
+﻿function MainCtrl($scope, $routeParams, $http, $location, $filter) {
+    //登录
+    $scope.UserLogin = function () {
+        $http.get($sitecore.urls["Login"]).success(function (data) {
+            if (data.Error) {
+                console.log(data);
+            } else {
+                console.log(data);
+            }
+        }).error(function (data, status, headers, config) {
+            alert('error');
+        })
+    }
 }
