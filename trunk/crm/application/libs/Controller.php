@@ -43,4 +43,11 @@ class Controller
             return new $modelName($this->db);
         }
     }
+    public  function  checkNull($p)
+    {
+    	if (empty($p)) {
+    		$p=null;
+    	}
+    	return  $p;
+    }
 }
