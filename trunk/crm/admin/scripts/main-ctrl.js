@@ -1,7 +1,7 @@
 ﻿function MainCtrl($scope, $routeParams, $http, $location, $filter) {
     //登录
-    $scope.UserLogin = function () {
-        $http.get($sitecore.urls["Login"]).success(function (data) {
+    $scope.UserLogin = function (user) {
+        $http.get($sitecore.urls["Login"], { user_name: user.user_name, user_password: user.user_password }).success(function (data) {
             if (data.Error) {
                 console.log(data);
             } else {

@@ -5,7 +5,7 @@ $sitecore.urls.base = "";
 $sitecore.urls.add = function (name, url) {
     $sitecore.urls[name] = $sitecore.urls.base + "?url=" + url;
 };
-$sitecore.urls.add("Login", "Login/unloginresponse"); 
+$sitecore.urls.add("Login", "Login/login"); 
 
 
 $sitecore.urls.add("UploadFile", "/FileManagement/File/UploadFile");
