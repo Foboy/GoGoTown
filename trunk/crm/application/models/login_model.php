@@ -25,6 +25,7 @@ class LoginModel
      */
     public function login()
     {
+   
         // we do negative-first checks here
         if (!isset($_POST['user_name']) OR empty($_POST['user_name'])) {
             $_SESSION["feedback_negative"][] = FEEDBACK_USERNAME_FIELD_EMPTY;
@@ -34,7 +35,7 @@ class LoginModel
             $_SESSION["feedback_negative"][] = FEEDBACK_PASSWORD_FIELD_EMPTY;
             return false;
         }
-
+      
         // get user's data
         // (we check if the password fits the password_hash via password_verify() some lines below)
         $sth = $this->db->prepare("SELECT
@@ -53,6 +54,7 @@ class LoginModel
         // There are other types of accounts that don't have passwords etc. (FACEBOOK)
         $sth->execute(array(':user_name' => $_POST['user_name']));
         $count =  $sth->rowCount();
+    
         // if there's NOT one result
         if ($count != 1) {
             // was FEEDBACK_USER_DOES_NOT_EXIST before, but has changed to FEEDBACK_LOGIN_FAILED
@@ -376,7 +378,7 @@ class LoginModel
         $user_name = strip_tags($_POST['user_name']);
 
         // check if that username exists
-        $query = $this->db->prepare("SELECT user_id, user_email FROM users
+        $query = $this->db->prepare("SELECT user_id, user_email FROM crm_users
                                      WHERE user_name = :user_name AND user_provider_type = :provider_type");
         $query->execute(array(':user_name' => $user_name, ':provider_type' => 'DEFAULT'));
         $count = $query->rowCount();
@@ -409,7 +411,7 @@ class LoginModel
      */
     public function setPasswordResetDatabaseToken($user_name, $user_password_reset_hash, $temporary_timestamp)
     {
-        $query_two = $this->db->prepare("UPDATE users
+        $query_two = $this->db->prepare("UPDATE crm_users
                                             SET user_password_reset_hash = :user_password_reset_hash,
                                                 user_password_reset_timestamp = :user_password_reset_timestamp
                                           WHERE user_name = :user_name AND user_provider_type = :provider_type");
@@ -438,7 +440,7 @@ class LoginModel
     {
         // check if user-provided username + verification code combination exists
         $query = $this->db->prepare("SELECT user_id, user_password_reset_timestamp
-                                       FROM users
+                                       FROM crm_users
                                       WHERE user_name = :user_name
                                         AND user_password_reset_hash = :user_password_reset_hash
                                         AND user_provider_type = :user_provider_type");

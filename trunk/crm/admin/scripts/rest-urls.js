@@ -13,7 +13,7 @@
           resturls.addpage = function (name, url) {
               resturls[name] = resturls.base + url;
           };
-          resturls.addpage("login_page", "admin/login.html");
+          resturls.addpage("login_page", "admin/login.php");
           resturls.add("login_info", "user/info");
           $provide.constant('$resturls', resturls);
 

@@ -29,7 +29,7 @@ class ShopCustomers extends Controller {
 		$result->Data = $customers_model->get ( $_POST ['id']  );
 		$result->Error = ErrorType::Success;
 		
-		return  json_encode ( $result );
+		print  json_encode ( $result );
 	}
 	/*
 	 * 根据ID删除商家自有客户信息
@@ -48,7 +48,7 @@ class ShopCustomers extends Controller {
 		$result->Data = $customers_model->delete ( $_POST ['id'] );
 		$result->Error = ErrorType::Success;
 		
-		return  json_encode ( $result );
+		print  json_encode ( $result );
 	}
 	/*
 	 * 添加商家自有客户信息
@@ -82,7 +82,7 @@ class ShopCustomers extends Controller {
 		
 		$result->Data = $customers_model->insert ($_POST ['name'],$_POST ['sex'],$_POST ['phone'],$_POST ['birthady'],$_POST ['remark']);
 		
-		return json_encode ( $result );
+		print json_encode ( $result );
 	}
 	
 	/*
@@ -117,6 +117,6 @@ class ShopCustomers extends Controller {
 		$result = $customers_model->searchByPages ( $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['birthady'],  $_POST ['pageindex'] , 10 );
 		$result->Error = ErrorType::Success;
 		
-		return  json_encode ( $result );
+		print  json_encode ( $result );
 	}
 }

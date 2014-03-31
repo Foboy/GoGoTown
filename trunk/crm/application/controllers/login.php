@@ -16,7 +16,7 @@ class Login extends Controller
     }
     
     /**
-     * µ±ÓÃ»§Î´µÇÂ½Ê±Ìø×ªµ½´Ëaction,·µ»ØÎ´µÇÂ½Êý¾Ý
+     * ï¿½ï¿½ï¿½Ã»ï¿½Î´ï¿½ï¿½Â½Ê±ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½action,ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½Â½ï¿½ï¿½ï¿½
      */
     function unloginresponse(){
     	$result = new DataResult();
@@ -47,19 +47,27 @@ class Login extends Controller
      */
     function login()
     {
+    	
         // run the login() method in the login-model, put the result in $login_successful (true or false)
         $login_model = $this->loadModel('Login');
         // perform the login method, put result (true or false) into $login_successful
         $login_successful = $login_model->login();
-        
+        $result = new DataResult ();
+        $result->Data=$login_successful;
         // check login status
         if ($login_successful) {
             // if YES, then move user to dashboard/index (btw this is a browser-redirection, not a rendered view!)
-            header('location: ' . URL . 'dashboard/index');
+        	
+        	$result->Error = ErrorType::Success;
+        	
+        // header('location: ' . URL . 'dashboard/index');
         } else {
+        	$result->Error = ErrorType::LoginFailed;
             // if NO, then move user to login/index (login form) again
-            header('location: ' . URL . 'login/index');
+//             header('location: ' . SURL . 'admin/login.html');
         }
+      
+        echo json_encode ( $result ) ;
     }
 
     /**
