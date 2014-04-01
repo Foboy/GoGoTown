@@ -89,34 +89,79 @@ class ShopCustomers extends Controller {
 	 * 分页查询添加商家自有客户信息
 	* parms:name,sex,phone,birthday,remark
 	*/
-	public function searchBP() {
+	public function searchPrivateBP() {
+		
 		$result = new PageDataResult ();
-		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
-			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
+		
+		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
+			$result->Error = ErrorType::Unlogin;
+			print json_encode ( $result );
 		}
-		if (! isset ( $_POST ['phone'] ) or empty ( $_POST ['phone'] )) {
+		if (! isset ( $_POST ['name'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
+			print json_encode ( $result );
 		}
-		if (! isset ( $_POST ['sex'] ) or empty ( $_POST ['sex'] )) {
+		if (! isset ( $_POST ['phone'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
+			print json_encode ( $result );
 		}
-		if (! isset ( $_POST ['birthady'] ) or empty ( $_POST ['birthady'] )) {
+		if (! isset ( $_POST ['sex'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
+			print json_encode ( $result );
 		}
+		
 		if (! isset ( $_POST ['pageindex'] ) or empty ( $_POST ['pageindex'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
+			print json_encode ( $result );
 		}
 		
-		$customers_model = $this->loadModel ( 'Customers' );
+		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
 		
-		$result = $customers_model->searchByPages ( $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['birthady'],  $_POST ['pageindex'] , 10 );
+		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'],   $_POST ['pageindex'] , 10 );
 		$result->Error = ErrorType::Success;
 		
 		print  json_encode ( $result );
 	}
+	/*
+	 * 分页查询添加商家自有客户信息
+	* parms:name,sex,phone,type 1:公海客户 2：销售机会 3：有消费记录gogo客户
+	*/
+	public function searchGOGOBP() {
+	
+		$result = new PageDataResult ();
+	
+		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
+			$result->Error = ErrorType::Unlogin;
+			print json_encode ( $result );
+		}
+		if (! isset ( $_POST ['name'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+		if (! isset ( $_POST ['phone'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+		if (! isset ( $_POST ['sex'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+		if (! isset ( $_POST ['type'] ) or empty ( $_POST ['type'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+	
+		if (! isset ( $_POST ['pageindex'] ) or empty ( $_POST ['pageindex'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+	
+		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
+	
+		$result = $shopcustomers_model->searchGOGOCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['pageindex'] , 10 );
+		$result->Error = ErrorType::Success;
+	
+		print  json_encode ( $result );
+	}
+	
 }

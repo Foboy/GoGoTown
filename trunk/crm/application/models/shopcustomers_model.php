@@ -95,29 +95,80 @@ class ShopCustomersModel {
 		}
 		return true;
 	}
-	// 分页查询shop_customers
-	public function searchByPages($shop_id,$customer_id,$from_type,$type,$create_time, $pageindex, $pagesize) {
+	// 分页查询商家自有客户shop_customers
+	public function searchPrivateByPages($shop_id,$name,$sex,$phone, $pageindex, $pagesize) {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
+		if(empty($name))
+		{
+			$name= "  1=1  ";
+		}else 
+		{
+		$name=" aa.name like '%".$name."%' ";
+		}
+		if(empty($phone))
+		{
+			$phone= "  1=1  ";
+		}else
+		{
+			$phone=" aa.phone like '%".$phone."%'  ";
+		}
 		
-		$sql = " select id,shop_id,customer_id,from_type,type,create_time from crm_shop_customers where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( from_type = :from_type or :from_type=0 )  and  ( type = :type or :type=0 )  and  ( create_time = :create_time or :create_time=0 )  limit $lastpagenum,$pagesize" ;
+		
+		$sql = " select 
+    *
+from
+    (select 
+        a.customer_id, from_type, a.type, a.create_time, b . *
+    from
+        (select 
+        *
+    from
+        crm_shop_customers
+    where
+        shop_id = :shop_id and from_type = 1) a
+    left join Crm_Customers b ON a.customer_id = b.ID) aa
+        left join
+    (select 
+        cr.Customer_ID, cr.Rank, crs.Name
+    from
+        Crm_Rank cr
+    left join Crm_Rank_Set crs ON cr.id = crs.ID
+    where
+        cr.Shop_ID = 0) bb ON aa.customer_id = bb.customer_id 
+        where $name and (aa.sex = :sex or 0=:sex) and $phone
+		order by aa.create_time limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
-                   ':customer_id' => $customer_id,
-                   ':from_type' => $from_type,
-                   ':type' => $type,
-                   ':create_time' => $create_time
+				':sex' => $sex
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_shop_customers where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( from_type = :from_type or :from_type=0 )  and  ( type = :type or :type=0 )  and  ( create_time = :create_time or :create_time=0 ) " );
+		$query = $this->db->prepare ( " select 
+    count(*)
+from
+    (select 
+        a.customer_id, from_type, a.type, a.create_time, b . *
+    from
+        (select 
+        *
+    from
+        crm_shop_customers
+    where
+        shop_id = :shop_id and from_type = 1) a
+    left join Crm_Customers b ON a.customer_id = b.ID) aa
+        left join
+    (select 
+        cr.Customer_ID, cr.Rank, crs.Name
+    from
+        Crm_Rank cr
+    left join Crm_Rank_Set crs ON cr.id = crs.ID
+    where
+        cr.Shop_ID = 0) bb ON aa.customer_id = bb.customer_id where $name and (aa.sex = :sex or 0=:sex) and $phone " );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
-                   ':customer_id' => $customer_id,
-                   ':from_type' => $from_type,
-                   ':type' => $type,
-                   ':create_time' => $create_time
+				':sex' => $sex
 		) );
 		$totalcount = $query->fetchColumn ( 0 );
 		
@@ -128,6 +179,112 @@ class ShopCustomersModel {
 		
 		return $result;
 	}
+	// 分页查询有消费记录GOGO客户shop_customers $type 1:公海客户 2：销售机会 3：有消费记录gogo客户
+	public function searchGOGOCustomerByPages($shop_id,$name,$sex,$phone,$type, $pageindex, $pagesize) {
+		$result = new PageDataResult ();
+		$lastpagenum = $pageindex*$pagesize;
+		if(empty($name))
+		{
+			$name= "  1=1  ";
+		}else
+		{
+			$name=" cc.username like '%".$name."%' ";
+		}
+		if(empty($phone))
+		{
+			$phone= "  1=1  ";
+		}else
+		{
+			$phone=" cc.mobile like '%".$phone."%'  ";
+		}
+		
+		$sql = " select 
+    *
+from
+    (select 
+        aa . *, bb . *
+    from
+        (select 
+        a.Customer_ID cid, from_type, type, create_time
+    from
+        (select 
+        *
+    from
+        crm_shop_customers
+    where
+        shop_id = :shop_id and from_type = 2
+            and type = :type) a
+    left join (select 
+        *
+    from
+        Crm_PShop_Customers
+    where
+        shop_id = :shop_id) b ON a.Customer_ID = b.customer_id) aa
+    left join Crm_Gogo_Customers bb ON aa.cid = bb.id) cc
+        left join
+    (select 
+        cr.Customer_ID, cr.Rank, crs.Name
+    from
+        Crm_Rank cr
+    left join Crm_Rank_Set crs ON cr.id = crs.ID
+    where
+        cr.Shop_ID = :shop_id) dd ON cc.cid = dd.Customer_ID 
+        where $name and (cc.sex = :sex or 0=:sex) and $phone
+		order by cc.create_time limit $lastpagenum,$pagesize" ;
+		$query = $this->db->prepare ( $sql );
+		$query->execute ( array (
+				':shop_id' => $shop_id,
+				':type' => $type,
+				':sex' => $sex
+		) );
+		$objects = $query->fetchAll ();
+	
+		$query = $this->db->prepare ( " select 
+    count(*)
+from
+    (select 
+        aa . *, bb . *
+    from
+        (select 
+        a.Customer_ID cid, from_type, type, create_time
+    from
+        (select 
+        *
+    from
+        crm_shop_customers
+    where
+        shop_id = :shop_id and from_type = 2
+            and type = :type) a
+    left join (select 
+        *
+    from
+        Crm_PShop_Customers
+    where
+        shop_id = :shop_id) b ON a.Customer_ID = b.customer_id) aa
+    left join Crm_Gogo_Customers bb ON aa.cid = bb.id) cc
+        left join
+    (select 
+        cr.Customer_ID, cr.Rank, crs.Name
+    from
+        Crm_Rank cr
+    left join Crm_Rank_Set crs ON cr.id = crs.ID
+    where
+        cr.Shop_ID = :shop_id) dd ON cc.cid = dd.Customer_ID  where $name and (cc.sex = :sex or 0=:sex) and $phone" );
+		$query->execute ( array (
+				':shop_id' => $shop_id,
+				':type' => $type,
+				':sex' => $sex
+		) );
+		$totalcount = $query->fetchColumn ( 0 );
+	
+		$result->pageindex = $pageindex;
+		$result->pagesize = $pagesize;
+		$result->Data = $objects;
+		$result->totalcount = $totalcount;
+	
+		return $result;
+	}
+	
     //查询全部shop_customers
 	public function search() {
 		$result = new DataResult ();
