@@ -47,7 +47,6 @@ class Login extends Controller
      */
     function login()
     {
-    	
         // run the login() method in the login-model, put the result in $login_successful (true or false)
         $login_model = $this->loadModel('Login');
         // perform the login method, put result (true or false) into $login_successful
@@ -237,9 +236,11 @@ class Login extends Controller
         $registration_successful = $login_model->registerNewUser();
 
         if ($registration_successful == true) {
-            header('location: ' . URL . 'login/index');
+			print 1;
+          //  header('location: ' . URL . 'login/index');
         } else {
-            header('location: ' . URL . 'login/register');
+			print 2;
+          //  header('location: ' . URL . 'login/register');
         }
     }
 

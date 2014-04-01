@@ -7,6 +7,7 @@
     angular.module('ngRestUrls', ['ng']).
       config(['$provide', function ($provide) {
           var resturls = {};
+          resturls.base = "http://localhost:8080/GoGoTown/trunk/crm/index.php";
           resturls.add = function (name, url) {
               resturls[name] = resturls.base + "?url=" + url;
           };

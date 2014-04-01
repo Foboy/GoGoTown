@@ -8,6 +8,7 @@ $sitecore.urls.add = function (name, url) {
 };
 
 // 主模块
+$sitecore.urls.add("Register", "Login/register_action");
 $sitecore.urls.add("Login", "Login/login");
 
 

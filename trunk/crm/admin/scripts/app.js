@@ -11,7 +11,7 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
         .when('/product/:catalogId?/:pageIndex?', { template: '', controller: function () { } })
         .when('/sales/:steps?/:pageIndex?', { template: '', controller: function () { } })
         .when('/finance/:steps?/:pageIndex?', { template: '', controller: function () { } })
-        .when('/client', { template: '', controller: function () { } })
+        .when('/client/:sorts?/:pageIndex?', { template: '', controller: function () { } })
         .otherwise({ redirectTo: '/home' });
 
     $stateProvider

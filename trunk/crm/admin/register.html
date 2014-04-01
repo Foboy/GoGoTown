@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="gogotowncrm">
+<head>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/angular.js" type="text/javascript"></script>
+    <script src="js/angular-route.js" type="text/javascript"></script>
+    <script src="js/angular-ui-router.js" type="text/javascript"></script>
+    <script src="scripts/app.js" type="text/javascript"></script>
+    <script src="scripts/core.js" type="text/javascript"></script>
+    <script src="scripts/client/client-ctrl.js" type="text/javascript"></script>
+    <script src="scripts/user/user-ctrl.js" type="text/javascript"></script>
+</head>
+<body ng-controller="UserRegisterMainCtrl">
+    <label>
+        用户名</label>
+    <input name="user_name" type="text" ng-model="User.user_name" /><br />
+    <label>
+        shop_id</label><input name="shop_id" ng-model="User.shop_id" type="text" /><br />
+    <label>
+        密码</label><input name="user_password_new" ng-model="User.user_password_new" type="password" /><br />
+    <label>
+        确认明码</label><input name="user_password_repeat" ng-model="User.user_password_repeat"
+            type="password" /><br />
+    <input type="submit" value="注册" ng-click="Register(User)" />
+</body>
+</html>
