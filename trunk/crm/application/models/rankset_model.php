@@ -122,12 +122,14 @@ class RankSetModel {
 		
 		return $result;
 	}
-    //查询全部rank_set
-	public function search() {
+    //查询商家已设置的等级
+	public function search($shop_id) {
 		$result = new DataResult ();
 		
-		$query = $this->db->prepare ( "SELECT * FROM Crm_Rank_Set " );
-		$query->execute ();
+		$query = $this->db->prepare ( "SELECT * FROM Crm_Rank_Set where  ( shop_id = :shop_id or :shop_id=0 ) " );
+		$query->execute ( array (
+                   ':shop_id' => $shop_id
+		) );
 		$objects = $query->fetchAll ();
 		
 		$result->Data = $objects;

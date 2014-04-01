@@ -15,37 +15,90 @@ class ShopCustomers extends Controller {
 
 	/*
 	 * 根据ID获取商家自有客户信息
-	 * parms:id
+	 * parms: customer_id
 	*/
 	public function get() {
 		$result = new DataResult ();
-		if (! isset ( $_POST ['id'] ) or empty ( $_POST ['id'] )) {
+		if (! isset ( $_POST ['customer_id'] ) or empty ( $_POST ['customer_id'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
+			print json_encode ( $result );
 		}
 		
 		$customers_model = $this->loadModel ( 'Customers' );
 		
-		$result->Data = $customers_model->get ( $_POST ['id']  );
+		$result->Data = $customers_model->get ( $_POST ['customer_id']  );
 		$result->Error = ErrorType::Success;
 		
 		print  json_encode ( $result );
 	}
+	
+	/*
+	 * 编辑商家自有客户信息
+	* parms: customer_id name sex phone birthday remark
+	*/
+	public function update() {
+		$result = new DataResult ();
+		
+		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
+			$result->Error = ErrorType::Unlogin;
+			print json_encode ( $result );
+		}
+		
+		if (! isset ( $_POST ['customer_id'] ) or empty ( $_POST ['customer_id'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+		if (! isset ( $_POST ['sex'] ) or empty ( $_POST ['sex'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+		if (! isset ( $_POST ['phone'] ) or empty ( $_POST ['phone'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+
+		if (! isset ( $_POST ['birthady'] ) or empty ( $_POST ['birthady'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+		if (! isset ( $_POST ['remark'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+	
+		$customers_model = $this->loadModel ( 'Customers' );
+
+		$result->Data = $customers_model->update ( $_POST ['customer_id'],$_POST ['name'],$_POST ['sex'],$_POST ['phone'],$_POST ['birthady'],$_POST ['remark'] );
+		$result->Error = ErrorType::Success;
+	
+		print  json_encode ( $result );
+	}
+	
+	
 	/*
 	 * 根据ID删除商家自有客户信息
-	 * parms:id
+	 * parms: customer_id
 	*/
 	public function del() {
 		$result = new DataResult ();
 		
-		if (! isset ( $_POST ['id'] ) or empty ( $_POST ['id'] )) {
+		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
+			$result->Error = ErrorType::Unlogin;
+			print json_encode ( $result );
+		}
+		
+		if (! isset ( $_POST ['customer_id'] ) or empty ( $_POST ['customer_id'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
+			print json_encode ( $result );
 		}
 		
 		$customers_model = $this->loadModel ( 'Customers' );
 		
-		$result->Data = $customers_model->delete ( $_POST ['id'] );
+		$result->Data = $customers_model->delete ( $_POST ['customer_id'] );
 		$result->Error = ErrorType::Success;
 		
 		print  json_encode ( $result );
@@ -64,28 +117,32 @@ class ShopCustomers extends Controller {
 		
 	if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
+			print json_encode ( $result );
 		}
 		if (! isset ( $_POST ['sex'] ) or empty ( $_POST ['sex'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
+			print json_encode ( $result );
 		}
 		if (! isset ( $_POST ['phone'] ) or empty ( $_POST ['phone'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
+			print json_encode ( $result );
 		}
 
 		if (! isset ( $_POST ['birthady'] ) or empty ( $_POST ['birthady'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
+			print json_encode ( $result );
 		}
 		if (! isset ( $_POST ['remark'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
+			print json_encode ( $result );
 		}
 		$customers_model = $this->loadModel ( 'Customers' );
-		
-		$result->Data = $customers_model->insert ($_POST ['name'],$_POST ['sex'],$_POST ['phone'],$_POST ['birthady'],$_POST ['remark']);
+		$customer_id = $customers_model->insert ($_POST ['name'],$_POST ['sex'],$_POST ['phone'],$_POST ['birthady'],$_POST ['remark']);
+		if($customer_id!=0)
+		{
+		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
+		$result->Data = $shopcustomers_model->insert($_SESSION["user_shop"],$customer_id,CustomerFromType::PrivateCustomer,CustomerType::PrivateCustomer,time());
+		}
 		
 		print json_encode ( $result );
 	}
@@ -164,6 +221,31 @@ class ShopCustomers extends Controller {
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
 	
 		$result = $shopcustomers_model->searchGOGOCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['pageindex'] , 10 );
+		$result->Error = ErrorType::Success;
+	
+		print  json_encode ( $result );
+	}
+	
+	/*
+	 * 设置公海客户为销售机会
+	* parms: customer_id 
+	*/
+	public function setPshopToChance() {
+		$result = new DataResult ();
+	
+		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
+			$result->Error = ErrorType::Unlogin;
+			print json_encode ( $result );
+		}
+	
+		if (! isset ( $_POST ['customer_id'] ) or empty ( $_POST ['customer_id'] )) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+	
+		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
+	
+		$result->Data = $shopcustomers_model->update ($_SESSION["user_shop"], $_POST ['customer_id'],CustomerFromType::GOGOCustomer,CustomerType::ChanceCustomer,time() );
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );

@@ -14,14 +14,12 @@ class RankModel {
 	// 新增rank
 	public function insert($from_type,$shop_id,$customer_id,$rank,$begin_time,$end_time) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_rank where from_type = :from_type and shop_id = :shop_id and customer_id = :customer_id and rank = :rank and begin_time = :begin_time and end_time = :end_time" );
+		$query = $this->db->prepare ( " select *  from crm_rank where from_type = :from_type and shop_id = :shop_id and customer_id = :customer_id and rank = :rank " );
 		$query->execute ( array (
 ':from_type' => $from_type,
                    ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
-                   ':rank' => $rank,
-                   ':begin_time' => $begin_time,
-                   ':end_time' => $end_time
+                   ':rank' => $rank
 		) );
 		$count = $query->rowCount ();
 		if ($count > 0) {
@@ -85,12 +83,14 @@ class RankModel {
 		}
 		return true;
 	}
-	// 根据ID删除rank
-	public function delete($id) {
-		$sql = " delete from crm_rank where id = :id ";
+	// 根据客户ID删除rank
+	public function delete($from_type,$customer_id,$shop_id) {
+		$sql = " delete from crm_rank where from_type = :from_type,customer_id = :customer_id,shop_id = :shop_id ";
 		$query = $this->db->prepare ( $sql );
-		$query->execute ( array (
-				':id' => $id 
+		$query->execute ( array ( 
+				':from_type' => $from_type,
+				':customer_id' => customer_id ,
+				':shop_id' => $shop_id
 		) );
 		$count = $query->rowCount ();
 		if ($count != 1) {

@@ -63,11 +63,10 @@ class ShopCustomersModel {
 		return $customer_id;
 	}
 	// 修改shop_customers
-	public function update($id,$shop_id,$customer_id,$from_type,$type,$create_time) {
-		$sql = " update crm_shop_customers set shop_id = :shop_id,customer_id = :customer_id,from_type = :from_type,type = :type,create_time = :create_time where id = :id";
+	public function update($shop_id,$customer_id,$from_type,$type,$create_time) {
+		$sql = " update crm_shop_customers set type = :type,create_time = :create_time where shop_id = :shop_id,customer_id = :customer_id,from_type = :from_type";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
-':id' => $id,
                    ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
                    ':from_type' => $from_type,
