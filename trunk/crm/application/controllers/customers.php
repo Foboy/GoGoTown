@@ -251,4 +251,35 @@ class ShopCustomers extends Controller {
 		print  json_encode ( $result );
 	}
 	
+	/*
+	 * 分页查询添加商家gogo客户信息
+	* parms: stime  etime
+	* return: 公海客户数 mshop_num 消费机会 chance_num 已消费GOGO客户数 private_gogo_num
+	*/
+	public function getCustomerCount() {
+	
+		$result = new PageDataResult ();
+	
+		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
+			$result->Error = ErrorType::Unlogin;
+			print json_encode ( $result );
+		}
+		if (! isset ( $_POST ['stime'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+		if (! isset ( $_POST ['etime'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+		}
+	
+		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
+	
+		$result = $shopcustomers_model->getCustomerCount ($_SESSION["user_shop"], $_POST ['stime'], $_POST ['etime'] );
+		$result->Error = ErrorType::Success;
+	
+		print  json_encode ( $result );
+	}
+	
+	
 }

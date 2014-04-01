@@ -308,6 +308,44 @@ from
 		$result->Data = $objects;
 		return $result;
 	}
+	
+	//根据实际查询商户客户数量
+	public function getCustomerCount($shop_id,$stime,$etime) {
+		$result = new DataResult ();
+	
+		$query = $this->db->prepare ( "select 
+    (SELECT 
+            count(*) 
+        FROM
+            gogotowncrm.Crm_Shop_Customers a
+        where
+            a.From_Type = 2 and a.type = 1 and a.Shop_ID=:shop_id
+                and a.create_time between :stime and :etime) mshop_num,
+    (SELECT 
+            count(*) 
+        FROM
+            gogotowncrm.Crm_Shop_Customers a
+        where
+            a.From_Type = 2 and a.type = 2 and a.Shop_ID=:shop_id
+                and a.create_time between :stime and :etime) chance_num,
+    (SELECT 
+            count(*) 
+        FROM
+            gogotowncrm.Crm_Shop_Customers a
+        where
+            a.From_Type = 2 and a.type = 3 and a.Shop_ID=:shop_id
+                and a.create_time between :stime and :etime) private_gogo_num
+from dual " );
+		$query->execute ( array (
+				':shop_id' => $shop_id,
+				':stime' => $stime,
+				':etime' => $etime
+		) );
+		$objects = $query->fetchAll ();
+	
+		$result->Data = $objects;
+		return $result;
+	}
 }
 
 ?>
