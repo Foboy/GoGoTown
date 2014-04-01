@@ -2,7 +2,7 @@
 
 class ShopCustomers extends Controller {
 	/**
-	 * Construct this object by extending the basic Controller class
+	 * 商家客户管理，包括公海客户，销售机会客户以及自有客户信息编辑
 	 */
 	public function __construct() {
 		parent::__construct ();

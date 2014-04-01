@@ -2,7 +2,7 @@
 
 class ShopRank extends Controller {
 	/**
-	 * Construct this object by extending the basic Controller class
+	 * 商家客户等级相关操作
 	 */
 	public function __construct() {
 		parent::__construct ();
