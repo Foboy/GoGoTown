@@ -1,12 +1,19 @@
 ﻿var $sitecore = $sitecore || {};
 
 $sitecore.urls = $sitecore.urls || {};
-$sitecore.urls.base = "";
+var strings="http://localhost:8080/GoGoTown/trunk/crm/index.php" //自己的配置地址
+$sitecore.urls.base = strings ;
 $sitecore.urls.add = function (name, url) {
     $sitecore.urls[name] = $sitecore.urls.base + "?url=" + url;
 };
-$sitecore.urls.add("Login", "Login/login"); 
 
+// 主模块
+$sitecore.urls.add("Login", "Login/login");
+
+
+// 客户管理
+
+$sitecore.urls.add("LoadCustmersList", "ShopCustomers/searchBP"); //根据ID获取商家自有客户信息
 
 $sitecore.urls.add("UploadFile", "/FileManagement/File/UploadFile");
 $sitecore.urls.add("SourceFileClipOrThumb", "/FileManagement/File/SourceFileClipOrThumb");
@@ -19,6 +26,8 @@ $sitecore.urls.add("userRegister", "/UserManagement/User/UserRegister");
 $sitecore.urls.add("userCurrentUser", "/UserManagement/User/GetUserInfo");
 $sitecore.urls.add("enterpriseRegister", "/UserManagement/User/EntRegister");
 $sitecore.urls.add("EditeUserHeadImg", "/UserManagement/User/EditeUserHeadImg");
+
+
 
 $sitecore.urls.add("SendEamilForFogotPwd", "/UserManagement/User/SendEamilForCallBackPwd");//发送邮件找回密码
 $sitecore.urls.add("UpdateNewPwd", "/UserManagement/User/UpdateNewPwd"); ///收到邮件后修改密码
