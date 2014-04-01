@@ -54,8 +54,13 @@ class ShopCustomers extends Controller {
 	 * 添加商家自有客户信息
 	* parms:name,sex,phone,birthday,remark
 	*/
-	public function add() {
+	public function addPrivateCustomer() {
 		$result = new DataResult ();
+		
+		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
+			$result->Error = ErrorType::Unlogin;
+			print json_encode ( $result );
+		}
 		
 	if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
@@ -74,7 +79,7 @@ class ShopCustomers extends Controller {
 			$result->Error = ErrorType::RequestParamsFailed;
 			return json_encode ( $result );
 		}
-		if (! isset ( $_POST ['remark'] ) or empty ( $_POST ['remark'] )) {
+		if (! isset ( $_POST ['remark'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			return json_encode ( $result );
 		}
