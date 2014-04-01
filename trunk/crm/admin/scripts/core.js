@@ -14,7 +14,8 @@ $sitecore.urls.add("Login", "Login/login");
 
 // 客户管理
 
-$sitecore.urls.add("LoadCustmersList", "ShopCustomers/searchBP"); //根据ID获取商家自有客户信息
+$sitecore.urls.add("LoadownCustomersList", "ShopCustomers/searchPrivateBP"); //分页获取商家自有客户信息
+$sitecore.urls.add("LoadgogoCustomerList", "ShopCustomers/searchGOGOBP"); //分页获取商家有消费记录gogo客户
 
 $sitecore.urls.add("UploadFile", "/FileManagement/File/UploadFile");
 $sitecore.urls.add("SourceFileClipOrThumb", "/FileManagement/File/SourceFileClipOrThumb");
