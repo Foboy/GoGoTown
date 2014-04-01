@@ -87,7 +87,7 @@ class ShopCustomers extends Controller {
 	
 	/*
 	 * 分页查询添加商家自有客户信息
-	* parms:name,sex,phone,birthday,remark
+	* parms:name,sex,phone
 	*/
 	public function searchPrivateBP() {
 		
@@ -123,7 +123,7 @@ class ShopCustomers extends Controller {
 		print  json_encode ( $result );
 	}
 	/*
-	 * 分页查询添加商家自有客户信息
+	 * 分页查询添加商家gogo客户信息
 	* parms:name,sex,phone,type 1:公海客户 2：销售机会 3：有消费记录gogo客户
 	*/
 	public function searchGOGOBP() {
