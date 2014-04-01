@@ -1,11 +1,11 @@
 ﻿function MainCtrl($scope, $routeParams, $http, $location, $filter) {
     //登录
     $scope.UserLogin = function (user) {
-        $.post($sitecore.urls["Login"], { user_name: user.user_name, user_password: user.user_password }).success(function (data) {
+    	$http.post($sitecore.urls["Login"], { user_name: user.user_name, user_password: user.user_password }).success(function (data) {
             if (data.Error) {
-                console.log(data);
+                window.location.href="index.html";
             } else {
-                console.log(data);
+            	 window.location.href="index.html";
             }
         }).error(function (data, status, headers, config) {
             alert('error');
