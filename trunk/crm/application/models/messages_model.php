@@ -104,31 +104,23 @@ class MessagesModel {
 		return true;
 	}
 	// 分页查询messages
-	public function searchByPages($shop_id,$type,$title,$content,$send_time,$create_time,$state, $pageindex, $pagesize) {
+	public function searchByPages($shop_id,$type,$state, $pageindex, $pagesize) {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = " select id,shop_id,type,title,content,send_time,create_time,state from crm_messages where  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and  ( title = :title or :title='' )  and  ( content = :content or :content='' )  and  ( send_time = :send_time or :send_time='' )  and  ( create_time = :create_time or :create_time=0 )  and  ( state = :state or :state=0 )  limit $lastpagenum,$pagesize" ;
+		$sql = " select id,shop_id,type,title,content,send_time,create_time,state from crm_messages where  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and   ( state = :state or :state=0 ) order by  create_time desc limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':type' => $type,
-                   ':title' => $title,
-                   ':content' => $content,
-                   ':send_time' => $send_time,
-                   ':create_time' => $create_time,
                    ':state' => $state
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_messages where  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and  ( title = :title or :title='' )  and  ( content = :content or :content='' )  and  ( send_time = :send_time or :send_time='' )  and  ( create_time = :create_time or :create_time=0 )  and  ( state = :state or :state=0 ) " );
+		$query = $this->db->prepare ( " select count(*)  from crm_messages where  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and  ( state = :state or :state=0 ) " );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':type' => $type,
-                   ':title' => $title,
-                   ':content' => $content,
-                   ':send_time' => $send_time,
-                   ':create_time' => $create_time,
                    ':state' => $state
 		) );
 		$totalcount = $query->fetchColumn ( 0 );
