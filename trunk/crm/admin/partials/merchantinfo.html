@@ -4,12 +4,24 @@
         <div class="col-lg-12">
             <h1 class="titlefont font20 page-header">商家基本信息</h1>
         </div>
-        <div class="panel-body">
+    </div>
+    <div class="row">
             <label type="button" class="btn btn-primary" ng-click="showerror=!showerror;!showerror? SaveEditMerchant(merchantinfo):''">
                 {{!showerror?'编辑':'保存'}}</label>
           <form name="EditMerchantForm" ng-class="showerror?'showerror':''">
-            <ul>
-                <li><span>商户名称</span>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8  form-group">
+               <div class="col-lg-2 mer_content"><lable class="font16 ">商户名称:</lable></div>
+               <div class="col-lg-8 ">
+                    <label ng-show="!showerror?'true':'false'" class="font16 font500 graycolor mer_content">{{!showerror?merchantinfo.name:''}}</label>
+                    <input class="form-control" placeholder="请输入商户名称" ng-model="merchantinfo.name" ng-required="true"
+                            ng-show="showerror?true:false">
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+            <!--<ul class="mer_ul">
+                <li>
+                    <lable class="font16">商户名称</lable>
                     <div class="form-group">
                         <label>
                            {{!showerror?merchantinfo.name:''}}</label>
@@ -17,15 +29,8 @@
                             ng-show="showerror?true:false">
                     </div>
                 </li>
-                <li><span>商户描述</span>
-                    <div class="form-group">
-                        <label>
-                            {{!showerror?merchantinfo.desciption:''}}</label>
-                        <input class="form-control" placeholder="请输入商户简介" ng-model="merchantinfo.desciption"
-                            ng-required="true"  ng-show="showerror?true:false">
-                    </div>
-                </li>
-                <li><span>商户联系</span>
+                <li>
+                    <lable class="font16">联系方式：</lable>
                     <div class="form-group">
                         <label>
                             {{!showerror?merchantinfo.telephone:''}}</label>
@@ -33,7 +38,8 @@
                             ng-required="true" ng-show="showerror?true:false">
                     </div>
                 </li>
-                <li><span>商户地址</span>
+                <li>
+                    <lable class="font16">地址</lable>
                     <div class="form-group">
                         <label>
                            {{!showerror?merchantinfo.address:''}}</label>
@@ -41,9 +47,8 @@
                             ng-required="true" ng-show="showerror?true:false">
                     </div>
                 </li>
-            </ul>
+            </ul>-->
             </form>
-        </div>
     </div>
     <!-- /.row -->
 </div>
