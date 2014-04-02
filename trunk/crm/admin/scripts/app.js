@@ -43,6 +43,8 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
          .state('main.merchantinfo', { url: '/merchantinfo*path', templateUrl: 'partials/merchantinfo.html', controller: MerchantMainCtrl })
          .state('main.mebershiplevel', { url: '/mebershiplevel*path', templateUrl: 'partials/mebershiplevel.html', controller: MerchantMainCtrl });
 
+    console.log($httpProvider.defaults.headers);
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded' ;
 
     $httpProvider.interceptors.push(function () {
         return {
