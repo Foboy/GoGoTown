@@ -4,32 +4,35 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     if (!$scope.sorts) {
         $scope.sorts = "owncustomer";
         //$parent.enterpriseActPageIndex = 1;
-    } //gogoÏû·Ñ¿Í»§
+    } //gogoï¿½ï¿½Ñ¿Í»ï¿½
     else {
         // $parent.personalActPageIndex = 1;
     }
     $scope.loadCurrentSortList = function (pageIndex) {
         // if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
-            case 'gogocustomer': //ÉÌ¼Ò×Ô¼ºÐÂÔö¿Í»§
-                $http.post($resturls["LoadOwnCustomersList"], { pageIndex: pageIndex - 1 }).success(function (data) {
-                    if (data.Error) {
+            case 'gogocustomer': //ï¿½Ì¼ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½
+                $http.post($resturls["LoadGoGoCustomerList"], {name:'',phone:'',sex:0, pageindex: pageIndex  }).success(function (data) {
+                    if (data.Error!=0) {
                         alert(data.ErrorMessage, 'e');
                     } else {
-                        $scope.enterpriseclients = data.Data.Items;
+                        $scope.enterpriseclients = data.Data;
+                        console.log($scope.enterpriseclients);
                         $parent.enterpriseActPageIndex = pageIndex;
-                        $parent.pages = utilities.paging(data.Data.RecordsCount, pageIndex, 10, '#client/' + $scope.sorts + '/{0}');
+                        //$parent.pages = utilities.paging(data.Data.RecordsCount, pageIndex, 10, '#client/' + $scope.sorts + '/{0}');
                     }
                 }).error(function (data, status, headers, config) {
                     $scope.enterpriseclients = [];
                 })
                 break;
-            case 'personal': //»ñÈ¡gogoÏû·Ñ¿Í»§
-                $http.post($resturls["LoadGoGoCustomerList"], { pageIndex: pageIndex - 1 }).success(function (data) {
+            case 'owncustomer': //ï¿½ï¿½È¡gogoï¿½ï¿½Ñ¿Í»ï¿½
+                $http.post($resturls["LoadOwnCustomersList"], { name:'',phone:'',sex:0,pageindex: pageIndex }).success(function (data) {
                     if (data.Error) { alert(data.ErrorMessage, 'e'); } else {
-                        $scope.personalclients = data.Data.Items;
+                    	console.log(data.Data)
+                        $scope.personalclients = data.Data;
+                      
                         $parent.personalActPageIndex = pageIndex;
-                        $parent.pages = utilities.paging(data.Data.RecordsCount, pageIndex, 10, '#client/' + $scope.sorts + '/{0}');
+                        //$parent.pages = utilities.paging(data.Data.RecordsCount, pageIndex, 10, '#client/' + $scope.sorts + '/{0}');
                     }
                 }).error(function (data, status, headers, config) {
                     $scope.personalclients = [];
