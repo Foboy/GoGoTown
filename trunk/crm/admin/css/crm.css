@@ -3,11 +3,19 @@
 .graycolor{
 	color: #888;
 }
+.titlefont{
+	color: #428BCA;
+}
 .textmiddle{
 	text-align: center;
 }
 .font24{ font-size: 24px; font-weight: 500; color: #FF6666;}
-.font18{ font-size: 18px;}
+.font18{ 
+	font-size: 18px;
+}
+.font20{
+	font-size: 20px;
+}
 
 
 /*登陆*/
@@ -48,5 +56,11 @@ transition: 0.25s;
 #side-menu li a i{
 	margin-right: 10px;
 }
+
+/*客户管理*/
+.page-header{
+	margin-top: 20px;
+}
+
 
 
