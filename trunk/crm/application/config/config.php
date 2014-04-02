@@ -12,14 +12,9 @@
  * Useful to show every little problem during development, but only show hard errors in production
  */
 error_reporting(E_ALL);
+//error_reporting(0);
 ini_set("display_errors", 1);
 
-/**
- * Configuration for: Base URL
- * This is the base url of our app. if you go live with your app, put your full domain name here.
- * if you are using a (different) port, then put this in here, like http://mydomain:8888/subfolder/
- * Note: The trailing slash is important!
- */
 
 /**
  * Configuration for: Folders
@@ -71,7 +66,7 @@ define('AVATAR_DEFAULT_IMAGE', 'default.jpg');
 define('COOKIE_RUNTIME', 1209600);
 // the domain where the cookie is valid for, for local development ".127.0.0.1" and ".localhost" will work
 // IMPORTANT: always put a dot in front of the domain, like ".mydomain.com" !
-define('COOKIE_DOMAIN', 'localhsot');
+define('COOKIE_DOMAIN', '.localhost');
 
 /**
  * Configuration for: Database
@@ -209,7 +204,6 @@ define("FEEDBACK_USER_DOES_NOT_EXIST", "This user does not exist.");
 // The "login failed"-message is a security improved feedback that doesn't show a potential attacker if the user exists or not
 define("FEEDBACK_LOGIN_FAILED", "Login failed.");
 define("FEEDBACK_USERNAME_FIELD_EMPTY", "Username field was empty.");
-define("FEEDBACK_SHOPID_FIELD_EMPTY", "Shopid field was empty.");
 define("FEEDBACK_PASSWORD_FIELD_EMPTY", "Password field was empty.");
 define("FEEDBACK_EMAIL_FIELD_EMPTY", "Email and passwords fields were empty.");
 define("FEEDBACK_EMAIL_AND_PASSWORD_FIELDS_EMPTY", "Email field was empty.");
