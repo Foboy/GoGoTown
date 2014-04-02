@@ -16,6 +16,15 @@
 .font20{
 	font-size: 20px;
 }
+.font16{
+	font-size: 16px;
+}
+.font500{
+	font-weight: 400;
+}
+.hidedisplay{
+	display: none;
+}
 
 
 /*登陆*/
@@ -61,6 +70,25 @@ transition: 0.25s;
 .page-header{
 	margin-top: 20px;
 }
+.mer_ul{
+	list-style: none;
+}
+.mer_ul li{
+	list-style: none;
+}
+.mer_content{
+	height: 40px;
+	line-height: 40px;
+}
+.mer_title{
+	float: left;
+	width: 90px;
+}
+.mer_title_content{
+	float: right;
+	width: 50%;
+}
+
 
 
 
