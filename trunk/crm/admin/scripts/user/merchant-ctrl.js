@@ -61,12 +61,15 @@
     }
     $scope.LoadMemberShipLeveList();
     $scope.SaveEditMerberShipLevel = function (data) {
-        console.log(data);
+        if (!this.showerror) {
+            this.showerror = true;
+            return;
+        }
         if ($scope.EditLevelForm.$valid) {
-            $scope.showerror = false;
+            this.showerror = false;
         }
         else {
-            $scope.showerror = true;
+            this.showerror = true;
         }
     }
 }
