@@ -1,4 +1,4 @@
-﻿function MerchantMainCtrl($scope, $http, $location, $routeParams) {
+﻿function MerchantMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.load = function () {
         console.log("Call MerchantController");
     }
