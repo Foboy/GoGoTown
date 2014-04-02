@@ -1,0 +1,50 @@
+﻿<!--商家基本信息-->
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                商家基本信息</h1>
+        </div>
+        <div class="panel-body">
+            <label type="button" class="btn btn-primary" ng-click="showerror=!showerror;!showerror? SaveEditMerchant(merchantinfo):''">
+                {{!showerror?'编辑':'保存'}}</label>
+          <form name="EditMerchantForm" ng-class="showerror?'showerror':''">
+            <ul>
+                <li><span>商户名称</span>
+                    <div class="form-group">
+                        <label>
+                           {{!showerror?merchantinfo.name:''}}</label>
+                        <input class="form-control" placeholder="请输入商户名称" ng-model="merchantinfo.name" ng-required="true"
+                            ng-show="showerror?true:false">
+                    </div>
+                </li>
+                <li><span>商户描述</span>
+                    <div class="form-group">
+                        <label>
+                            {{!showerror?merchantinfo.desciption:''}}</label>
+                        <input class="form-control" placeholder="请输入商户简介" ng-model="merchantinfo.desciption"
+                            ng-required="true"  ng-show="showerror?true:false">
+                    </div>
+                </li>
+                <li><span>商户联系</span>
+                    <div class="form-group">
+                        <label>
+                            {{!showerror?merchantinfo.telephone:''}}</label>
+                        <input class="form-control" placeholder="请输入商户联系方式" ng-model="merchantinfo.telephone"
+                            ng-required="true" ng-show="showerror?true:false">
+                    </div>
+                </li>
+                <li><span>商户地址</span>
+                    <div class="form-group">
+                        <label>
+                           {{!showerror?merchantinfo.address:''}}</label>
+                        <input class="form-control" placeholder="请输入商户商户地址" ng-model="merchantinfo.address"
+                            ng-required="true" ng-show="showerror?true:false">
+                    </div>
+                </li>
+            </ul>
+            </form>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
