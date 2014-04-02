@@ -1,0 +1,59 @@
+﻿<!--新增自有客户 Modal -->
+
+<div class="modal fade" id="addcustomermodal" tabindex="-1" role="dialog" 
+    aria-hidden="true" ng-controller="ClientMainCtrl">
+    <form ng-class="showerror?'showerror':''" name="AddOwnCustomerForm" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;</button>
+                <h4 class="modal-title">
+                    新增客户</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>
+                        姓名</label>
+                    <input class="form-control" placeholder="姓名" ng-required="true" ng-model="User.username" name="username">
+                </div>
+                <div class="form-group">
+                    <label>
+                        年龄</label>
+                    <input class="form-control" placeholder="年龄" ng-required="true" ng-model="User.age" name="age">
+                </div>
+                <div class="form-group">
+                    <label>
+                        性别</label>
+                    <label class="radio-inline">
+                        <input type="radio" name="sex" value="0" checked="">男
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="sex" value="1">女
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        联系方式</label>
+                    <input class="form-control" placeholder="联系方式"  ng-pattern="/^[1][358]\d{9}$/" name="telephone"
+                        ng-model="User.telephone">
+                </div>
+                <div class="form-group">
+                    <label>
+                        所在地</label>
+                    <input class="form-control" placeholder="所在地"  ng-required="true">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    关 闭</button>
+                <button type="button" class="btn btn-primary" ng-click="AddOwnCustomerSubmit(User)">
+                    保 存</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    </form>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
