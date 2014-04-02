@@ -5,11 +5,11 @@
             <li>
                 <div class="well">
                     <label>
-                        等级{{mebershiplevelitem.level}}</label>
+                        等级{{mebershiplevelitem.Rank}}</label>
                     <br />
                     <label ng-show="!showerror?'true':'false'">
-                        {{mebershiplevelitem.desciption}}</label>
-                    <input class="form-control" placeholder="会员等级名称" ng-model="mebershiplevelitem.desciption" ng-required="true"
+                        {{mebershiplevelitem.Name}}</label>
+                    <input class="form-control" placeholder="会员等级名称" ng-model="mebershiplevelitem.Name" ng-required="true"
                         ng-show="showerror?true:false">
                     <label ng-click="SaveEditMerberShipLevel()">
                         {{!showerror?'编辑':'保存'}}</label>

@@ -33,31 +33,13 @@
     }
     $scope.GetMerchantInfo();
     $scope.LoadMemberShipLeveList = function () {
-        $scope.mebershiplevels = [
-        {
-            level: '1',
-            desciption: "砖石会员"
-        },
-        {
-            level: '2',
-            desciption: "白金会员"
-
-        },
-        {
-            level: '3',
-            desciption: "黄金会员"
-        }
-        ,
-        {
-            level: '4',
-            desciption: "白银会员"
-
-        },
-        {
-            level: '5',
-            desciption: "普通会员"
-        }
-        ]
+        $http.post($resturls["SearchMerchantSetLevels"], {}).success(function (data) {
+            if (!data.Error) {
+                $scope.mebershiplevels = data.Data;
+            } else {
+                $scope.mebershiplevels = {};
+            }
+        });
     }
     $scope.LoadMemberShipLeveList();
     $scope.SaveEditMerberShipLevel = function (data) {

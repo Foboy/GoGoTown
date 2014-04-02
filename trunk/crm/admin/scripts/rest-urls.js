@@ -28,7 +28,7 @@
           //基本信息设置
           resturls.add("GetMerchantInfo", "ShopRank/get"); //获取商家基本信息
           resturls.add("EditMerchantInfo", "ShopRank/Edit"); //编辑商家信息
-
+          resturls.add("SearchMerchantSetLevels", "ShopRank/search");//获取商家设置的会员的等级
           $provide.constant('$resturls', resturls);
 
       } ]);
