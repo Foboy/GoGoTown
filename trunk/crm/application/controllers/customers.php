@@ -200,7 +200,7 @@ class ShopCustomers extends Controller {
 		
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
 		
-		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'],   $_POST ['pageindex'] , 10 );
+		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'],   $_POST ['pageindex'] , 20 );
 		$result->Error = ErrorType::Success;
 		
 		print  json_encode ( $result );
@@ -247,7 +247,7 @@ class ShopCustomers extends Controller {
 	
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
 	
-		$result = $shopcustomers_model->searchGOGOCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['pageindex'] , 10 );
+		$result = $shopcustomers_model->searchGOGOCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['pageindex'] , 20 );
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );

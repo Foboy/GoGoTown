@@ -79,7 +79,7 @@ class Messages extends Controller {
 		
 	$messages_model = $this->loadModel ( 'Messages' );
 		
-		$result = $messages_model->searchByPages ( $_SESSION ["user_shop"],MessageType::GOGO ,MessageState::IsSent,$_POST ['pageindex'] ,10);
+		$result = $messages_model->searchByPages ( $_SESSION ["user_shop"],MessageType::GOGO ,MessageState::IsSent,$_POST ['pageindex'] ,20);
 		$result->Error = ErrorType::Success;
 		
 		print json_encode ( $result );
