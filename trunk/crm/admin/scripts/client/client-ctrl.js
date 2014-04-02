@@ -45,7 +45,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     }
     $scope.load();
     $scope.ShowAddOwnCustomerModal = function () {
-        $("#myModal").modal('show');
+        $("#addcustomermodal").modal('show');
     }
     $scope.AddOwnCustomerSubmit = function (User) {
         if ($scope.AddOwnCustomerForm.$valid) {
