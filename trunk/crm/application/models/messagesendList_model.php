@@ -14,16 +14,11 @@ class MessageSendListModel {
 	// 新增message_send_list
 	public function insert($customer_id,$shop_id,$message_id,$title,$content,$create_time,$read_time,$state,$type) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_message_send_list where customer_id = :customer_id and shop_id = :shop_id and message_id = :message_id and title = :title and content = :content and create_time = :create_time and read_time = :read_time and state = :state and type = :type" );
+		$query = $this->db->prepare ( " select *  from crm_message_send_list where customer_id = :customer_id and shop_id = :shop_id and message_id = :message_id and type = :type" );
 		$query->execute ( array (
 ':customer_id' => $customer_id,
                    ':shop_id' => $shop_id,
                    ':message_id' => $message_id,
-                   ':title' => $title,
-                   ':content' => $content,
-                   ':create_time' => $create_time,
-                   ':read_time' => $read_time,
-                   ':state' => $state,
                    ':type' => $type
 		) );
 		$count = $query->rowCount ();

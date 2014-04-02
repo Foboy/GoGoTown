@@ -22,11 +22,12 @@ class ShopCustomers extends Controller {
 		if (! isset ( $_POST ['customer_id'] ) or empty ( $_POST ['customer_id'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		
 		$customers_model = $this->loadModel ( 'Customers' );
 		
-		$result->Data = $customers_model->get ( $_POST ['customer_id']  );
+		$result= $customers_model->get ( $_POST ['customer_id']  );
 		$result->Error = ErrorType::Success;
 		
 		print  json_encode ( $result );
@@ -42,32 +43,39 @@ class ShopCustomers extends Controller {
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
 			print json_encode ( $result );
+			return ;
 		}
 		
 		if (! isset ( $_POST ['customer_id'] ) or empty ( $_POST ['customer_id'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['sex'] ) or empty ( $_POST ['sex'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['phone'] ) or empty ( $_POST ['phone'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 
 		if (! isset ( $_POST ['birthady'] ) or empty ( $_POST ['birthady'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['remark'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 	
 		$customers_model = $this->loadModel ( 'Customers' );
@@ -89,11 +97,13 @@ class ShopCustomers extends Controller {
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
 			print json_encode ( $result );
+			return ;
 		}
 		
 		if (! isset ( $_POST ['customer_id'] ) or empty ( $_POST ['customer_id'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		
 		$customers_model = $this->loadModel ( 'Customers' );
@@ -113,28 +123,34 @@ class ShopCustomers extends Controller {
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
 			print json_encode ( $result );
+			return ;
 		}
 		
 	if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['sex'] ) or empty ( $_POST ['sex'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['phone'] ) or empty ( $_POST ['phone'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 
 		if (! isset ( $_POST ['birthady'] ) or empty ( $_POST ['birthady'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['remark'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		$customers_model = $this->loadModel ( 'Customers' );
 		$customer_id = $customers_model->insert ($_POST ['name'],$_POST ['sex'],$_POST ['phone'],$_POST ['birthady'],$_POST ['remark']);
@@ -158,23 +174,28 @@ class ShopCustomers extends Controller {
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['name'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['phone'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['sex'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		
 		if (! isset ( $_POST ['pageindex'] ) or empty ( $_POST ['pageindex'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
@@ -195,27 +216,33 @@ class ShopCustomers extends Controller {
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['name'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['phone'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['sex'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['type'] ) or empty ( $_POST ['type'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 	
 		if (! isset ( $_POST ['pageindex'] ) or empty ( $_POST ['pageindex'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 	
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
@@ -236,11 +263,13 @@ class ShopCustomers extends Controller {
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
 			print json_encode ( $result );
+			return ;
 		}
 	
 		if (! isset ( $_POST ['customer_id'] ) or empty ( $_POST ['customer_id'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 	
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
@@ -263,14 +292,17 @@ class ShopCustomers extends Controller {
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['stime'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['etime'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 	
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
