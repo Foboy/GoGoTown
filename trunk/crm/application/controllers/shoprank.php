@@ -22,19 +22,23 @@ class ShopRank extends Controller {
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
 			print json_encode ( $result );
+			return ;
 		}
 		
 		if (! isset ( $_POST ['rank'] ) or empty ( $_POST ['rank'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			return json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['id'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			return json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['remark'] ) or empty ( $_POST ['remark'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			return json_encode ( $result );
+			return ;
 		}
 	
 		$rankset_model = $this->loadModel ( 'RankSet' );
@@ -54,23 +58,28 @@ class ShopRank extends Controller {
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
 			print json_encode ( $result );
+			return ;
 		}
 		
 		if (! isset ( $_POST ['rank'] ) or empty ( $_POST ['rank'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['id'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['remark'] ) or empty ( $_POST ['remark'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['id'] ) or empty ( $_POST ['id'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 	
 		$rankset_model = $this->loadModel ( 'RankSet' );
@@ -89,11 +98,12 @@ class ShopRank extends Controller {
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
 			print json_encode ( $result );
+			return ;
 		}
 	
 		$rankset_model = $this->loadModel ( 'RankSet' );
 	
-		$result->Data = $rankset_model->search (  $_SESSION["user_shop"]   );
+		$result = $rankset_model->search (  $_SESSION["user_shop"]   );
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );
@@ -108,28 +118,34 @@ class ShopRank extends Controller {
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
 			print json_encode ( $result );
+			return ;
 		}
 		
 		if (! isset ( $_POST ['rank'] ) or empty ( $_POST ['rank'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		
 		if (! isset ( $_POST ['from_type'] ) or empty ( $_POST ['from_type'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['customer_id'] ) or empty ( $_POST ['customer_id'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['begin_time'] ) or empty ( $_POST ['begin_time'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 		if (! isset ( $_POST ['end_time'] ) or empty ( $_POST ['end_time'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
+			return ;
 		}
 	
 		$rankset_model = $this->loadModel ( 'Rank' );

@@ -12,31 +12,11 @@ class ShopsModel {
 	}
 	
 	// 新增shops
-	public function insert($name,$description,$cover_pictureid,$brand_id,$tags,$mobile,$telphone,$city_id,$area_id,$district_id,$street_id,$address,$longitude,$latitude,$booking_num,$view_num,$comm_num,$check_status,$add_adminid,$add_time,$flag) {
+	public function insert($id,$name,$description,$cover_pictureid,$brand_id,$tags,$mobile,$telphone,$city_id,$area_id,$district_id,$street_id,$address,$longitude,$latitude,$booking_num,$view_num,$comm_num,$check_status,$add_adminid,$add_time,$flag) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_shops where name = :name and description = :description and cover_pictureid = :cover_pictureid and brand_id = :brand_id and tags = :tags and mobile = :mobile and telphone = :telphone and city_id = :city_id and area_id = :area_id and district_id = :district_id and street_id = :street_id and address = :address and longitude = :longitude and latitude = :latitude and booking_num = :booking_num and view_num = :view_num and comm_num = :comm_num and check_status = :check_status and add_adminid = :add_adminid and add_time = :add_time and flag = :flag" );
+		$query = $this->db->prepare ( " select *  from crm_shops where name = :name " );
 		$query->execute ( array (
-':name' => $name,
-                   ':description' => $description,
-                   ':cover_pictureid' => $cover_pictureid,
-                   ':brand_id' => $brand_id,
-                   ':tags' => $tags,
-                   ':mobile' => $mobile,
-                   ':telphone' => $telphone,
-                   ':city_id' => $city_id,
-                   ':area_id' => $area_id,
-                   ':district_id' => $district_id,
-                   ':street_id' => $street_id,
-                   ':address' => $address,
-                   ':longitude' => $longitude,
-                   ':latitude' => $latitude,
-                   ':booking_num' => $booking_num,
-                   ':view_num' => $view_num,
-                   ':comm_num' => $comm_num,
-                   ':check_status' => $check_status,
-                   ':add_adminid' => $add_adminid,
-                   ':add_time' => $add_time,
-                   ':flag' => $flag
+':id' => $id
 		) );
 		$count = $query->rowCount ();
 		if ($count > 0) {
@@ -110,55 +90,7 @@ class ShopsModel {
 		
 		return $customer_id;
 	}
-	// 修改shops
-	public function update($id,$name,$description,$cover_pictureid,$brand_id,$tags,$mobile,$telphone,$city_id,$area_id,$district_id,$street_id,$address,$longitude,$latitude,$booking_num,$view_num,$comm_num,$check_status,$add_adminid,$add_time,$flag) {
-		$sql = " update crm_shops set name = :name,description = :description,cover_pictureid = :cover_pictureid,brand_id = :brand_id,tags = :tags,mobile = :mobile,telphone = :telphone,city_id = :city_id,area_id = :area_id,district_id = :district_id,street_id = :street_id,address = :address,longitude = :longitude,latitude = :latitude,booking_num = :booking_num,view_num = :view_num,comm_num = :comm_num,check_status = :check_status,add_adminid = :add_adminid,add_time = :add_time,flag = :flag where id = :id";
-		$query = $this->db->prepare ( $sql );
-		$query->execute ( array (
-':id' => $id,
-                   ':name' => $name,
-                   ':description' => $description,
-                   ':cover_pictureid' => $cover_pictureid,
-                   ':brand_id' => $brand_id,
-                   ':tags' => $tags,
-                   ':mobile' => $mobile,
-                   ':telphone' => $telphone,
-                   ':city_id' => $city_id,
-                   ':area_id' => $area_id,
-                   ':district_id' => $district_id,
-                   ':street_id' => $street_id,
-                   ':address' => $address,
-                   ':longitude' => $longitude,
-                   ':latitude' => $latitude,
-                   ':booking_num' => $booking_num,
-                   ':view_num' => $view_num,
-                   ':comm_num' => $comm_num,
-                   ':check_status' => $check_status,
-                   ':add_adminid' => $add_adminid,
-                   ':add_time' => $add_time,
-                   ':flag' => $flag
-		) );
-		$count = $query->rowCount ();
-		if ($count != 1) {
-			// 修改错误
-			return false;
-		}
-		return true;
-	}
-	// 根据ID删除shops
-	public function delete($id) {
-		$sql = " delete from crm_shops where id = :id ";
-		$query = $this->db->prepare ( $sql );
-		$query->execute ( array (
-				':id' => $id 
-		) );
-		$count = $query->rowCount ();
-		if ($count != 1) {
-			// 修改错误
-			return false;
-		}
-		return true;
-	}
+	
 	// 分页查询shops
 	public function searchByPages($name,$description,$cover_pictureid,$brand_id,$tags,$mobile,$telphone,$city_id,$area_id,$district_id,$street_id,$address,$longitude,$latitude,$booking_num,$view_num,$comm_num,$check_status,$add_adminid,$add_time,$flag, $pageindex, $pagesize) {
 		$result = new PageDataResult ();

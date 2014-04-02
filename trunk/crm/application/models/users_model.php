@@ -120,7 +120,7 @@ class UsersModel {
 		return true;
 	}
 	// 分页查询users
-	public function searchByPages($name,$shop_id,$type,$account,$password,$last_login,$state,$faileds,$last_failed,$token,$create_time, $pageindex, $pagesize) {
+	public function searchByPages($name,$shop_id,$type,$state, $pageindex, $pagesize) {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
@@ -130,30 +130,16 @@ class UsersModel {
 ':name' => $name,
                    ':shop_id' => $shop_id,
                    ':type' => $type,
-                   ':account' => $account,
-                   ':password' => $password,
-                   ':last_login' => $last_login,
-                   ':state' => $state,
-                   ':faileds' => $faileds,
-                   ':last_failed' => $last_failed,
-                   ':token' => $token,
-                   ':create_time' => $create_time
+                   ':state' => $state
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_users where  ( name = :name or :name=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and  ( account = :account or :account='' )  and  ( password = :password or :password='' )  and  ( last_login = :last_login or :last_login=0 )  and  ( state = :state or :state=0 )  and  ( faileds = :faileds or :faileds=0 )  and  ( last_failed = :last_failed or :last_failed=0 )  and  ( token = :token or :token='' )  and  ( create_time = :create_time or :create_time=0 ) " );
+		$query = $this->db->prepare ( " select count(*)  from crm_users where  ( name = :name or :name=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and   ( state = :state or :state=0 )   " );
 		$query->execute ( array (
 ':name' => $name,
                    ':shop_id' => $shop_id,
                    ':type' => $type,
-                   ':account' => $account,
-                   ':password' => $password,
-                   ':last_login' => $last_login,
-                   ':state' => $state,
-                   ':faileds' => $faileds,
-                   ':last_failed' => $last_failed,
-                   ':token' => $token,
-                   ':create_time' => $create_time
+                   ':state' => $state
 		) );
 		$totalcount = $query->fetchColumn ( 0 );
 		
@@ -164,12 +150,16 @@ class UsersModel {
 		
 		return $result;
 	}
-    //查询全部users
-	public function search() {
+    //不分页查询全部users
+	public function search($name,$shop_id,$type,$state) {
 		$result = new DataResult ();
 		
-		$query = $this->db->prepare ( "SELECT * FROM Crm_Users " );
-		$query->execute ();
+		$query = $this->db->prepare ( "SELECT * FROM Crm_Users where  ( name = :name or :name=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and   ( state = :state or :state=0 )  " );
+		$query->execute ( array (
+':name' => $name,
+                   ':shop_id' => $shop_id,
+                   ':type' => $type,
+                   ':state' => $state));
 		$objects = $query->fetchAll ();
 		
 		$result->Data = $objects;
@@ -187,6 +177,38 @@ class UsersModel {
 		$objects = $query->fetch ();
 		$result->Data = $objects;
 		return $result;
+	}
+	// 修改usersName
+	public function updateShopName($name,$id) {
+		$sql = " update crm_users set name = :name where id = :id ";
+		$query = $this->db->prepare ( $sql );
+		$query->execute ( array (
+			':id' => $id 
+		) );
+		$count = $query->rowCount ();
+		if ($count != 1) {
+			// 修改错误
+			return false;
+		}
+		return true;
+	}
+	
+	public function setNewPassword($user_id,$user_password_hash)
+	{
+		// write users new password hash into database, reset user_password_reset_hash
+		$query = $this->db->prepare("UPDATE crm_users
+                                        SET password = :user_password_hash
+                                      WHERE id = :id");
+	
+		$query->execute(array(':user_password_hash' => $user_password_hash,
+				':id' => $user_id));
+	
+		$count = $query->rowCount ();
+		if ($count != 1) {
+			// 修改错误
+			return false;
+		}
+		return true;
 	}
 }
 
