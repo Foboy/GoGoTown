@@ -1,5 +1,5 @@
-﻿angular.module('gogotowncrm', ['ngRoute', 'ui.router']).
-config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRouterProvider', function ($provide, $httpProvider, $routeProvider, $stateProvider, $urlRouterProvider) {
+﻿angular.module('gogotowncrm', ['ngRoute', 'ui.router', 'ngRestUrls']).
+config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRouterProvider', '$resturls', function ($provide, $httpProvider, $routeProvider, $stateProvider, $urlRouterProvider, $resturls) {
     $routeProvider
         .when('/user', { template: '', controller: function () { } })
         .when('/mytimeshaft', { template: '', controller: function () { } })
@@ -20,6 +20,7 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
              url: "",
              templateUrl: 'partials/main.html'
          })
+
          .state('main.home', {
              url: '/home',
              templateUrl: 'partials/home.html',

@@ -1,4 +1,4 @@
-function ClientMainCtrl($scope, $http, $location, $routeParams) {
+function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     var $parent = $scope.$parent;
     $scope.sorts = $routeParams.sorts;
     if (!$scope.sorts) {
@@ -12,7 +12,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams) {
         // if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'gogocustomer': //商家自己新增客户
-                $http.post($sitecore.urls["LoadOwnCustomersList"], { pageIndex: pageIndex - 1 }).success(function (data) {
+                $http.post($resturls["LoadOwnCustomersList"], { pageIndex: pageIndex - 1 }).success(function (data) {
                     if (data.Error) {
                         alert(data.ErrorMessage, 'e');
                     } else {
@@ -25,7 +25,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams) {
                 })
                 break;
             case 'personal': //获取gogo消费客户
-                $http.post($sitecore.urls["LoadGoGoCustomerList"], { pageIndex: pageIndex - 1 }).success(function (data) {
+                $http.post($resturls["LoadGoGoCustomerList"], { pageIndex: pageIndex - 1 }).success(function (data) {
                     if (data.Error) { alert(data.ErrorMessage, 'e'); } else {
                         $scope.personalclients = data.Data.Items;
                         $parent.personalActPageIndex = pageIndex;
@@ -47,7 +47,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams) {
     $scope.AddOwnCustomerSubmit = function (User) {
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
-            $http.post($sitecore.urls["LoadGoGoCustomerList"], {}).success(function (data) {
+            $http.post($resturls["LoadGoGoCustomerList"], {}).success(function (data) {
                 if (data.Error) {
                     alert(data.ErrorMessage, 'e');
                 }
@@ -62,7 +62,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams) {
     };
 }
 
-function SeaCustomerMainCtrl($scope, $http, $location, $routeParams) {
+function SeaCustomerMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.load = function () {
         console.log("Call SeaCustomerController");
     }

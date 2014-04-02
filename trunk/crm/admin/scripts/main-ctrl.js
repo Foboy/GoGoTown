@@ -1,9 +1,9 @@
-﻿function MainCtrl($scope, $routeParams, $http, $location, $filter) {
+﻿function MainCtrl($scope, $routeParams, $http, $location, $filter, $resturls) {
     //登录
     $scope.UserLogin = function (user) {
         if ($scope.LoginForm.$valid) {
             $scope.showerror = false;
-            $http.post($sitecore.urls["Login"], { user_name: user.user_name, user_password: user.user_password }).success(function (data) {
+            $http.post($resturls["Login"], { user_name: user.user_name, user_password: user.user_password }).success(function (data) {
                 if (data.Error) {
                     window.location.href = "index.html";
                 } else {
