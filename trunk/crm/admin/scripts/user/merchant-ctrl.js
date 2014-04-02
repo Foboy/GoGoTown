@@ -1,4 +1,4 @@
-﻿function MerchantMainCtrl($scope, $http, $location, $routeParams) {
+﻿function MerchantMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.load = function () {
         console.log("Call MerchantController");
     }
@@ -7,7 +7,7 @@
         console.log($scope.EditMerchantForm.$valid);
         if ($scope.EditMerchantForm.$valid) {
             $scope.showerror = false;
-            //            $http.post($sitecore.urls["EditMerchantInfo"], { user_name: data.user_name, shop_id: data.shop_id, user_password_new: data.user_password_new, user_password_repeat: data.user_password_new }).success(function (data) {
+            //            $http.post($resturls["EditMerchantInfo"], { user_name: data.user_name, shop_id: data.shop_id, user_password_new: data.user_password_new, user_password_repeat: data.user_password_new }).success(function (data) {
             //                if (data.Error) {
             //                    $scope.LoginErrors = data.ErrorMessage;
             //                }

@@ -1,5 +1,5 @@
-﻿angular.module('gogotowncrm', ['ngRoute', 'ui.router']).
-config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRouterProvider', function ($provide, $httpProvider, $routeProvider, $stateProvider, $urlRouterProvider) {
+﻿angular.module('gogotowncrm', ['ngRoute', 'ui.router', 'ngRestUrls']).
+config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRouterProvider', '$resturls', function ($provide, $httpProvider, $routeProvider, $stateProvider, $urlRouterProvider, $resturls) {
     $routeProvider
         .when('/user', { template: '', controller: function () { } })
         .when('/mytimeshaft', { template: '', controller: function () { } })
@@ -20,6 +20,7 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
              url: "",
              templateUrl: 'partials/main.html'
          })
+
          .state('main.home', {
              url: '/home',
              templateUrl: 'partials/home.html',
@@ -43,8 +44,7 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
          .state('main.merchantinfo', { url: '/merchantinfo*path', templateUrl: 'partials/merchantinfo.html', controller: MerchantMainCtrl })
          .state('main.mebershiplevel', { url: '/mebershiplevel*path', templateUrl: 'partials/mebershiplevel.html', controller: MerchantMainCtrl });
 
-    console.log($httpProvider.defaults.headers);
-    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded' ;
+  
 
     $httpProvider.interceptors.push(function () {
         return {
