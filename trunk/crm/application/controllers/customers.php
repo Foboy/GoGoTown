@@ -1,6 +1,6 @@
 <?php
 
-class ShopCustomers extends Controller {
+class Customers extends Controller {
 	/**
 	 * 商家客户管理，包括公海客户，销售机会客户以及自有客户信息编辑
 	 */
@@ -176,11 +176,13 @@ class ShopCustomers extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
+		
 		if (! isset ( $_POST ['name'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
+	
 		if (! isset ( $_POST ['phone'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
@@ -192,17 +194,18 @@ class ShopCustomers extends Controller {
 			return ;
 		}
 		
-		if (! isset ( $_POST ['pageindex'] ) or empty ( $_POST ['pageindex'] )) {
+		if (! isset ( $_POST ['pageindex'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
-		
+
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
 		
 		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'],   $_POST ['pageindex'] , 20 );
 		$result->Error = ErrorType::Success;
 		
+	
 		print  json_encode ( $result );
 	}
 	/*
@@ -212,7 +215,6 @@ class ShopCustomers extends Controller {
 	public function searchGOGOBP() {
 	
 		$result = new PageDataResult ();
-	
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
 			print json_encode ( $result );
