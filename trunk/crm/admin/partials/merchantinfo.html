@@ -6,19 +6,20 @@
         </div>
     </div>
     <div class="row">
-            <label type="button" class="btn btn-primary" ng-click="showerror=!showerror;!showerror? SaveEditMerchant(merchantinfo):''">
-                {{!showerror?'编辑':'保存'}}</label>
           <form name="EditMerchantForm" ng-class="showerror?'showerror':''">
             <div class="col-lg-2"></div>
             <div class="col-lg-8  form-group">
-               <div class="col-lg-2 mer_content"><lable class="font16 ">商户名称:</lable></div>
+               <div class="col-lg-2 mer_content"><lable class="font16 rightfloat">商户名称:</lable></div>
                <div class="col-lg-8 ">
                     <label ng-show="!showerror?'true':'false'" class="font16 font500 graycolor mer_content">{{!showerror?merchantinfo.name:''}}</label>
                     <input class="form-control" placeholder="请输入商户名称" ng-model="merchantinfo.name" ng-required="true"
                             ng-show="showerror?true:false">
                 </div>
             </div>
-            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+                <a class="mer_edit" ng-click="showerror=!showerror;!showerror? SaveEditMerchant(merchantinfo):''">
+                {{!showerror?'编辑':'保存'}}</a>
+            </div>
             <!--<ul class="mer_ul">
                 <li>
                     <lable class="font16">商户名称</lable>
@@ -48,6 +49,41 @@
                     </div>
                 </li>
             </ul>-->
+            </form>
+    </div>
+    <div class="row">
+          <form name="EditMerchantForm" ng-class="showerror?'showerror':''">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8  form-group">
+               <div class="col-lg-2 mer_content"><lable class="font16 rightfloat">联系方式:</lable></div>
+               <div class="col-lg-8 ">
+                    <label ng-show="!showerror?'true':'false'" class="font16 font500 graycolor mer_content">{{!showerror?merchantinfo.name:''}}</label>
+                    <input class="form-control" placeholder="请输入联系方式" ng-model="merchantinfo.name" ng-required="true"
+                            ng-show="showerror?true:false">
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <a class="mer_edit" ng-click="showerror=!showerror;!showerror? SaveEditMerchant(merchantinfo):''">
+                {{!showerror?'编辑':'保存'}}</a>
+            </div>
+
+            </form>
+    </div>
+    <div class="row">
+          <form name="EditMerchantForm" ng-class="showerror?'showerror':''">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8  form-group">
+               <div class="col-lg-2 mer_content"><lable class="font16 rightfloat">地址:</lable></div>
+               <div class="col-lg-8 ">
+                    <label ng-show="!showerror?'true':'false'" class="font16 font500 graycolor mer_content">{{!showerror?merchantinfo.name:''}}</label>
+                    <input class="form-control" placeholder="请输入地址信息" ng-model="merchantinfo.name" ng-required="true"
+                            ng-show="showerror?true:false">
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <a class="mer_edit" ng-click="showerror=!showerror;!showerror? SaveEditMerchant(merchantinfo):''">
+                {{!showerror?'编辑':'保存'}}</a>
+            </div>
             </form>
     </div>
     <!-- /.row -->
