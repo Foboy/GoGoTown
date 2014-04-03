@@ -18,35 +18,4 @@
         </ul>
     </form>
 </div>
-<!--新增会员等级 Modal -->
-<div class="modal fade" id="addmeberlevelmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true" >
-    <form ng-class="showerror?'showerror':''" name="AddMemberShipLevelForm" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;</button>
-                <h4 class="modal-title">
-                    新增会员等级</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>
-                        等级名称</label>
-                    <input class="form-control" placeholder="等级名称" ng-required="true" ng-model="member.name" name="rank">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">
-                    关 闭</button>
-                <button type="button" class="btn btn-primary" ng-click="SaveAddMemberShipLevel(member)">
-                    保 存</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    </form>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+<div ng-include="'partials/merchant/addmeberlevel-modal.html'"></div>

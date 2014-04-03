@@ -84,6 +84,7 @@ function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) 
 function AddMemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) {
     //保存增加会员等级设置
     $scope.SaveAddMemberShipLevel = function (data) {
+       
         if ($scope.AddMemberShipLevelForm.$valid) {
             $scope.showerror = false;
             $http.post($resturls["AddMemberLevels"], { rank: 6, name: data.name, remark: '' }).success(function (result) {
