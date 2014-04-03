@@ -15,9 +15,9 @@
                 <li  ng-class="sorts=='cashier'?'active':''" ><a ng-href="#/permissions/cashier" >收银员</a></li>
             </ul>
             <!-- Tab panes -->
-            <div class="tab-content" ng-show="true">
+            <div class="tab-content" >
                 <!--店员显示区域-->
-                <div class="tab-pane">
+                <div class="tab-pane" ng-show="sorts=='clerk'?'true':'false'">
                     <button type="button" class="btn btn-primary but-header" ng-click="ShowAddAccountModal()">添加账户</button>
                     <hr>
                     <div class="table-responsive">

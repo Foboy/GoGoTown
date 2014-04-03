@@ -110,18 +110,16 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
     else {
         // $parent.personalActPageIndex = 1;
     }
-    $scope.loadCurrentSortList = function () {
+    $scope.loadUserSortList = function () {
         // if (pageIndex == 0) pageIndex = 1;
-        console.log($scope.sorts);
         switch ($scope.sorts) {
             case 'clerk': //店员
-                console.log(123);
                 break;
             case 'cashier': //收银员
                 break;
         }
     }
-    $scope.loadCurrentSortList();
+    $scope.loadUserSortList();
     $scope.load = function () {
         console.log("Call AuthorityManagementCtrl");
     }
