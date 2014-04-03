@@ -3,21 +3,23 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.sorts = $routeParams.sorts;
     if (!$scope.sorts) {
         $scope.sorts = "owncustomer";
+
         //$parent.enterpriseActPageIndex = 1;
     } //gogo��ѿͻ�
     else {
         // $parent.personalActPageIndex = 1;
     }
-    $scope.loadCurrentSortList = function (pageIndex) {
+    $scope.loadCurrentSortList = function (sorts,pageIndex) {
         // if (pageIndex == 0) pageIndex = 1;
-        switch ($scope.sorts) {
-            case 'gogocustomer': //�̼��Լ������ͻ�
-                $http.post($resturls["LoadGoGoCustomerList"], {name:'',phone:'',sex:0, pageindex: pageIndex  }).success(function (data) {
+    
+        switch (sorts) {
+            case '#gogocustomer': 
+                $http.post($resturls["LoadGoGoCustomerList"], {name:'',phone:'',sex:0,type:0, pageindex: pageIndex  }).success(function (data) {
                     if (data.Error!=0) {
                         alert(data.ErrorMessage, 'e');
                     } else {
                         $scope.enterpriseclients = data.Data;
-                        console.log($scope.enterpriseclients);
+                        //console.log($scope.enterpriseclients);
                         $parent.enterpriseActPageIndex = pageIndex;
                         //$parent.pages = utilities.paging(data.Data.RecordsCount, pageIndex, 10, '#client/' + $scope.sorts + '/{0}');
                     }
@@ -25,9 +27,9 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
                     $scope.enterpriseclients = [];
                 })
                 break;
-            case 'owncustomer': //��ȡgogo��ѿͻ�
+            case '#owncustomer': 
                 $http.post($resturls["LoadOwnCustomersList"], { name:'',phone:'',sex:0,pageindex: pageIndex }).success(function (data) {
-                    if (data.Error) { alert(data.ErrorMessage, 'e'); } else {
+                    if (data.Error!=0) { alert(data.ErrorMessage, 'e'); } else {
                     	console.log(data.Data)
                         $scope.personalclients = data.Data;
                       
@@ -40,8 +42,19 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
                 break;
         }
     }
+    $scope.tabInit=function(){
+        $('#clientTab a:first').tab('show');
+        $('#clientTab a').click(function (e) {
+        	  e.preventDefault()
+        	  $(this).tab('show');
+        	  $scope.loadCurrentSortList($(e.target).attr("href"),0);
+        	})
+    }
     $scope.load = function () {
         console.log("Call clientcontroller");
+        
+        $scope.tabInit();
+      
     }
     $scope.load();
     $scope.ShowAddOwnCustomerModal = function () {
