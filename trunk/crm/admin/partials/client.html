@@ -37,16 +37,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="client in personalclients " class="odd gradeX">
-                                    <td>{{client.Name}}
+                                <tr ng-repeat="ownclient in ownclients " class="odd gradeX">
+                                    <td>{{ownclient.Name}}
                                     </td>
-                                    <td>{{client.Birthady}}
+                                    <td>{{ownclient.Birthady}}
                                     </td>
-                                    <td>{{client.Sex}}
+                                    <td>{{ownclient.Sex}}
                                     </td>
-                                    <td class="center">{{client.Phone}}
+                                    <td class="center">{{ownclient.Phone}}
                                     </td>
-                                    <td class="center">{{client.Remark}}
+                                    <td class="center">{{ownclient.Remark}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -74,7 +74,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd gradeX">
+                                <tr class="odd gradeX" ng-repeat="gogoclient in gogoclients">
                                     <td>Trident
                                     </td>
                                     <td>Internet Explorer 4.0
