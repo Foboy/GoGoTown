@@ -127,7 +127,7 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
                     $scope.enterpriseclients = [];
                 })
                 break;
-            case 'app': //��ȡgogo��ѿͻ�
+            case 'Cashier': //收银员
                 $http.post($resturls["LoadOwnCustomersList"], { name: '', phone: '', sex: 0, pageindex: pageIndex }).success(function (data) {
                     if (data.Error) { alert(data.ErrorMessage, 'e'); } else {
                         console.log(data.Data)
