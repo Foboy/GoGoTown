@@ -181,7 +181,7 @@ if( $user->Data)
 			print json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
+		if (! isset ( $_POST ['name'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
