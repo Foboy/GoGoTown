@@ -42,7 +42,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
         if (data) {
             $scope.OwnCustomer = data;
         } else {
-            $scope.OwnCustomer = { customer_id: 0 ,sex:1};
+            $scope.OwnCustomer = { customer_id: 0, sex: 1 };
         }
         $("#addcustomermodal").modal('show');
     }
