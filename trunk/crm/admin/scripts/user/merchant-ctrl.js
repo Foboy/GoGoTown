@@ -3,8 +3,26 @@
         console.log("Call MerchantInfoMainController");
     }
     $scope.load();
+    $scope.GetMerchantInfo = function () {
+        $http.post($resturls["GetMerchantInfo"], {}).success(function (data) {
+            if (!data.Error) {
+                $scope.merchantinfo = data.Data;
+            } else {
+                $scope.merchantinfo = {};
+            }
+        });
+    }
+    $scope.GetMerchantInfo();
     $scope.SaveEditMerchant = function (data) {
-        console.log($scope.EditMerchantForm.$valid);
+        if (!data.name) {
+            $scope.Ntype = true;
+        }
+        if (!data.mobile) {
+            $scope.Ctype = true;
+        }
+        if (!data.address) {
+            $scope.Atype = true;
+        }
         if ($scope.EditMerchantForm.$valid) {
             $scope.showerror = false;
         }
@@ -12,19 +30,9 @@
             $scope.showerror = true;
         }
     }
-    $scope.GetMerchantInfo = function () {
-        $scope.merchantinfo = {
-            name: ' GOGO商城',
-            desciption: "我们是看天下杂志下属互联网全资子公司",
-            telephone: '123233444',
-            address: '成都市水碾河55号'
-        };
-    }
-    $scope.GetMerchantInfo();
 }
 
-function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls)
-{
+function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.LoadMemberShipLeveList = function () {
         $http.post($resturls["SearchMerchantSetLevels"], {}).success(function (data) {
             if (!data.Error) {
@@ -49,6 +57,11 @@ function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls)
     $scope.ShowAddMemberShipLevel = function () {
         $("#addmeberlevelmodal").modal('show');
     }
+
+    $scope.LoadMemberShipLeveList();
+}
+
+function AddMemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.SaveAddMemberShipLevel = function (memberlevel) {
         if ($scope.AddMemberShipLevelForm.$valid) {
             $scope.showerror = false;
@@ -64,5 +77,4 @@ function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls)
             $scope.showerror = true;
         }
     }
-    $scope.LoadMemberShipLeveList();
 }
