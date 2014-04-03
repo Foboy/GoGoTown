@@ -183,7 +183,8 @@ class UsersModel {
 		$sql = " update crm_users set name = :name where id = :id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
-			':id' => $id 
+			':id' => $id,
+				':name' => $name
 		) );
 		$count = $query->rowCount ();
 		if ($count != 1) {
