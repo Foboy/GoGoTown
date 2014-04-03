@@ -24,7 +24,7 @@
 
           resturls.add("LoadOwnCustomersList", "Customers/searchPrivateBP"); //分页获取商家自有客户信息
           resturls.add("LoadGoGoCustomerList", "Customers/searchGOGOBP"); //分页获取商家有消费记录gogo客户
-          resturls.add("AddOwnCustomer", "");
+          resturls.add("AddOwnCustomer", "Customers/addPrivateCustomer");//添加商家自有客户信息
 
           //基本信息设置
           resturls.add("GetMerchantInfo", "ShopInfo/get"); //获取商家基本信息

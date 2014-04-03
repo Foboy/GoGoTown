@@ -1,4 +1,4 @@
-﻿<!--新增自有客户 Modal -->
+﻿<!--新增编辑自有客户 Modal -->
 
 <div class="modal fade" id="addcustomermodal" tabindex="-1" role="dialog" 
     aria-hidden="true" ng-controller="AddOwnCustomerCtrl">
@@ -9,45 +9,45 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;</button>
                 <h4 class="modal-title">
-                    新增客户</h4>
+                    {{OwnCustomer.customer_id==0?'新增自有客户':'编辑自有客户'}}</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label>
                         姓名</label>
-                    <input class="form-control" placeholder="姓名" ng-required="true" ng-model="User.username" name="username">
+                    <input class="form-control" placeholder="姓名" ng-required="true" ng-model="OwnCustomer.name" name="name">
                 </div>
                 <div class="form-group">
                     <label>
                         年龄</label>
-                    <input class="form-control" placeholder="年龄" ng-required="true" ng-model="User.age" name="age">
+                    <input class="form-control" placeholder="年龄" ng-required="true" ng-model="OwnCustomer.birthday" name="birthday">
                 </div>
                 <div class="form-group">
                     <label>
                         性别</label>
                     <label class="radio-inline">
-                        <input type="radio" name="sex" value="0" checked="">男
+                        <input type="radio" ng-model="OwnCustomer.sex" name="sex" value="1" >男
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="sex" value="1">女
+                        <input type="radio" ng-model="OwnCustomer.sex" name="sex" value="2">女
                     </label>
                 </div>
                 <div class="form-group">
                     <label>
-                        联系方式</label>
-                    <input class="form-control" placeholder="联系方式"  ng-pattern="/^[1][358]\d{9}$/" name="telephone"
-                        ng-model="User.telephone">
+                        手机号</label>
+                    <input class="form-control" placeholder="联系方式"  ng-pattern="/^[1][358]\d{9}$/" name="phone"
+                        ng-model="OwnCustomer.phone">
                 </div>
                 <div class="form-group">
                     <label>
-                        所在地</label>
-                    <input class="form-control" placeholder="所在地"  ng-required="true">
+                        备注</label>
+                    <input class="form-control" placeholder="备注" name="remark"  ng-required="true" ng-model="OwnCustomer.remark">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">
                     关 闭</button>
-                <button type="button" class="btn btn-primary" ng-click="SaveAddOwnCustomer(User)">
+                <button type="button" class="btn btn-primary" ng-click="SaveAddOwnCustomer(OwnCustomer)">
                     保 存</button>
             </div>
         </div>
