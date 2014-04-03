@@ -5,7 +5,8 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
         .when('/seacustomer/:pageIndex?', { template: '', controller: function () { } })
         .when('/merchantinfo', { template: '', controller: function () { } })
         .when('/mebershiplevel', { template: '', controller: function () { } })
-        .when('/permissions/:sorts?', { template: '', controller: function () { }})
+        .when('/permissions/:sorts?', { template: '', controller: function () { } })
+        .when('/client/:sorts?', { template: '', controller: function () { } })
         .otherwise({ redirectTo: '/home' });
 
     $stateProvider
@@ -37,11 +38,11 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
             }
         };
     });
-} ])
+}])
     .value('$anchorScroll', angular.noop)
     .run(
       ['$rootScope', '$state', '$stateParams',
       function ($rootScope, $state, $stateParams) {
           $rootScope.$state = $state;
           $rootScope.$stateParams = $stateParams;
-      } ]);        ;
+      }]);;

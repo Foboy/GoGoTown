@@ -10,10 +10,9 @@
     <div class="row">
         <div class="col-lg-12">
             <!-- Nav tabs -->
-            <ul class="nav nav-tabs" id="clientTab">
-                <li><a href="#clerk" data-toggle="tab">店员</a></li>
-                <li><a href="#cashier" data-toggle="tab">收银员</a></li>
-
+            <ul class="nav nav-tabs" >
+                <li  ng-class="sorts=='clerk'?'active':''"><a ng-href="#/permissions/clerk"  >店员</a></li>
+                <li  ng-class="sorts=='cashier'?'active':''" ><a ng-href="#/permissions/cashier" >收银员</a></li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content" ng-show="true">

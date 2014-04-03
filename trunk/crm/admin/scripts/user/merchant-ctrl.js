@@ -112,12 +112,12 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
     }
     $scope.loadCurrentSortList = function () {
         // if (pageIndex == 0) pageIndex = 1;
+        console.log($scope.sorts);
         switch ($scope.sorts) {
             case 'clerk': //店员
                 console.log(123);
                 break;
             case 'cashier': //收银员
-               
                 break;
         }
     }

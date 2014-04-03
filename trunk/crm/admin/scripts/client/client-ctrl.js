@@ -5,13 +5,12 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
         $scope.sorts = "owncustomer";
 
         //$parent.enterpriseActPageIndex = 1;
-    } //gogo��ѿͻ�
+    } //gogo客户
     else {
         // $parent.personalActPageIndex = 1;
     }
     $scope.loadCurrentSortList = function (sorts,pageIndex) {
         // if (pageIndex == 0) pageIndex = 1;
-    
         switch (sorts) {
             case '#gogocustomer': 
                 $http.post($resturls["LoadGoGoCustomerList"], {name:'',phone:'',sex:0,type:0, pageindex: pageIndex  }).success(function (data) {
@@ -42,19 +41,8 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
                 break;
         }
     }
-    $scope.tabInit=function(){
-        $('#clientTab a:first').tab('show');
-        $('#clientTab a').click(function (e) {
-        	  e.preventDefault()
-        	  $(this).tab('show');
-        	  $scope.loadCurrentSortList($(e.target).attr("href"),0);
-        	})
-    }
     $scope.load = function () {
         console.log("Call clientcontroller");
-        
-        $scope.tabInit();
-      
     }
     $scope.load();
     $scope.ShowAddOwnCustomerModal = function () {
