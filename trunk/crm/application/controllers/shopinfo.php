@@ -61,7 +61,7 @@ if( $user->Data)
 		}
        $user_model = $this->loadModel('Users');
 	
-		$result->Data = $user_model->updateName ($_POST ['name'],$_SESSION["user_id"]);
+		$result->Data = $user_model->updateShopName ($_POST ['name'],$_SESSION["user_id"]);
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );
