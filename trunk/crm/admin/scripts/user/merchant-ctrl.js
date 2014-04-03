@@ -110,60 +110,40 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
     else {
         // $parent.personalActPageIndex = 1;
     }
-    $scope.loadCurrentSortList = function (pageIndex) {
+    $scope.loadCurrentSortList = function () {
         // if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'clerk': //店员
-                $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '', sex: 0, pageindex: pageIndex }).success(function (data) {
-                    if (data.Error != 0) {
-                        alert(data.ErrorMessage, 'e');
-                    } else {
-                        $scope.enterpriseclients = data.Data;
-                        console.log($scope.enterpriseclients);
-                        $parent.enterpriseActPageIndex = pageIndex;
-                        //$parent.pages = utilities.paging(data.Data.RecordsCount, pageIndex, 10, '#client/' + $scope.sorts + '/{0}');
-                    }
-                }).error(function (data, status, headers, config) {
-                    $scope.enterpriseclients = [];
-                })
+                console.log(123);
                 break;
-            case 'Cashier': //收银员
-                $http.post($resturls["LoadOwnCustomersList"], { name: '', phone: '', sex: 0, pageindex: pageIndex }).success(function (data) {
-                    if (data.Error) { alert(data.ErrorMessage, 'e'); } else {
-                        console.log(data.Data)
-                        $scope.personalclients = data.Data;
-
-                        $parent.personalActPageIndex = pageIndex;
-                        //$parent.pages = utilities.paging(data.Data.RecordsCount, pageIndex, 10, '#client/' + $scope.sorts + '/{0}');
-                    }
-                }).error(function (data, status, headers, config) {
-                    $scope.personalclients = [];
-                })
+            case 'cashier': //收银员
+               
                 break;
         }
     }
+    $scope.loadCurrentSortList();
     $scope.load = function () {
         console.log("Call AuthorityManagementCtrl");
     }
     $scope.load();
-    $scope.ShowAddOwnCustomerModal = function () {
-        $("#addcustomermodal").modal('show');
-    }
-    $scope.AddOwnCustomerSubmit = function (User) {
-        if ($scope.AddOwnCustomerForm.$valid) {
-            $scope.showerror = false;
-            $http.post($resturls["LoadGoGoCustomerList"], {}).success(function (data) {
-                if (data.Error) {
-                    alert(data.ErrorMessage, 'e');
-                }
-                else {
+    //$scope.ShowAddOwnCustomerModal = function () {
+    //    $("#addcustomermodal").modal('show');
+    //}
+    //$scope.AddOwnCustomerSubmit = function (User) {
+    //    if ($scope.AddOwnCustomerForm.$valid) {
+    //        $scope.showerror = false;
+    //        $http.post($resturls["LoadGoGoCustomerList"], {}).success(function (data) {
+    //            if (data.Error) {
+    //                alert(data.ErrorMessage, 'e');
+    //            }
+    //            else {
 
-                }
-            })
-        }
-        else {
-            $scope.showerror = true;
-        }
-    };
+    //            }
+    //        })
+    //    }
+    //    else {
+    //        $scope.showerror = true;
+    //    }
+    //};
 
 }
