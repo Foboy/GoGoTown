@@ -71,7 +71,7 @@ class Messages extends Controller {
 			print json_encode ( $result );
 			return;
 		}
-		if (! isset ( $_POST ['pageindex'] ) or empty ( $_POST ['pageindex'] )) {
+		if (! isset ( $_POST ['pageindex'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
