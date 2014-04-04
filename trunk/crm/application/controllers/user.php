@@ -120,4 +120,20 @@ class user extends Controller
     	}
     	print  json_encode ( $result ) ;
     }
+    /*
+     * 获取当前登陆用户信息
+     */
+    public  function  getCurrentUser()
+    {
+    	$result = new DataResult ();
+    	if (! isset ( $_SESSION["user_id"] ) or empty ( $_SESSION["user_id"] )) {
+    		$result->Error = ErrorType::Unlogin;
+    		print json_encode ( $result );
+    		return ;
+    	}
+    	$user_model = $this->loadModel('Users');
+    	$result->Data = $user_model->get($_SESSION["user_id"]);
+        $result->Error = ErrorType::Success;
+    	print  json_encode ( $result ) ;
+    }
 }
