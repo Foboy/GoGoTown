@@ -15,9 +15,11 @@
           resturls.addpage = function (name, url) {
               resturls[name] = resturls.base + url;
           };
+
+
           // 主模块
-          resturls.add("Register", "Login/register_action");
-          resturls.add("Login", "Login/login");
+          resturls.add("GetCurrentUser", "user/getCurrentUser");
+          resturls.add("Login", "user/crmlogin");
 
 
           // 客户管理
@@ -32,8 +34,7 @@
           resturls.add("SearchMerchantSetLevels", "ShopRank/search");//获取商家设置的会员的等级
           resturls.add("AddMemberLevels", "ShopRank/add");//新增会员等级信息
           resturls.add("UpdateMemberLevels", "ShopRank/update");//修改会员等级信息
-          resturls.add("AddUserAccount","")
-
+          resturls.add("AddUserAccount", "user/register");//添加用户账号
           $provide.constant('$resturls', resturls);
 
       } ]);

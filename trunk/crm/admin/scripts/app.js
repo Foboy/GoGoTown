@@ -8,7 +8,6 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
         .when('/permissions/:sorts?/:pageIndex?', { template: '', controller: function () { } })
         .when('/client/:sorts?/:pageIndex?', { template: '', controller: function () { } })
         .otherwise({ redirectTo: '/home' });
-
     $stateProvider
          .state("main", {
              url: "",
@@ -46,3 +45,15 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
           $rootScope.$state = $state;
           $rootScope.$stateParams = $stateParams;
       }]);;
+
+function MainCtrl($scope, $routeParams, $http, $location, $filter, $resturls) {
+    $scope.currentuser = null;
+    //登录
+    $http.post($resturls["GetCurrentUser"], {}).success(function (result) {
+        if (result.Error == 0) {
+            $scope.currentuser = result.Data;
+        } else {
+            $scope.currentuser = {};
+        }
+    });
+}

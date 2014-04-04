@@ -19,8 +19,8 @@
             <li><a ng-href="#/seacustomer"><i class="fa fa-user fa-fw"></i>公海客户</a> </li>
             <li><a href="#"><i class="fa fa-exchange fa-fw"></i>销售机会</a> </li>
             <li><a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>销售分析</a> </li>
-            <li><a href="#"><i class="fa fa-comment fa-fw"></i>客户维护</a> </li>
-            <li ><a href="#"><i class="fa fa-cog fa-fw"></i>基本信息设置<span class="fa arrow"></span></a>
+            <li><a href="#"><i class="fa fa-comment fa-fw"></i>客户维护</a></li>
+            <li ng-show="currentuser.Type==1?'true':'false'"><a href="#"><i class="fa fa-cog fa-fw"></i>基本信息设置<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li><a ng-href="#/merchantinfo">商家信息设置</a> </li>
                     <li><a href="#/mebershiplevel">会员等级设置</a> </li>
