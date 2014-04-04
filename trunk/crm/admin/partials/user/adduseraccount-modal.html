@@ -1,6 +1,6 @@
 ﻿<!--新增编辑账号 Modal -->
 
-<div class="modal fade" id="addcustomermodal" tabindex="-1" role="dialog"
+<div class="modal fade" id="AddUsermodal" tabindex="-1" role="dialog"
     aria-hidden="true" ng-controller="AddUserAccountCtrl">
     <form ng-class="showerror?'showerror':''" name="AddUserAccountForm">
         <div class="modal-dialog">
@@ -14,29 +14,29 @@
                     <div class="form-group">
                         <label>
                             账户名</label>
-                        <input class="form-control" placeholder="姓名" ng-required="true" ng-model="OwnCustomer.name" name="name">
+                        <input class="form-control" placeholder="账户名" ng-required="true" ng-model="User.user_name" name="user_name">
                     </div>
                     <div class="form-group">
                         <label>
                             账户类型</label>
                         <label class="radio-inline">
-                            <input type="radio" ng-model="OwnCustomer.sex" name="sex" value="1">店员
+                            <input type="radio" ng-model="User.user_type" name="user_type" value="1">店员
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" ng-model="OwnCustomer.sex" name="sex" value="2">收银员
+                            <input type="radio" ng-model="User.user_type" name="user_type" value="3">收银员
                         </label>
                     </div>
                     <div class="form-group">
                         <label>
                             密码</label>
-                        <input class="form-control" placeholder="联系方式"  name="phone"
-                            ng-model="OwnCustomer.phone">
+                        <input class="form-control" placeholder="密码"  name="user_password_new" type="password"
+                            ng-model="User.user_password_new">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         关 闭</button>
-                    <button type="button" class="btn btn-primary" ng-click="SaveUserAccount(OwnCustomer)">
+                    <button type="button" class="btn btn-primary" ng-click="AddUserAccount(User)">
                         保 存</button>
                 </div>
             </div>

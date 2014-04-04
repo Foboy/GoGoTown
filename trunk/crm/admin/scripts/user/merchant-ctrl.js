@@ -43,7 +43,7 @@ function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) 
             if (result.Error == 0) {
                 $scope.mebershiplevels = result.Data;
             } else {
-                $scope.mebershiplevels = {};
+                $scope.mebershiplevels = [];
             }
         });
     }
@@ -68,20 +68,23 @@ function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) 
         }
     }
     //弹出增加会员等级设置框
-    $scope.ShowAddMemberShipLevel = function () {
+    $scope.AddMemberShipLevelmodal = function (data) {
+        if (data) {
+            $scope.MeberShipLevel = data;
+        } else {
+            $scope.MeberShipLevel = { rank: data+1 };
+        }
         $("#addmeberlevelmodal").modal('show');
     }
-
     $scope.LoadMemberShipLeveList();
 }
 
 function AddMemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) {
     //保存增加会员等级设置
     $scope.SaveAddMemberShipLevel = function (data) {
-
         if ($scope.AddMemberShipLevelForm.$valid) {
             $scope.showerror = false;
-            $http.post($resturls["AddMemberLevels"], { rank: 6, name: data.name, remark: '' }).success(function (result) {
+            $http.post($resturls["AddMemberLevels"], { rank: $("#AddRankLevle").val(), name: data.name, remark: '' }).success(function (result) {
                 if (result.Error == 0) {
                     alert("success");
                     $("#addmeberlevelmodal").modal('hide');
@@ -113,7 +116,7 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
                 $http.post($resturls["LoadOwnCustomersList"], { name: '', phone: '', sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.ownclients = result.Data;
-                        $parent.owncustomerActpageIndex = pageIndex;
+                        $parent.clerkActpageIndex = pageIndex;
                         $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#permissions/' + $scope.sorts + '/{0}');
                     } else {
                         $scope.ownclients = [];
@@ -126,7 +129,7 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
                     console.log(result);
                     if (result.Error == 0) {
                         $scope.gogoclients = result.Data;
-                        $parent.gogocustomerActpageIndex = pageIndex;
+                        $parent.cashierActpageIndex = pageIndex;
                         $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#permissions/' + $scope.sorts + '/{0}');
                     } else {
                         $scope.gogoclients = [];
@@ -135,29 +138,13 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
                 });
                 break;
         }
-        $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
-        $scope.load = function () {
-            console.log("Call AuthorityManagementCtrl");
-        }
-        $scope.load();
-        //$scope.ShowAddOwnCustomerModal = function () {
-        //    $("#addcustomermodal").modal('show');
-        //}
-        //$scope.AddOwnCustomerSubmit = function (User) {
-        //    if ($scope.AddOwnCustomerForm.$valid) {
-        //        $scope.showerror = false;
-        //        $http.post($resturls["LoadGoGoCustomerList"], {}).success(function (data) {
-        //            if (data.Error) {
-        //                alert(data.ErrorMessage, 'e');
-        //            }
-        //            else {
-
-        //            }
-        //        })
-        //    }
-        //    else {
-        //        $scope.showerror = true;
-        //    }
-        //};
+    }
+    $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
+    $scope.load = function () {
+        console.log("Call AuthorityManagementCtrl");
+    }
+    $scope.load();
+    $scope.ShowAddUserAccountModal = function () {
+        $("#AddUsermodal").modal("show");
     }
 }
