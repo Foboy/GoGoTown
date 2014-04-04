@@ -9,30 +9,31 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
         $parent.gogocustomerActpageIndex = 1;
     }
     $scope.loadClientSortList = function (pageIndex) {
+        var pageSize = 1;
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'owncustomer':
-                $http.post($resturls["LoadOwnCustomersList"], { name: '', phone: '', sex: 0, pageindex: pageIndex - 1 }).success(function (result) {
+                $http.post($resturls["LoadOwnCustomersList"], { name: '', phone: '', sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.ownclients = result.Data;
                         $parent.owncustomerActpageIndex = pageIndex;
-                        $parent.pages = utilities.paging(result.totalcount, pageIndex, 1, '#client/' + $scope.sorts + '/{0}');
+                        $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#client/' + $scope.sorts + '/{0}');
                     } else {
                         $scope.ownclients = [];
-                        $parent.pages = utilities.paging(0, pageIndex, 1);
+                        $parent.pages = utilities.paging(0, pageIndex, pageSize);
                     }
                 });
                 break;
             case 'gogocustomer':
-                $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '', sex: 0, type: 1, pageindex: pageIndex - 1 }).success(function (result) {
+                $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '', sex: 0, type: 1, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
                     console.log(result);
                     if (result.Error == 0) {
                         $scope.gogoclients = result.Data;
                         $parent.gogocustomerActpageIndex = pageIndex;
-                        $parent.pages = utilities.paging(result.totalcount, pageIndex, 1, '#client/' + $scope.sorts + '/{0}');
+                        $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#client/' + $scope.sorts + '/{0}');
                     } else {
                         $scope.gogoclients = [];
-                        $parent.pages = utilities.paging(0, pageIndex, 1);
+                        $parent.pages = utilities.paging(0, pageIndex, pageSize);
                     }
                 });
                 break;

@@ -32,6 +32,7 @@
           resturls.add("SearchMerchantSetLevels", "ShopRank/search");//获取商家设置的会员的等级
           resturls.add("AddMemberLevels", "ShopRank/add");//新增会员等级信息
           resturls.add("UpdateMemberLevels", "ShopRank/update");//修改会员等级信息
+          resturls.add("AddUserAccount","")
 
           $provide.constant('$resturls', resturls);
 
