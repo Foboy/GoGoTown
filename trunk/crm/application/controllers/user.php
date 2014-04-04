@@ -101,7 +101,7 @@ class user extends Controller
     }
     /**
      * 注册新用户
-     * parms  user_type user_name user_password_new shop_id user_password_repeat
+     * parms  user_type user_name user_password_new user_password_repeat
      */
     public  function  register()
     {
