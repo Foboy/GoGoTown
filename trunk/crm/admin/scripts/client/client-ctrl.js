@@ -3,18 +3,20 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.sorts = $routeParams.sorts;
     if (!$scope.sorts) {
         $scope.sorts = "owncustomer";
+        $parent.owncustomerActpageIndex = 1;
     } //gogo客户
     else {
-
+        $parent.gogocustomerActpageIndex = 1;
     }
-    $scope.loadClientSortList = function () {
-        // if (pageIndex == 0) pageIndex = 1;
+    $scope.loadClientSortList = function (pageIndex) {
+        if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'owncustomer':
-                $http.post($resturls["LoadOwnCustomersList"], { name: '', phone: '', sex: 1, pageindex: 0 }).success(function (result) {
-                    console.log(result);
+                $http.post($resturls["LoadOwnCustomersList"], { name: '', phone: '', sex: 0, pageindex: pageIndex - 1 }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.ownclients = result.Data;
+                        $parent.owncustomerActpageIndex = pageIndex;
+                        $parent.pages = utilities.paging(result.totalcount, pageIndex, 1, '#client/' + $scope.sorts + '/{0}');
                     } else {
                         $scope.ownclients = [];
                     }
@@ -25,6 +27,8 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
                     console.log(result);
                     if (result.Error == 0) {
                         $scope.gogoclients = result.Data;
+                        $parent.gogocustomerActpageIndex = pageIndex;
+                        $parent.pages = utilities.paging(result.totalcount, pageIndex, 10, '#client/' + $scope.sorts + '/{0}');
                     } else {
                         $scope.gogoclients = [];
                     }
@@ -33,7 +37,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
 
         }
     }
-    $scope.loadClientSortList();
+    $scope.loadClientSortList($routeParams.pageIndex || 1);
     $scope.load = function () {
         console.log("Call clientcontroller");
     }

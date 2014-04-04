@@ -201,7 +201,7 @@ class Customers extends Controller {
 
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
 		
-		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'],   $_POST ['pageindex'] , 20 );
+		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'],   $_POST ['pageindex'] , 1 );
 		$result->Error = ErrorType::Success;
 		
 	

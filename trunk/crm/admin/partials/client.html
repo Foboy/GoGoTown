@@ -42,7 +42,7 @@
                                     </td>
                                     <td>{{ownclient.Birthady}}
                                     </td>
-                                    <td>{{ownclient.Sex}}
+                                    <td>{{ownclient.Sex==1?'男':'女'}}
                                     </td>
                                     <td class="center">{{ownclient.Phone}}
                                     </td>
@@ -95,8 +95,31 @@
                 </div>
             </div>
         </div>
-        <!-- /.col-lg-12 -->
+
+
+        <!-- <div class="pagination">
+            
+            <ul>
+        <li class="previous" ng-repeat="page in pages | filter:'pre'"><a ng-href="{{page.url}}">
+            <img src="img/previous.png" /></a></li>
+        <li ng-class="page.active?'active':''" ng-repeat="page in pages | filter:'page'"><a ng-href="{{page.url}}">{{page.index}}</a></li>
+        <li class="next" ng-repeat="page in pages | filter:'next'"><a ng-href="{{page.url}}">
+            <img src="img/next.png" /></a></li>
+    </ul>
+        </div>-->
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="pagination">
+                <li  ng-repeat="page in pages | filter:'pre'"><a ng-href="{{page.url}}">
+                    <<</a></li>
+                <li ng-class="page.active?'active':''" ng-repeat="page in pages | filter:'page'"><a ng-href="{{page.url}}">{{page.index}}</a></li>
+                <li  ng-repeat="page in pages | filter:'next'"><a ng-href="{{page.url}}">
+                    >></a></li>
+            </ul>
+        </div>
     </div>
 </div>
+
 <div ng-include="'partials/client/addowncustomer-modal.html'">
 </div>
