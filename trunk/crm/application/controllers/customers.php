@@ -164,33 +164,36 @@ class Customers extends Controller {
 	
 	/*
 	 * 分页查询添加商家自有客户信息
-	* parms:name,sex,phone
+	* parms:name,sex,phone pageindex pagesize
 	*/
 	public function searchPrivateBP() {
 		
 		$result = new PageDataResult ();
-		
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
 			print json_encode ( $result );
 			return ;
 		}
-		
+
 		if (! isset ( $_POST ['name'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
 	
-		if (! isset ( $_POST ['phone'] ) ) {
+		if (! isset ( $_POST ['phone'] )  ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
+		$sex=0;
 		if (! isset ( $_POST ['sex'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
+		}else if(!empty ( $_POST ['sex'] ))
+		{
+			$sex= $_POST ['sex'];
 		}
 		
 		if (! isset ( $_POST ['pageindex'] ) ) {
@@ -198,10 +201,15 @@ class Customers extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
-
+		if (! isset ( $_POST ['pagesize'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
+	
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
 		
-		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'],   $_POST ['pageindex'] , 1 );
+		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $sex, $_POST ['phone'],   $_POST ['pageindex'] , $_POST ['pagesize'] );
 		$result->Error = ErrorType::Success;
 		
 	
@@ -209,7 +217,7 @@ class Customers extends Controller {
 	}
 	/*
 	 * 分页查询添加商家gogo客户信息
-	* parms:name,sex,phone,type 1:公海客户 2：销售机会 3：有消费记录gogo客户
+	* parms:name,sex,phone,type 1:公海客户 2：销售机会 3：有消费记录gogo客户  pageindex pagesize
 	*/
 	public function searchGOGOBP() {
 	
@@ -234,13 +242,19 @@ class Customers extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
+		print  $_POST ['type'] ;
 		if (! isset ( $_POST ['type'] ) or empty ( $_POST ['type'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
 	
-		if (! isset ( $_POST ['pageindex'] ) or empty ( $_POST ['pageindex'] )) {
+		if (! isset ( $_POST ['pageindex'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
+		if (! isset ( $_POST ['pagesize'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
@@ -248,7 +262,7 @@ class Customers extends Controller {
 	
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
 	
-		$result = $shopcustomers_model->searchGOGOCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['pageindex'] , 20 );
+		$result = $shopcustomers_model->searchGOGOCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['pageindex'] ,  $_POST ['pagesize'] );
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );

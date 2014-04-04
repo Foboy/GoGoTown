@@ -61,7 +61,7 @@ class Messages extends Controller {
 	}
 	/*
 	 * 商家获取已发送信息接口 
-	 * parms: pageindex
+	 * parms: pageindex pagesize
 	 */
 	public function searchBP() {
 		$result = new DataResult ();
@@ -76,10 +76,15 @@ class Messages extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
+		if (! isset ( $_POST ['pagesize'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
 		
 	$messages_model = $this->loadModel ( 'Messages' );
 		
-		$result = $messages_model->searchByPages ( $_SESSION ["user_shop"],MessageType::GOGO ,MessageState::IsSent,$_POST ['pageindex'] ,20);
+		$result = $messages_model->searchByPages ( $_SESSION ["user_shop"],MessageType::GOGO ,MessageState::IsSent,$_POST ['pageindex'] ,$_POST ['pagesize']);
 		$result->Error = ErrorType::Success;
 		
 		print json_encode ( $result );
