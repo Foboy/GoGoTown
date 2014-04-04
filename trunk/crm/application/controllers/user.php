@@ -136,4 +136,26 @@ class user extends Controller
         $result->Error = ErrorType::Success;
     	print  json_encode ( $result ) ;
     }
+    /*
+     * 启用禁用用户
+     * parms user_id state 1 启用 0禁用
+    */
+    public  function  updateUserState()
+    {
+    	$result = new DataResult ();
+    	if (! isset ( $_POST["user_id"] ) or empty ( $_POST["user_id"] )) {
+    		$result->Error = ErrorType::RequestParamsFailed;
+    		print json_encode ( $result );
+    		return ;
+    	}
+    	if (! isset ( $_POST["state"] ) or empty ( $_POST["state"] )) {
+    		$result->Error = ErrorType::RequestParamsFailed;
+    		print json_encode ( $result );
+    		return ;
+    	}
+    	$user_model = $this->loadModel('Users');
+    	$result = $user_model->updateUserState($_POST["state"],$_POST["user_id"]);
+    	$result->Error = ErrorType::Success;
+    	print  json_encode ( $result ) ;
+    }
 }

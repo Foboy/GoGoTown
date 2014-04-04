@@ -172,7 +172,7 @@ if( $user->Data)
 	
 	/*
 	 * 获取商家APP账号列表
-	* parms: name
+	* parms: name user_type 1 ADMIN 2 APP 3 STAFF
 	*/
 	public function searchApps() {
 		$result = new DataResult ();
@@ -186,9 +186,14 @@ if( $user->Data)
 			print json_encode ( $result );
 			return ;
 		}
+		if (! isset ( $_POST ['user_type'] ) OR empty($_POST['user_type'])) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
 		$user_model = $this->loadModel('Users');
 	
-		$result = $user_model->search ($_POST ['name'],$_SESSION["user_id"],UserType::ShopApp);
+		$result = $user_model->search ($_POST ['name'],$_SESSION["user_id"],$_POST ['user_type']);
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );

@@ -86,6 +86,21 @@ class UsersModel {
 		$result->Data = $objects;
 		return $result;
 	}
+	// 修改usersState
+	public function updateUserState($state, $id) {
+		$sql = " update crm_users set state = :state where id = :id ";
+		$query = $this->db->prepare ( $sql );
+		$query->execute ( array (
+				':id' => $id,
+				':state' => $state
+		) );
+		$count = $query->rowCount ();
+		if ($count != 1) {
+			// 修改错误
+			return false;
+		}
+		return true;
+	}
 	// 修改usersName
 	public function updateShopName($name, $id) {
 		$sql = " update crm_users set name = :name where id = :id ";

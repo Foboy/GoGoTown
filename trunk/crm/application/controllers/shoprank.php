@@ -30,17 +30,17 @@ class ShopRank extends Controller {
 			return json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['id'] )) {
+		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			return json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['remark'] ) or empty ( $_POST ['remark'] )) {
+		if (! isset ( $_POST ['remark'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			return json_encode ( $result );
 			return ;
 		}
-	
+
 		$rankset_model = $this->loadModel ( 'RankSet' );
 	
 		$result->Data = $rankset_model->insert ( $_POST ['rank'],$_POST ['name'],$_SESSION["user_shop"],$_POST ['remark'] );
@@ -66,12 +66,12 @@ class ShopRank extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['id'] )) {
+		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['remark'] ) or empty ( $_POST ['remark'] )) {
+		if (! isset ( $_POST ['remark'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
