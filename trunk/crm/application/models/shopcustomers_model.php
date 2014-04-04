@@ -129,20 +129,21 @@ from
     left join Crm_Customers b ON a.customer_id = b.ID) aa
         left join
     (select 
-        cr.Customer_ID, cr.Rank, crs.Name
+        cr.Customer_ID, cr.Rank, crs.Name shoprankname
     from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID
     where
         cr.Shop_ID = 0) bb ON aa.customer_id = bb.customer_id 
         where $name and (aa.sex = :sex or 0=:sex) and $phone
-		order by aa.create_time limit $lastpagenum,$pagesize" ;
+		order by aa.create_time desc limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
 				':sex' => $sex
 		) );
 		$objects = $query->fetchAll ();
+		
 		
 		$query = $this->db->prepare ( " select 
     count(*)
