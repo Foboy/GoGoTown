@@ -389,7 +389,7 @@ class UsersModel {
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_USERNAME_FIELD_EMPTY;
 		} elseif (empty ( $_POST ['user_password_new'] ) or empty ( $_POST ['user_password_repeat'] )) {
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_PASSWORD_FIELD_EMPTY;
-		} elseif (empty ( $_POST ['shop_id'] )) {
+		} elseif (empty ( $_SESSION["user_shop"] )) {
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_SHOPID_FIELD_EMPTY;
 		} elseif ($_POST ['user_password_new'] !== $_POST ['user_password_repeat']) {
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_PASSWORD_REPEAT_WRONG;
@@ -404,7 +404,7 @@ class UsersModel {
 			// clean the input
 			$user_name = strip_tags ( $_POST ['user_name'] );
 			$user_type = intval ( $_POST ['user_type'] );
-			$shop_id = intval ( $_POST ['shop_id'] );
+			$shop_id = intval ( $_SESSION["user_shop"] );
 			
 			// crypt the user's password with the PHP 5.5's password_hash() function, results in a 60 character
 			// hash string. the PASSWORD_DEFAULT constant is defined by the PHP 5.5, or if you are using PHP 5.3/5.4,
