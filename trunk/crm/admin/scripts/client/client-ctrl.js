@@ -12,7 +12,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'owncustomer':
-                $http.post($resturls["LoadOwnCustomersList"], { name: '', phone: '', sex: 0, pageindex: pageIndex - 1 }).success(function (result) {
+                $http.post($resturls["LoadOwnCustomersList"], { name: '', phone: '', sex: 0, pageindex: pageIndex - 1,pagesize:20 }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.ownclients = result.Data;
                         $parent.owncustomerActpageIndex = pageIndex;
@@ -23,7 +23,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
                 });
                 break;
             case 'gogocustomer':
-                $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '', sex: 0, type: 4, pageindex: 0 }).success(function (result) {
+                $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '', sex: 0, type: 4, pageindex: 0 ,pagesize:20}).success(function (result) {
                     console.log(result);
                     if (result.Error == 0) {
                         $scope.gogoclients = result.Data;
