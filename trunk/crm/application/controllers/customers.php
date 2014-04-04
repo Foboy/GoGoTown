@@ -125,8 +125,8 @@ class Customers extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
-		
-	if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
+		 
+		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
@@ -141,8 +141,7 @@ class Customers extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
-
-		if (! isset ( $_POST ['birthady'] ) or empty ( $_POST ['birthady'] )) {
+		if (! isset ( $_POST ['birthday'] ) or empty ( $_POST ['birthday'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
@@ -153,13 +152,13 @@ class Customers extends Controller {
 			return ;
 		}
 		$customers_model = $this->loadModel ( 'Customers' );
-		$customer_id = $customers_model->insert ($_POST ['name'],$_POST ['sex'],$_POST ['phone'],$_POST ['birthady'],$_POST ['remark']);
+		$customer_id = $customers_model->insert ($_POST ['name'],$_POST ['sex'],$_POST ['phone'],$_POST ['birthday'],$_POST ['remark']);
 		if($customer_id!=0)
 		{
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
-		$result->Data = $shopcustomers_model->insert($_SESSION["user_shop"],$customer_id,CustomerFromType::PrivateCustomer,CustomerType::PrivateCustomer,time());
+		 $shopcustomers_model->insert($_SESSION["user_shop"],$customer_id,CustomerFromType::PrivateCustomer,CustomerType::PrivateCustomer,time());
 		}
-		
+		$result->Data=$customer_id;
 		print json_encode ( $result );
 	}
 	
