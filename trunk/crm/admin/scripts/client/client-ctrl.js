@@ -19,18 +19,20 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
                         $parent.pages = utilities.paging(result.totalcount, pageIndex, 1, '#client/' + $scope.sorts + '/{0}');
                     } else {
                         $scope.ownclients = [];
+                        $parent.pages = utilities.paging(0, pageIndex, 1);
                     }
                 });
                 break;
             case 'gogocustomer':
-                $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '', sex: 0, type: 0, pageindex: 0 }).success(function (result) {
+                $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '', sex: 0, type: 1, pageindex: pageIndex - 1 }).success(function (result) {
                     console.log(result);
                     if (result.Error == 0) {
                         $scope.gogoclients = result.Data;
                         $parent.gogocustomerActpageIndex = pageIndex;
-                        $parent.pages = utilities.paging(result.totalcount, pageIndex, 10, '#client/' + $scope.sorts + '/{0}');
+                        $parent.pages = utilities.paging(result.totalcount, pageIndex, 1, '#client/' + $scope.sorts + '/{0}');
                     } else {
                         $scope.gogoclients = [];
+                        $parent.pages = utilities.paging(0, pageIndex, 1);
                     }
                 });
                 break;
