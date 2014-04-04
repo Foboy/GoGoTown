@@ -132,7 +132,7 @@ class user extends Controller
     		return ;
     	}
     	$user_model = $this->loadModel('Users');
-    	$result->Data = $user_model->get($_SESSION["user_id"]);
+    	$result = $user_model->get($_SESSION["user_id"]);
         $result->Error = ErrorType::Success;
     	print  json_encode ( $result ) ;
     }
