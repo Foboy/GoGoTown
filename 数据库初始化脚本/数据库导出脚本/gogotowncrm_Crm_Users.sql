@@ -1,0 +1,63 @@
+CREATE DATABASE  IF NOT EXISTS `gogotowncrm` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `gogotowncrm`;
+-- MySQL dump 10.13  Distrib 5.6.13, for osx10.6 (i386)
+--
+-- Host: 127.0.0.1    Database: gogotowncrm
+-- ------------------------------------------------------
+-- Server version	5.6.16
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `Crm_Users`
+--
+
+DROP TABLE IF EXISTS `Crm_Users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Crm_Users` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `Name` varchar(64) DEFAULT NULL COMMENT '商家名',
+  `Shop_ID` int(11) DEFAULT NULL COMMENT '商家ID',
+  `Type` int(11) DEFAULT NULL COMMENT '账户类型',
+  `Account` varchar(32) DEFAULT NULL COMMENT '账户名',
+  `Password` varchar(64) DEFAULT NULL COMMENT '登陆密码',
+  `Last_Login` bigint(20) DEFAULT NULL COMMENT '最近登陆时间',
+  `State` int(11) DEFAULT NULL COMMENT '账户状态',
+  `Faileds` int(11) DEFAULT NULL COMMENT '登陆失败次数',
+  `Last_Failed` bigint(20) DEFAULT NULL COMMENT '登陆失败时间',
+  `Token` varchar(64) DEFAULT NULL COMMENT 'Token',
+  `Create_Time` bigint(20) DEFAULT NULL COMMENT '添加时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Crm_Users`
+--
+
+LOCK TABLES `Crm_Users` WRITE;
+/*!40000 ALTER TABLE `Crm_Users` DISABLE KEYS */;
+INSERT INTO `Crm_Users` VALUES (3,'dfddfdfsdf',1,1,'test','$2y$10$wKS2f6kCMoeaQrxBgQR8NOuuussFZE2/zbSfZV1hJR9aT/6.yPTHe',1396575618,1,NULL,1396436649,NULL,1396352513);
+/*!40000 ALTER TABLE `Crm_Users` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-04-04 10:15:57
