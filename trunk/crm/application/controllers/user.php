@@ -18,23 +18,24 @@ class user extends Controller
     public  function  crmlogin()
     {
     	$result = new DataResult ();
-    	if (! isset ( $_POST [user_type] ) or empty ( $_POST ['user_type'] )) {
-    		$result->Error = ErrorType::RequestParamsFailed;
-    		print json_encode ( $result ) ;
-    		return ;
-    	}else if($_POST ['user_type']==2)
-    	{
-    		$result->Error = ErrorType::Accessdenied;
-    		print json_encode ( $result ) ;
-    		return ;
-    	}
     	
     	$login_model = $this->loadModel('Users');
     	$login_successful = $login_model->login();
     	
     	$result->Data=$login_successful;
     	if ($login_successful) {
+    		
+    		if($_SESSION ['user_type']==2)
+    		{
+    			$result->Error = ErrorType::Accessdenied;
+    			print json_encode ( $result ) ;
+    			return ;
+    		}else 
+    		{
+    		$result->Data=$_SESSION ['user_type'];
+    		
     		$result->Error = ErrorType::Success;
+    		}
     	} else {
     		$result->Error = ErrorType::LoginFailed;
     	}
@@ -48,28 +49,29 @@ class user extends Controller
     public  function  applogin()
     {
     	$result = new DataResult ();
-    	if (! isset ( $_POST [user_type] ) or empty ( $_POST ['user_type'] )) {
-    		$result->Error = ErrorType::RequestParamsFailed;
-    		print json_encode ( $result ) ;
-    		return ;
-    	}else if($_POST ['user_type']!=2)
-    	{
-    		$result->Error = ErrorType::Accessdenied;
-    		print json_encode ( $result ) ;
-    		return ;
-    	}
+
     	$login_model = $this->loadModel('Users');
     	$login_successful = $login_model->login();
     	$result->Data=$login_successful;
     	if ($login_successful) {
+    		if($_SESSION ['user_type']!=2)
+    		{
+    			$result->Error = ErrorType::Accessdenied;
+    			print json_encode ( $result ) ;
+    			return ;
+    		}else 
+    		{
+    		$result->Data=$_SESSION ['user_type'];
+    		
     		$result->Error = ErrorType::Success;
+    		}
     	
     	} else {
     		$result->Error = ErrorType::LoginFailed;
 
     	}
     	
-    	echo json_encode ( $result ) ;
+    	print  json_encode ( $result ) ;
     }
 
     function logout()
