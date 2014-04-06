@@ -37,8 +37,9 @@
                                 <td>{{clerk.Account}}
                                 </td>
                                 <td class="center">
-                                    <a ng-click="UpdateUserState(clerk)">禁用|启用</a>
-                                    <a ng-click="ShowAddUserAccountModal(clerk,3)">编辑账号</a>
+                                    <a ng-click="UpdateUserState(clerk)">{{clerk.State==1?'启用':'禁用'}}</a>
+                                   <!-- <a ng-click="ShowAddUserAccountModal(clerk,3)">编辑账号</a>-->
+                                    <a ng-click="RestPassword(clerk)">修改密码</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -66,8 +67,9 @@
                                 <td>{{cashier.Account}}
                                 </td>
                                 <td class="center">
-                                    <a ng-click="UpdateUserState(cashier)">禁用|启用</a>
-                                    <a ng-click="ShowAddUserAccountModal(cashier,2)">编辑账号</a>
+                                    <a ng-click="UpdateUserState(cashier)">{{clerk.State==1?'启用':'禁用'}}</a>
+                                    <!--<a ng-click="ShowAddUserAccountModal(cashier,2)">编辑账号</a>-->
+                                    <a ng-click="RestPassword(cashier)">修改密码</a>
                                 </td>
                             </tr>
                         </tbody>

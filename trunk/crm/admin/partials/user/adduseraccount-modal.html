@@ -7,8 +7,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;</button>
-                    <h4 class="modal-title">{{UserAccount.user_id==0?'新增':'编辑'}}{{UserAccount.Type==3?'店员':'收银员'}}</h4>
+                        &times;</button><!--{{UserAccount.user_id==0?'新增':'编辑'}}{{UserAccount.Type==3?'店员':'收银员'}}-->
+                    <h4 class="modal-title">新增{{UserAccount.Type==3?'店员':'收银员'}}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <label>
                             姓名</label>
-                        <input class="form-control" placeholder="账户名" ng-required="true" ng-model="UserAccount.Name" name="user_name">
+                        <input class="form-control" placeholder="姓名" ng-required="true" ng-model="UserAccount.Name" name="user_name">
                     </div>
                     <div class="form-group" ng-show="UserAccount.user_id==0?true:false">
                         <label>
@@ -30,8 +30,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                        关 闭</button>
-                    <button type="button" class="btn btn-primary" ng-click="UserAccount.user_id==0?AddUserAccount(UserAccount):EditUserAccount(UserAccount)">
+                        关 闭</button><!--UserAccount.user_id==0?AddUserAccount(UserAccount):EditUserAccount(UserAccount)-->
+                    <button type="button" class="btn btn-primary" ng-click="AddUserAccount(UserAccount)">
                         保 存</button>
                 </div>
             </div>

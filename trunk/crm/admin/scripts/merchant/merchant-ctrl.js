@@ -163,8 +163,25 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
     //添加账户
     $scope.AddUserAccount = function (data) {
         if ($scope.AddUserAccountForm.$valid) {
-            console.log(data);
             $http.post($resturls["AddUserAccount"], { user_type: data.Type, user_name:data.Name ,user_account:data.Account, user_password_new: data.Password, user_password_repeat: data.Password }).success(function (result) {
+                if (result.Error == 0) {
+                    alert("success");
+                    $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
+                    $("#AddUsermodal").modal("hide");
+                } else {
+                    alert(result.ErrorMessage);
+                    $scope.showerror = true;
+                }
+            });
+        } else {
+            $scope.showerror = true;
+        }
+    }
+    //编辑用户账号
+    $scope.EditUserAccount = function (data)
+    {
+        if ($scope.AddUserAccountForm.$valid) {
+            $http.post($resturls["UpdateUserAccount"], { user_type: data.Type, user_name: data.Name, user_account: data.Account, user_password_new: data.Password, user_password_repeat: data.Password }).success(function (result) {
                 if (result.Error == 0) {
                     alert("success");
                     $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
