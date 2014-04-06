@@ -25,6 +25,10 @@
 .hidedisplay{
 	display: none;
 }
+.marginmodal{
+	margin-top: 7px;
+	margin-right: 7px;
+}
 
 /*自定义model框*/
 .modal_radius{
