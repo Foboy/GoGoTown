@@ -3,12 +3,11 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.sorts = $routeParams.sorts;
     if (!$scope.sorts) {
         $scope.sorts = "gogocustomer";
-        $parent.owncustomerActpageIndex = 1;
     } //gogo客户
     else {
-        $parent.gogocustomerActpageIndex = 1;
+        $scope.sorts = "owncustomer";
     }
-    $scope.loadClientSortList = function (pageIndex) {
+    $scope.loadClientSortList = function (pageIndex, paramters) {
         $(".form_date").datetimepicker({
             language: 'zh-CN',
             weekStart: 1,
@@ -20,13 +19,13 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
             forceParse: 0
         });
         var pageSize = 1;
+        console.log(pageIndex);
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'owncustomer':
-                $http.post($resturls["LoadOwnCustomersList"], { name: '', phone: '', sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+                $http.post($resturls["LoadOwnCustomersList"], { name: '', phone: '', sex: 0, pageindex: pageIndex - 1, pagesize: pageSize, paramters: paramters }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.ownclients = result.Data;
-                        $parent.owncustomerActpageIndex = pageIndex;
                         $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#client/' + $scope.sorts + '/{0}');
                     } else {
                         $scope.ownclients = [];
@@ -35,7 +34,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
                 });
                 break;
             case 'gogocustomer':
-                $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '', sex: 0, type: 1, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+                $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '', sex: 0, type: 1, pageindex: pageIndex - 1, pagesize: pageSize, paramters: paramters }).success(function (result) {
                     console.log(result);
                     if (result.Error == 0) {
                         $scope.gogoclients = result.Data;
@@ -47,10 +46,9 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
                     }
                 });
                 break;
-
         }
     }
-    $scope.loadClientSortList($routeParams.pageIndex || 1);
+    $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || "");
     $scope.load = function () {
         console.log("Call clientcontroller");
     }
@@ -78,7 +76,7 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
             $http.post($resturls["AddOwnCustomer"], { name: data.name, sex: data.sex, phone: data.phone, birthday: data.birthday, remark: data.remark }).success(function (result) {
                 if (result.Error == 0) {
                     $("#addcustomermodal").modal('hide');
-                    $scope.loadClientSortList($routeParams.pageIndex || 1);
+                    $scope.loadClientSortList($routeParams.pageIndex || 1, "");
                     alert("success");
                 }
                 else {

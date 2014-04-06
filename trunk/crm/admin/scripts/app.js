@@ -6,7 +6,7 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
         .when('/merchantinfo', { template: '', controller: function () { } })
         .when('/mebershiplevel', { template: '', controller: function () { } })
         .when('/permissions/:sorts?/:pageIndex?', { template: '', controller: function () { } })
-        .when('/client/:sorts?/:pageIndex?', { template: '', controller: function () { } })
+        .when('/client/:sorts?/:pageIndex?/:parameters?', { template: '', controller: function () { } })
         .otherwise({ redirectTo: '/home' });
     $stateProvider
          .state("main", {
