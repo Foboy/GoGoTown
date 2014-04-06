@@ -61,9 +61,6 @@
 .form-group{
 	position: relative;
 }
-.form-control{
-	height: 42px;
-}
 .login-field-icon {
 color: #bfc9ca;
 font-size: 16px;
@@ -95,7 +92,9 @@ transition: 0.25s;
 .client_tools{
 	margin-bottom: 15px;
 }
-.
+.btn_left{
+	margin-left: 15px;
+}
 
 
 /*基本信息设置*/
