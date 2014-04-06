@@ -14,14 +14,14 @@
                     <div class="form-group">
                         <label>
                             账户名</label>
-                        <input class="form-control" placeholder="账户名" ng-required="true" ng-pattern="/^[a-z\d]{2,64}$/i" ng-model="UserAccount.Account" name="user_name">
+                        <input class="form-control" placeholder="账户名" ng-required="true" ng-pattern="/^[a-z\d]{2,64}$/i" ng-model="UserAccount.Account" name="user_account">
                     </div>
                     <div class="form-group">
                         <label>
                             姓名</label>
                         <input class="form-control" placeholder="账户名" ng-required="true" ng-model="UserAccount.Name" name="user_name">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" ng-show="UserAccount.user_id==0?true:false">
                         <label>
                             密码</label>
                         <input class="form-control" placeholder="密码"  name="user_password_new" type="password" ng-minlength="6"  ng-required="true"
@@ -31,7 +31,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         关 闭</button>
-                    <button type="button" class="btn btn-primary" ng-click="AddUserAccount(UserAccount)">
+                    <button type="button" class="btn btn-primary" ng-click="UserAccount.user_id==0?AddUserAccount(UserAccount):EditUserAccount(UserAccount)">
                         保 存</button>
                 </div>
             </div>
