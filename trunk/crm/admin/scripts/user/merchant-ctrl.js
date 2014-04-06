@@ -137,11 +137,8 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
                 break;
         }
     }
+    //账户列表数据出初始化
     $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
-    $scope.load = function () {
-        console.log("Call AuthorityManagementCtrl");
-    }
-    $scope.load();
     $scope.ShowAddUserAccountModal = function (data,usertype) {
         if (data) {
             $scope.UserAccount = data;
@@ -151,4 +148,38 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
         $("#AddUsermodal").modal("show");
         
     }
+    //启用禁用用户 1 启用 0禁用
+    $scope.UpdateUserState = function (data) {
+        data.state = data.state == 1 ? 0 : 1;
+        $http.post($resturls["UpdateUserState"], { user_id: data.user_id, state: data.state }).success(function (result) {
+            if (result.Error == 0) {
+                alert("success");
+                $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
+            }
+            else {
+                alert("error");
+                $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
+            }
+        });
+    }
 }
+
+function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
+    //添加账户
+    $scope.AddUserAccount = function (data) {
+        if ($scope.AddUserAccountForm.$valid) {
+            $http.post($resturls["AddUserAccount"], { user_type: data.user_type, user_name: data.user_name, user_password_new: data.user_password_new, user_password_repeat: data.user_password_new }).success(function (result) {
+                if (result.Error == 0) {
+                    alert("success");
+                    $("#AddUsermodal").modal("hide");
+                } else {
+                    alert(result.ErrorMessage);
+                    $scope.showerror = true;
+                }
+            });
+        } else {
+            $scope.showerror = true;
+        }
+    }
+   
+};

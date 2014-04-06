@@ -37,7 +37,7 @@
                                 <td>{{ownclient.Birthady}}
                                 </td>
                                 <td class="center">
-                                    <a href="javascript:void(0);">禁用|启用</a>
+                                    <a ng-click="UpdateUserState(ownclient)">禁用|启用</a>
                                     <a ng-click="ShowAddUserAccountModal(ownclient,3)">编辑账号</a>
                                 </td>
                             </tr>
@@ -66,7 +66,7 @@
                                 <td>Internet Explorer 4.0
                                 </td>
                                 <td class="center">
-                                    <a href="javascript:void(0);">禁用|启用</a>
+                                    <a ng-click="UpdateUserState(ownclient)">禁用|启用</a>
                                     <a ng-click="ShowAddUserAccountModal(ownclient,2)">编辑账号</a>
                                 </td>
                             </tr>

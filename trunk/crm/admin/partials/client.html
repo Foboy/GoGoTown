@@ -12,9 +12,39 @@
             <ul class="nav nav-tabs">
                 <li ng-class="sorts=='gogocustomer'?'active':''"><a ng-href="#/client/gogocustomer">gogo消费客户</a></li>
                 <li ng-class="sorts=='owncustomer'?'active':''"><a ng-href="#/client/owncustomer">自有客户</a></li>
+                <li class="sidebar-search">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="SerachCustomerList()">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                    <!-- /input-group -->
+                </li>
             </ul>
+
             <!-- Tab panes -->
             <div class="tab-content">
+                <div class="control-group">
+                    <label>开始时间</label>
+                    <div class="controls input-append date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1" data-link-format="yyyy-mm-dd">
+                        <input size="16" type="text" value="" readonly>
+                        <span class="add-on"><i class="icon-remove"></i></span>
+                        <span class="add-on"><i class="icon-th"></i></span>
+                    </div>
+                    <input type="hidden" id="dtp_input1" value="" />
+                </div>
+                <div class="control-group">
+                    <label>结束时间</label>
+                    <div class="controls input-append date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        <input size="16" type="text" value="" readonly>
+                        <span class="add-on"><i class="icon-remove"></i></span>
+                        <span class="add-on"><i class="icon-th"></i></span>
+                    </div>
+                    <input type="hidden" id="dtp_input2" value="" /><br />
+                </div>
                 <!--自有客户显示区域-->
                 <div class="panel-body" ng-show="sorts=='owncustomer'?'true':'false'">
                     <div class="row client_tools">
@@ -24,6 +54,7 @@
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th>姓名
                                     </th>
                                     <th>年龄
@@ -37,7 +68,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="ownclient in ownclients " class="odd gradeX"  ng-click="ShowClientDetailModal()">
+                                <tr ng-repeat="ownclient in ownclients " class="odd gradeX" ng-click="ShowClientDetailModal()">
+                                    <td>{{$index+1}}</td>
                                     <td>{{ownclient.Name}}
                                     </td>
                                     <td>{{ownclient.Birthady}}
@@ -54,7 +86,7 @@
                     </div>
                 </div>
                 <!--gogo客户显示区域-->
-                <div class="panel-body" ng-show="sorts=='gogocustomer'?'true':'false'" >
+                <div class="panel-body" ng-show="sorts=='gogocustomer'?'true':'false'">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
@@ -74,7 +106,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd gradeX" ng-repeat="gogoclient in gogoclients" >
+                                <tr class="odd gradeX" ng-repeat="gogoclient in gogoclients">
                                     <td>{{gogoclient.Name}}
                                     </td>
                                     <td>{{gogoclient.Birthady}}
@@ -107,6 +139,7 @@
         </div>
     </div>
 </div>
+
 
 <div ng-include="'partials/client/addowncustomer-modal.html'"></div>
 <div ng-include="'partials/client/customerdetail-modal.html'"></div>
