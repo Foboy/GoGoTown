@@ -2,6 +2,6 @@
 
 class UserState
 {
-	const Disable = 0;
-	const Active = 1;
+	const Disable = 1;
+	const Active = 2;
 }
