@@ -22,14 +22,19 @@
 
 function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.AddUserAccount = function (data) {
-        $http.post($resturls["AddUserAccount"], {user_type:data.user_type, user_name:data.user_name, user_password_new:data.user_password_new, user_password_repeat:data.user_password_repeat}).success(function (result) {
-            if(result.Error)
-            {
-                alert("success");
-            }else
-            {
-                alert(result.ErrorMessage);
-            }
-        });
+        if ($scope.AddUserAccountForm.$valid) {
+            $http.post($resturls["AddUserAccount"], { user_type: data.user_type, user_name: data.user_name, user_password_new: data.user_password_new, user_password_repeat: data.user_password_new }).success(function (result) {
+                if (result.Error) {
+                    alert("success");
+                    $("#AddUsermodal").modal("hide");
+                } else {
+                    alert(result.ErrorMessage);
+                    $scope.showerror = true;
+                  
+                }
+            });
+        } else {
+            $scope.showerror = true;
+        }
     }
 };
