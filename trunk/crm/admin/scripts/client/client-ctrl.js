@@ -4,9 +4,6 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     if (!$scope.sorts) {
         $scope.sorts = "gogocustomer";
     } //gogo客户
-    else {
-        $scope.sorts = "owncustomer";
-    }
     $scope.loadClientSortList = function (pageIndex, paramters) {
         $(".form_date").datetimepicker({
             language: 'zh-CN',
