@@ -100,37 +100,31 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
     $scope.sorts = $routeParams.sorts;
     if (!$scope.sorts) {
         $scope.sorts = "clerk";
-        $parent.clerkActpageIndex = 1;
-    }
-    else {
-        $parent.cashierActpageIndex = 1;
     }
     //账户列表
     $scope.loadUserAccountSortList = function (pageIndex) {
         var pageSize = 1;
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
-            case 'clerk': //店员
-                $http.post($resturls["LoadOwnCustomersList"], { name: '', phone: '', sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+            //店员
+            case 'clerk': 
+                $http.post($resturls["LoadUserAccountList"], { name: '', pageindex: pageIndex - 1, pagesize: pageSize, user_type: 3 }).success(function (result) {
                     if (result.Error == 0) {
-                        $scope.ownclients = result.Data;
-                        $parent.clerkActpageIndex = pageIndex;
+                         $scope.clerks = result.Data;
                         $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#permissions/' + $scope.sorts + '/{0}');
                     } else {
-                        $scope.ownclients = [];
+                        $scope.clerks = [];
                         $parent.pages = utilities.paging(0, pageIndex, pageSize);
                     }
                 });
-                break;
-            case 'cashier': //收银员
-                $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '', sex: 0, type: 1, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+            case 'cashier': //收银员(手机app)
+                $http.post($resturls["LoadUserAccountList"], { name: '', pageindex: pageIndex - 1, pagesize: pageSize, user_type: 2 }).success(function (result) {
                     console.log(result);
                     if (result.Error == 0) {
-                        $scope.gogoclients = result.Data;
-                        $parent.cashierActpageIndex = pageIndex;
+                        $scope.cashiers = result.Data;
                         $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#permissions/' + $scope.sorts + '/{0}');
                     } else {
-                        $scope.gogoclients = [];
+                        $scope.cashiers = [];
                         $parent.pages = utilities.paging(0, pageIndex, pageSize);
                     }
                 });
@@ -139,14 +133,14 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
     }
     //账户列表数据出初始化
     $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
-    $scope.ShowAddUserAccountModal = function (data,usertype) {
+    $scope.ShowAddUserAccountModal = function (data, usertype) {
         if (data) {
             $scope.UserAccount = data;
         } else {
             $scope.UserAccount = { user_id: 0, user_type: usertype };
         }
         $("#AddUsermodal").modal("show");
-        
+
     }
     //启用禁用用户 1 启用 0禁用
     $scope.UpdateUserState = function (data) {
@@ -181,5 +175,5 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
             $scope.showerror = true;
         }
     }
-   
+
 };

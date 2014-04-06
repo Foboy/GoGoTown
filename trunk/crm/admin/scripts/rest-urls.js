@@ -37,6 +37,7 @@
           resturls.add("UpdateMemberLevels", "ShopRank/update");//修改会员等级信息
           resturls.add("AddUserAccount", "user/register");//添加用户账号
           resturls.add("UpdateUserState", "user/updateUserState");//启用禁用用户 1 启用 0禁用
+          resturls.add("LoadUserAccountList", "ShopInfo/searchApps");//分页查询用户账号列表  user_type 1 ADMIN 2 APP 3 STAFF
           $provide.constant('$resturls', resturls);
 
       } ]);

@@ -31,14 +31,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="ownclient in ownclients " class="odd gradeX">
-                                <td>{{ownclient.Name}}
+                            <tr ng-repeat="clerk in clerks " class="odd gradeX">
+                                <td>
                                 </td>
-                                <td>{{ownclient.Birthady}}
+                                <td>
                                 </td>
                                 <td class="center">
-                                    <a ng-click="UpdateUserState(ownclient)">禁用|启用</a>
-                                    <a ng-click="ShowAddUserAccountModal(ownclient,3)">编辑账号</a>
+                                    <a ng-click="UpdateUserState(clerk)">禁用|启用</a>
+                                    <a ng-click="ShowAddUserAccountModal(clerk,3)">编辑账号</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -60,14 +60,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="odd gradeX">
+                            <tr class="odd gradeX" ng-repeat="cashier in cashiers ">
                                 <td>Trident
                                 </td>
                                 <td>Internet Explorer 4.0
                                 </td>
                                 <td class="center">
-                                    <a ng-click="UpdateUserState(ownclient)">禁用|启用</a>
-                                    <a ng-click="ShowAddUserAccountModal(ownclient,2)">编辑账号</a>
+                                    <a ng-click="UpdateUserState(cashier)">禁用|启用</a>
+                                    <a ng-click="ShowAddUserAccountModal(cashier,2)">编辑账号</a>
                                 </td>
                             </tr>
                         </tbody>
