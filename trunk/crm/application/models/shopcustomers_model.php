@@ -129,13 +129,13 @@ from
     left join Crm_Customers b ON a.customer_id = b.ID) aa
         left join
     (select 
-        cr.Customer_ID, cr.Rank, crs.Name shoprankname
+        cr.Customer_ID cid, cr.Rank, crs.Name shoprankname
     from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID
     where
-        cr.Shop_ID = 0) bb ON aa.customer_id = bb.customer_id 
-        where $name and (aa.sex = :sex or 0=:sex) and $phone
+        cr.Shop_ID = 0) bb ON aa.customer_id = bb.cid 
+        where $name and $phone and (aa.sex = :sex or 0=:sex) 
 		order by aa.create_time desc limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
@@ -205,7 +205,7 @@ from
         aa . *, bb . *
     from
         (select 
-        a.Customer_ID cid, from_type, type, create_time
+        a.Customer_ID, from_type, type, create_time
     from
         (select 
         *
@@ -220,15 +220,15 @@ from
         Crm_PShop_Customers
     where
         shop_id = :shop_id) b ON a.Customer_ID = b.customer_id) aa
-    left join Crm_Gogo_Customers bb ON aa.cid = bb.id) cc
+    left join Crm_Gogo_Customers bb ON aa.Customer_ID = bb.id) cc
         left join
     (select 
-        cr.Customer_ID, cr.Rank, crs.Name
+        cr.Customer_ID ccid, cr.Rank, crs.Name
     from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID
     where
-        cr.Shop_ID = :shop_id) dd ON cc.cid = dd.Customer_ID 
+        cr.Shop_ID = :shop_id) dd ON cc.Customer_ID = dd.ccid 
         where $name and (cc.sex = :sex or 0=:sex) and $phone
 		order by cc.create_time limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
