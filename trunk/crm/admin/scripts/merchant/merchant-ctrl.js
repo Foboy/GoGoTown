@@ -133,6 +133,7 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
     }
     //账户列表数据出初始化
     $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
+    //弹出添加或编辑用户账号窗口
     $scope.ShowAddUserAccountModal = function (data, usertype) {
         if (data) {
             console.log(data);
@@ -142,6 +143,11 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
         }
         $("#AddUsermodal").modal("show");
 
+    }
+    //弹出修改用户账号密码窗口
+    $scope.ShowRestUserAccountPwdModal = function (data) {
+        $scope.UserInfo = data;
+        $("#RestPwdModal").modal("show");
     }
     //启用禁用用户 1 启用 0禁用
     $scope.UpdateUserState = function (data) {
@@ -163,7 +169,8 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
     //添加账户
     $scope.AddUserAccount = function (data) {
         if ($scope.AddUserAccountForm.$valid) {
-            $http.post($resturls["AddUserAccount"], { user_type: data.Type, user_name:data.Name ,user_account:data.Account, user_password_new: data.Password, user_password_repeat: data.Password }).success(function (result) {
+            $scope.showerror = false;
+            $http.post($resturls["AddUserAccount"], { user_type: data.Type, user_name: data.Name, user_account: data.Account, user_password_new: data.Password, user_password_repeat: data.Password }).success(function (result) {
                 if (result.Error == 0) {
                     alert("success");
                     $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
@@ -178,9 +185,9 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
         }
     }
     //编辑用户账号
-    $scope.EditUserAccount = function (data)
-    {
+    $scope.EditUserAccount = function (data) {
         if ($scope.AddUserAccountForm.$valid) {
+            $scope.showerror = false;
             $http.post($resturls["UpdateUserAccount"], { user_type: data.Type, user_name: data.Name, user_account: data.Account, user_password_new: data.Password, user_password_repeat: data.Password }).success(function (result) {
                 if (result.Error == 0) {
                     alert("success");
@@ -188,6 +195,26 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
                     $("#AddUsermodal").modal("hide");
                 } else {
                     alert(result.ErrorMessage);
+                    $scope.showerror = true;
+                }
+            });
+        } else {
+            $scope.showerror = true;
+        }
+    }
+};
+//修改密码
+function RestPasswordCtrl($scope, $http, $location, $routeParams, $resturls) {
+    $scope.RestPassword = function (data) {
+        console.log(data);
+        if ($scope.RestPasswordForm.$valid) {
+            $scope.showerror = false;
+            $http.post($resturls["RestPassword"], { user_id: data.ID, user_password_new: data.NewPassword, user_password_repeat: data.NewPassword }).success(function (result) {
+                if (result.Error == 0) {
+                    alert("success"); 
+                    $("#RestPwdModal").modal("hide");
+                } else {
+                    alert("e");
                     $scope.showerror = true;
                 }
             });

@@ -38,8 +38,8 @@
                                 </td>
                                 <td class="center">
                                     <a ng-click="UpdateUserState(clerk)">{{clerk.State==1?'启用':'禁用'}}</a>
-                                   <!-- <a ng-click="ShowAddUserAccountModal(clerk,3)">编辑账号</a>-->
-                                    <a ng-click="RestPassword(clerk)">修改密码</a>
+                                    <!-- <a ng-click="ShowAddUserAccountModal(clerk,3)">编辑账号</a>-->
+                                    <a ng-click="ShowRestUserAccountPwdModal(clerk)">修改密码</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -48,7 +48,7 @@
             </div>
             <!--收银员显示区域-->
             <div class="panel-body" ng-show="sorts=='cashier'?'true':'false'">
-                 <button type="button" class="btn btn-primary" ng-click="ShowAddUserAccountModal(0,2)">添加账号</button>
+                <button type="button" class="btn btn-primary" ng-click="ShowAddUserAccountModal(0,2)">添加账号</button>
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
@@ -69,7 +69,7 @@
                                 <td class="center">
                                     <a ng-click="UpdateUserState(cashier)">{{clerk.State==1?'启用':'禁用'}}</a>
                                     <!--<a ng-click="ShowAddUserAccountModal(cashier,2)">编辑账号</a>-->
-                                    <a ng-click="RestPassword(cashier)">修改密码</a>
+                                    <a ng-click="ShowRestUserAccountPwdModal(cashier)">修改密码</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -79,7 +79,7 @@
         </div>
     </div>
     <!-- /.row -->
-   <!-- <div class="row">
+    <!-- <div class="row">
         <div class="col-lg-12">
             <ul class="pagination">
                 <li ng-repeat="page in pages | filter:'pre'"><a ng-href="{{page.url}}"><<</a></li>
@@ -93,3 +93,4 @@
 
 <div ng-include="'partials/user/adduseraccount-modal.html'">
 </div>
+<div ng-include="'partials/user/restpassword-modal.html'"></div>
