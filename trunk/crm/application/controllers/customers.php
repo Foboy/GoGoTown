@@ -277,7 +277,7 @@ class Customers extends Controller {
 			return ;
 		}
 	
-		if (! isset ( $_POST ['customer_id'] ) or empty ( $_POST ['customer_id'] )) {
+		if (! isset ( $_POST ['customer_id'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
