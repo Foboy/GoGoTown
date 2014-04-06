@@ -399,6 +399,8 @@ class UsersModel {
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_CAPTCHA_WRONG;
 		}elseif (empty ( $_POST ['user_type'] )) {
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_USERNAME_FIELD_EMPTY;
+		}elseif (empty ( $_POST ['user_acount'] )) {
+			$_SESSION ["feedback_negative"] [] = FEEDBACK_USERNAME_FIELD_EMPTY;
 		} elseif (empty ( $_POST ['user_name'] )) {
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_USERNAME_FIELD_EMPTY;
 		} elseif (empty ( $_POST ['user_password_new'] ) or empty ( $_POST ['user_password_repeat'] )) {
@@ -417,6 +419,7 @@ class UsersModel {
 			
 			// clean the input
 			$user_name = strip_tags ( $_POST ['user_name'] );
+			$user_acount = strip_tags ( $_POST ['user_acount'] );
 			$user_type = intval ( $_POST ['user_type'] );
 			$shop_id = intval ( $_SESSION["user_shop"] );
 			
@@ -446,11 +449,12 @@ class UsersModel {
 			$user_creation_timestamp = time ();
 			
 			// write new users data into database
-			$sql = "INSERT INTO crm_users (Account, Shop_ID, Password, Type, State, Create_Time)
-		VALUES (:user_name, :user_shop_id, :user_password_hash, :user_type, 1, :user_create_time)";
+			$sql = "INSERT INTO crm_users (Name,Account, Shop_ID, Password, Type, State, Create_Time)
+		VALUES (:user_name,:user_acount :user_shop_id, :user_password_hash, :user_type, 1, :user_create_time)";
 			$query = $this->db->prepare ( $sql );
 			$query->execute ( array (
 					':user_name' => $user_name,
+					':user_acount' => $user_acount,
 					':user_shop_id' => $shop_id,
 					':user_password_hash' => $user_password_hash,
 					':user_type' => $user_type,

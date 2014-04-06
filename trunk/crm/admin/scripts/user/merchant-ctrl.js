@@ -107,19 +107,19 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             //店员
-            case 'clerk': 
+            case 'clerk':
                 $http.post($resturls["LoadUserAccountList"], { name: '', pageindex: pageIndex - 1, pagesize: pageSize, user_type: 3 }).success(function (result) {
                     if (result.Error == 0) {
-                         $scope.clerks = result.Data;
+                        $scope.clerks = result.Data;
                         $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#permissions/' + $scope.sorts + '/{0}');
                     } else {
                         $scope.clerks = [];
                         $parent.pages = utilities.paging(0, pageIndex, pageSize);
                     }
                 });
+                break;
             case 'cashier': //收银员(手机app)
                 $http.post($resturls["LoadUserAccountList"], { name: '', pageindex: pageIndex - 1, pagesize: pageSize, user_type: 2 }).success(function (result) {
-                    console.log(result);
                     if (result.Error == 0) {
                         $scope.cashiers = result.Data;
                         $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#permissions/' + $scope.sorts + '/{0}');
@@ -137,7 +137,7 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
         if (data) {
             $scope.UserAccount = data;
         } else {
-            $scope.UserAccount = { user_id: 0, user_type: usertype };
+            $scope.UserAccount = { user_id: 0, Type: usertype };
         }
         $("#AddUsermodal").modal("show");
 
@@ -162,9 +162,11 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
     //添加账户
     $scope.AddUserAccount = function (data) {
         if ($scope.AddUserAccountForm.$valid) {
-            $http.post($resturls["AddUserAccount"], { user_type: data.user_type, user_name: data.user_name, user_password_new: data.user_password_new, user_password_repeat: data.user_password_new }).success(function (result) {
+            console.log(data);
+            $http.post($resturls["AddUserAccount"], { user_type: data.Type, user_name:data.Name ,user_account:data.Account, user_password_new: data.Password, user_password_repeat: data.Password }).success(function (result) {
                 if (result.Error == 0) {
                     alert("success");
+                    $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
                     $("#AddUsermodal").modal("hide");
                 } else {
                     alert(result.ErrorMessage);
@@ -175,5 +177,4 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
             $scope.showerror = true;
         }
     }
-
 };
