@@ -69,11 +69,7 @@ function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) 
     }
     //弹出增加会员等级设置框
     $scope.AddMemberShipLevelmodal = function (data) {
-        if (data) {
-            $scope.MeberShipLevel = data;
-        } else {
-            $scope.MeberShipLevel = { rank: data+1 };
-        }
+        $scope.MeberShipLevel = { rank: data + 1 };
         $("#addmeberlevelmodal").modal('show');
     }
     $scope.LoadMemberShipLeveList();
@@ -88,6 +84,7 @@ function AddMemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturl
                 if (result.Error == 0) {
                     alert("success");
                     $("#addmeberlevelmodal").modal('hide');
+                    $scope.LoadMemberShipLeveList();
                 } else {
                     alert("error");
                 }
@@ -108,6 +105,7 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
     else {
         $parent.cashierActpageIndex = 1;
     }
+    //账户列表
     $scope.loadUserAccountSortList = function (pageIndex) {
         var pageSize = 1;
         if (pageIndex == 0) pageIndex = 1;
@@ -144,7 +142,13 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
         console.log("Call AuthorityManagementCtrl");
     }
     $scope.load();
-    $scope.ShowAddUserAccountModal = function () {
+    $scope.ShowAddUserAccountModal = function (data,usertype) {
+        if (data) {
+            $scope.UserAccount = data;
+        } else {
+            $scope.UserAccount = { user_id: 0, user_type: usertype };
+        }
         $("#AddUsermodal").modal("show");
+        
     }
 }

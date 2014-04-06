@@ -63,6 +63,7 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
             $http.post($resturls["AddOwnCustomer"], { name: data.name, sex: data.sex, phone: data.phone, birthday: data.birthday, remark: data.remark }).success(function (result) {
                 if (result.Error == 0) {
                     $("#addcustomermodal").modal('hide');
+                    $scope.loadClientSortList($routeParams.pageIndex || 1);
                     alert("success");
                 }
                 else {
