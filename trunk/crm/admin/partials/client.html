@@ -37,7 +37,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="ownclient in ownclients " class="odd gradeX">
+                                <tr ng-repeat="ownclient in ownclients " class="odd gradeX"  ng-click="ShowClientDetailModal()">
                                     <td>{{ownclient.Name}}
                                     </td>
                                     <td>{{ownclient.Birthady}}
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <!--gogo客户显示区域-->
-                <div class="panel-body" ng-show="sorts=='gogocustomer'?'true':'false'">
+                <div class="panel-body" ng-show="sorts=='gogocustomer'?'true':'false'" >
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
@@ -74,7 +74,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd gradeX" ng-repeat="gogoclient in gogoclients">
+                                <tr class="odd gradeX" ng-repeat="gogoclient in gogoclients" >
                                     <td>{{gogoclient.Name}}
                                     </td>
                                     <td>{{gogoclient.Birthady}}
@@ -108,5 +108,6 @@
     </div>
 </div>
 
-<div ng-include="'partials/client/addowncustomer-modal.html'">
-</div>
+<div ng-include="'partials/client/addowncustomer-modal.html'"></div>
+<div ng-include="'partials/client/customerdetail-modal.html'"></div>
+

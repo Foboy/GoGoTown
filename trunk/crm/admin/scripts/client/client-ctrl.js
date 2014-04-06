@@ -45,6 +45,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
         console.log("Call clientcontroller");
     }
     $scope.load();
+    //增加客户弹窗
     $scope.ShowAddOwnCustomerModal = function (data) {
         if (data) {
             $scope.OwnCustomer = data;
@@ -52,6 +53,10 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
             $scope.OwnCustomer = { customer_id: 0, sex: 1 };
         }
         $("#addcustomermodal").modal('show');
+    }
+    //客户数据详情弹窗
+    $scope.ShowClientDetailModal = function (data) {
+        $("#customerdetailmodal").modal('show');
     }
 }
 
