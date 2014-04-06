@@ -154,7 +154,7 @@ class user extends Controller
     		return ;
     	}
     	$user_model = $this->loadModel('Users');
-    	$result = $user_model->updateUserState($_POST["state"],$_POST["user_id"]);
+    	$result->Data = $user_model->updateUserState($_POST["state"],$_POST["user_id"]);
     	$result->Error = ErrorType::Success;
     	print  json_encode ( $result ) ;
     }
