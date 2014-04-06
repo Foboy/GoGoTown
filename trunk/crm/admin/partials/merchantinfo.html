@@ -12,7 +12,7 @@
                 <div class="panel panel-default">
                     <div class="mer_infofrom">
                         <div class="col-lg-2 mer_content">
-                            <lable class="font16 rightfloat">商户名称:</lable>
+                            <lable class="font16 pull-right">商户名称:</lable>
                         </div>
                         <div class="col-lg-8 ">
                             <label ng-show="!Ntype?true:false" class="font16 font500 graycolor mer_content">{{merchantinfo.name}}</label>
@@ -22,29 +22,6 @@
                             <a class="mer_edit" ng-click="Ntype=!Ntype;!Ntype?SaveEditMerchant(merchantinfo):''">{{!Ntype?'编辑':'保存'}}</a>
                         </div>
                     </div>
-                    <div class="mer_infofrom">
-                        <div class="col-lg-2 mer_content">
-                            <lable class="font16 rightfloat">联系方式:</lable>
-                        </div>
-                        <div class="col-lg-8 ">
-                            <label class="font16 font500 graycolor mer_content">{{merchantinfo.mobile}}</label>
-                            <!--<input class="form-control margin_input" placeholder="请输入商户名称" ng-model="merchantinfo.mobile" ng-required="true" ng-show="Ctype?true:false">-->
-                        </div>
-                        <!--<div class="col-lg-2">
-                            <a class="mer_edit" ng-click="Ctype=!Ctype;!Ctype?SaveEditMerchant(merchantinfo):''">{{!Ctype?'编辑':'保存'}}</a>
-                        </div>-->
-                    </div>
-                    <div class="mer_infofrom">
-                        <div class="col-lg-2 mer_content">
-                            <lable class="font16 rightfloat">详细地址:</lable>
-                        </div>
-                        <div class="col-lg-8 ">
-                            <label  class="font16 font500 graycolor mer_content">{{merchantinfo.address}}</label>
-                           <!-- <input class="form-control margin_input" placeholder="请输入详细地址" ng-model="merchantinfo.address" ng-required="true" ng-show="Atype?true:false">-->
-                        </div>
-                      <!--  <div class="col-lg-2">
-                            <a class="mer_edit" ng-click="Atype=!Atype;!Atype?SaveEditMerchant(merchantinfo):''">{{!Atype?'编辑':'保存'}}</a>
-                        </div>-->
                     </div>
                 </div>
             </div>

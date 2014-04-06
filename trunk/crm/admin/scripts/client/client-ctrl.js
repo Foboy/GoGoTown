@@ -2,7 +2,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     var $parent = $scope.$parent;
     $scope.sorts = $routeParams.sorts;
     if (!$scope.sorts) {
-        $scope.sorts = "owncustomer";
+        $scope.sorts = "gogocustomer";
         $parent.owncustomerActpageIndex = 1;
     } //gogo客户
     else {
