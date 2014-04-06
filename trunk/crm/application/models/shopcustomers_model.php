@@ -188,7 +188,7 @@ from
 			$name= "  1=1  ";
 		}else
 		{
-			$name=" cc.username like '%".$name."%' ";
+			$name=" (cc.username like '%".$name."%' or cc.nickname like '%".$name."%') ";
 		}
 		if(empty($phone))
 		{
