@@ -54,7 +54,6 @@ class LoginModel
         // There are other types of accounts that don't have passwords etc. (FACEBOOK)
         $sth->execute(array(':user_name' => $_POST['user_name']));
         $count =  $sth->rowCount();
-    
         // if there's NOT one result
         if ($count != 1) {
             // was FEEDBACK_USER_DOES_NOT_EXIST before, but has changed to FEEDBACK_LOGIN_FAILED
