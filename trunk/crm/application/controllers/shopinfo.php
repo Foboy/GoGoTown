@@ -193,7 +193,7 @@ if( $user->Data)
 		}
 		$user_model = $this->loadModel('Users');
 	
-		$result = $user_model->search ($_POST ['name'],$_SESSION["user_id"],$_POST ['user_type']);
+		$result = $user_model->search ($_POST ['name'],$_SESSION["user_shop"],$_POST ['user_type']);
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );

@@ -58,15 +58,14 @@ class UsersModel {
 		return $result;
 	}
 	// 不分页查询全部users
-	public function search($name, $shop_id, $type, $state) {
+	public function search($name, $shop_id, $type) {
 		$result = new DataResult ();
 		
-		$query = $this->db->prepare ( "SELECT * FROM Crm_Users where  ( name = :name or :name=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and   ( state = :state or :state=0 )  " );
+		$query = $this->db->prepare ( "SELECT * FROM Crm_Users where  ( name = :name or :name='' )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )   " );
 		$query->execute ( array (
 				':name' => $name,
 				':shop_id' => $shop_id,
-				':type' => $type,
-				':state' => $state 
+				':type' => $type
 		) );
 		$objects = $query->fetchAll ();
 		
