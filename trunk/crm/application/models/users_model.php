@@ -414,7 +414,7 @@ class UsersModel {
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_USERNAME_TOO_SHORT_OR_TOO_LONG;
 		} elseif (! preg_match ( '/^[a-z\d]{2,64}$/i', $_POST ['user_name'] )) {
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_USERNAME_DOES_NOT_FIT_PATTERN;
-		} elseif (! empty ( $_POST ['user_name'] ) and strlen ( $_POST ['user_name'] ) <= 64 and strlen ( $_POST ['user_name'] ) >= 2 and is_numeric ( $_POST ['shop_id'] ) and preg_match ( '/^[a-z\d]{2,64}$/i', $_POST ['user_name'] ) and ! empty ( $_POST ['user_password_new'] ) and ! empty ( $_POST ['user_password_repeat'] ) and ($_POST ['user_password_new'] === $_POST ['user_password_repeat'])) {
+		} elseif (! empty ( $_POST ['user_name'] ) and strlen ( $_POST ['user_name'] ) <= 64 and strlen ( $_POST ['user_name'] ) >= 2  and preg_match ( '/^[a-z\d]{2,64}$/i', $_POST ['user_name'] ) and ! empty ( $_POST ['user_password_new'] ) and ! empty ( $_POST ['user_password_repeat'] ) and ($_POST ['user_password_new'] === $_POST ['user_password_repeat'])) {
 			
 			// clean the input
 			$user_name = strip_tags ( $_POST ['user_name'] );
