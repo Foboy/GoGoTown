@@ -35,6 +35,7 @@
           resturls.add("AddMemberLevels", "ShopRank/add");//新增会员等级信息
           resturls.add("UpdateMemberLevels", "ShopRank/update");//修改会员等级信息
           resturls.add("AddUserAccount", "user/register");//添加用户账号
+          resturls.add("UpdateUserState", "user/updateUserState");//启用禁用用户 1 启用 0禁用
           $provide.constant('$resturls', resturls);
 
       } ]);

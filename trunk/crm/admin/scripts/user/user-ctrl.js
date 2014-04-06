@@ -21,6 +21,7 @@
 
 
 function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
+    //添加账户
     $scope.AddUserAccount = function (data) {
         if ($scope.AddUserAccountForm.$valid) {
             $http.post($resturls["AddUserAccount"], { user_type: data.user_type, user_name: data.user_name, user_password_new: data.user_password_new, user_password_repeat: data.user_password_new }).success(function (result) {
