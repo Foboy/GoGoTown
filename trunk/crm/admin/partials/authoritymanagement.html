@@ -32,9 +32,9 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="clerk in clerks " class="odd gradeX">
-                                <td>
+                                <td>{{clerk.Name}}
                                 </td>
-                                <td>
+                                <td>{{clerk.Account}}
                                 </td>
                                 <td class="center">
                                     <a ng-click="UpdateUserState(clerk)">禁用|启用</a>
@@ -61,9 +61,9 @@
                         </thead>
                         <tbody>
                             <tr class="odd gradeX" ng-repeat="cashier in cashiers ">
-                                <td>Trident
+                                <td>{{cashier.Name}}
                                 </td>
-                                <td>Internet Explorer 4.0
+                                <td>{{cashier.Account}}
                                 </td>
                                 <td class="center">
                                     <a ng-click="UpdateUserState(cashier)">禁用|启用</a>
@@ -77,7 +77,7 @@
         </div>
     </div>
     <!-- /.row -->
-    <div class="row">
+   <!-- <div class="row">
         <div class="col-lg-12">
             <ul class="pagination">
                 <li ng-repeat="page in pages | filter:'pre'"><a ng-href="{{page.url}}"><<</a></li>
@@ -85,7 +85,7 @@
                 <li ng-repeat="page in pages | filter:'next'"><a ng-href="{{page.url}}">>></a></li>
             </ul>
         </div>
-    </div>
+    </div>-->
 </div>
 
 
