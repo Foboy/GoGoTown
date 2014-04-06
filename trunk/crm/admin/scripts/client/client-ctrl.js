@@ -51,11 +51,17 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     }
     $scope.load();
     //增加客户弹窗
-    $scope.ShowAddOwnCustomerModal = function (data) {
+    $scope.ShowAddOwnCustomerModal = function (data, event) {
+        if (event && event.stopPropagation) {
+            event.stopPropagation();
+        }
+        else {
+            window.event.cancelBubble = true;
+        }
         if (data) {
             $scope.OwnCustomer = data;
         } else {
-            $scope.OwnCustomer = { customer_id: 0, sex: 1 };
+            $scope.OwnCustomer = { Customer_ID: 0, Sex: 1 };
         }
         $("#addcustomermodal").modal('show');
     }
@@ -70,7 +76,7 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
             console.log(data);
-            $http.post($resturls["AddOwnCustomer"], { name: data.name, sex: data.sex, phone: data.phone, birthday: data.birthday, remark: data.remark }).success(function (result) {
+            $http.post($resturls["AddOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.Birthady, remark: data.Remark }).success(function (result) {
                 if (result.Error == 0) {
                     $("#addcustomermodal").modal('hide');
                     $scope.loadClientSortList($routeParams.pageIndex || 1, "");
@@ -85,6 +91,25 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
             $scope.showerror = true;
         }
     };
+    $scope.UpdateOwnCustomer = function (data)
+    {
+        if ($scope.AddOwnCustomerForm.$valid) {
+            $scope.showerror = false;
+            $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.Birthady, remark: data.Remark, customer_id: data.Customer_ID }).success(function (result) {
+                if (result.Error == 0) {
+                    $("#addcustomermodal").modal('hide');
+                    $scope.loadClientSortList($routeParams.pageIndex || 1, "");
+                    alert("success");
+                }
+                else {
+                    alert("e");
+                }
+            })
+        }
+        else {
+            $scope.showerror = true;
+        }
+    }
 }
 
 function SeaCustomerMainCtrl($scope, $http, $location, $routeParams, $resturls) {

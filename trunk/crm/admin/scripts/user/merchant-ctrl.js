@@ -135,6 +135,7 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
     $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
     $scope.ShowAddUserAccountModal = function (data, usertype) {
         if (data) {
+            console.log(data);
             $scope.UserAccount = data;
         } else {
             $scope.UserAccount = { user_id: 0, Type: usertype };
@@ -144,8 +145,8 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
     }
     //启用禁用用户 1 启用 0禁用
     $scope.UpdateUserState = function (data) {
-        data.state = data.state == 1 ? 0 : 1;
-        $http.post($resturls["UpdateUserState"], { user_id: data.user_id, state: data.state }).success(function (result) {
+        data.State = data.State == 1 ? 2 : 1;
+        $http.post($resturls["UpdateUserState"], { user_id: data.ID, state: data.State }).success(function (result) {
             if (result.Error == 0) {
                 alert("success");
                 $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
