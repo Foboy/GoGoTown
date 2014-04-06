@@ -18,36 +18,29 @@
                 <!--自有客户显示区域-->
                 <div class="panel-body" ng-show="sorts=='owncustomer'?'true':'false'">
                     <div class="row client_tools">
+                        
                         <button type="button" class="pull-right btn btn-primary btn-sm" ng-show="sorts=='owncustomer'?'true':'false'" ng-click="ShowAddOwnCustomerModal()">添加客户</button>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>姓名
-                                    </th>
-                                    <th>年龄
-                                    </th>
-                                    <th>性别
-                                    </th>
-                                    <th>手机号
-                                    </th>
-                                    <th>备注
-                                    </th>
+                                    <th>#</th>
+                                    <th>姓名</th>
+                                    <th>年龄</th>
+                                    <th>性别</th>
+                                    <th>手机号</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="ownclient in ownclients " class="odd gradeX">
-                                    <td>{{ownclient.Name}}
-                                    </td>
-                                    <td>{{ownclient.Birthady}}
-                                    </td>
-                                    <td>{{ownclient.Sex==1?'男':'女'}}
-                                    </td>
-                                    <td class="center">{{ownclient.Phone}}
-                                    </td>
-                                    <td class="center">{{ownclient.Remark}}
-                                    </td>
+                                    <td></td>
+                                    <td>{{ownclient.Name}}</td>
+                                    <td>{{ownclient.Birthady}}</td>
+                                    <td>{{ownclient.Sex==1?'男':'女'}}</td>
+                                    <td class="textmiddle">{{ownclient.Phone}}</td>
+                                    <td class="textmiddle"><a>查看详情</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -59,35 +52,22 @@
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>姓名
-                                    </th>
-                                    <th>年龄
-                                    </th>
-                                    <th>性别
-                                    </th>
-                                    <th>联系方式
-                                    </th>
-                                    <th>所在地
-                                    </th>
-                                    <th>发送消息
-                                    </th>
+                                    <th>姓名</th>
+                                    <th>年龄</th>
+                                    <th>性别</th>
+                                    <th>联系方式</th>
+                                    <th>所在地</th>
+                                    <th>发送消息</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="odd gradeX" ng-repeat="gogoclient in gogoclients">
-                                    <td>{{gogoclient.Name}}
-                                    </td>
-                                    <td>{{gogoclient.Birthady}}
-                                    </td>
-                                    <td>{{gogoclient.Sex==1?'男':'女'}}
-                                    </td>
-                                    <td class="center">{{gogoclient.Phone}}
-                                    </td>
-                                    <td class="center">X
-                                    </td>
-                                    <td class="center">
-                                        <a href="javascript:void(0);">发送信息</a>
-                                    </td>
+                                    <td>{{gogoclient.Name}}</td>
+                                    <td>{{gogoclient.Birthady}}</td>
+                                    <td>{{gogoclient.Sex==1?'男':'女'}}</td>
+                                    <td class="center">{{gogoclient.Phone}}</td>
+                                    <td class="center">X</td>
+                                    <td class="center"><a href="javascript:void(0);">发送信息</a></td>
                                 </tr>
                             </tbody>
                         </table>
