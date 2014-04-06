@@ -9,6 +9,16 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
         $parent.gogocustomerActpageIndex = 1;
     }
     $scope.loadClientSortList = function (pageIndex) {
+        $(".form_date").datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
         var pageSize = 1;
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
