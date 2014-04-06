@@ -45,6 +45,7 @@
                                     <th>年龄</th>
                                     <th>性别</th>
                                     <th>手机号</th>
+                                    <th>备注</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -61,6 +62,7 @@
                                     </td>
                                     <td class="center">{{ownclient.Remark}}
                                     </td>
+                                    <td><a ng-click="ShowAddOwnCustomerModal(ownclient,$event)">编辑</a>|<a ng-click="ShowClientDetailModal()">详情</a></td>
                                 </tr>
                             </tbody>
                         </table>
