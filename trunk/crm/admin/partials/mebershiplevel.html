@@ -14,10 +14,10 @@
         <div class="col-lg-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">当前会员等级</div>
-                <div class="panel-body">
-                    <div class="col-md-3">
-                        <button class="btn btn-outline btn-warning btn-lg pull-left" type="button">金卡会员</button>
-                        <button type="button" class="close pull-left close_btn" aria-hidden="true">&times;</button>
+                <div class="panel-body" >
+                    <div class="col-md-3" ng-repeat="mebershiplevel in mebershiplevels">
+                        <button class="btn btn-outline btn-warning btn-lg pull-left" type="button">{{mebershiplevel.Name}}</button>
+                        <button type="button" class="close pull-left close_btn" aria-hidden="true" ng-click="DeleteMemberShipLevel(mebershiplevel)">&times;</button>
                     </div>
                 </div>
             </div>
