@@ -46,28 +46,29 @@ class Customers extends Controller {
 			return ;
 		}
 		
-		if (! isset ( $_POST ['customer_id'] ) or empty ( $_POST ['customer_id'] )) {
+		if (! isset ( $_POST ['customer_id'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
+		
+		if (! isset ( $_POST ['name'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['sex'] ) or empty ( $_POST ['sex'] )) {
+		if (! isset ( $_POST ['sex'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['phone'] ) or empty ( $_POST ['phone'] )) {
+		if (! isset ( $_POST ['phone'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
 
-		if (! isset ( $_POST ['birthady'] ) or empty ( $_POST ['birthady'] )) {
+		if (! isset ( $_POST ['birthday'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
@@ -80,7 +81,7 @@ class Customers extends Controller {
 	
 		$customers_model = $this->loadModel ( 'Customers' );
 
-		$result->Data = $customers_model->update ( $_POST ['customer_id'],$_POST ['name'],$_POST ['sex'],$_POST ['phone'],$_POST ['birthady'],$_POST ['remark'] );
+		$result->Data = $customers_model->update ( $_POST ['customer_id'],$_POST ['name'],$_POST ['sex'],$_POST ['phone'],$_POST ['birthday'],$_POST ['remark'] );
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );

@@ -3,29 +3,20 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.sorts = $routeParams.sorts;
     if (!$scope.sorts) {
         $scope.sorts = "gogocustomer";
-    } //gogo客户
-    //if (!$scope.parameters) {
-    //    $scope.parameters = "";
-    //}
+    }
+    if (!$scope.parameters) {
+        $scope.parameters =decodeURIComponent($routeParams.parameters||"");
+    }
+    //客户
     $scope.loadClientSortList = function (pageIndex, parameters) {
-        $(".form_date").datetimepicker({
-            language: 'zh-CN',
-            weekStart: 1,
-            todayBtn: 1,
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 2,
-            minView: 2,
-            forceParse: 0
-        });
         var pageSize = 1;
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'owncustomer':
-                $http.post($resturls["LoadOwnCustomersList"], { name: parameters, phone: parameters, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+                $http.post($resturls["LoadOwnCustomersList"], { name: parameters, phone:parameters, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.ownclients = result.Data;
-                        $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#client/' + $scope.sorts + '/{0}');
+                        $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#client/' + $scope.sorts + '/{0}' + '/{1}',encodeURIComponent( parameters));
                     } else {
                         $scope.ownclients = [];
                         $parent.pages = utilities.paging(0, pageIndex, pageSize);
@@ -37,7 +28,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
                     if (result.Error == 0) {
                         $scope.gogoclients = result.Data;
                         $parent.gogocustomerActpageIndex = pageIndex;
-                        $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#client/' + $scope.sorts + '/{0}');
+                        $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#client/' + $scope.sorts + '/{0}' + '/{1}', encodeURIComponent(parameters));
                     } else {
                         $scope.gogoclients = [];
                         $parent.pages = utilities.paging(0, pageIndex, pageSize);
@@ -46,12 +37,12 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
                 break;
         }
     }
-    $scope.loadClientSortList($routeParams.pageIndex || 1,'');
-    $scope.SearchClientSortList = function (parameters) {
-       $scope.loadClientSortList(1, parameters);
+    $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
+    $scope.SearchClientSortList = function (condtion) {
+        $scope.loadClientSortList(1, condtion);
     }
-    
-   
+
+
     //增加客户弹窗
     $scope.ShowAddOwnCustomerModal = function (data, event) {
         if (event != undefined) {
@@ -65,7 +56,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
         if (data) {
             $scope.OwnCustomer = data;
         } else {
-            $scope.OwnCustomer = { Customer_ID: 0, Sex: 1 };
+            $scope.OwnCustomer = { ID: 0, Sex: 1 };
         }
         $("#addcustomermodal").modal('show');
     }
@@ -73,8 +64,13 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.ShowClientDetailModal = function (data) {
         $("#customerdetailmodal").modal('show');
     }
+    $scope.ShowSendMessageModal = function (data) {
+        $scope.message = data;
+        $("#SendMessageMoadl").modal('show');
+    }
 }
 
+//增加自有客户scope
 function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.SaveAddOwnCustomer = function (data) {
         if ($scope.AddOwnCustomerForm.$valid) {
@@ -87,6 +83,7 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
                     alert("success");
                 }
                 else {
+                    $scope.showerror = true;
                     alert("e");
                 }
             })
@@ -95,17 +92,17 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
             $scope.showerror = true;
         }
     };
-    $scope.UpdateOwnCustomer = function (data)
-    {
+    $scope.UpdateOwnCustomer = function (data) {
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
-            $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.Birthady, remark: data.Remark, customer_id: data.Customer_ID }).success(function (result) {
+            $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.Birthady, remark: data.Remark, customer_id: data.ID }).success(function (result) {
                 if (result.Error == 0) {
                     $("#addcustomermodal").modal('hide');
                     $scope.loadClientSortList($routeParams.pageIndex || 1, "");
                     alert("success");
                 }
                 else {
+                    $scope.showerror = true;
                     alert("e");
                 }
             })
@@ -123,7 +120,7 @@ function SeaCustomerMainCtrl($scope, $http, $location, $routeParams, $resturls) 
     $scope.LoadSeaCustomerList = function (pageIndex, paramters) {
         var pageSize = 1;
         if (pageIndex == 0) pageIndex = 1;
-        $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '',type: 1, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+        $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '', type: 1, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
             if (result.Error == 0) {
                 $scope.seacustomers = result.Data;
                 $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#seacustomer' + '/{0}');
@@ -135,3 +132,26 @@ function SeaCustomerMainCtrl($scope, $http, $location, $routeParams, $resturls) 
     }
     $scope.LoadSeaCustomerList($routeParams.pageIndex || 1);
 }
+
+function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls)
+{
+    $scope.SendMessage = function (data)
+    {
+        console.log(data);
+        if ($scope.SendMessageForm.$valid) {
+            $scope.showerror = false;
+            $http.post($resturls["SensMessage"], { customer_ids: data.Customer_ID, title: data.Title, content: data.Content }).success(function (result) {
+                if (result.Error==0) {
+                    alert("scuccess");
+                    $("#SendMessageMoadl").modal('hide');
+                } else {
+                    $scope.showerror = true;
+                    alert("error");
+                }
+            });
+        } else {
+            $scope.showerror = true;
+        }
+    }
+}
+

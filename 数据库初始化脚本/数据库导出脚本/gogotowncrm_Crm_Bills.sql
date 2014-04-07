@@ -26,16 +26,17 @@ DROP TABLE IF EXISTS `Crm_Bills`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Crm_Bills` (
   `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `Shop_ID` int(11) DEFAULT NULL COMMENT '商家ID',
-  `Customer_ID` int(11) DEFAULT NULL COMMENT '客户ID',
-  `Pay_Mothed` int(11) DEFAULT NULL COMMENT '支付方式',
-  `Cash` decimal(10,0) DEFAULT NULL COMMENT '刷卡金额',
+  `Shop_ID` int(11) NOT NULL COMMENT '商家ID',
+  `Customer_ID` int(11) NOT NULL COMMENT '客户ID',
+  `Pay_Mothed` int(11) NOT NULL COMMENT '支付方式',
+  `Cash` decimal(10,2) DEFAULT NULL COMMENT '刷卡金额',
   `Go_Coin` int(11) DEFAULT NULL COMMENT 'Go币金额',
-  `Type` int(11) DEFAULT NULL COMMENT '消费类型',
-  `Amount` decimal(10,0) DEFAULT NULL COMMENT '消费总金额',
-  `Create_Time` bigint(20) DEFAULT NULL COMMENT '消费时间',
+  `Type` varchar(50) NOT NULL COMMENT '消费类型',
+  `Amount` decimal(10,2) DEFAULT NULL COMMENT '消费总金额',
+  `Create_Time` bigint(20) NOT NULL COMMENT '消费时间',
+  `sys_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据修改以及新增时候改变',
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='客户消费记录';
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='客户消费记录';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +45,7 @@ CREATE TABLE `Crm_Bills` (
 
 LOCK TABLES `Crm_Bills` WRITE;
 /*!40000 ALTER TABLE `Crm_Bills` DISABLE KEYS */;
+INSERT INTO `Crm_Bills` VALUES (1,1,1,1,10.21,NULL,'衣服',23.00,2,'2014-04-07 05:13:49');
 /*!40000 ALTER TABLE `Crm_Bills` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-04 10:15:57
+-- Dump completed on 2014-04-07 13:19:48

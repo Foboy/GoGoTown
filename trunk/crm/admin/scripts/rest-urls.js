@@ -8,8 +8,8 @@
       config(['$provide', function ($provide) {
           var resturls = {};
           //resturls.base = "http://localhost/GoGoTown/trunk/crm/index.php";
-         resturls.base = "http://localhost/index.php";
-          //resturls.base = "http://localhost:8080/GoGoTown/trunk/crm/index.php";
+         //resturls.base = "http://localhost/index.php";
+          resturls.base = "http://localhost:8080/GoGoTown/trunk/crm/index.php";
           resturls.add = function (name, url) {
               resturls[name] = resturls.base + "?url=" + url;
           };
@@ -29,6 +29,7 @@
           resturls.add("LoadGoGoCustomerList", "Customers/searchGOGOBP"); //分页获取商家有消费记录gogo客户
           resturls.add("AddOwnCustomer", "Customers/addPrivateCustomer");//添加商家自有客户信息
           resturls.add("UpdateOwnCustomer", "Customers/update");//跟新商家自有客户信息
+          resturls.add("SensMessage", "Messages/send");//发送消息
 
           //基本信息设置
           resturls.add("GetMerchantInfo", "ShopInfo/get"); //获取商家基本信息

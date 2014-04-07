@@ -27,18 +27,19 @@ DROP TABLE IF EXISTS `Crm_Users`;
 CREATE TABLE `Crm_Users` (
   `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `Name` varchar(64) DEFAULT NULL COMMENT '商家名',
-  `Shop_ID` int(11) DEFAULT NULL COMMENT '商家ID',
-  `Type` int(11) DEFAULT NULL COMMENT '账户类型',
-  `Account` varchar(32) DEFAULT NULL COMMENT '账户名',
-  `Password` varchar(64) DEFAULT NULL COMMENT '登陆密码',
+  `Shop_ID` int(11) NOT NULL COMMENT '商家ID',
+  `Type` int(11) NOT NULL COMMENT '账户类型',
+  `Account` varchar(32) NOT NULL COMMENT '账户名',
+  `Password` varchar(64) NOT NULL COMMENT '登陆密码',
   `Last_Login` bigint(20) DEFAULT NULL COMMENT '最近登陆时间',
-  `State` int(11) DEFAULT NULL COMMENT '账户状态',
+  `State` int(11) NOT NULL COMMENT '账户状态',
   `Faileds` int(11) DEFAULT NULL COMMENT '登陆失败次数',
   `Last_Failed` bigint(20) DEFAULT NULL COMMENT '登陆失败时间',
   `Token` varchar(64) DEFAULT NULL COMMENT 'Token',
   `Create_Time` bigint(20) DEFAULT NULL COMMENT '添加时间',
+  `sys_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据修改以及新增时候改变',
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +48,7 @@ CREATE TABLE `Crm_Users` (
 
 LOCK TABLES `Crm_Users` WRITE;
 /*!40000 ALTER TABLE `Crm_Users` DISABLE KEYS */;
-INSERT INTO `Crm_Users` VALUES (3,'dfddfdfsdf',1,1,'test','$2y$10$wKS2f6kCMoeaQrxBgQR8NOuuussFZE2/zbSfZV1hJR9aT/6.yPTHe',1396575618,1,NULL,1396436649,NULL,1396352513);
+INSERT INTO `Crm_Users` VALUES (3,'dfddd',1,1,'test','$2y$10$wKS2f6kCMoeaQrxBgQR8NOuuussFZE2/zbSfZV1hJR9aT/6.yPTHe',1396839264,2,NULL,1396436649,NULL,1396352513,'2014-04-07 05:18:44'),(4,NULL,1,3,'test1','$2y$10$eetDqkfTe0Deg.0ZMVrW1esZTBxmxUjKDJPfjxvaOUlb38yXCNp46',NULL,2,NULL,NULL,NULL,1396784856,'2014-04-07 05:18:44'),(5,NULL,1,3,'test2','$2y$10$HZvIvgqDD0Eg1/hvXjnxXOnU7y1YVVE6rNJyVD92R8MkRFa45XDv2',NULL,1,NULL,NULL,NULL,1396784884,'2014-04-07 05:18:44'),(6,'sdf的积分等级',1,3,'test3','$2y$10$I3jkcWzoNThKapc2nXAJqeJsQt5q4ozf2IclQ/gmmVfscLPSJAqOO',NULL,1,NULL,NULL,NULL,1396789264,'2014-04-07 05:18:44');
 /*!40000 ALTER TABLE `Crm_Users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -60,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-04 10:15:57
+-- Dump completed on 2014-04-07 13:19:48

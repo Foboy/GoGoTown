@@ -10,8 +10,8 @@
         <div class="col-lg-12">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
-                <li ng-class="sorts=='gogocustomer'?'active':''"><a ng-href="#/client/gogocustomer">GOGO客户</a></li>
-                <li ng-class="sorts=='owncustomer'?'active':''"><a ng-href="#/client/owncustomer">自有客户</a></li>
+                <li ng-class="sorts=='gogocustomer'?'active':''"><a ng-href="#/client/gogocustomer/">GOGO客户</a></li>
+                <li ng-class="sorts=='owncustomer'?'active':''"><a ng-href="#/client/owncustomer/">自有客户</a></li>
                 <li class="searchpo navbar-right col-sm-4">
                     <!--<div class="input-group custom-search-form pull-left col-md-8">
                         <input type="text" class="form-control input-sm"  placeholder="Search...">
@@ -22,9 +22,9 @@
                     <button type="button" class="btn btn-primary btn-sm btn_left pull-right"  ng-click="ShowAddOwnCustomerModal()">添加客户</button>-->
                     <div class="col-sm-8">
                         <div class="input-group custom-search-form">
-                            <input type="text" class="form-control input-sm" ng-model="condition" placeholder="Search...">
+                            <input type="text" class="form-control input-sm" ng-model="parameters" placeholder="Search...">
                             <span class="input-group-btn">
-                            <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SearchClientSortList(condition)"><i class="fa fa-search"></i></button>
+                            <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SearchClientSortList(parameters)"><i class="fa fa-search"></i></button>
                             </span>
                         </div>  
                     </div>
@@ -33,9 +33,6 @@
                     </div>
                 </li>
             </ul>
-
-
-
             <!-- Tab panes -->
             <div class="tab-content">
                 <!--自有客户显示区域-->
@@ -101,7 +98,7 @@
                                     <td class="center">X
                                     </td>
                                     <td class="center">
-                                        <a href="javascript:void(0);">发送信息</a>
+                                        <a ng-click="ShowSendMessageModal(gogoclient)">发送信息</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -128,4 +125,5 @@
 
 <div ng-include="'partials/client/addowncustomer-modal.html'"></div>
 <div ng-include="'partials/client/customerdetail-modal.html'"></div>
+<div ng-include="'partials/client/sendmessage-modal.html'"></div>
 

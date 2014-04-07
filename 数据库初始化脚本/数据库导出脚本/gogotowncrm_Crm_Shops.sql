@@ -47,6 +47,7 @@ CREATE TABLE `Crm_Shops` (
   `add_adminid` int(11) NOT NULL COMMENT 'add_adminid',
   `add_time` int(11) NOT NULL COMMENT 'add_time',
   `flag` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'flag',
+  `sys_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据修改以及新增时候改变',
   PRIMARY KEY (`id`),
   KEY `brand_id` (`brand_id`),
   KEY `city_id` (`city_id`),
@@ -65,7 +66,7 @@ CREATE TABLE `Crm_Shops` (
 
 LOCK TABLES `Crm_Shops` WRITE;
 /*!40000 ALTER TABLE `Crm_Shops` DISABLE KEYS */;
-INSERT INTO `Crm_Shops` VALUES (1,'gogo商城','1231',1,1,'我','123123','111',1,1,1,1,'12321','123','123',123,123,123,1,123,11114,1);
+INSERT INTO `Crm_Shops` VALUES (1,'gogo商城','1231',1,1,'我','123123','111',1,1,1,1,'12321','123','123',123,123,123,1,123,11114,1,'2014-04-07 05:18:37');
 /*!40000 ALTER TABLE `Crm_Shops` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -78,4 +79,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-04 10:15:57
+-- Dump completed on 2014-04-07 13:19:49

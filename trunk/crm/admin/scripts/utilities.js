@@ -1,62 +1,59 @@
 ﻿var utilities = utilities || {};
 
-utilities.getquerystring = function(para) {
-	var reg = new RegExp("(^|&|\\?)" + para + "=([^&]*)(&|$)"), r;
-	if (r = window.location.href.match(reg)) return unescape(r[2]); return null;
+utilities.getquerystring = function (para) {
+    var reg = new RegExp("(^|&|\\?)" + para + "=([^&]*)(&|$)"), r;
+    if (r = window.location.href.match(reg)) return unescape(r[2]); return null;
 };
 
 var docWrite = document.write;
-utilities.hookwrite = function(){
-	document.write = function (text){
-		var scripttest = /src="([\s\S]*?)"/i;
-		if(scripttest.test(text))
-		{
-			var url = text.match( /src="([\s\S]*?)"/i )[1];
-			utilities.loadscript(url);
-		}
-	};
+utilities.hookwrite = function () {
+    document.write = function (text) {
+        var scripttest = /src="([\s\S]*?)"/i;
+        if (scripttest.test(text)) {
+            var url = text.match(/src="([\s\S]*?)"/i)[1];
+            utilities.loadscript(url);
+        }
+    };
 }
-utilities.loadscript = function(url, loadedCallback){
-	var script = document.createElement( 'script' ), head = document.head || document.getElementsByTagName( 'head' )[0] || document.documentElement;
-	
-	script.type = 'text/javascript';
-	script.src = url;
-	//script.onerror = 
-	script.onload = 
+utilities.loadscript = function (url, loadedCallback) {
+    var script = document.createElement('script'), head = document.head || document.getElementsByTagName('head')[0] || document.documentElement;
+
+    script.type = 'text/javascript';
+    script.src = url;
+    //script.onerror = 
+    script.onload =
 	//script.onreadystatechange = 
-	function( e ){
-		e = e || window.event;
-		console.log(e);
-		/*
+	function (e) {
+	    e = e || window.event;
+	    console.log(e);
+	    /*
 		if( !script.readyState || /loaded|complete/.test(script.readyState) || e === 'error'){
 			head.removeChild( script );
 			head = 			
 			script = 
 			script.onload = null;
 		}*/
-		if(typeof loadedCallback == "function")
-		{
-			loadedCallback();
-		}
+	    if (typeof loadedCallback == "function") {
+	        loadedCallback();
+	    }
 	}
-	
-	// 加载script
-	head.insertBefore( script, head.firstChild );
-		
+
+    // 加载script
+    head.insertBefore(script, head.firstChild);
+
 };
 
-utilities.registeriframelistener = function( key, callback){
-	window.top['iframeevent_'+key] = callback;
+utilities.registeriframelistener = function (key, callback) {
+    window.top['iframeevent_' + key] = callback;
 };
 
-utilities.fireiframelistener = function(){
-	var args = Array.prototype.slice.call(arguments);
-	var key = args.shift();
-	var callback = window.top['iframeevent_'+key];
-	if(typeof callback == 'function')
-	{
-		callback.apply(null,args);
-	}
+utilities.fireiframelistener = function () {
+    var args = Array.prototype.slice.call(arguments);
+    var key = args.shift();
+    var callback = window.top['iframeevent_' + key];
+    if (typeof callback == 'function') {
+        callback.apply(null, args);
+    }
 };
 
 utilities.mvcParamMatch = (function () {
@@ -174,7 +171,7 @@ utilities.format = function (source, params) {
     return source;
 };
 
-utilities.paging = function (recordCount, pageIndex, pageSize, url, linkCount) {
+utilities.paging = function (recordCount, pageIndex, pageSize, url, parameters, linkCount) {
     var linkCount = linkCount || 9;
     var url = url;
     if (!isNaN(url)) {
@@ -197,17 +194,17 @@ utilities.paging = function (recordCount, pageIndex, pageSize, url, linkCount) {
         pageEnd = pageIndex + Math.floor(linkCount);
     }
     if (pageIndex > 1) {
-        pages.push({ index: pageIndex - 1, active: false, url: utilities.format(url, pageIndex - 1), type: 'pre' });
+        pages.push({ index: pageIndex - 1, active: false, url: utilities.format(url, pageIndex - 1, parameters), type: 'pre' });
     }
     else {
         pages.push({ index: pageIndex, active: false, url: 'javascript:void(0)', type: 'pre' });
     }
     for (var i = pageStart; i <= pageEnd; i++) {
-        var page = { index: i, active: i == pageIndex, url: utilities.format(url, i), type: 'page' };
+        var page = { index: i, active: i == pageIndex, url: utilities.format(url, i, parameters), type: 'page' };
         pages.push(page);
     }
     if (pageIndex < pageCount) {
-        pages.push({ index: pageIndex + 1, active: false, url: utilities.format(url, pageIndex + 1), type: 'next' });
+        pages.push({ index: pageIndex + 1, active: false, url: utilities.format(url, pageIndex + 1, parameters), type: 'next' });
     }
     else {
         pages.push({ index: pageIndex, active: false, url: 'javascript:void(0)', type: 'next' });

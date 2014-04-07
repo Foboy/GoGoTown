@@ -32,6 +32,7 @@ CREATE TABLE `Crm_Rank` (
   `Rank` int(11) DEFAULT NULL COMMENT '用户等级',
   `Begin_Time` bigint(20) DEFAULT NULL COMMENT '生效时间',
   `End_Time` bigint(20) DEFAULT NULL COMMENT '终止时间',
+  `sys_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据修改以及新增时候改变',
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='客户等级';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-04 10:15:57
+-- Dump completed on 2014-04-07 13:19:49

@@ -135,8 +135,9 @@ from
     left join Crm_Rank_Set crs ON cr.id = crs.ID
     where
         cr.Shop_ID = 0) bb ON aa.customer_id = bb.cid 
-        where $name and $phone and (aa.sex = :sex or 0=:sex) 
+        where ($name or $phone) and (aa.sex = :sex or 0=:sex) 
 		order by aa.create_time desc limit $lastpagenum,$pagesize" ;
+		//print  $sql;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
@@ -165,7 +166,7 @@ from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID
     where
-        cr.Shop_ID = 0) bb ON aa.customer_id = bb.customer_id where $name and (aa.sex = :sex or 0=:sex) and $phone " );
+        cr.Shop_ID = 0) bb ON aa.customer_id = bb.customer_id where ($name or $phone) and (aa.sex = :sex or 0=:sex)  " );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
 				':sex' => $sex
@@ -229,7 +230,7 @@ from
     left join Crm_Rank_Set crs ON cr.id = crs.ID
     where
         cr.Shop_ID = :shop_id) dd ON cc.Customer_ID = dd.ccid 
-        where $name and (cc.sex = :sex or 0=:sex) and $phone
+        where ($name or $phone) and (cc.sex = :sex or 0=:sex) 
 		order by cc.create_time limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
@@ -269,7 +270,7 @@ from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID
     where
-        cr.Shop_ID = :shop_id) dd ON cc.cid = dd.Customer_ID  where $name and (cc.sex = :sex or 0=:sex) and $phone" );
+        cr.Shop_ID = :shop_id) dd ON cc.cid = dd.Customer_ID  where ($name or $phone) and (cc.sex = :sex or 0=:sex) " );
 		$query->execute ( array (
 				':shop_id' => $shop_id,
 				':type' => $type,
