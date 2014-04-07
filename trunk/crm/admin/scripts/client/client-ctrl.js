@@ -65,7 +65,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
         if (data) {
             $scope.OwnCustomer = data;
         } else {
-            $scope.OwnCustomer = { Customer_ID: 0, Sex: 1 };
+            $scope.OwnCustomer = { ID: 0, Sex: 1 };
         }
         $("#addcustomermodal").modal('show');
     }
@@ -99,7 +99,7 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
     {
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
-            $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.Birthady, remark: data.Remark, customer_id: data.Customer_ID }).success(function (result) {
+            $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.Birthady, remark: data.Remark, customer_id: data.ID }).success(function (result) {
                 if (result.Error == 0) {
                     $("#addcustomermodal").modal('hide');
                     $scope.loadClientSortList($routeParams.pageIndex || 1, "");
