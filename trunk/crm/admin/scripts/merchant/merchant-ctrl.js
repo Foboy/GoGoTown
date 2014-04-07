@@ -135,8 +135,8 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
     $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
     //弹出添加或编辑用户账号窗口
     $scope.ShowAddUserAccountModal = function (data, usertype) {
+        console.log(data);
         if (data) {
-            console.log(data);
             $scope.UserAccount = data;
         } else {
             $scope.UserAccount = { user_id: 0, Type: usertype };
