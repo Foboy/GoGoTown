@@ -33,9 +33,6 @@
                     </div>
                 </li>
             </ul>
-
-
-
             <!-- Tab panes -->
             <div class="tab-content">
                 <!--自有客户显示区域-->
@@ -101,7 +98,7 @@
                                     <td class="center">X
                                     </td>
                                     <td class="center">
-                                        <a href="javascript:void(0);">发送信息</a>
+                                        <a ng-click="ShowSendMessageModal(gogoclient)">发送信息</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -128,4 +125,5 @@
 
 <div ng-include="'partials/client/addowncustomer-modal.html'"></div>
 <div ng-include="'partials/client/customerdetail-modal.html'"></div>
+<div ng-include="'partials/client/sendmessage-modal.html'"></div>
 

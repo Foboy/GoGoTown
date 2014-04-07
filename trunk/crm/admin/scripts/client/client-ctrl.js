@@ -64,8 +64,13 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.ShowClientDetailModal = function (data) {
         $("#customerdetailmodal").modal('show');
     }
+    $scope.ShowSendMessageModal = function (data) {
+        $scope.message = data;
+        $("#SendMessageMoadl").modal('show');
+    }
 }
 
+//增加自有客户scope
 function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.SaveAddOwnCustomer = function (data) {
         if ($scope.AddOwnCustomerForm.$valid) {
@@ -78,6 +83,7 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
                     alert("success");
                 }
                 else {
+                    $scope.showerror = true;
                     alert("e");
                 }
             })
@@ -96,6 +102,7 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
                     alert("success");
                 }
                 else {
+                    $scope.showerror = true;
                     alert("e");
                 }
             })
@@ -125,3 +132,26 @@ function SeaCustomerMainCtrl($scope, $http, $location, $routeParams, $resturls) 
     }
     $scope.LoadSeaCustomerList($routeParams.pageIndex || 1);
 }
+
+function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls)
+{
+    $scope.SendMessage = function (data)
+    {
+        console.log(data);
+        if ($scope.SendMessageForm.$valid) {
+            $scope.showerror = false;
+            $http.post($resturls["SensMessage"], { customer_ids: data.Customer_ID, title: data.Title, content: data.Content }).success(function (result) {
+                if (result.Error==0) {
+                    alert("scuccess");
+                    $("#SendMessageMoadl").modal('hide');
+                } else {
+                    $scope.showerror = true;
+                    alert("error");
+                }
+            });
+        } else {
+            $scope.showerror = true;
+        }
+    }
+}
+
