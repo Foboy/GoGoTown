@@ -22,9 +22,9 @@
                     <button type="button" class="btn btn-primary btn-sm btn_left pull-right"  ng-click="ShowAddOwnCustomerModal()">添加客户</button>-->
                     <div class="col-sm-8">
                         <div class="input-group custom-search-form">
-                            <input type="text" class="form-control input-sm"  placeholder="Search...">
+                            <input type="text" class="form-control input-sm" ng-model="condition" placeholder="Search...">
                             <span class="input-group-btn">
-                            <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SerachCustomerList()"><i class="fa fa-search"></i></button>
+                            <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SearchClientSortList(condition)"><i class="fa fa-search"></i></button>
                             </span>
                         </div>  
                     </div>
@@ -38,7 +38,6 @@
 
             <!-- Tab panes -->
             <div class="tab-content">
-                    
                 <!--自有客户显示区域-->
                 <div class="panel-body" ng-show="sorts=='owncustomer'?'true':'false'">
                     <div class="table-responsive">

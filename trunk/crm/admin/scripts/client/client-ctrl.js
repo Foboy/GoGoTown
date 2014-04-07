@@ -4,7 +4,10 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     if (!$scope.sorts) {
         $scope.sorts = "gogocustomer";
     } //gogo客户
-    $scope.loadClientSortList = function (pageIndex, paramters) {
+    //if (!$scope.parameters) {
+    //    $scope.parameters = "";
+    //}
+    $scope.loadClientSortList = function (pageIndex, parameters) {
         $(".form_date").datetimepicker({
             language: 'zh-CN',
             weekStart: 1,
@@ -19,7 +22,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'owncustomer':
-                $http.post($resturls["LoadOwnCustomersList"], { name: '', phone: '', sex: 0, pageindex: pageIndex - 1, pagesize: pageSize, paramters: paramters }).success(function (result) {
+                $http.post($resturls["LoadOwnCustomersList"], { name: parameters, phone: parameters, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.ownclients = result.Data;
                         $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#client/' + $scope.sorts + '/{0}');
@@ -30,7 +33,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
                 });
                 break;
             case 'gogocustomer':
-                $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '', sex: 0, type: 3, pageindex: pageIndex - 1, pagesize: pageSize, paramters: paramters }).success(function (result) {
+                $http.post($resturls["LoadGoGoCustomerList"], { name: parameters, phone: parameters, sex: 0, type: 3, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.gogoclients = result.Data;
                         $parent.gogocustomerActpageIndex = pageIndex;
@@ -43,7 +46,11 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
                 break;
         }
     }
-    $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || "");
+    $scope.loadClientSortList($routeParams.pageIndex || 1,'');
+    $scope.SearchClientSortList = function (parameters) {
+       $scope.loadClientSortList(1, parameters);
+    }
+    
    
     //增加客户弹窗
     $scope.ShowAddOwnCustomerModal = function (data, event) {
