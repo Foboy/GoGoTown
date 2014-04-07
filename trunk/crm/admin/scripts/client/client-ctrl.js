@@ -139,7 +139,6 @@ function SeaCustomerMainCtrl($scope, $http, $location, $routeParams, $resturls) 
 //发送信息scope
 function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.SendMessage = function (data) {
-        console.log(data);
         if ($scope.SendMessageForm.$valid) {
             $scope.showerror = false;
             $http.post($resturls["SensMessage"], { customer_ids: data.Customer_ID, title: data.Title, content: data.Content }).success(function (result) {
