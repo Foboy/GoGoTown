@@ -17,7 +17,12 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
          .state('main.home', {
              url: '/home',
              templateUrl: 'partials/home.html',
-             controller: function () { }
+             controller: function () { 
+                    setTimeout(function() {
+
+                        loadflotpanel();
+                    }, 1000);
+             }
          })
          .state('main.user', { url: '/user*path', templateUrl: 'partials/userinfo.html', controller: function () { } })
          .state('main.client', { url: '/client*path', templateUrl: 'partials/client.html', controller: ClientMainCtrl })
