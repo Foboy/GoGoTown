@@ -1,33 +1,31 @@
 ﻿<!--新增会员等级 Modal -->
 <div class="modal fade" id="addmeberlevelmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true" ng-controller="AddMemberShipLevelCtrl">
-    <form ng-class="showerror?'showerror':''" name="AddMemberShipLevelForm" >
-        <input style="display:none" id="AddRankLevle" value="{{MeberShipLevel.rank}}" />
+    <!--<input style="display:none" id="AddRankLevle" value="{{MeberShipLevel.rank}}" />-->
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;</button>
-                <h4 class="modal-title">
-                    新增会员等级{{MeberShipLevel.rank}}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <i class="titlefont fa fa-credit-card pull-left marginmodal"></i>
+                <h4 class="modal-title">新增等级{{MeberShipLevel.rank}}</h4>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label>
-                        等级名称</label>
-                    <input class="form-control" placeholder="等级名称" ng-required="true" ng-model="member.name" name="name">
-                </div>
+                <form class="form-horizontal"  ng-class="showerror?'showerror':''" name="AddMemberShipLevelForm" >
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label">等级名称</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" placeholder="等级名称" ng-required="true" ng-model="member.name" name="name">
+                        </div>   
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">
-                    关 闭</button>
-                <button type="button" class="btn btn-primary" ng-click="SaveAddMemberShipLevel(member)">
-                    保 存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" ng-click="SaveAddMemberShipLevel(member)">保 存</button>
             </div>
         </div>
         <!-- /.modal-content -->
     </div>
-    </form>
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
