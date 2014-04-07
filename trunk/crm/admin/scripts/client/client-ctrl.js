@@ -94,6 +94,7 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
             $scope.showerror = true;
         }
     };
+    //跟新自有客户信息
     $scope.UpdateOwnCustomer = function (data) {
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
@@ -135,6 +136,7 @@ function SeaCustomerMainCtrl($scope, $http, $location, $routeParams, $resturls) 
     $scope.LoadSeaCustomerList($routeParams.pageIndex || 1);
 }
 
+//发送信息scope
 function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.SendMessage = function (data) {
         console.log(data);

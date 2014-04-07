@@ -13,7 +13,7 @@
                         <div class="btn-toolbar">
                             <div class="btn-group btn-group-right">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                   {{!show?'GOGO客户':'按会员等级选择'}}
+                                    {{!show?'GOGO客户':'按会员等级选择'}}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
@@ -24,12 +24,12 @@
                         </div>
                         <div class="btn-group-top btn-toolbar" ng-show="show?true:false">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle"  data-toggle="dropdown">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                     {{choselevel.Name}}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li  ng-repeat="mebershiplevel in mebershiplevels"><a ng-click="ChoseCustomerRank(mebershiplevel)">{{mebershiplevel.Name}}</a></li>
+                                    <li ng-repeat="mebershiplevel in mebershiplevels"><a ng-click="ChoseCustomerRank(mebershiplevel)">{{mebershiplevel.Name}}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -37,25 +37,31 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-6 padding_null">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label class="graycolor font500 font14 col-xs-2 control-label">内容</label>
-                    <div class="col-xs-9 padding_null">
-                        <textarea class="form-control" rows="3" ng-model="OwnCustomer.Remark"></textarea>
+        <form ng-class="showerror?'showerror':''" name="SendGogoMessageForm">
+            <div class="col-xs-6 padding_null">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="graycolor font500 font14 col-xs-2 control-label">内容</label>
+                        <div class="col-xs-9 padding_null">
+                            <textarea class="form-control" rows="3" ng-model="message.content" ng-required="true"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="col-xs-1 padding_null">
-            <p class="margin_bot"><button class="btn btn-outline btn-default btn-sm"  type="button">添加图片</button></p>
-            <p><button class="btn btn-primary btn-sm"  type="button">发送消息</button></p>
+            <p class="margin_bot">
+                <button class="btn btn-outline btn-default btn-sm" type="button">添加图片</button>
+            </p>
+            <p>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="SendMessage(gogoclients,message)">发送消息</button>
+            </p>
         </div>
         <div class="col-xs-3 padding_null">
             <div href="#" class="thumbnail">
-                <img  alt="...">
+                <img alt="...">
             </div>
-        </div>     
+        </div>
     </div>
 
     <div class="row">
@@ -88,10 +94,10 @@
                         </tr>
                     </tbody>
                 </table>
-             </div>
+            </div>
         </div>
     </div>
-     <!-- /.row -->
+    <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
             <ul class="pagination">
