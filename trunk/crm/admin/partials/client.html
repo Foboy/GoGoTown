@@ -12,29 +12,25 @@
             <ul class="nav nav-tabs">
                 <li ng-class="sorts=='gogocustomer'?'active':''"><a ng-href="#/client/gogocustomer">GOGO客户</a></li>
                 <li ng-class="sorts=='owncustomer'?'active':''"><a ng-href="#/client/owncustomer">自有客户</a></li>
-                <li class="searchpo navbar-right">
-                    <!--<form class="navbar-form navbar-right">
-                        <div class="form-group">
-                            <div class="input-group custom-search-form">
-                                    <input type="text" class="form-control input-sm"  placeholder="Search...">
-                                    <span class="input-group-btn">
-                                        <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SerachCustomerList()"><i class="fa fa-search"></i></button>
-                                    </span>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-primary btn-sm btn_left"  ng-click="ShowAddOwnCustomerModal()">添加客户</button>
-                    </from>-->
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="col-md-6">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control input-sm"  placeholder="Search...">
-                                <span class="input-group-btn">
-                                    <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SerachCustomerList()"><i class="fa fa-search"></i></button>
-                                </span>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-primary btn-sm btn_left"  ng-click="ShowAddOwnCustomerModal()">添加客户</button>
-                     </form>
+                <li class="searchpo navbar-right col-sm-4">
+                    <!--<div class="input-group custom-search-form pull-left col-md-8">
+                        <input type="text" class="form-control input-sm"  placeholder="Search...">
+                        <span class="input-group-btn">
+                        <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SerachCustomerList()"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm btn_left pull-right"  ng-click="ShowAddOwnCustomerModal()">添加客户</button>-->
+                    <div class="col-sm-8">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control input-sm"  placeholder="Search...">
+                            <span class="input-group-btn">
+                            <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SerachCustomerList()"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>  
+                    </div>
+                    <div class="col-sm-4">
+                             <button type="button" class="btn btn-primary btn-sm btn_left pull-right"  ng-click="ShowAddOwnCustomerModal()">添加客户</button>
+                    </div>
                 </li>
             </ul>
 
