@@ -47,11 +47,13 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
    
     //增加客户弹窗
     $scope.ShowAddOwnCustomerModal = function (data, event) {
-        if (event && event.stopPropagation) {
-            event.stopPropagation();
-        }
-        else {
-            window.event.cancelBubble = true;
+        if (event != undefined) {
+            if (event && event.stopPropagation) {
+                event.stopPropagation();
+            }
+            else {
+                window.event.cancelBubble = true;
+            }
         }
         if (data) {
             $scope.OwnCustomer = data;
