@@ -198,10 +198,15 @@ class Customers extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
+		if (! isset ( $_POST ['pagesize'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
 
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
 		
-		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'],   $_POST ['pageindex'] , 1 );
+		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'],   $_POST ['pageindex'] , $_POST ['pagesize'] );
 		$result->Error = ErrorType::Success;
 		
 	
@@ -234,13 +239,18 @@ class Customers extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['type'] ) or empty ( $_POST ['type'] )) {
+		if (! isset ( $_POST ['type'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
 	
-		if (! isset ( $_POST ['pageindex'] ) or empty ( $_POST ['pageindex'] )) {
+		if (! isset ( $_POST ['pageindex'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
+		if (! isset ( $_POST ['pagesize'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
@@ -248,7 +258,7 @@ class Customers extends Controller {
 	
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
 	
-		$result = $shopcustomers_model->searchGOGOCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['pageindex'] , 20 );
+		$result = $shopcustomers_model->searchGOGOCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['pageindex'] , $_POST ['pagesize'] );
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );
@@ -267,7 +277,7 @@ class Customers extends Controller {
 			return ;
 		}
 	
-		if (! isset ( $_POST ['customer_id'] ) or empty ( $_POST ['customer_id'] )) {
+		if (! isset ( $_POST ['customer_id'] )) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;

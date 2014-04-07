@@ -395,31 +395,43 @@ class UsersModel {
 		
 		
 		// perform all necessary form checks
-		if (! $this->checkCaptcha ()) {
+		if (false) {
+			
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_CAPTCHA_WRONG;
 		}elseif (empty ( $_POST ['user_type'] )) {
+		
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_USERNAME_FIELD_EMPTY;
-		}elseif (empty ( $_POST ['user_acount'] )) {
+		}elseif (empty ( $_POST ['user_account'] )) {
+			
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_USERNAME_FIELD_EMPTY;
 		} elseif (empty ( $_POST ['user_name'] )) {
+			
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_USERNAME_FIELD_EMPTY;
-		} elseif (empty ( $_POST ['user_password_new'] ) or empty ( $_POST ['user_password_repeat'] )) {
+		} 
+		elseif (empty ( $_POST ['user_password_new'] ) or empty ( $_POST ['user_password_repeat'] )) {
+			
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_PASSWORD_FIELD_EMPTY;
-		} elseif (empty ( $_SESSION["user_shop"] )) {
+		} 
+		elseif (empty ( $_SESSION["user_shop"] )) {
+			
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_SHOPID_FIELD_EMPTY;
 		} elseif ($_POST ['user_password_new'] !== $_POST ['user_password_repeat']) {
+			
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_PASSWORD_REPEAT_WRONG;
 		} elseif (strlen ( $_POST ['user_password_new'] ) < 6) {
+			
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_PASSWORD_TOO_SHORT;
-		} elseif (strlen ( $_POST ['user_name'] ) > 64 or strlen ( $_POST ['user_name'] ) < 2) {
+		} elseif (strlen ( $_POST ['user_account'] ) > 64 or strlen ( $_POST ['user_account'] ) < 2) {
+			
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_USERNAME_TOO_SHORT_OR_TOO_LONG;
-		} elseif (! preg_match ( '/^[a-z\d]{2,64}$/i', $_POST ['user_name'] )) {
+		} elseif (! preg_match ( '/^[a-z\d]{2,64}$/i', $_POST ['user_account'] )) {
+			
 			$_SESSION ["feedback_negative"] [] = FEEDBACK_USERNAME_DOES_NOT_FIT_PATTERN;
-		} elseif (! empty ( $_POST ['user_name'] ) and strlen ( $_POST ['user_name'] ) <= 64 and strlen ( $_POST ['user_name'] ) >= 2  and preg_match ( '/^[a-z\d]{2,64}$/i', $_POST ['user_name'] ) and ! empty ( $_POST ['user_password_new'] ) and ! empty ( $_POST ['user_password_repeat'] ) and ($_POST ['user_password_new'] === $_POST ['user_password_repeat'])) {
+		} elseif (! empty ( $_POST ['user_account'] ) and strlen ( $_POST ['user_account'] ) <= 64 and strlen ( $_POST ['user_account'] ) >= 2  and preg_match ( '/^[a-z\d]{2,64}$/i', $_POST ['user_account'] ) and ! empty ( $_POST ['user_password_new'] ) and ! empty ( $_POST ['user_password_repeat'] ) and ($_POST ['user_password_new'] === $_POST ['user_password_repeat'])) {
 			
 			// clean the input
 			$user_name = strip_tags ( $_POST ['user_name'] );
-			$user_acount = strip_tags ( $_POST ['user_acount'] );
+			$user_account = strip_tags ( $_POST ['user_account'] );
 			$user_type = intval ( $_POST ['user_type'] );
 			$shop_id = intval ( $_SESSION["user_shop"] );
 			
@@ -435,7 +447,7 @@ class UsersModel {
 			// check if username already exists
 			$query = $this->db->prepare ( "SELECT * FROM crm_users WHERE Account = :user_name" );
 			$query->execute ( array (
-					':user_name' => $user_name 
+					':user_name' => $user_account 
 			) );
 			$count = $query->rowCount ();
 			if ($count == 1) {
@@ -449,27 +461,27 @@ class UsersModel {
 			$user_creation_timestamp = time ();
 			
 			// write new users data into database
-			$sql = "INSERT INTO crm_users (Name,Account, Shop_ID, Password, Type, State, Create_Time)
-		VALUES (:user_name,:user_acount :user_shop_id, :user_password_hash, :user_type, 1, :user_create_time)";
+			$sql = "INSERT INTO crm_users ( Name, Account, Shop_ID, Password, Type, State, Create_Time)
+		VALUES (:user_name,:user_acount, :user_shop_id, :user_password_hash, :user_type, 1, :user_create_time)";
 			$query = $this->db->prepare ( $sql );
-			$query->execute ( array (
-					':user_name' => $user_name,
-					':user_acount' => $user_acount,
+			$query->execute ( array (':user_name' => $user_name,
+					':user_acount' => $user_account,
 					':user_shop_id' => $shop_id,
 					':user_password_hash' => $user_password_hash,
 					':user_type' => $user_type,
 					':user_create_time' => $user_creation_timestamp 
 			) );
 			$count = $query->rowCount ();
+			print $count;
 			if ($count != 1) {
 				$_SESSION ["feedback_negative"] [] = FEEDBACK_ACCOUNT_CREATION_FAILED;
 				return false;
 			}
 			
 			// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-			$query = $this->db->prepare ( "SELECT ID FROM crm_users WHERE Account = :user_name" );
+			$query = $this->db->prepare ( "SELECT ID FROM crm_users WHERE Account = :user_account" );
 			$query->execute ( array (
-					':user_name' => $user_name 
+					':user_account' => $user_account 
 			) );
 			if ($query->rowCount () != 1) {
 				$_SESSION ["feedback_negative"] [] = FEEDBACK_UNKNOWN_ERROR;

@@ -24,17 +24,17 @@ class Messages extends Controller {
 			return;
 		}
 		
-		if (! isset ( $_POST ['customer_ids'] ) or empty ( $_POST ['customer_ids'] )) {
+		if (! isset ( $_POST ['customer_ids'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return;
 		}
-		if (! isset ( $_POST ['title'] ) or empty ( $_POST ['title'] )) {
+		if (! isset ( $_POST ['title'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return;
 		}
-		if (! isset ( $_POST ['content'] ) or empty ( $_POST ['content'] )) {
+		if (! isset ( $_POST ['content'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return;
