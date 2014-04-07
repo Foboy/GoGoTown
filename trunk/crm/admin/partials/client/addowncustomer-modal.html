@@ -19,9 +19,25 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">年龄</label>
+                        <label class="col-sm-3 control-label">会员等级</label>
                         <div class="col-sm-6">
-                            <input class="form-control"  ng-required="true" ng-model="OwnCustomer.Birthady" name="birthday">
+                            <div class="btn-group btn-group-right">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    GOGO客户
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">GOGO客户</a></li>
+                                    <li><a href="#">按会员等级选择</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">出生日期</label>
+                        <div class="input-group date form_date col-sm-6" data-date="" data-date-format="dd MM yyyy">
+                            <input class="form-control" size="16" type="text" value="" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>   
                         </div>
                     </div>
                     <div class="form-group">

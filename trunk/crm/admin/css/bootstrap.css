@@ -3307,11 +3307,11 @@ input[type="button"].btn-block {
   display: table;
   border-collapse: separate;
 }
-.input-group[class*="col-"] {
+/*.input-group[class*="col-"] {
   float: none;
   padding-right: 0;
   padding-left: 0;
-}
+}*/
 .input-group .form-control {
   float: left;
   width: 100%;
