@@ -4,27 +4,9 @@
             <h1 class="titlefont font20 page-header">会员等级设置</h1>
         </div>
     </div>
-
     <div class="row margin_bot">
         <div class="col-lg-12">
             <a ng-click="AddMemberShipLevelmodal(mebershiplevels.length)" >新增</a>
-            <form name="EditLevelForm" ng-class="showerror?'showerror':''">
-                <ul ng-repeat="mebershiplevelitem in mebershiplevels">
-                    <li>
-                        <div class="well">
-                            <label>
-                                等级{{mebershiplevelitem.Rank}}</label>
-                            <br />
-                            <label ng-show="!showerror?'true':'false'">
-                                {{mebershiplevelitem.Name}}</label>
-                            <input class="form-control" placeholder="会员等级名称" ng-model="mebershiplevelitem.Name" ng-required="true"
-                                ng-show="showerror?true:false">
-                            <label ng-click="SaveEditMerberShipLevel(mebershiplevelitem)">
-                                {{!showerror?'编辑':'保存'}}</label>
-                        </div>
-                    </li>
-                </ul>
-            </form>
         </div>
     </div>
 
