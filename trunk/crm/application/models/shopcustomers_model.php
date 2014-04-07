@@ -181,7 +181,7 @@ from
 		return $result;
 	}
 	// 分页查询有消费记录GOGO客户shop_customers $type 1:公海客户 2：销售机会 3：有消费记录gogo客户
-	public function searchGOGOCustomerByPages($shop_id,$name,$sex,$phone,$type, $pageindex, $pagesize) {
+	public function searchGOGOCustomerByPages($shop_id,$name,$sex,$phone,$type,$rank_id, $pageindex, $pagesize) {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		if(empty($name))
@@ -198,6 +198,7 @@ from
 		{
 			$phone=" cc.mobile like '%".$phone."%'  ";
 		}
+
 		
 		$sql = " select 
     *
@@ -224,19 +225,20 @@ from
     left join Crm_Gogo_Customers bb ON aa.Customer_ID = bb.id) cc
         left join
     (select 
-        cr.Customer_ID ccid, cr.Rank, crs.Name
+        cr.Customer_ID ccid, cr.rank_id, crs.Name
     from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID
     where
         cr.Shop_ID = :shop_id) dd ON cc.Customer_ID = dd.ccid 
-        where ($name or $phone) and (cc.sex = :sex or 0=:sex) 
+        where ($name or $phone) and (cc.sex = :sex or 0=:sex) and (dd.rank_id=:rank_id or :rank_id=0)
 		order by cc.create_time limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':shop_id' => $shop_id,
 				':type' => $type,
-				':sex' => $sex
+				':sex' => $sex,
+				':rank_id'=>$rank_id
 		) );
 		$objects = $query->fetchAll ();
 	
@@ -270,11 +272,12 @@ from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID
     where
-        cr.Shop_ID = :shop_id) dd ON cc.cid = dd.Customer_ID  where ($name or $phone) and (cc.sex = :sex or 0=:sex) " );
+        cr.Shop_ID = :shop_id) dd ON cc.cid = dd.Customer_ID  where ($name or $phone) and (cc.sex = :sex or 0=:sex) and (dd.rank_id=:rank_id or :rank_id=0) " );
 		$query->execute ( array (
 				':shop_id' => $shop_id,
 				':type' => $type,
-				':sex' => $sex
+				':sex' => $sex,
+				':rank_id'=>$rank_id
 		) );
 		$totalcount = $query->fetchColumn ( 0 );
 	
