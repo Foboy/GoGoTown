@@ -5,7 +5,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
         $scope.sorts = "gogocustomer";
     }
     if (!$scope.parameters) {
-        $scope.parameters =decodeURIComponent($routeParams.parameters||"");
+        $scope.parameters = decodeURIComponent($routeParams.parameters || "");
     }
     //客户
     $scope.loadClientSortList = function (pageIndex, parameters) {
@@ -13,10 +13,10 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'owncustomer':
-                $http.post($resturls["LoadOwnCustomersList"], { name: parameters, phone:parameters, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+                $http.post($resturls["LoadOwnCustomersList"], { rank_id: 0, name: parameters, phone: parameters, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.ownclients = result.Data;
-                        $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#client/' + $scope.sorts + '/{0}' + '/{1}',encodeURIComponent( parameters));
+                        $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#client/' + $scope.sorts + '/{0}' + '/{1}', encodeURIComponent(parameters));
                     } else {
                         $scope.ownclients = [];
                         $parent.pages = utilities.paging(0, pageIndex, pageSize);
@@ -24,7 +24,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
                 });
                 break;
             case 'gogocustomer':
-                $http.post($resturls["LoadGoGoCustomerList"], { name: parameters, phone: parameters, sex: 0, type: 3, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+                $http.post($resturls["LoadGoGoCustomerList"], { rank_id: 0, name: parameters, phone: parameters, sex: 0, type: 3, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.gogoclients = result.Data;
                         $parent.gogocustomerActpageIndex = pageIndex;
@@ -120,7 +120,7 @@ function SeaCustomerMainCtrl($scope, $http, $location, $routeParams, $resturls) 
     $scope.LoadSeaCustomerList = function (pageIndex, paramters) {
         var pageSize = 1;
         if (pageIndex == 0) pageIndex = 1;
-        $http.post($resturls["LoadGoGoCustomerList"], { name: '', phone: '', type: 1, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+        $http.post($resturls["LoadGoGoCustomerList"], { rank_id: 0, name: '', phone: '', type: 1, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
             if (result.Error == 0) {
                 $scope.seacustomers = result.Data;
                 $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#seacustomer' + '/{0}');
@@ -133,15 +133,13 @@ function SeaCustomerMainCtrl($scope, $http, $location, $routeParams, $resturls) 
     $scope.LoadSeaCustomerList($routeParams.pageIndex || 1);
 }
 
-function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls)
-{
-    $scope.SendMessage = function (data)
-    {
+function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
+    $scope.SendMessage = function (data) {
         console.log(data);
         if ($scope.SendMessageForm.$valid) {
             $scope.showerror = false;
             $http.post($resturls["SensMessage"], { customer_ids: data.Customer_ID, title: data.Title, content: data.Content }).success(function (result) {
-                if (result.Error==0) {
+                if (result.Error == 0) {
                     alert("scuccess");
                     $("#SendMessageMoadl").modal('hide');
                 } else {
