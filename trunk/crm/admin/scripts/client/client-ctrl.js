@@ -1,4 +1,5 @@
-function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
+function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $rootScope) {
+    $scope.text = $rootScope.searchText;
     var $parent = $scope.$parent;
     $scope.sorts = $routeParams.sorts;
     if (!$scope.sorts) {
@@ -40,6 +41,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
     $scope.SearchClientSortList = function (condtion) {
         $scope.loadClientSortList(1, condtion);
+        $rootScope.searchText = $scope.text;
     }
 
 
