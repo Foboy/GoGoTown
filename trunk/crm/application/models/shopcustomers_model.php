@@ -95,7 +95,7 @@ class ShopCustomersModel {
 		return true;
 	}
 	// 分页查询商家自有客户shop_customers
-	public function searchPrivateByPages($shop_id,$name,$sex,$phone, $pageindex, $pagesize) {
+	public function searchPrivateByPages($shop_id,$name,$sex,$phone,$rank_id, $pageindex, $pagesize) {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		if(empty($name))
@@ -129,19 +129,20 @@ from
     left join Crm_Customers b ON a.customer_id = b.ID) aa
         left join
     (select 
-        cr.Customer_ID cid, cr.Rank, crs.Name shoprankname
+        cr.Customer_ID cid, cr.rank_id, crs.Name shoprankname
     from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID
     where
         cr.Shop_ID = 0) bb ON aa.customer_id = bb.cid 
-        where ($name or $phone) and (aa.sex = :sex or 0=:sex) 
+        where ($name or $phone) and (aa.sex = :sex or 0=:sex) and (bb.rank_id=:rank_id or :rank_id=0)
 		order by aa.create_time desc limit $lastpagenum,$pagesize" ;
 		//print  $sql;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
-				':sex' => $sex
+				':sex' => $sex,
+				':rank_id' =>$rank_id
 		) );
 		$objects = $query->fetchAll ();
 		
@@ -166,10 +167,11 @@ from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID
     where
-        cr.Shop_ID = 0) bb ON aa.customer_id = bb.customer_id where ($name or $phone) and (aa.sex = :sex or 0=:sex)  " );
+        cr.Shop_ID = 0) bb ON aa.customer_id = bb.customer_id where ($name or $phone) and (aa.sex = :sex or 0=:sex) and (bb.rank_id=:rank_id or :rank_id=0) " );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
-				':sex' => $sex
+				':sex' => $sex,
+				':rank_id' =>$rank_id
 		) );
 		$totalcount = $query->fetchColumn ( 0 );
 		

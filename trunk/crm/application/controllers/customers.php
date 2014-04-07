@@ -165,7 +165,7 @@ class Customers extends Controller {
 	
 	/*
 	 * 分页查询添加商家自有客户信息
-	* parms:name,sex,phone
+	* parms:name,sex,phone,rank_id 
 	*/
 	public function searchPrivateBP() {
 		
@@ -193,6 +193,11 @@ class Customers extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
+		if (! isset ( $_POST ['rank_id'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
 		
 		if (! isset ( $_POST ['pageindex'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
@@ -207,7 +212,7 @@ class Customers extends Controller {
 
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
 		
-		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'],   $_POST ['pageindex'] , $_POST ['pagesize'] );
+		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'],   $_POST ['rank_id'], $_POST ['pageindex'] , $_POST ['pagesize'] );
 		$result->Error = ErrorType::Success;
 		
 	
