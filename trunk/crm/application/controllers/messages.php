@@ -53,7 +53,7 @@ class Messages extends Controller {
 			
 			$mslist_model = $this->loadModel ( 'MessageSendList' );
 			$sctime = time ();
-			$mslist_model->insert ( $ids [$index], $_SESSION ["user_shop"], $mid, $_POST ['title'], $_POST ['content'], $sctime, MessageState::IsSent, MessageType::GOGO );
+			$mslist_model->insert ( $ids [$index], $_SESSION ["user_shop"], $mid, $_POST ['title'], $_POST ['content'],  MessageState::IsSent, MessageType::GOGO );
 		}
 		
 		$result->Error = ErrorType::Success;

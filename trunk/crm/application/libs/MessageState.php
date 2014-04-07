@@ -4,4 +4,3 @@ class MessageState {
 	const IsRead=2;
 }
 
-?>

@@ -12,7 +12,9 @@ class MessageSendListModel {
 	}
 	
 	// 新增message_send_list
-	public function insert($customer_id,$shop_id,$message_id,$title,$content,$create_time,$read_time,$state,$type) {
+	public function insert($customer_id,$shop_id,$message_id,$title,$content,$state,$type) {
+		$create_time=time();
+		
 		// 判断是否已存在
 		$query = $this->db->prepare ( " select *  from crm_message_send_list where customer_id = :customer_id and shop_id = :shop_id and message_id = :message_id and type = :type" );
 		$query->execute ( array (
@@ -27,7 +29,7 @@ class MessageSendListModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into crm_message_send_list(customer_id,shop_id,message_id,title,content,create_time,read_time,state,type) values (:customer_id,:shop_id,:message_id,:title,:content,:create_time,:read_time,:state,:type)";
+		$sql = "insert into crm_message_send_list(customer_id,shop_id,message_id,title,content,create_time,state,type) values (:customer_id,:shop_id,:message_id,:title,:content,:create_time,:state,:type)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':customer_id' => $customer_id,
@@ -36,7 +38,6 @@ class MessageSendListModel {
                    ':title' => $title,
                    ':content' => $content,
                    ':create_time' => $create_time,
-                   ':read_time' => $read_time,
                    ':state' => $state,
                    ':type' => $type
 		) );
@@ -48,7 +49,7 @@ class MessageSendListModel {
 		
 		// 获取ID
 		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-		$query = $this->db->prepare ( " select id from crm_message_send_list where customer_id = :customer_id and shop_id = :shop_id and message_id = :message_id and title = :title and content = :content and create_time = :create_time and read_time = :read_time and state = :state and type = :type" );
+		$query = $this->db->prepare ( " select id from crm_message_send_list where customer_id = :customer_id and shop_id = :shop_id and message_id = :message_id and title = :title and content = :content and create_time = :create_time  and state = :state and type = :type" );
 		$query->execute ( array (
 ':customer_id' => $customer_id,
                    ':shop_id' => $shop_id,
@@ -56,7 +57,6 @@ class MessageSendListModel {
                    ':title' => $title,
                    ':content' => $content,
                    ':create_time' => $create_time,
-                   ':read_time' => $read_time,
                    ':state' => $state,
                    ':type' => $type
 		) );
