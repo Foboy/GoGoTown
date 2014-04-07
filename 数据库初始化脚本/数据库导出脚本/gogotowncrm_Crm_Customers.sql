@@ -31,8 +31,9 @@ CREATE TABLE `Crm_Customers` (
   `Phone` varchar(16) DEFAULT NULL COMMENT '手机',
   `Birthady` bigint(20) DEFAULT NULL COMMENT '出生日期',
   `Remark` varchar(128) DEFAULT NULL COMMENT '备注',
+  `sys_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据修改以及新增时候改变',
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='商家客户表';
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='商家客户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +42,7 @@ CREATE TABLE `Crm_Customers` (
 
 LOCK TABLES `Crm_Customers` WRITE;
 /*!40000 ALTER TABLE `Crm_Customers` DISABLE KEYS */;
-INSERT INTO `Crm_Customers` VALUES (1,'自由客户',1,'1',1,'是的范德萨发'),(2,'自有客户2',2,'2',1,NULL),(22,'ee',1,'13558871855',NULL,'123'),(23,'第三方',1,'13558871877',12,'地方'),(24,'地方',1,'13558871877',11,'反倒是');
+INSERT INTO `Crm_Customers` VALUES (1,'自由客户',1,'1',1,'是的范德萨发','2014-04-07 05:16:19'),(2,'自有客户2',2,'13558871877',1,'读书方法','2014-04-07 05:16:19'),(22,'ee',1,'13558871855',NULL,'123','2014-04-07 05:16:19'),(23,'第三方',1,'13558871877',12,'地方','2014-04-07 05:16:19'),(24,'地方',1,'13558871877',11,'反倒是','2014-04-07 05:16:19'),(25,'D大调',1,'13882014677',32,'第三方','2014-04-07 05:16:19');
 /*!40000 ALTER TABLE `Crm_Customers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-04 10:15:57
+-- Dump completed on 2014-04-07 13:19:49

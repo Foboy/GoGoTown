@@ -31,6 +31,7 @@ CREATE TABLE `Crm_Validation` (
   `Type` int(11) DEFAULT NULL COMMENT '验证类型',
   `Usable` int(11) DEFAULT NULL COMMENT '是否可用',
   `Customer_ID` int(11) DEFAULT NULL COMMENT '客户ID',
+  `sys_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据修改以及新增时候改变',
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='验证码';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-04 10:15:57
+-- Dump completed on 2014-04-07 13:19:49

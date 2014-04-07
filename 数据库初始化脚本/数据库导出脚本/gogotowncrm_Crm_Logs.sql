@@ -30,6 +30,7 @@ CREATE TABLE `Crm_Logs` (
   `Content` varchar(128) DEFAULT NULL COMMENT '类容',
   `Target` varchar(32) DEFAULT NULL COMMENT '对象',
   `Create_Time` bigint(20) DEFAULT NULL COMMENT '时间',
+  `sys_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据修改以及新增时候改变',
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统日志表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-04 10:15:57
+-- Dump completed on 2014-04-07 13:19:48

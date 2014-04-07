@@ -43,6 +43,7 @@ CREATE TABLE `Crm_Gogo_Customers` (
   `mobile_approve` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'mobile_approve',
   `headimg` varchar(30) NOT NULL COMMENT 'headimg',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'status',
+  `sys_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据修改以及新增时候改变',
   PRIMARY KEY (`id`),
   KEY `mobile` (`mobile`),
   KEY `username` (`username`),
@@ -56,6 +57,7 @@ CREATE TABLE `Crm_Gogo_Customers` (
 
 LOCK TABLES `Crm_Gogo_Customers` WRITE;
 /*!40000 ALTER TABLE `Crm_Gogo_Customers` DISABLE KEYS */;
+INSERT INTO `Crm_Gogo_Customers` VALUES (1,'123','1','1','1','1',1,'1','1',1,'1',1,1,1,1,1,'1',1,'2014-04-07 05:16:53');
 /*!40000 ALTER TABLE `Crm_Gogo_Customers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -68,4 +70,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-04 10:15:57
+-- Dump completed on 2014-04-07 13:19:48
