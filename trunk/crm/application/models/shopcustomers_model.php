@@ -162,7 +162,7 @@ from
     left join Crm_Customers b ON a.customer_id = b.ID) aa
         left join
     (select 
-        cr.Customer_ID, cr.Rank, crs.Name
+        cr.Customer_ID, cr.rank_id, crs.Name
     from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID
@@ -269,7 +269,7 @@ from
     left join Crm_Gogo_Customers bb ON aa.cid = bb.id) cc
         left join
     (select 
-        cr.Customer_ID, cr.Rank, crs.Name
+        cr.Customer_ID, cr.rank_id, crs.Name
     from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID

@@ -472,7 +472,7 @@ class UsersModel {
 					':user_create_time' => $user_creation_timestamp 
 			) );
 			$count = $query->rowCount ();
-			print $count;
+			//print $count;
 			if ($count != 1) {
 				$_SESSION ["feedback_negative"] [] = FEEDBACK_ACCOUNT_CREATION_FAILED;
 				return false;
