@@ -47,6 +47,18 @@ function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) 
             }
         });
     }
+
+    $scope.DeleteMemberShipLevel = function (data)
+    {
+        $http.post($resturls["DeleteMemberShipLevel"], { id: data.ID }).success(function (result) {
+            if (result.Error == 0) {
+                alert("success");
+                $scope.LoadMemberShipLeveList();
+            } else {
+                alert("error");
+            }
+        });
+    }
     //保存商家编辑会员等级设置
     $scope.SaveEditMerberShipLevel = function (data) {
         if (!this.showerror) {
@@ -80,7 +92,7 @@ function AddMemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturl
     $scope.SaveAddMemberShipLevel = function (data) {
         if ($scope.AddMemberShipLevelForm.$valid) {
             $scope.showerror = false;
-            $http.post($resturls["AddMemberLevels"], { rank: $("#AddRankLevle").val(), name: data.name, remark: '' }).success(function (result) {
+            $http.post($resturls["AddMemberLevels"], { name: data.name }).success(function (result) {
                 if (result.Error == 0) {
                     alert("success");
                     $("#addmeberlevelmodal").modal('hide');

@@ -36,6 +36,7 @@
           resturls.add("EditMerchantInfo", "ShopInfo/updateName"); //编辑商家信息(名字)
           resturls.add("SearchMerchantSetLevels", "ShopRank/search");//获取商家设置的会员的等级
           resturls.add("AddMemberLevels", "ShopRank/add");//新增会员等级信息
+          resturls.add("DeleteMemberShipLevel", "ShopRank/delete");//删除会员等级
           resturls.add("UpdateMemberLevels", "ShopRank/update");//修改会员等级信息
           resturls.add("AddUserAccount", "user/register");//添加用户账号
           resturls.add("UpdateUserState", "user/updateUserState");//启用禁用用户 1 启用 0禁用

@@ -25,54 +25,30 @@ class ShopRank extends Controller {
 			return ;
 		}
 		
-		if (! isset ( $_POST ['rank'] ) or empty ( $_POST ['rank'] )) {
+
+		if (! isset ( $_POST ['name'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			return json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
-			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
-			return ;
-		}
-		if (! isset ( $_POST ['remark'] ) ) {
-			$result->Error = ErrorType::RequestParamsFailed;
-			return json_encode ( $result );
-			return ;
-		}
+	
 
 		$rankset_model = $this->loadModel ( 'RankSet' );
 	
-		$result->Data = $rankset_model->insert ( $_POST ['rank'],$_POST ['name'],$_SESSION["user_shop"],$_POST ['remark'] );
+		$result->Data = $rankset_model->insert ( 0,$_POST ['name'],$_SESSION["user_shop"],'' );
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );
 	}
 	/*
-	 * 修改客户等级名称
-	* parms:  rank  name  remark  id
+	 * 删除客户等级名称
+	* parms:   id
 	*/
-	public function update() {
+	public function delete() {
 		$result = new DataResult ();
 		
 		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
 			$result->Error = ErrorType::Unlogin;
-			print json_encode ( $result );
-			return ;
-		}
-		
-		if (! isset ( $_POST ['rank'] ) or empty ( $_POST ['rank'] )) {
-			$result->Error = ErrorType::RequestParamsFailed;
-			print json_encode ( $result );
-			return ;
-		}
-		if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
-			$result->Error = ErrorType::RequestParamsFailed;
-			print json_encode ( $result );
-			return ;
-		}
-		if (! isset ( $_POST ['remark'] ) ) {
-			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
@@ -84,7 +60,7 @@ class ShopRank extends Controller {
 	
 		$rankset_model = $this->loadModel ( 'RankSet' );
 	
-		$result->Data = $rankset_model->update ( $_POST ['id'],$_POST ['rank'],$_POST ['name'],$_SESSION["user_shop"],$_POST ['remark']);
+		$result->Data = $rankset_model->delete ( $_POST ['id']);
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );
@@ -110,7 +86,7 @@ class ShopRank extends Controller {
 	}
 	/*
 	 * 设置商家客户等级
-	* parms: rank from_type customer_id begin_time end_time
+	* parms: rank_id from_type 1自有 2gogo  customer_id begin_time end_time
 	*/
 	public function setCustomerRank() {
 		$result = new DataResult ();
@@ -121,36 +97,36 @@ class ShopRank extends Controller {
 			return ;
 		}
 		
-		if (! isset ( $_POST ['rank'] ) or empty ( $_POST ['rank'] )) {
+		if (! isset ( $_POST ['rank_id'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
 		
-		if (! isset ( $_POST ['from_type'] ) or empty ( $_POST ['from_type'] )) {
+		if (! isset ( $_POST ['from_type'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['customer_id'] ) or empty ( $_POST ['customer_id'] )) {
+		if (! isset ( $_POST ['customer_id'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['begin_time'] ) or empty ( $_POST ['begin_time'] )) {
+		if (! isset ( $_POST ['begin_time'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['end_time'] ) or empty ( $_POST ['end_time'] )) {
+		if (! isset ( $_POST ['end_time'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
 		}
 	
-		$rankset_model = $this->loadModel ( 'Rank' );
-		$result->Data = $rankset_model->delete($_POST ['from_type'] ,$_POST ['customer_id'],$_SESSION["user_shop"] );
-		$result->Data = $rankset_model->insert ($_POST ['from_type'],$_SESSION["user_shop"],$_POST ['customer_id'],$_POST ['rank'], $_POST ['begin_time'],$_POST ['end_time'] );
+		$rank_model = $this->loadModel ( 'Rank' );
+		$result->Data = $rank_model->delete($_POST ['from_type'] ,$_POST ['customer_id'],$_SESSION["user_shop"] );
+		$result->Data = $rank_model->insert ($_POST ['from_type'],$_SESSION["user_shop"],$_POST ['customer_id'],$_POST ['rank_id'], $_POST ['begin_time'],$_POST ['end_time'] );
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );

@@ -12,14 +12,14 @@ class RankModel {
 	}
 	
 	// 新增rank
-	public function insert($from_type,$shop_id,$customer_id,$rank,$begin_time,$end_time) {
+	public function insert($from_type,$shop_id,$customer_id,$rank_id,$begin_time,$end_time) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_rank where from_type = :from_type and shop_id = :shop_id and customer_id = :customer_id and rank = :rank " );
+		$query = $this->db->prepare ( " select *  from crm_rank where from_type = :from_type and shop_id = :shop_id and customer_id = :customer_id and rank_id = :rank_id " );
 		$query->execute ( array (
 ':from_type' => $from_type,
                    ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
-                   ':rank' => $rank
+                   ':rank_id' => $rank_id
 		) );
 		$count = $query->rowCount ();
 		if ($count > 0) {
@@ -27,13 +27,13 @@ class RankModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into crm_rank(from_type,shop_id,customer_id,rank,begin_time,end_time) values (:from_type,:shop_id,:customer_id,:rank,:begin_time,:end_time)";
+		$sql = "insert into crm_rank(from_type,shop_id,customer_id,rank_id,begin_time,end_time) values (:from_type,:shop_id,:customer_id,:rank_id,:begin_time,:end_time)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':from_type' => $from_type,
                    ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
-                   ':rank' => $rank,
+                   ':rank_id' => $rank_id,
                    ':begin_time' => $begin_time,
                    ':end_time' => $end_time
 		) );
@@ -45,12 +45,12 @@ class RankModel {
 		
 		// 获取ID
 		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-		$query = $this->db->prepare ( " select id from crm_rank where from_type = :from_type and shop_id = :shop_id and customer_id = :customer_id and rank = :rank and begin_time = :begin_time and end_time = :end_time" );
+		$query = $this->db->prepare ( " select id from crm_rank where from_type = :from_type and shop_id = :shop_id and customer_id = :customer_id and rank_id = :rank_id and begin_time = :begin_time and end_time = :end_time" );
 		$query->execute ( array (
 ':from_type' => $from_type,
                    ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
-                   ':rank' => $rank,
+                   ':rank_id' => $rank_id,
                    ':begin_time' => $begin_time,
                    ':end_time' => $end_time
 		) );
@@ -64,15 +64,15 @@ class RankModel {
 		return $customer_id;
 	}
 	// 修改rank
-	public function update($id,$from_type,$shop_id,$customer_id,$rank,$begin_time,$end_time) {
-		$sql = " update crm_rank set from_type = :from_type,shop_id = :shop_id,customer_id = :customer_id,rank = :rank,begin_time = :begin_time,end_time = :end_time where id = :id";
+	public function update($id,$from_type,$shop_id,$customer_id,$rank_id,$begin_time,$end_time) {
+		$sql = " update crm_rank set from_type = :from_type,shop_id = :shop_id,customer_id = :customer_id,rank_id = :rank_id,begin_time = :begin_time,end_time = :end_time where id = :id";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':id' => $id,
                    ':from_type' => $from_type,
                    ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
-                   ':rank' => $rank,
+                   ':rank_id' => $rank_id,
                    ':begin_time' => $begin_time,
                    ':end_time' => $end_time
 		) );
@@ -100,28 +100,28 @@ class RankModel {
 		return true;
 	}
 	// 分页查询rank
-	public function searchByPages($from_type,$shop_id,$customer_id,$rank,$begin_time,$end_time, $pageindex, $pagesize) {
+	public function searchByPages($from_type,$shop_id,$customer_id,$rank_id,$begin_time,$end_time, $pageindex, $pagesize) {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = " select id,from_type,shop_id,customer_id,rank,begin_time,end_time from crm_rank where  ( from_type = :from_type or :from_type=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( rank = :rank or :rank=0 )  and  ( begin_time = :begin_time or :begin_time=0 )  and  ( end_time = :end_time or :end_time=0 )  limit $lastpagenum,$pagesize" ;
+		$sql = " select id,from_type,shop_id,customer_id,rank,begin_time,end_time from crm_rank where  ( from_type = :from_type or :from_type=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( rank_id = :rank_id or :rank_id=0 )  and  ( begin_time = :begin_time or :begin_time=0 )  and  ( end_time = :end_time or :end_time=0 )  limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':from_type' => $from_type,
                    ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
-                   ':rank' => $rank,
+                   ':rank_id' => $rank_id,
                    ':begin_time' => $begin_time,
                    ':end_time' => $end_time
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_rank where  ( from_type = :from_type or :from_type=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( rank = :rank or :rank=0 )  and  ( begin_time = :begin_time or :begin_time=0 )  and  ( end_time = :end_time or :end_time=0 ) " );
+		$query = $this->db->prepare ( " select count(*)  from crm_rank where  ( from_type = :from_type or :from_type=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( rank_id = :rank_id or :rank_id=0 )  and  ( begin_time = :begin_time or :begin_time=0 )  and  ( end_time = :end_time or :end_time=0 ) " );
 		$query->execute ( array (
 ':from_type' => $from_type,
                    ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
-                   ':rank' => $rank,
+                   ':rank_id' => $rank_id,
                    ':begin_time' => $begin_time,
                    ':end_time' => $end_time
 		) );
