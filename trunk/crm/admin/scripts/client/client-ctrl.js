@@ -14,7 +14,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'owncustomer':
-                $http.post($resturls["LoadOwnCustomersList"], { rank_id: 0, name: parameters, phone: parameters, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+                $http.post($resturls["LoadOwnCustomersList"], { rank_id: 2, name: parameters, phone: parameters, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.ownclients = result.Data;
                         $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#client/' + $scope.sorts + '/{0}' + '/{1}', encodeURIComponent(parameters));
@@ -77,6 +77,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
         $scope.LoadMemberShipLeveList();
         if (data) {
             $scope.OwnCustomer = angular.copy(data);
+            $scope.OwnCustomer.TimeStamp = $scope.OwnCustomer.Birthady;
             $scope.OwnCustomer.Birthady = $scope.timestamptostr($scope.OwnCustomer.Birthady);
             $('.form_date').datetimepicker({
                 minView: 2,
@@ -87,7 +88,8 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
                 pickerPosition: "bottom-left"
             }).on('changeDate', function (ev) {
                 $scope.$apply(function () {
-                    $scope.OwnCustomer.Birthady = $scope.strtotimestamp($scope.OwnCustomer.Birthady);
+                    $scope.OwnCustomer.TimeStamp = $scope.strtotimestamp($scope.OwnCustomer.Birthady);
+                    console.log($scope.OwnCustomer.TimeStamp);
                 });
             });
         } else {
@@ -101,7 +103,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
                 pickerPosition: "bottom-left"
             }).on('changeDate', function (ev) {
                 $scope.$apply(function () {
-                    $scope.OwnCustomer.Birthady = $scope.strtotimestamp($scope.OwnCustomer.Birthady);
+                    $scope.OwnCustomer.TimeStamp = $scope.strtotimestamp($scope.OwnCustomer.Birthady);
                 });
             });
         }
@@ -127,11 +129,10 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
     $scope.SaveAddOwnCustomer = function (data) {
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
-            console.log(data);
-            $http.post($resturls["AddOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.Birthady, remark: data.Remark }).success(function (result) {
+            $http.post($resturls["AddOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.TimeStamp, remark: data.Remark }).success(function (result) {
                 if (result.Error == 0) {
                     $("#addcustomermodal").modal('hide');
-                    $scope.loadClientSortList($routeParams.pageIndex || 1, "");
+                    $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
                     alert("success");
                 }
                 else {
@@ -148,10 +149,10 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
     $scope.UpdateOwnCustomer = function (data) {
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
-            $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: 24, remark: data.Remark, customer_id: data.ID }).success(function (result) {
+            $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.TimeStamp, remark: data.Remark, customer_id: data.ID }).success(function (result) {
                 if (result.Error == 0) {
                     $("#addcustomermodal").modal('hide');
-                    $scope.loadClientSortList($routeParams.pageIndex || 1, "");
+                    $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
                     alert("success");
                 }
                 else {

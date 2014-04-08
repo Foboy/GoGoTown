@@ -17,8 +17,8 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
          .state('main.home', {
              url: '/home',
              templateUrl: 'partials/home.html',
-             controller: function () { 
-                 setTimeout(function() {
+             controller: function () {
+                 setTimeout(function () {
 
                      loadflotpanel();
                  }, 1000);
@@ -31,7 +31,7 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
          .state('main.mebershiplevel', { url: '/mebershiplevel*path', templateUrl: 'partials/mebershiplevel.html', controller: MemberShipLevelCtrl })
          .state('main.permissions', { url: '/permissions*path', templateUrl: 'partials/authoritymanagement.html', controller: AuthorityManagementCtrl })
          .state('main.maintenance', { url: '/maintenance*path', templateUrl: 'partials/maintenance.html', controller: MaintenanceCtrl });
-         
+
 
     $httpProvider.interceptors.push(function () {
         return {
@@ -68,7 +68,7 @@ function MainCtrl($scope, $routeParams, $http, $location, $filter, $resturls) {
     $scope.CalculateAge = function (time) {
         var age = 0;
         time = $scope.timestamptostr(time);
-        var age=0;
+        var age = 0;
         if (time) {
             var now = new Date();
             var birthday = new Date(time);
@@ -112,9 +112,8 @@ function MainCtrl($scope, $routeParams, $http, $location, $filter, $resturls) {
 
     // 时间格式字符串 ey:'2014-04-08'转化为unix时间戳
     $scope.strtotimestamp = function (datestr) {
-        debugger;
         var arr = datestr.split("-");
-        var timestap = new Date(Date.UTC(arr[0], arr[1] - 1, arr[2])).getTime()/1000;
+        var timestap = new Date(Date.UTC(arr[0], arr[1] - 1, arr[2])).getTime() / 1000;
         return timestap;
     }
 }
