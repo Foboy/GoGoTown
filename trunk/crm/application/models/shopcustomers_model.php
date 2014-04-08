@@ -134,7 +134,7 @@ from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID
     where
-        cr.Shop_ID = 0) bb ON aa.customer_id = bb.cid 
+        cr.Shop_ID = :shop_id ) bb ON aa.customer_id = bb.cid 
         where ($name or $phone) and (aa.sex = :sex or 0=:sex) and (bb.rank_id=:rank_id or :rank_id=0)
 		order by aa.create_time desc limit $lastpagenum,$pagesize" ;
 		//print  $sql;
@@ -167,7 +167,7 @@ from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID
     where
-        cr.Shop_ID = 0) bb ON aa.customer_id = bb.customer_id where ($name or $phone) and (aa.sex = :sex or 0=:sex) and (bb.rank_id=:rank_id or :rank_id=0) " );
+        cr.Shop_ID = :shop_id) bb ON aa.customer_id = bb.customer_id where ($name or $phone) and (aa.sex = :sex or 0=:sex) and (bb.rank_id=:rank_id or :rank_id=0) " );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
 				':sex' => $sex,
@@ -227,7 +227,7 @@ from
     left join Crm_Gogo_Customers bb ON aa.Customer_ID = bb.id) cc
         left join
     (select 
-        cr.Customer_ID ccid, cr.rank_id, crs.Name
+        cr.Customer_ID ccid, cr.rank_id, crs.Name shoprankname
     from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.id = crs.ID
