@@ -55,28 +55,30 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
                 window.event.cancelBubble = true;
             }
         }
-        $scope.choselevel = $rootScope.selectedOwnCustomerLevel;
-        //获取商家会员等级设置信息
-        $scope.LoadMemberShipLeveList = function () {
+        
+        //获取用户等级设置信息
+        $scope.GetCustomerMemberShip = function (data) {
             $http.post($resturls["SearchMerchantSetLevels"], {}).success(function (result) {
                 if (result.Error == 0) {
                     $scope.mebershiplevels = result.Data;
-                    if (!$scope.choselevel) {
-                        if ($scope.mebershiplevels.length > 0) {
-                            $scope.choselevel = $scope.mebershiplevels[0];
+                    if (data) {
+                        if (!data.rank_id) {
+                            $scope.choselevel = { Name: "未设置等级", ID: 0 };
                         } else {
-                            $scope.choselevel = { ID: 0, Name: '未设置等级' };
+                            $scope.choselevel = { Name: data.shoprankname, ID: data.rank_id };
                         }
+                    } else {
+                        $scope.choselevel = { Name: "未设置等级", ID: 0 };
                     }
-
                 } else {
                     $scope.mebershiplevels = [];
                 }
             });
         }
-        $scope.LoadMemberShipLeveList();
+        
         if (data) {
             $scope.OwnCustomer = angular.copy(data);
+            $scope.GetCustomerMemberShip($scope.OwnCustomer);
             $scope.OwnCustomer.TimeStamp = $scope.OwnCustomer.Birthady;
             $scope.OwnCustomer.Birthady = $scope.timestamptostr($scope.OwnCustomer.Birthady);
             $('.form_date').datetimepicker({
@@ -93,6 +95,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
                 });
             });
         } else {
+            $scope.GetCustomerMemberShip(null);
             $scope.OwnCustomer = { ID: 0, Sex: 1 };
             $('.form_date').datetimepicker({
                 minView: 2,
@@ -123,8 +126,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
 //增加自有客户scope
 function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $rootScope) {
     $scope.ChoseCustomerRank = function (data) {
-        $scope.choselevel = data;
-        $rootScope.selectedOwnCustomerLevel = data;
+        $scope.choselevel = { Name: data.Name,ID:data.ID };
     };
     $scope.SaveAddOwnCustomer = function (data) {
         if ($scope.AddOwnCustomerForm.$valid) {
