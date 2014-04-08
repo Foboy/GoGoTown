@@ -49,11 +49,10 @@ class Messages extends Controller {
 		}
 		$ids = explode ( ',', trim ( $_POST ['customer_ids'] ) );
 		
+		$mslist_model = $this->loadModel ( 'MessageSendList' );
 		for($index = 0; $index < count ( $ids ); $index ++) {
-			
-			$mslist_model = $this->loadModel ( 'MessageSendList' );
 			$sctime = time ();
-			$mslist_model->insert ( $ids [$index], $_SESSION ["user_shop"], $mid, $_POST ['title'], $_POST ['content'],  MessageState::IsSent, MessageType::GOGO );
+			$mslist_model->insert( $ids [$index], $_SESSION ["user_shop"], $mid, $_POST ['title'], $_POST ['content'],  MessageState::IsSent, MessageType::GOGO );
 		}
 		
 		$result->Error = ErrorType::Success;

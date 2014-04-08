@@ -14,7 +14,6 @@ class MessageSendListModel {
 	// 新增message_send_list
 	public function insert($customer_id,$shop_id,$message_id,$title,$content,$state,$type) {
 		$create_time=time();
-		
 		// 判断是否已存在
 		$query = $this->db->prepare ( " select *  from crm_message_send_list where customer_id = :customer_id and shop_id = :shop_id and message_id = :message_id and type = :type" );
 		$query->execute ( array (
@@ -172,5 +171,3 @@ class MessageSendListModel {
 		return $result;
 	}
 }
-
-?>
