@@ -39,24 +39,58 @@ class Messages extends Controller {
 			print json_encode ( $result );
 			return;
 		}
+		
 		$messages_model = $this->loadModel ( 'Messages' );
+		$mslist_model = $this->loadModel ( 'MessageSendList' );
+		$ids = explode ( ',', trim ( $_POST ['customer_ids'] ) );
 		$stime = time ();
+		
+		//判断群发只能一周发一次
+		if(count ( $ids )>0)
+		{
+			$lastmsg=$messages_model->get($_SESSION ["user_shop"]);
+			
+			$lasttime=$lastmsg->Data->Create_Time;
+		 $days =(int)(($stime-$lasttime)/(24*3600));
+			if($days<7)
+			{
+				$result->Error = ErrorType::Failed;
+				$result->ErrorMessage=FEEDBACK_MSG_TIME_FAILED;
+				print json_encode ( $result );
+				return;
+			}else 
+			{
+				//插入商铺发送信息表
+				$mid = $messages_model->insert ( $_SESSION ["user_shop"], MessageType::GOGO, $_POST ['title'], $_POST ['content'], $stime, $stime, MessageState::IsSent );
+				if ($mid < 1) {
+					$result->Error = ErrorType::Failed;
+					print json_encode ( $result );
+					return;
+				}
+				//插入商铺客户对应信息表
+				for($index = 0; $index < count ( $ids ); $index ++) {
+					$mslist_model->insert( $ids [$index], $_SESSION ["user_shop"], $mid, $_POST ['title'], $_POST ['content'],  MessageState::IsSent, MessageType::GOGO );
+				}
+				
+				$result->Error = ErrorType::Success;
+				print json_encode ( $result );
+			}
+				
+		}else 
+			{
+		//插入商铺发送信息表
 		$mid = $messages_model->insert ( $_SESSION ["user_shop"], MessageType::GOGO, $_POST ['title'], $_POST ['content'], $stime, $stime, MessageState::IsSent );
 		if ($mid < 1) {
 			$result->Error = ErrorType::Failed;
 			print json_encode ( $result );
 			return;
 		}
-		$ids = explode ( ',', trim ( $_POST ['customer_ids'] ) );
-		
-		$mslist_model = $this->loadModel ( 'MessageSendList' );
-		for($index = 0; $index < count ( $ids ); $index ++) {
-			$sctime = time ();
-			$mslist_model->insert( $ids [$index], $_SESSION ["user_shop"], $mid, $_POST ['title'], $_POST ['content'],  MessageState::IsSent, MessageType::GOGO );
-		}
-		
+		//插入商铺客户对应信息表
+		$mslist_model->insert( $ids [0], $_SESSION ["user_shop"], $mid, $_POST ['title'], $_POST ['content'],  MessageState::IsSent, MessageType::GOGO );
+	
 		$result->Error = ErrorType::Success;
 		print json_encode ( $result );
+			}
 	}
 	/*
 	 * 商家获取已发送信息接口 

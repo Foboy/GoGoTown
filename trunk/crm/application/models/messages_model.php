@@ -143,13 +143,19 @@ class MessagesModel {
 		$result->Data = $objects;
 		return $result;
 	}
-    //根据ID获取messages
-	public function get($id) {
+    //根据店铺ID获取最近一条messages
+	public function get($shop_id) {
 		$result = new DataResult ();
 		
-		$query = $this->db->prepare ( "SELECT * FROM Crm_Messages WHERE id = :id " );
+		$query = $this->db->prepare ( "SELECT 
+    *
+FROM
+    gogotowncrm.Crm_Messages
+where
+    Shop_ID = :shop_id
+order by Create_Time desc limit 1 " );
 		$query->execute ( array (
-				':id' => $id 
+				':shop_id' => $shop_id 
 		) );
 		
 		$objects = $query->fetch ();
