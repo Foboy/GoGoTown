@@ -69,7 +69,7 @@
                             $("#SendMessageMoadl").modal('hide');
                         } else {
                             $scope.showerror = true;
-                            alert("error");
+                            alert(result.ErrorMessage);
                         }
                     });
                 } else {

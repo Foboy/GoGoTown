@@ -18,10 +18,10 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
              url: '/home',
              templateUrl: 'partials/home.html',
              controller: function () { 
-                    setTimeout(function() {
+                 setTimeout(function() {
 
-                        loadflotpanel();
-                    }, 1000);
+                     loadflotpanel();
+                 }, 1000);
              }
          })
          .state('main.user', { url: '/user*path', templateUrl: 'partials/userinfo.html', controller: function () { } })
@@ -64,4 +64,57 @@ function MainCtrl($scope, $routeParams, $http, $location, $filter, $resturls) {
             $scope.currentuser = {};
         }
     });
+    //根据出生日期unix时间戳计算年龄
+    $scope.CalculateAge = function (time) {
+        var age = 0;
+        time = $scope.timestamptostr(time);
+        var age=0;
+        if (time) {
+            var now = new Date();
+            var birthday = new Date(time);
+            if ((now.getFullYear() - birthday.getFullYear()) > 0) {
+                if ((now.getMonth() - birthday.getMonth()) > 0) {
+                    age = (now.getFullYear() - birthday.getFullYear()) + 1;
+                }
+                else if ((now.getMonth() - birthday.getMonth()) == 0) {
+                    age = now.getFullYear() - birthday.getFullYear();
+                } else {
+                    age = (now.getFullYear() - birthday.getFullYear()) - 1;
+                }
+            } else {
+                age = 0;
+            }
+        }
+        return age;
+    }
+    // unix时间戳转化为 eg:'2014-04-08'
+    $scope.timestamptostr = function (timestamp) {
+        if (timestamp.indexOf('-') == -1) {
+            var month = 0;
+            var day = 0;
+            if (timestamp) {
+                var unixTimestamp = new Date(timestamp * 1000);
+                if (unixTimestamp.getMonth() < 9) {
+                    month = '0' + (unixTimestamp.getMonth() + 1);
+                }
+                if (unixTimestamp.getDay() < 9) {
+                    day = '0' + unixTimestamp.getDay();
+                }
+                var str = unixTimestamp.getFullYear() + '-' + month + '-' + day;
+                return str;
+            } else {
+                return "";
+            }
+        } else {
+            return timestamp;
+        }
+    }
+
+    // 时间格式字符串 ey:'2014-04-08'转化为unix时间戳
+    $scope.strtotimestamp = function (datestr) {
+        debugger;
+        var arr = datestr.split("-");
+        var timestap = new Date(Date.UTC(arr[0], arr[1] - 1, arr[2])).getTime()/1000;
+        return timestap;
+    }
 }

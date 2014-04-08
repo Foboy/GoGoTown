@@ -222,3 +222,4 @@ define("FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL", "重置密码成功");
 define("FEEDBACK_PASSWORD_CHANGE_FAILED", "重置密码失败");
 define("FEEDBACK_ACCOUNT_UPGRADE_SUCCESSFUL", "账号更新成功");
 define("FEEDBACK_ACCOUNT_UPGRADE_FAILED", "账号更新失败");
+define("FEEDBACK_MSG_TIME_FAILED", "群发信息间隔为七天，请七天后再发送");

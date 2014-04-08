@@ -23,19 +23,19 @@
                         <div class="col-sm-6">
                             <div class="btn-group btn-group-right">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    白金会员
+                                    {{choselevel.Name}}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li ><a href="#">按会员等级选择</a></li>
+                                    <li ng-repeat="mebershiplevel in mebershiplevels"><a ng-click="ChoseCustomerRank(mebershiplevel)">{{mebershiplevel.Name}}</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">出生日期</label>
-                        <div class="input-group date form_date col-sm-6" data-date="" data-date-format="dd MM yyyy">
-                            <input class="form-control" size="16" type="text" value="" readonly>
+                        <div class="input-group date form_date col-sm-6 .form_date" >
+                            <input class="form-control" size="16" type="text" ng-model="OwnCustomer.Birthady" readonly>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>   
                         </div>
                     </div>
@@ -51,21 +51,21 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">手机号</label>
                         <div class="col-sm-6">
-                            <input class="form-control" placeholder="联系方式"  ng-pattern="/^[1][358]\d{9}$/" name="phone"
+                            <input class="form-control" placeholder="联系方式" ng-required="true"  ng-pattern="/^[1][358]\d{9}$/" name="phone"
                             ng-model="OwnCustomer.Phone">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 control-label">备注</label>
                         <div class="col-sm-6">
-                            <textarea class="form-control" rows="3" ng-model="OwnCustomer.Remark"></textarea>
+                            <textarea class="form-control" rows="3"  ng-required="true" ng-model="OwnCustomer.Remark"></textarea>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" ng-click="OwnCustomer.Customer_ID==0?SaveAddOwnCustomer(OwnCustomer):UpdateOwnCustomer(OwnCustomer)">
+                <button type="button" class="btn btn-primary" ng-click="OwnCustomer.ID==0?SaveAddOwnCustomer(OwnCustomer):UpdateOwnCustomer(OwnCustomer)">
                     保 存</button>
             </div>
         </div>

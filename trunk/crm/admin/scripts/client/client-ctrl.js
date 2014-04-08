@@ -55,13 +55,59 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
                 window.event.cancelBubble = true;
             }
         }
+        $scope.choselevel = $rootScope.selectedOwnCustomerLevel;
+        //获取商家会员等级设置信息
+        $scope.LoadMemberShipLeveList = function () {
+            $http.post($resturls["SearchMerchantSetLevels"], {}).success(function (result) {
+                if (result.Error == 0) {
+                    $scope.mebershiplevels = result.Data;
+                    if (!$scope.choselevel) {
+                        if ($scope.mebershiplevels.length > 0) {
+                            $scope.choselevel = $scope.mebershiplevels[0];
+                        } else {
+                            $scope.choselevel = { ID: 0, Name: '未设置等级' };
+                        }
+                    }
+
+                } else {
+                    $scope.mebershiplevels = [];
+                }
+            });
+        }
+        $scope.LoadMemberShipLeveList();
         if (data) {
-            $scope.OwnCustomer = data;
+            $scope.OwnCustomer = angular.copy(data);
+            $scope.OwnCustomer.Birthady = $scope.timestamptostr($scope.OwnCustomer.Birthady);
+            $('.form_date').datetimepicker({
+                minView: 2,
+                language: 'zh-CN',
+                format: "yyyy-mm-dd",
+                autoclose: true,
+                todayBtn: true,
+                pickerPosition: "bottom-left"
+            }).on('changeDate', function (ev) {
+                $scope.$apply(function () {
+                    $scope.OwnCustomer.Birthady = $scope.strtotimestamp($scope.OwnCustomer.Birthady);
+                });
+            });
         } else {
             $scope.OwnCustomer = { ID: 0, Sex: 1 };
+            $('.form_date').datetimepicker({
+                minView: 2,
+                language: 'zh-CN',
+                format: "yyyy-mm-dd",
+                autoclose: true,
+                todayBtn: true,
+                pickerPosition: "bottom-left"
+            }).on('changeDate', function (ev) {
+                $scope.$apply(function () {
+                    $scope.OwnCustomer.Birthady = $scope.strtotimestamp($scope.OwnCustomer.Birthady);
+                });
+            });
         }
         $("#addcustomermodal").modal('show');
     }
+   
     //客户数据详情弹窗
     $scope.ShowClientDetailModal = function (data) {
         $("#customerdetailmodal").modal('show');
@@ -73,7 +119,11 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
 }
 
 //增加自有客户scope
-function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
+function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $rootScope) {
+    $scope.ChoseCustomerRank = function (data) {
+        $scope.choselevel = data;
+        $rootScope.selectedOwnCustomerLevel = data;
+    };
     $scope.SaveAddOwnCustomer = function (data) {
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
@@ -98,7 +148,7 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.UpdateOwnCustomer = function (data) {
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
-            $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.Birthady, remark: data.Remark, customer_id: data.ID }).success(function (result) {
+            $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: 24, remark: data.Remark, customer_id: data.ID }).success(function (result) {
                 if (result.Error == 0) {
                     $("#addcustomermodal").modal('hide');
                     $scope.loadClientSortList($routeParams.pageIndex || 1, "");
