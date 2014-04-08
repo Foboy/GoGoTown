@@ -12,13 +12,9 @@
             <ul class="nav nav-tabs">
                 <li ng-class="sorts=='clerk'?'active':''"><a ng-href="#/permissions/clerk">CRM管理账号</a></li>
                 <li ng-class="sorts=='cashier'?'active':''"><a ng-href="#/permissions/cashier">收银App账号</a></li>
-                <li class="navbar-right col-sm-4">
-                    <div class="col-sm-4 col-sm-offset-4 canlepadding">
-                        <button type="button" class="btn btn-primary btn-sm pull-right" ng-click="ShowAddUserAccountModal(0,3)">添加crm账号</button>
-                    </div>
-                    <div class="col-sm-4 canlepadding">
-                        <button type="button" class="btn btn-primary btn-sm btn_left pull-right" ng-click="ShowAddUserAccountModal(0,2)">添加收银账号</button>
-                    </div>
+                <li class="navbar-right">
+                    <button type="button" class="btn-group-right btn btn-primary btn-sm pull-left" ng-click="ShowAddUserAccountModal(0,3)">添加crm账号</button>
+                    <button type="button" class="btn btn-primary btn-sm btn_left pull-right" ng-click="ShowAddUserAccountModal(0,2)">添加收银账号</button>
                 </li>
             </ul>
             <!-- Tab panes -->
