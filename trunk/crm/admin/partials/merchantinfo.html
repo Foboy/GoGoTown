@@ -5,10 +5,9 @@
             <h1 class="titlefont font20 page-header">商家基本信息</h1>
         </div>
     </div>
-    <form name="EditMerchantForm" ng-class="showerror?'showerror':''">
+   <!--  <form name="EditMerchantForm" ng-class="showerror?'showerror':''">
         <div class="row">
-            <div class="col-lg-1"></div>
-            <div class="col-lg-10">
+            <div class="col-sm-10 col-sm-offset-1">
                 <div class="panel panel-default">
                     <div class="mer_infofrom">
                         <div class="col-lg-2 mer_content">
@@ -22,11 +21,28 @@
                             <a class="mer_edit" ng-click="Ntype=!Ntype;!Ntype?SaveEditMerchant(merchantinfo):''">{{!Ntype?'编辑':'保存'}}</a>
                         </div>
                     </div>
-                    </div>
                 </div>
             </div>
-            <div class="col-lg-1"></div>
+            <div class="col-sm-1"></div>
         </div>
-        <!-- /.row -->
-    </form>
+    </form> -->
+
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="panel panel-default">
+                    <form class="form-horizontal mer_padding" name="EditMerchantForm" ng-class="showerror?'showerror':''">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">商户名称</label>
+                            <div class="col-sm-8">
+                                <label ng-show="!Ntype?true:false" class="font500 graycolor mer_lable col-sm-12">{{merchantinfo.name}}</label>
+                                <input class="form-control " ng-model="merchantinfo.name" ng-required="true" ng-show="Ntype?true:false">
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="mer_edit" ng-click="Ntype=!Ntype;!Ntype?SaveEditMerchant(merchantinfo):''">{{!Ntype?'编辑':'保存'}}</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 </div>

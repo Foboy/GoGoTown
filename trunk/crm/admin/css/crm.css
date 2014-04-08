@@ -48,6 +48,9 @@
 .btn-group-right{
 	margin-right: 7px;
 }
+.lable-text{
+	text-align: left;;
+}
 
 
 
@@ -162,6 +165,12 @@ transition: 0.25s;
 }
 .but-header{
 	margin-top: 20px;
+}
+.mer_padding{
+	padding: 20px 20px 10px 20px
+}
+.mer_lable{
+	padding: 7px 15px 0 15px;
 }
 
 /*dashborad*/
