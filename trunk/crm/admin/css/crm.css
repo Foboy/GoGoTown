@@ -42,6 +42,9 @@
 .padding_null{
 	padding: 0px;
 }
+.padding_right{
+	padding: 0 15px 0 0;
+}
 .btn-group-top{
 	margin-top: 8px;
 }
@@ -50,6 +53,9 @@
 }
 .lable-text{
 	text-align: left;;
+}
+.lable-top{
+	padding-top: 7px;
 }
 
 
@@ -127,6 +133,15 @@ transition: 0.25s;
 .btn_left{
 	margin-left: 8px;
 }
+
+/*客户维护*/
+.group-bot{
+	margin-bottom: 10px;
+}
+.send-btn-top{
+	margin-top: 15px;
+}
+.img
 
 
 /*基本信息设置*/
