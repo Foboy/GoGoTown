@@ -47,7 +47,7 @@ function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) 
             }
         });
     }
-
+    //删除等级
     $scope.DeleteMemberShipLevel = function (data)
     {
         $http.post($resturls["DeleteMemberShipLevel"], { id: data.ID }).success(function (result) {

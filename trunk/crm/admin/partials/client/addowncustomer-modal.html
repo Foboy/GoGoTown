@@ -8,7 +8,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <i class="titlefont glyphicon glyphicon-plus pull-left marginmodal"></i>
                 <h4 class="titlefont modal-title">
-                    {{OwnCustomer.Customer_ID==0?'新增客户':'编辑客户'}}</h4>
+                    {{OwnCustomer.ID==0?'新增客户':'编辑客户'}}</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal"  ng-class="showerror?'showerror':''" name="AddOwnCustomerForm">
@@ -23,12 +23,11 @@
                         <div class="col-sm-6">
                             <div class="btn-group btn-group-right">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    GOGO客户
+                                    白金会员
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">GOGO客户</a></li>
-                                    <li><a href="#">按会员等级选择</a></li>
+                                    <li ><a href="#">按会员等级选择</a></li>
                                 </ul>
                             </div>
                         </div>

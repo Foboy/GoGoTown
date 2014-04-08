@@ -4,8 +4,6 @@
             <h1 class="titlefont font20 page-header">客户维护</h1>
         </div>
     </div>
-
-
     <div class="row well margin_bot">
         <div class="col-xs-2 padding_null">
             <div class="form-horizontal padding_null ">
@@ -15,24 +13,23 @@
                         <div class="btn-toolbar">
                             <div class="btn-group btn-group-right">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    GOGO客户
+                                    {{!show?'GOGO客户':'按会员等级选择'}}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">GOGO客户</a></li>
-                                    <li><a href="#">按会员等级选择</a></li>
+                                    <li><a ng-click="ChoseLoadGogoCustomerList()">GOGO客户</a></li>
+                                    <li><a ng-click="ShowLevel(choselevel)">按会员等级选择</a></li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="btn-group-top btn-toolbar">
+                        <div class="btn-group-top btn-toolbar" ng-show="show?true:false">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    会员等级1
+                                    {{choselevel.Name}}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">会员等级1</a></li>
-                                    <li><a href="#">会员等级2</a></li>
+                                    <li ng-repeat="mebershiplevel in mebershiplevels"><a ng-click="ChoseCustomerRank(mebershiplevel)">{{mebershiplevel.Name}}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -40,25 +37,31 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-6 padding_null">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label class="graycolor font500 font14 col-xs-2 control-label">内容</label>
-                    <div class="col-xs-9 padding_null">
-                        <textarea class="form-control" rows="3" ng-model="OwnCustomer.Remark"></textarea>
+        <form ng-class="showerror?'showerror':''" name="SendGogoMessageForm">
+            <div class="col-xs-6 padding_null">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="graycolor font500 font14 col-xs-2 control-label">内容</label>
+                        <div class="col-xs-9 padding_null">
+                            <textarea class="form-control" rows="3" ng-model="message.content" ng-required="true"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="col-xs-1 padding_null">
-            <p class="margin_bot"><button class="btn btn-outline btn-default btn-sm"  type="button">添加图片</button></p>
-            <p><button class="btn btn-primary btn-sm"  type="button">发送消息</button></p>
+            <p class="margin_bot">
+                <button class="btn btn-outline btn-default btn-sm" type="button">添加图片</button>
+            </p>
+            <p>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="SendMessage(gogoclients,message)">发送消息</button>
+            </p>
         </div>
         <div class="col-xs-3 padding_null">
             <div href="#" class="thumbnail">
-                <img  alt="...">
+                <img alt="...">
             </div>
-        </div>     
+        </div>
     </div>
 
     <div class="row">
@@ -73,30 +76,36 @@
                             <th>性别</th>
                             <th>手机号</th>
                             <th>备注</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="ownclient in ownclients " class="odd gradeX" ng-click="ShowClientDetailModal()">
+                        <tr ng-repeat="gogoclient in gogoclients " class="odd gradeX" ng-click="ShowClientDetailModal()">
                             <td>{{$index+1}}</td>
-                            <td>{{ownclient.Name}}
+                            <td>{{gogoclient.Name}}
                             </td>
-                            <td>{{ownclient.Birthady}}
+                            <td>{{gogoclient.Birthady}}
                             </td>
-                            <td>{{ownclient.Sex==1?'男':'女'}}
+                            <td>{{gogoclient.Sex==1?'男':'女'}}
                             </td>
-                            <td class="center">{{ownclient.Phone}}
+                            <td class="center">{{gogoclient.Phone}}
                             </td>
-                            <td class="center">{{ownclient.Remark}}
+                            <td class="center">{{gogoclient.Remark}}
                             </td>
-                            <td><a ng-click="ShowAddOwnCustomerModal(ownclient,$event)">编辑</a>|<a ng-click="ShowClientDetailModal()">详情</a></td>
                         </tr>
                     </tbody>
                 </table>
-             </div>
+            </div>
         </div>
     </div>
-
-    <div class="row"></div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="pagination">
+                <li ng-repeat="page in pages | filter:'pre'"><a ng-href="{{page.url}}"><<</a></li>
+                <li ng-class="{{page.active}}?'active':''" ng-repeat="page in pages | filter:'page'"><a ng-href="{{page.url}}">{{page.index}}</a></li>
+                <li ng-repeat="page in pages | filter:'next'"><a ng-href="{{page.url}}">>></a></li>
+            </ul>
+        </div>
+    </div>
 </div>
 
