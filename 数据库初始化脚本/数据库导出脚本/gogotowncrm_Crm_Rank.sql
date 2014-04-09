@@ -25,16 +25,16 @@ DROP TABLE IF EXISTS `Crm_Rank`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Crm_Rank` (
-  `ID` int(11) NOT NULL COMMENT 'ID',
+  `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `From_Type` int(11) DEFAULT NULL COMMENT '客户来源',
   `Shop_ID` int(11) DEFAULT NULL COMMENT '商家ID',
   `Customer_ID` int(11) DEFAULT NULL COMMENT '用户ID',
-  `Rank` int(11) DEFAULT NULL COMMENT '用户等级',
+  `Rank_ID` int(11) DEFAULT NULL COMMENT '用户等级',
   `Begin_Time` bigint(20) DEFAULT NULL COMMENT '生效时间',
   `End_Time` bigint(20) DEFAULT NULL COMMENT '终止时间',
   `sys_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据修改以及新增时候改变',
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='客户等级';
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='客户等级';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `Crm_Rank` (
 
 LOCK TABLES `Crm_Rank` WRITE;
 /*!40000 ALTER TABLE `Crm_Rank` DISABLE KEYS */;
+INSERT INTO `Crm_Rank` VALUES (1,1,1,2,1,11,11,'2014-04-08 15:09:58'),(2,2,1,4,2,11,1,'2014-04-08 15:09:58');
 /*!40000 ALTER TABLE `Crm_Rank` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-07 13:19:49
+-- Dump completed on 2014-04-09 19:00:40
