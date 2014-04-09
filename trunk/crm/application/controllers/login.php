@@ -21,6 +21,7 @@ class Login extends Controller
     function unloginresponse(){
     	$result = new DataResult();
     	$result->Error = ErrorType::Unlogin;
+    	$result->ErrorMessage = "未登陆";
     	print json_encode($result);
     }
 
@@ -67,6 +68,12 @@ class Login extends Controller
         }
       
         echo json_encode ( $result ) ;
+    }
+    
+    function applogin()
+    {
+    	$this-> login();
+    	Auth::handleLoginWithUserType(UserType::ShopApp);
     }
 
     /**
