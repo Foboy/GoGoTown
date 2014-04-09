@@ -1,7 +1,10 @@
 /* CSS Document */
 /*公共*/
 a{
-	cursor: pointer;;
+	cursor: pointer;
+}
+.public_cur{
+	cursor: pointer;
 }
 .graycolor{
 	color: #888;

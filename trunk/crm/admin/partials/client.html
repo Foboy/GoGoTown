@@ -53,7 +53,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="ownclient in ownclients " class="odd gradeX" ng-click="ShowClientDetailModal()">
+                                <tr ng-repeat="ownclient in ownclients " class="odd gradeX public_cur" ng-click="ShowClientDetailModal()">
                                     <td>{{$index+1}}</td>
                                     <td>{{ownclient.Name}}
                                     </td>
@@ -91,7 +91,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd gradeX" ng-repeat="gogoclient in gogoclients">
+                                <tr class="odd gradeX public_cur"  ng-repeat="gogoclient in gogoclients">
                                     <td>{{$index+1}}</td>
                                     <td>{{gogoclient.Name}}
                                     </td>
@@ -104,6 +104,8 @@
                                     </td>
                                     <td class="center">
                                         <a ng-click="ShowSendMessageModal(gogoclient)">发送信息</a>
+                                        <b class="graycolor1">|</b>
+                                        <a ng-click="ShowClientDetailModal()">详情</a></td>
                                     </td>
                                 </tr>
                             </tbody>

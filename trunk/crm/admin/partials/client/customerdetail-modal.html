@@ -1,51 +1,93 @@
 ﻿<!--新增编辑自有客户 Modal -->
 <div class="modal fade" id="customerdetailmodal" tabindex="-1" role="dialog" aria-hidden="true">
-    <form>
-        <div class="modal-dialog">
-            <div class="modal_radius modal-content">
-                <!--<div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">1223</h4>
-            </div>-->
-                <div class="modal_content modal-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img class="img-responsive" src="img/defaulttx.png" alt="">
-                            <ul class="nav nav-tabs nav-stacked" id="myTab">
-                                <li ng-class="kind?'active':''"><a ng-click="kind=!kind">消费记录</a></li>
-                                <li ng-class="!kind?'active':''"><a ng-click="kind=!kind">客户简介</a></li>
-                            </ul>
-                        </div>
-                        <!-- col-md-4 -->
+    <div class="modal-dialog">
+        <div class="modal_radius modal-content">
+            <!--<div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">1223</h4>
+        </div>-->
+            <div class="modal_content modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img class="img-responsive" src="img/defaulttx.png" alt="">
+                        <ul class="nav nav-tabs nav-stacked" id="myTab">
+                            <li ng-class="!kind?'active':''"><a ng-click="kind=!kind">客户简介</a></li>
+                            <li ng-class="kind?'active':''"><a ng-click="kind=!kind">消费记录</a></li>
+                        </ul>
+                    </div>
+                    <!-- col-md-4 -->
 
-                        <!-- ===== vCard Content ===== -->
-                        <div class="col-md-8">
-                            <button type="button" class="close_postion close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <div class="tab-content">
-                                <div class="tab-pane active" ng-show="!kind?true:false">
-                                    <h3>消费</h3>
-                                    <h5>消费啊 </h5>
-                                    <hr>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                    <p>Has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it.</p>
+                    <!-- ===== vCard Content ===== -->
+                    <div class="col-md-8">
+                        <button type="button" class="close_postion close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <div class="tab-content">
+                            <div class="tab-pane active" ng-show="kind?true:false">
+                                <h3>王晓</h3>
+                                <h5 class="logo-title">GOGO客户</h5>
+                                <hr>
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-3">年龄</label>
+                                        <label class="titlefont col-sm-8">14</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3">性别</label>
+                                        <label class="titlefont col-sm-8">男</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3">联系方式</label>
+                                        <label class="titlefont col-sm-8">18628188705</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3">会员等级</label>
+                                        <label class="titlefont col-sm-8">白金会员</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3">备注</label>
+                                        <label class="titlefont col-sm-8">白金会员</label>
+                                    </div>
                                     <p class="pull-right red"><i class="icon-heart"></i></p>
                                 </div>
-                                <div class="tab-pane active" ng-show="kind?true:false">
-                                    <h3>客户</h3>
-                                    <h5>客户啊</h5>
-                                    <hr>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                    <p>Has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it.</p>
-                                    <p class="pull-right red"><i class="icon-heart"></i></p>
+                            </div>
+                            <div class="tab-pane active" ng-show="!kind?true:false">
+                                <h3>消费记录</h3>
+                                <hr>
+                                <div class="tab-content">
+                                    <div class="panel-body" ng-show="sorts=='owncustomer'?'true':'false'">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>消费金额</th>
+                                                        <th>时间</th>
+                                                        <th>付款方式</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="ownclient in ownclients " class="odd gradeX public_cur" ng-click="ShowClientDetailModal()">
+                                                        <td>{{$index+1}}</td>
+                                                        <td>{{ownclient.Name}}
+                                                        </td>
+                                                        <td>{{CalculateAge(ownclient.Birthady)}}
+                                                        </td>
+                                                        <td>{{ownclient.Sex==1?'男':'女'}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
+                                <p class="pull-right red"><i class="icon-heart"></i></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-    </form>
+        <!-- /.modal-content -->
+    </div>
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
