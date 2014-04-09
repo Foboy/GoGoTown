@@ -47,18 +47,7 @@ function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) 
             }
         });
     }
-    //删除等级
-    $scope.DeleteMemberShipLevel = function (data)
-    {
-        $http.post($resturls["DeleteMemberShipLevel"], { id: data.ID }).success(function (result) {
-            if (result.Error == 0) {
-                $.scojs_message('删除成功', $.scojs_message.TYPE_OK);
-                $scope.LoadMemberShipLeveList();
-            } else {
-                $.scojs_message('删除失败', $.scojs_message.TYPE_ERROR);
-            }
-        });
-    }
+   
     //保存商家编辑会员等级设置
     $scope.SaveEditMerberShipLevel = function (data) {
         if (!this.showerror) {
@@ -84,6 +73,13 @@ function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) 
         $scope.MeberShipLevel = { rank: data + 1 };
         $("#addmeberlevelmodal").modal('show');
     }
+    //弹出删除会员等级确认框
+    $scope.DeleteMemberShipLevelModal = function (data) {
+        $scope.mebershiplevel = data;
+        $("#DeleteLevelModal").modal('show');
+
+    }
+
     $scope.LoadMemberShipLeveList();
 }
 
@@ -161,20 +157,12 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
         $scope.UserInfo = data;
         $("#RestPwdModal").modal("show");
     }
-    //启用禁用用户 1 启用 0禁用
-    $scope.UpdateUserState = function (data) {
-        data.State = data.State == 1 ? 2 : 1;
-        $http.post($resturls["UpdateUserState"], { user_id: data.ID, state: data.State }).success(function (result) {
-            if (result.Error == 0) {
-                $.scojs_message('操作成功', $.scojs_message.TYPE_OK);
-                $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
-            }
-            else {
-                $.scojs_message('操作失败', $.scojs_message.TYPE_ERROR);
-                $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
-            }
-        });
+    //弹出用户禁用启用确认框
+    $scope.ShowUpdateUserStateModel = function (data) {
+         $scope.Userinfos = data;
+        $("#ChangeStateModal").modal("show");
     }
+    
 }
 
 function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
@@ -214,6 +202,7 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
             $scope.showerror = true;
         }
     }
+
 };
 //修改密码
 function RestPasswordCtrl($scope, $http, $location, $routeParams, $resturls) {
@@ -235,3 +224,38 @@ function RestPasswordCtrl($scope, $http, $location, $routeParams, $resturls) {
         }
     }
 };
+
+
+function UpdateUserStateCtrl($scope, $http, $location, $routeParams, $resturls) {
+    //启用禁用用户 2 启用 1禁用
+    $scope.UpdateUserState = function (data) {
+        data.State = data.State == 1 ? 2 : 1;
+        $http.post($resturls["UpdateUserState"], { user_id: data.ID, state: data.State }).success(function (result) {
+            if (result.Error == 0) {
+                $.scojs_message('操作成功', $.scojs_message.TYPE_OK);
+                $("#ChangeStateModal").modal("hide");
+                $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
+            }
+            else {
+                $("#ChangeStateModal").modal("hide");
+                $.scojs_message('操作失败', $.scojs_message.TYPE_ERROR);
+                $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
+            }
+        });
+    }
+};
+
+function DeleteMemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) {
+    //删除等级
+    $scope.DeleteMemberShipLevel = function (data) {
+        $http.post($resturls["DeleteMemberShipLevel"], { id: data.ID }).success(function (result) {
+            if (result.Error == 0) {
+                $("#DeleteLevelModal").modal('hide');
+                $.scojs_message('删除成功', $.scojs_message.TYPE_OK);
+                $scope.LoadMemberShipLeveList();
+            } else {
+                $.scojs_message('删除失败', $.scojs_message.TYPE_ERROR);
+            }
+        });
+    }
+}

@@ -14,7 +14,7 @@
                 }
             }).error(function (data, status, headers, config) {
                 alert('error');
-            }).lock({ selector: '#loginBox' })
+            });
         } else {
             $scope.showerror = true;
         }

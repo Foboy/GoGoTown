@@ -45,7 +45,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
     }
 
 
-    //增加客户弹窗
+    //增加客户modal
     $scope.ShowAddOwnCustomerModal = function (data, event) {
         if (event != undefined) {
             if (event && event.stopPropagation) {
@@ -113,13 +113,27 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
         $("#addcustomermodal").modal('show');
     }
    
-    //客户数据详情弹窗
+    //客户数据详情modal
     $scope.ShowClientDetailModal = function (data) {
         $("#customerdetailmodal").modal('show');
     }
+    //给gogo发送信息modal
     $scope.ShowSendMessageModal = function (data) {
         $scope.message = data;
         $("#SendMessageMoadl").modal('show');
+    }
+    //弹出删除自有客户modal
+    $scope.ShowDeleteOwnCustomerModal = function (data,event) {
+        if (event != undefined) {
+            if (event && event.stopPropagation) {
+                event.stopPropagation();
+            }
+            else {
+                window.event.cancelBubble = true;
+            }
+        }
+        $scope.ownclient = data;
+        $("#DeleteOwnCustomerModal").modal('show');
     }
 }
 
@@ -207,6 +221,21 @@ function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
         } else {
             $scope.showerror = true;
         }
+    }
+}
+
+//删除自有客户scope
+function DeleteOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
+    $scope.DeleteOwnCustomer = function (data) {
+        $http.post($resturls["DeleteOwnCustomer"], { customer_id: data.customer_id }).success(function (result) {
+            if (result.Error == 0) {
+                $.scojs_message('删除成功', $.scojs_message.TYPE_OK);
+                $("#DeleteOwnCustomerModal").modal('hide');
+                $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.paramters || '');
+            } else {
+                $.scojs_message('删除失败', $.scojs_message.TYPE_ERROR);
+            }
+        });
     }
 }
 

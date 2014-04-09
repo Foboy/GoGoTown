@@ -69,7 +69,9 @@
                                     <td>
                                         <a ng-click="ShowAddOwnCustomerModal(ownclient,$event)">编辑</a>
                                         <b class="graycolor1">|</b>
-                                        <a ng-click="ShowClientDetailModal()">详情</a></td>
+                                        <a ng-click="ShowClientDetailModal()">详情</a>
+                                        <b class="graycolor1">|</b>
+                                        <a ng-click="ShowDeleteOwnCustomerModal(ownclient,$event)">删除</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -133,4 +135,5 @@
 <div ng-include="'partials/client/addowncustomer-modal.html'"></div>
 <div ng-include="'partials/client/customerdetail-modal.html'"></div>
 <div ng-include="'partials/client/sendmessage-modal.html'"></div>
+<div ng-include="'partials/client/confirmdeleteowncustomer-modal.html'"></div>
 
