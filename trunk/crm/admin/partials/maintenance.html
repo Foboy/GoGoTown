@@ -5,14 +5,14 @@
         </div>
     </div>
     <div class="row well margin_bot">
-        <div class="col-xs-2 padding_null">
-            <div class="form-horizontal padding_null ">
-                <div class="form-group">
-                    <label class="graycolor font500 font14 col-xs-4 control-label">群发</label>
-                    <div class="padding_null col-xs-7">
-                        <div class="btn-toolbar">
+        <form ng-class="showerror?'showerror':''" name="SendGogoMessageForm">
+            <div class="col-sm-2 padding_null">
+                <div class="form-horizontal">
+                    <lable class="col-sm-3 lable-top padding_null">群发</lable>
+                    <div class="col-sm-9 padding_null">
+                        <div class="btn-toolbar group-bot">
                             <div class="btn-group btn-group-right">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                                     {{!show?'GOGO客户':'按会员等级选择'}}
                                     <span class="caret"></span>
                                 </button>
@@ -22,7 +22,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="btn-group-top btn-toolbar" ng-show="show?true:false">
+                        <div class="btn-toolbar" ng-show="show?true:false">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                     {{choselevel.Name}}
@@ -36,32 +36,26 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <form ng-class="showerror?'showerror':''" name="SendGogoMessageForm">
-            <div class="col-xs-6 padding_null">
+            <div class="col-sm-6">
                 <div class="form-horizontal">
-                    <div class="form-group">
-                        <label class="graycolor font500 font14 col-xs-2 control-label">内容</label>
-                        <div class="col-xs-9 padding_null">
-                            <textarea class="form-control" rows="3" ng-model="message.content" ng-required="true"></textarea>
-                        </div>
+                    <lable class="col-sm-1 lable-top padding_null">内容</lable>
+                    <div class="col-xs-11 padding_null">
+                        <textarea class="form-control" rows="3" ng-model="message.content" ng-required="true"></textarea>
                     </div>
                 </div>
             </div>
-        </form>
-        <div class="col-xs-1 padding_null">
-            <p class="margin_bot">
-                <button class="btn btn-outline btn-default btn-sm" type="button">添加图片</button>
-            </p>
-            <p>
-                <button class="btn btn-primary btn-sm" type="button" ng-click="SendMessage(gogoclients,message)">发送消息</button>
-            </p>
-        </div>
-        <div class="col-xs-3 padding_null">
-            <div href="#" class="thumbnail">
-                <img alt="...">
+            <div class="col-sm-2 padding_null">
+                <div class="col-sm-12 padding_null">
+                    <img class="img-thumbnail" style="width: 91px; height: 91px;" src="img/default.png" >
+                </div>
             </div>
-        </div>
+            <div class="col-sm-2 padding_null">
+                <p class="margin_bot send-btn-top">
+                    <a class="graycolor " >删除图片</a>
+                </p>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="SendMessage(gogoclients,message)">发送消息</button>
+            </div>
+        </form>
     </div>
 
     <div class="row">

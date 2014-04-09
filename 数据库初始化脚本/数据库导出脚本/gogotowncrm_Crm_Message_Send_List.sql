@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `Crm_Message_Send_List`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Crm_Message_Send_List` (
-  `ID` int(11) NOT NULL COMMENT 'ID',
+  `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `Customer_ID` int(11) DEFAULT NULL COMMENT '客户ID',
   `Shop_ID` int(11) DEFAULT NULL COMMENT '商家ID',
   `Message_ID` int(11) DEFAULT NULL COMMENT '信息ID',
@@ -37,7 +37,7 @@ CREATE TABLE `Crm_Message_Send_List` (
   `Type` int(11) DEFAULT NULL COMMENT '类型',
   `sys_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据修改以及新增时候改变',
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='信息推送列表';
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='信息推送列表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +46,7 @@ CREATE TABLE `Crm_Message_Send_List` (
 
 LOCK TABLES `Crm_Message_Send_List` WRITE;
 /*!40000 ALTER TABLE `Crm_Message_Send_List` DISABLE KEYS */;
+INSERT INTO `Crm_Message_Send_List` VALUES (16,5,1,49,'test2222','22222',1396942186,NULL,1,1,'2014-04-08 07:29:46'),(15,4,1,48,'的积分等级','的解放军',1396942022,NULL,1,1,'2014-04-08 07:27:02'),(14,2,1,47,'testyc','testyc',1396941825,NULL,1,1,'2014-04-08 07:23:45'),(13,25,1,47,'testyc','testyc',1396941825,NULL,1,1,'2014-04-08 07:23:45');
 /*!40000 ALTER TABLE `Crm_Message_Send_List` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-07 13:19:49
+-- Dump completed on 2014-04-09 19:00:40
