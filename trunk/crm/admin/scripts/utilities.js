@@ -172,7 +172,7 @@ utilities.format = function (source, params) {
 };
 
 utilities.paging = function (recordCount, pageIndex, pageSize, url, parameters, linkCount) {
-    var linkCount = linkCount || 9;
+    var linkCount = linkCount || 3;
     var url = url;
     if (!isNaN(url)) {
         linkCount = url;
@@ -187,11 +187,26 @@ utilities.paging = function (recordCount, pageIndex, pageSize, url, parameters, 
     var pages = [];
     if (pageCount <= 1)
         return pages;
-    if (pageIndex - Math.floor(linkCount) > 0) {
-        pageStart = pageIndex - Math.floor(linkCount);
-    }
-    if (pageIndex + Math.floor(linkCount) < pageCount) {
+
+    if (pageIndex + Math.floor(linkCount) + 2 < pageCount) {
         pageEnd = pageIndex + Math.floor(linkCount);
+    }
+    if (pageIndex + Math.floor(linkCount) + 2 >= pageCount) {
+        pageEnd = pageCount;
+    }
+
+    if (pageIndex - Math.floor(linkCount) > 2) {
+        var first = { index: 1, active: false, url: utilities.format(url, 1, parameters), type: 'page' };
+        pages.push(first);
+        var dotPageIndex = Math.ceil((pageIndex - Math.floor(linkCount)) / 2.0);
+        var dots = { index: "...", active: false, url: utilities.format(url, dotPageIndex, parameters), type: 'page' };
+        pages.push(dots);
+    }
+    if (pageIndex - Math.floor(linkCount) - 2 <= 0) {
+        pageStart = 1;
+    }
+    else {
+        pageStart = pageIndex - linkCount;
     }
     if (pageIndex > 1) {
         pages.push({ index: pageIndex - 1, active: false, url: utilities.format(url, pageIndex - 1, parameters), type: 'pre' });
@@ -202,6 +217,14 @@ utilities.paging = function (recordCount, pageIndex, pageSize, url, parameters, 
     for (var i = pageStart; i <= pageEnd; i++) {
         var page = { index: i, active: i == pageIndex, url: utilities.format(url, i, parameters), type: 'page' };
         pages.push(page);
+    }
+    if (pageCount - (pageIndex + Math.floor(linkCount)) > 2) {
+
+        var dotPageIndex = pageCount - Math.ceil((pageIndex + Math.floor(linkCount))/ 2.0 );
+        var dots = { index: "...", active: false, url: utilities.format(url, dotPageIndex, parameters), type: 'page' };
+        pages.push(dots);
+        var last = { index: pageCount, active: false, url: utilities.format(url, pageCount, parameters), type: 'page' };
+        pages.push(last);
     }
     if (pageIndex < pageCount) {
         pages.push({ index: pageIndex + 1, active: false, url: utilities.format(url, pageIndex + 1, parameters), type: 'next' });

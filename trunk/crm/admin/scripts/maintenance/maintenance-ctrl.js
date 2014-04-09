@@ -65,11 +65,11 @@
                     $scope.showerror = false;
                     $http.post($resturls["SensMessage"], { customer_ids: customerids, title: message.content, content: message.content }).success(function (result) {
                         if (result.Error == 0) {
-                            alert("scuccess");
+                            $.scojs_message('发送成功', $.scojs_message.TYPE_OK);
                             $("#SendMessageMoadl").modal('hide');
                         } else {
                             $scope.showerror = true;
-                            alert(result.ErrorMessage);
+                            $.scojs_message('发送失败，请稍候重发', $.scojs_message.TYPE_OK);
                         }
                     });
                 } else {

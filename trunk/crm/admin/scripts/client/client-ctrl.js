@@ -55,28 +55,30 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
                 window.event.cancelBubble = true;
             }
         }
-        $scope.choselevel = $rootScope.selectedOwnCustomerLevel;
-        //获取商家会员等级设置信息
-        $scope.LoadMemberShipLeveList = function () {
+        
+        //获取用户等级设置信息
+        $scope.GetCustomerMemberShip = function (data) {
             $http.post($resturls["SearchMerchantSetLevels"], {}).success(function (result) {
                 if (result.Error == 0) {
                     $scope.mebershiplevels = result.Data;
-                    if (!$scope.choselevel) {
-                        if ($scope.mebershiplevels.length > 0) {
-                            $scope.choselevel = $scope.mebershiplevels[0];
+                    if (data) {
+                        if (!data.rank_id) {
+                            $scope.choselevel = { Name: "未设置等级", ID: 0 };
                         } else {
-                            $scope.choselevel = { ID: 0, Name: '未设置等级' };
+                            $scope.choselevel = { Name: data.shoprankname, ID: data.rank_id };
                         }
+                    } else {
+                        $scope.choselevel = { Name: "未设置等级", ID: 0 };
                     }
-
                 } else {
                     $scope.mebershiplevels = [];
                 }
             });
         }
-        $scope.LoadMemberShipLeveList();
+        
         if (data) {
             $scope.OwnCustomer = angular.copy(data);
+            $scope.GetCustomerMemberShip($scope.OwnCustomer);
             $scope.OwnCustomer.TimeStamp = $scope.OwnCustomer.Birthady;
             $scope.OwnCustomer.Birthady = $scope.timestamptostr($scope.OwnCustomer.Birthady);
             $('.form_date').datetimepicker({
@@ -93,6 +95,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
                 });
             });
         } else {
+            $scope.GetCustomerMemberShip(null);
             $scope.OwnCustomer = { ID: 0, Sex: 1 };
             $('.form_date').datetimepicker({
                 minView: 2,
@@ -123,21 +126,21 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
 //增加自有客户scope
 function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $rootScope) {
     $scope.ChoseCustomerRank = function (data) {
-        $scope.choselevel = data;
-        $rootScope.selectedOwnCustomerLevel = data;
+        $scope.choselevel = { Name: data.Name,ID:data.ID };
     };
     $scope.SaveAddOwnCustomer = function (data) {
+        
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
             $http.post($resturls["AddOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.TimeStamp, remark: data.Remark }).success(function (result) {
                 if (result.Error == 0) {
+                    $.scojs_message('新增成功', $.scojs_message.TYPE_OK);
                     $("#addcustomermodal").modal('hide');
                     $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
-                    alert("success");
                 }
                 else {
                     $scope.showerror = true;
-                    alert("e");
+                    $.scojs_message('新增失败', $.scojs_message.TYPE_ERROR);
                 }
             })
         }
@@ -151,13 +154,13 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
             $scope.showerror = false;
             $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.TimeStamp, remark: data.Remark, customer_id: data.ID }).success(function (result) {
                 if (result.Error == 0) {
+                    $.scojs_message('更新成功', $.scojs_message.TYPE_OK);
                     $("#addcustomermodal").modal('hide');
                     $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
-                    alert("success");
                 }
                 else {
                     $scope.showerror = true;
-                    alert("e");
+                    $.scojs_message('更新失败', $.scojs_message.TYPE_ERROR);
                 }
             })
         }
@@ -194,11 +197,11 @@ function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
             $scope.showerror = false;
             $http.post($resturls["SensMessage"], { customer_ids: data.Customer_ID, title: data.Title, content: data.Content }).success(function (result) {
                 if (result.Error == 0) {
-                    alert("scuccess");
+                    $.scojs_message('发送成功', $.scojs_message.TYPE_OK);
                     $("#SendMessageMoadl").modal('hide');
                 } else {
                     $scope.showerror = true;
-                    alert("error");
+                    $.scojs_message('发送失败，请稍后重发', $.scojs_message.TYPE_ERROR);
                 }
             });
         } else {
