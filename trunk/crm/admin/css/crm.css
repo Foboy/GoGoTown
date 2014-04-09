@@ -1,5 +1,8 @@
 /* CSS Document */
 /*公共*/
+a{
+	cursor: pointer;;
+}
 .graycolor{
 	color: #888;
 }
