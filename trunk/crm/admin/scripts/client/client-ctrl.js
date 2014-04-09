@@ -1,4 +1,4 @@
-function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $rootScope) {
+﻿function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $rootScope) {
     $scope.text = $rootScope.searchText;
     var $parent = $scope.$parent;
     $scope.sorts = $routeParams.sorts;
@@ -10,7 +10,7 @@ function ClientMainCtrl($scope, $http, $location, $routeParams, $resturls, $root
     }
     //客户
     $scope.loadClientSortList = function (pageIndex, parameters) {
-        var pageSize = 1;
+        var pageSize = 5;
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'owncustomer':
