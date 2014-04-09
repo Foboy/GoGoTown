@@ -129,17 +129,18 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
         $scope.choselevel = { Name: data.Name,ID:data.ID };
     };
     $scope.SaveAddOwnCustomer = function (data) {
+        
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
             $http.post($resturls["AddOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.TimeStamp, remark: data.Remark }).success(function (result) {
                 if (result.Error == 0) {
+                    $.scojs_message('新增成功', $.scojs_message.TYPE_OK);
                     $("#addcustomermodal").modal('hide');
                     $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
-                    alert("success");
                 }
                 else {
                     $scope.showerror = true;
-                    alert("e");
+                    $.scojs_message('新增失败', $.scojs_message.TYPE_ERROR);
                 }
             })
         }
@@ -153,13 +154,13 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
             $scope.showerror = false;
             $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.TimeStamp, remark: data.Remark, customer_id: data.ID }).success(function (result) {
                 if (result.Error == 0) {
+                    $.scojs_message('更新成功', $.scojs_message.TYPE_OK);
                     $("#addcustomermodal").modal('hide');
                     $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
-                    alert("success");
                 }
                 else {
                     $scope.showerror = true;
-                    alert("e");
+                    $.scojs_message('更新失败', $.scojs_message.TYPE_ERROR);
                 }
             })
         }
@@ -196,11 +197,11 @@ function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
             $scope.showerror = false;
             $http.post($resturls["SensMessage"], { customer_ids: data.Customer_ID, title: data.Title, content: data.Content }).success(function (result) {
                 if (result.Error == 0) {
-                    alert("scuccess");
+                    $.scojs_message('发送成功', $.scojs_message.TYPE_OK);
                     $("#SendMessageMoadl").modal('hide');
                 } else {
                     $scope.showerror = true;
-                    alert("error");
+                    $.scojs_message('发送失败，请稍后重发', $.scojs_message.TYPE_ERROR);
                 }
             });
         } else {

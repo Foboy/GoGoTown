@@ -23,10 +23,10 @@
             $scope.showerror = false;
             $http.post($resturls["EditMerchantInfo"], { name: data.name }).success(function (result) {
                 if (result.Error == 0) {
-                    alert("success");
+                    $.scojs_message('修改成功', $.scojs_message.TYPE_OK);
                 }
                 else {
-                    alert("error");
+                    $.scojs_message('修改失败', $.scojs_message.TYPE_ERROR);
                 }
             })
         }
@@ -52,10 +52,10 @@ function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) 
     {
         $http.post($resturls["DeleteMemberShipLevel"], { id: data.ID }).success(function (result) {
             if (result.Error == 0) {
-                alert("success");
+                $.scojs_message('删除成功', $.scojs_message.TYPE_OK);
                 $scope.LoadMemberShipLeveList();
             } else {
-                alert("error");
+                $.scojs_message('删除失败', $.scojs_message.TYPE_ERROR);
             }
         });
     }
@@ -69,9 +69,9 @@ function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) 
             this.showerror = false;
             $http.post($resturls["UpdateMemberLevels"], { rank: data.Rank, name: data.Name, remark: "", id: data.ID }).success(function (result) {
                 if (result.Error == 0) {
-                    alert("success");
+                    $.scojs_message('保存成功', $.scojs_message.TYPE_OK);
                 } else {
-                    alert("error");
+                    $.scojs_message('保存失败', $.scojs_message.TYPE_ERROR);
                 }
             })
         }
@@ -94,11 +94,11 @@ function AddMemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturl
             $scope.showerror = false;
             $http.post($resturls["AddMemberLevels"], { name: data.name }).success(function (result) {
                 if (result.Error == 0) {
-                    alert("success");
+                    $.scojs_message('新增成功', $.scojs_message.TYPE_OK);
                     $("#addmeberlevelmodal").modal('hide');
                     $scope.LoadMemberShipLeveList();
                 } else {
-                    alert("error");
+                    $.scojs_message('新增失败', $.scojs_message.TYPE_ERROR);
                 }
             })
         } else {
@@ -166,11 +166,11 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
         data.State = data.State == 1 ? 2 : 1;
         $http.post($resturls["UpdateUserState"], { user_id: data.ID, state: data.State }).success(function (result) {
             if (result.Error == 0) {
-                alert("success");
+                $.scojs_message('操作成功', $.scojs_message.TYPE_OK);
                 $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
             }
             else {
-                alert("error");
+                $.scojs_message('操作失败', $.scojs_message.TYPE_ERROR);
                 $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
             }
         });
@@ -184,11 +184,11 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
             $scope.showerror = false;
             $http.post($resturls["AddUserAccount"], { user_type: data.Type, user_name: data.Name, user_account: data.Account, user_password_new: data.Password, user_password_repeat: data.Password }).success(function (result) {
                 if (result.Error == 0) {
-                    alert("success");
+                    $.scojs_message('添加成功', $.scojs_message.TYPE_OK);
                     $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
                     $("#AddUsermodal").modal("hide");
                 } else {
-                    alert(result.ErrorMessage);
+                    $.scojs_message('添加失败', $.scojs_message.TYPE_ERROR);
                     $scope.showerror = true;
                 }
             });
@@ -202,11 +202,11 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
             $scope.showerror = false;
             $http.post($resturls["UpdateUserAccount"], { user_type: data.Type, user_name: data.Name, user_account: data.Account, user_password_new: data.Password, user_password_repeat: data.Password }).success(function (result) {
                 if (result.Error == 0) {
-                    alert("success");
+                    $.scojs_message('编辑成功', $.scojs_message.TYPE_OK);
                     $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
                     $("#AddUsermodal").modal("hide");
                 } else {
-                    alert(result.ErrorMessage);
+                    $.scojs_message('编辑失败', $.scojs_message.TYPE_ERROR);
                     $scope.showerror = true;
                 }
             });
@@ -223,10 +223,10 @@ function RestPasswordCtrl($scope, $http, $location, $routeParams, $resturls) {
             $scope.showerror = false;
             $http.post($resturls["RestPassword"], { user_id: data.ID, user_password_new: data.NewPassword, user_password_repeat: data.NewPassword }).success(function (result) {
                 if (result.Error == 0) {
-                    alert("success"); 
+                    $.scojs_message('修改成功', $.scojs_message.TYPE_OK);
                     $("#RestPwdModal").modal("hide");
                 } else {
-                    alert("e");
+                    $.scojs_message('修改失败', $.scojs_message.TYPE_ERROR);
                     $scope.showerror = true;
                 }
             });
