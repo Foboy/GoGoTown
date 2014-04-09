@@ -29,4 +29,17 @@ class Auth
         	}
         }
     }
+    
+    public static function handleLoginWithUserType($userType)
+    {
+    	Auth::handleLogin();
+    	if(isset($_SESSION['user_logged_in']))
+    	{
+    		if($_SESSION['user_type'] !=$userType)
+    		{
+	            Session::destroy();
+	    		header('location: ' . URL . 'login/unloginresponse');
+    		}
+    	}
+    }
 }
