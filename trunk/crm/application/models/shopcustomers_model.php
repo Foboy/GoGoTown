@@ -81,11 +81,12 @@ class ShopCustomersModel {
 		return true;
 	}
 	// 根据ID删除shop_customers
-	public function delete($id) {
-		$sql = " delete from crm_shop_customers where id = :id ";
+	public function delete($shop_id,$customer_id) {
+		$sql = " delete from crm_shop_customers where shop_id = :shop_id and customer_id = :customer_id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
-				':id' => $id 
+				':shop_id' => $shop_id,
+				':customer_id' => $customer_id
 		) );
 		$count = $query->rowCount ();
 		if ($count != 1) {
