@@ -35,7 +35,10 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
             'response': function (response) {
                 if (response && typeof response.data === 'object') {
                     if (response.data.Error == 11) {
-                        setTimeout(function () { window.location.href = 'login.html'; }, 3000);
+                        $.scojs_message('非法访问', $.scojs_message.TYPE_ERROR);
+                        setTimeout(function () {
+                            window.location.href = 'login.html';
+                        }, 1000);
                     }
                 }
                 return response || $q.when(response);
@@ -52,6 +55,15 @@ config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRo
       }]);;
 
 function MainCtrl($scope, $routeParams, $http, $location, $filter, $resturls) {
+    $scope.LoginOut = function () {
+        $http.post($resturls["LoginOut"], {}).success(function (result) {
+            if (result.Error == 0) {
+                window.location.href = "login.html";
+            } else {
+                $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
+            }
+        })
+    };
     $scope.currentuser = null;
     //登录
     $http.post($resturls["GetCurrentUser"], {}).success(function (result) {

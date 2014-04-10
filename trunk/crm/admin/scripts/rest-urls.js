@@ -22,8 +22,9 @@
 
 
           // 主模块
-          resturls.add("GetCurrentUser", "user/getCurrentUser");
-          resturls.add("Login", "user/crmlogin");
+          resturls.add("GetCurrentUser", "user/getCurrentUser");//获取当前登陆用户信息
+          resturls.add("Login", "user/crmlogin");//登陆
+          resturls.add("LoginOut", "user/logout");//退出登陆
 
 
           // 客户管理
