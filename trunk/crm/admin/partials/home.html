@@ -11,6 +11,17 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     消费趋势图
+                    <div class="form-group">
+                        <label class="radio-inline">
+                            <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" ng-click="SaleTotalTrendGraph(1)"  value="" checked="">昨日今日分析
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" ng-click="SaleTotalTrendGraph(2)" value="">最近七日分析
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" ng-click="SaleTotalTrendGraph(3)" value="">最近一个月分析
+                        </label>
+                    </div>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -20,13 +31,13 @@
                 </div>
                 <!-- /.panel-body -->
             </div>
-                    <!-- /.panel -->
+            <!-- /.panel -->
         </div>
 
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    消费同比
+                    消费同比（消费年龄层）
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -36,13 +47,13 @@
                 </div>
                 <!-- /.panel-body -->
             </div>
-                    <!-- /.panel -->
+            <!-- /.panel -->
         </div>
-                <!-- /.col-lg-6 -->
+        <!-- /.col-lg-6 -->
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    柱状图
+                    柱状图（收银员销售情况）
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -52,7 +63,7 @@
                 </div>
                 <!-- /.panel-body -->
             </div>
-                    <!-- /.panel -->
+            <!-- /.panel -->
         </div>
     </div>
     <!-- /.row -->
