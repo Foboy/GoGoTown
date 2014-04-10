@@ -124,14 +124,9 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
                 }
             },
             xaxis: {
-                tickSize: 1,
-                tickFormatter: function (rule) {
-                    if (type == 1) {
-                        return rule + '时';
-                    } else {
-                        return rule + '日';
-                    }
-                }
+                mode: "time",
+                timeformat: "%m/%d",
+                minTickSize: [1, "day"]
             },
             grid: {
                 hoverable: true
@@ -144,12 +139,12 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
         var barData = {
             label: "收银员销售情况",
             data: [
-                [1, 1000],
-                [2, 2000],
-                [3, 3000],
-                [4, 4000],
-                [5, 5000],
-                [6, 6000]
+                [1354521600000, 1000],
+                [1355040000000, 2000],
+                [1355223600000, 3000],
+                [1355306400000, 4000],
+                [1355487300000, 5000],
+                [1355571900000, 6000]
             ]
         };
         $.plot($("#flot-bar-chart"), [barData], barOptions);
