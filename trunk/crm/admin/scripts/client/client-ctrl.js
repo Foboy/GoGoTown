@@ -115,10 +115,19 @@
    
     //客户数据详情modal
     $scope.ShowClientDetailModal = function (data) {
+        $scope.onecustomer = data;
         $("#customerdetailmodal").modal('show');
     }
     //给gogo发送信息modal
-    $scope.ShowSendMessageModal = function (data) {
+    $scope.ShowSendMessageModal = function (data, event) {
+        if (event != undefined) {
+            if (event && event.stopPropagation) {
+                event.stopPropagation();
+            }
+            else {
+                window.event.cancelBubble = true;
+            }
+        }
         $scope.message = data;
         $("#SendMessageMoadl").modal('show');
     }

@@ -48,6 +48,9 @@
           resturls.add("LoadSeaCustomerList", "Customers/searchGOGOBP"); //分页获取公海客户数据 type=1
           resturls.add("TransforChance", 'Customers/setPshopToChance');//公海客户转化为销售机会
           
+
+          //销售机会
+          resturls.add("LoadSaleChanceList", "Customers/searchGOGOBP"); //分页获取销售机会数据 type=2
           $provide.constant('$resturls', resturls);
 
       } ]);

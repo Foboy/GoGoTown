@@ -53,7 +53,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="ownclient in ownclients " class="odd gradeX public_cur" ng-click="ShowClientDetailModal()">
+                                <tr ng-repeat="ownclient in ownclients " class="odd gradeX public_cur" ng-click="ShowClientDetailModal(ownclient)">
                                     <td>{{$index+1}}</td>
                                     <td>{{ownclient.Name}}
                                     </td>
@@ -69,7 +69,7 @@
                                     <td>
                                         <a ng-click="ShowAddOwnCustomerModal(ownclient,$event)">编辑</a>
                                         <b class="graycolor1">|</b>
-                                        <a ng-click="ShowClientDetailModal()">详情</a>
+                                        <a ng-click="ShowClientDetailModal(ownclient)">详情</a>
                                         <b class="graycolor1">|</b>
                                         <a ng-click="ShowDeleteOwnCustomerModal(ownclient,$event)">删除</a></td>
                                 </tr>
@@ -93,7 +93,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd gradeX public_cur"  ng-repeat="gogoclient in gogoclients">
+                                <tr class="odd gradeX public_cur"  ng-repeat="gogoclient in gogoclients" ng-click="ShowClientDetailModal(gogoclient)">
                                     <td>{{$index+1}}</td>
                                     <td>{{gogoclient.Name}}
                                     </td>
@@ -105,9 +105,9 @@
                                     <td class="center">X
                                     </td>
                                     <td class="center">
-                                        <a ng-click="ShowSendMessageModal(gogoclient)">发送信息</a>
+                                        <a ng-click="ShowSendMessageModal(gogoclient,$event)">发送信息</a>
                                         <b class="graycolor1">|</b>
-                                        <a ng-click="ShowClientDetailModal()">详情</a></td>
+                                        <a ng-click="ShowClientDetailModal(ownclient)">详情</a></td>
                                     </td>
                                 </tr>
                             </tbody>
