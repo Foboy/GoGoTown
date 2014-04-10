@@ -13,7 +13,7 @@
                     消费趋势图
                     <div class="form-group">
                         <label class="radio-inline">
-                            <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" ng-click="SaleTotalTrendGraph(1)"  value="" checked="">昨日今日分析
+                            <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" ng-click="SaleTotalTrendGraph(1)" value="" checked="">昨日今日分析
                         </label>
                         <label class="radio-inline">
                             <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" ng-click="SaleTotalTrendGraph(2)" value="">最近七日分析
@@ -54,6 +54,17 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     柱状图（收银员销售情况）
+                     <div class="btn-group btn-group-right">
+                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                             {{CashierSaleConditionChose}}<span class="caret"></span>
+                         </button>
+                         <ul class="dropdown-menu" role="menu">
+                             <li><a ng-click="CashierSaleBarChart(1)">今日</a></li>
+                             <li><a ng-click="CashierSaleBarChart(2)">昨日</a></li>
+                             <li><a ng-click="CashierSaleBarChart(3)">最近一周</a></li>
+                             <li><a ng-click="CashierSaleBarChart(4)">最近一月</a></li>
+                         </ul>
+                     </div>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
