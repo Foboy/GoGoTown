@@ -10,6 +10,9 @@
           resturls.base = "http://localhost/GoGoTown/trunk/crm/index.php";
          //resturls.base = "http://localhost/index.php";
           //resturls.base = "http://localhost:8080/GoGoTown/trunk/crm/index.php";
+          //resturls.base = "http://localhost/GoGoTown/trunk/crm/index.php";
+         //resturls.base = "http://localhost/index.php";
+          resturls.base = "http://localhost:8080/GoGoTown/trunk/crm/index.php";
           resturls.add = function (name, url) {
               resturls[name] = resturls.base + "?url=" + url;
           };
@@ -30,6 +33,7 @@
           resturls.add("AddOwnCustomer", "Customers/addPrivateCustomer");//添加商家自有客户信息
           resturls.add("UpdateOwnCustomer", "Customers/update");//跟新商家自有客户信息
           resturls.add("SensMessage", "Messages/send");//发送消息
+          resturls.add("DeleteOwnCustomer", "Customers/del");//删除自有客户
 
           //基本信息设置
           resturls.add("GetMerchantInfo", "ShopInfo/get"); //获取商家基本信息
@@ -42,6 +46,10 @@
           resturls.add("UpdateUserState", "user/updateUserState");//启用禁用用户 1 启用 0禁用
           resturls.add("LoadUserAccountList", "ShopInfo/searchApps");//分页查询用户账号列表  user_type 1 ADMIN 2 APP 3 STAFF
           resturls.add("RestPassword", "ShopInfo/updateAppPass");//修改用户账号密码
+
+          //公海客户
+          resturls.add("LoadSeaCustomerList", "Customers/searchGOGOBP"); //分页获取公海客户数据 type=1
+          resturls.add("TransforChance", 'Customers/setPshopToChance');//公海客户转化为销售机会
           
           $provide.constant('$resturls', resturls);
 

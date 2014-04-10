@@ -85,16 +85,16 @@ class RankModel {
 	}
 	// 根据客户ID删除rank
 	public function delete($from_type,$customer_id,$shop_id) {
-		$sql = " delete from crm_rank where from_type = :from_type,customer_id = :customer_id,shop_id = :shop_id ";
+		$sql = " delete from crm_rank where from_type = :from_type and customer_id = :customer_id and shop_id = :shop_id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array ( 
 				':from_type' => $from_type,
-				':customer_id' => customer_id ,
+				':customer_id' => $customer_id ,
 				':shop_id' => $shop_id
 		) );
 		$count = $query->rowCount ();
 		if ($count != 1) {
-			// 修改错误
+			
 			return false;
 		}
 		return true;
