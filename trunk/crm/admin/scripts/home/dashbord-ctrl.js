@@ -120,36 +120,44 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
             series: {
                 bars: {
                     show: true,
-                    barWidth: 12000000
+                    barWidth: 1
                 }
             },
             xaxis: {
-                mode: "time",
-                timeformat: "%m/%d",
-                minTickSize: [1, "day"]
+                tickSize: 1,
+                tickFormatter: function (rule, cc,pp) {
+                    return rule + '元';
+                },
+                min: 0
+            },
+            yaxis: {
+                ticks: 5,
+                min: 0
             },
             grid: {
                 hoverable: true
             },
             tooltip: true,
             tooltipOpts: {
-                content: "x: %x, y: %y"
+                content: "%x的销售总额：%y",
+                shifts: {
+                    x: -60,
+                    y: 25
+                }
             }
         };
         var barData = {
             label: "收银员销售情况",
             data: [
-                [1354521600000, 1000],
-                [1355040000000, 2000],
-                [1355223600000, 3000],
-                [1355306400000, 4000],
-                [1355487300000, 5000],
-                [1355571900000, 6000]
+                [0, 1000],
+                [2, 2000],
+                [4, 3000]
             ]
         };
         $.plot($("#flot-bar-chart"), [barData], barOptions);
     }
-    $scope.CashierSaleBarChart();
+    
     $scope.ConsumerYear();
     $scope.SaleTotalTrendGraph(1);
+    $scope.CashierSaleBarChart();
 }
