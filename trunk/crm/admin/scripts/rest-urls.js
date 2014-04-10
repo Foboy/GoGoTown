@@ -43,6 +43,10 @@
           resturls.add("UpdateUserState", "user/updateUserState");//启用禁用用户 1 启用 0禁用
           resturls.add("LoadUserAccountList", "ShopInfo/searchApps");//分页查询用户账号列表  user_type 1 ADMIN 2 APP 3 STAFF
           resturls.add("RestPassword", "ShopInfo/updateAppPass");//修改用户账号密码
+
+          //公海客户
+          resturls.add("LoadSeaCustomerList", "Customers/searchGOGOBP"); //分页获取公海客户数据 type=1
+          resturls.add("TransforChance", 'Customers/setPshopToChance');//公海客户转化为销售机会
           
           $provide.constant('$resturls', resturls);
 

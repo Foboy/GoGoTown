@@ -118,5 +118,15 @@ function MainCtrl($scope, $routeParams, $http, $location, $filter, $resturls) {
         var timestap = new Date(Date.UTC(arr[0], arr[1] - 1, arr[2])).getTime() / 1000;
         return timestap;
     }
-    
+    //删除字符串末尾空格和指定字符
+    $scope.trimEnd = function (temp, str) {
+        if (!str) { return temp; }
+        while (true) {
+            if (temp.substr(temp.length - str.length, str.length) != str) {
+                break;
+            }
+            temp = temp.substr(0, temp.length - str.length);
+        }
+        return temp;
+    }
 }

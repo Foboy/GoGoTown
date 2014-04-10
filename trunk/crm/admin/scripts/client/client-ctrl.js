@@ -147,14 +147,14 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
             $http.post($resturls["AddOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.TimeStamp, remark: data.Remark }).success(function (result) {
+                $("#addcustomermodal").modal('hide');
                 if (result.Error == 0) {
                     $.scojs_message('新增成功', $.scojs_message.TYPE_OK);
-                    $("#addcustomermodal").modal('hide');
                     $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
                 }
                 else {
                     $scope.showerror = true;
-                    $.scojs_message('新增失败', $.scojs_message.TYPE_ERROR);
+                    $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
                 }
             })
         }
@@ -167,14 +167,14 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
             $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.TimeStamp, remark: data.Remark, customer_id: data.ID }).success(function (result) {
+                $("#addcustomermodal").modal('hide');
                 if (result.Error == 0) {
                     $.scojs_message('更新成功', $.scojs_message.TYPE_OK);
-                    $("#addcustomermodal").modal('hide');
                     $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
                 }
                 else {
                     $scope.showerror = true;
-                    $.scojs_message('更新失败', $.scojs_message.TYPE_ERROR);
+                    $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
                 }
             })
         }
@@ -184,38 +184,18 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
     }
 }
 
-//公海客户scope
-function SeaCustomerMainCtrl($scope, $http, $location, $routeParams, $resturls) {
-    var $parent = $scope.$parent;
-    var pageSize = 1;
-    $scope.LoadSeaCustomerList = function (pageIndex, paramters) {
-        var pageSize = 1;
-        if (pageIndex == 0) pageIndex = 1;
-        $http.post($resturls["LoadGoGoCustomerList"], { rank_id: 0, name: '', phone: '', type: 1, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
-            if (result.Error == 0) {
-                $scope.seacustomers = result.Data;
-                $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#seacustomer' + '/{0}');
-            } else {
-                $scope.seacustomers = [];
-                $parent.pages = utilities.paging(0, pageIndex, pageSize);
-            }
-        });
-    }
-    $scope.LoadSeaCustomerList($routeParams.pageIndex || 1);
-}
-
 //发送信息scope
 function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.SendMessage = function (data) {
         if ($scope.SendMessageForm.$valid) {
             $scope.showerror = false;
             $http.post($resturls["SensMessage"], { customer_ids: data.Customer_ID, title: data.Title, content: data.Content }).success(function (result) {
+                $("#SendMessageMoadl").modal('hide');
                 if (result.Error == 0) {
                     $.scojs_message('发送成功', $.scojs_message.TYPE_OK);
-                    $("#SendMessageMoadl").modal('hide');
                 } else {
                     $scope.showerror = true;
-                    $.scojs_message('发送失败，请稍后重发', $.scojs_message.TYPE_ERROR);
+                    $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
                 }
             });
         } else {
@@ -228,12 +208,12 @@ function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
 function DeleteOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.DeleteOwnCustomer = function (data) {
         $http.post($resturls["DeleteOwnCustomer"], { customer_id: data.customer_id }).success(function (result) {
+            $("#DeleteOwnCustomerModal").modal('hide');
             if (result.Error == 0) {
                 $.scojs_message('删除成功', $.scojs_message.TYPE_OK);
-                $("#DeleteOwnCustomerModal").modal('hide');
                 $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.paramters || '');
             } else {
-                $.scojs_message('删除失败', $.scojs_message.TYPE_ERROR);
+                $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
             }
         });
     }
