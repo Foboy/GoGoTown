@@ -70,7 +70,6 @@ function MainCtrl($scope, $routeParams, $http, $location, $filter, $resturls) {
     $scope.CalculateAge = function (time) {
         var age = 0;
         time = $scope.timestamptostr(time);
-        var age = 0;
         if (time) {
             var now = new Date();
             var birthday = new Date(time);

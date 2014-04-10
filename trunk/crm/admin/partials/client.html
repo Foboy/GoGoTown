@@ -69,7 +69,7 @@
                                     <td>
                                         <a ng-click="ShowAddOwnCustomerModal(ownclient,$event)">编辑</a>
                                         <b class="graycolor1">|</b>
-                                        <a ng-click="ShowClientDetailModal(ownclient)">详情</a>
+                                        <a ng-click="ShowClientDetailModal(ownclient,$event)">详情</a>
                                         <b class="graycolor1">|</b>
                                         <a ng-click="ShowDeleteOwnCustomerModal(ownclient,$event)">删除</a></td>
                                 </tr>
@@ -107,7 +107,7 @@
                                     <td class="center">
                                         <a ng-click="ShowSendMessageModal(gogoclient,$event)">发送信息</a>
                                         <b class="graycolor1">|</b>
-                                        <a ng-click="ShowClientDetailModal(ownclient)">详情</a></td>
+                                        <a ng-click="ShowClientDetailModal(gogoclient,$event)">详情</a></td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -131,7 +131,8 @@
 
 
 <div ng-include="'partials/client/addowncustomer-modal.html'"></div>
-<div ng-include="'partials/client/customerdetail-modal.html'"></div>
+<div ng-include="'partials/client/owncustomerdetail-modal.html'"></div>
+<div ng-include="'partials/client/gogocustomerdetail-modal.html'"></div>
 <div ng-include="'partials/client/sendmessage-modal.html'"></div>
 <div ng-include="'partials/client/confirmdeleteowncustomer-modal.html'"></div>
 

@@ -1,5 +1,5 @@
-﻿<!--客户详情 Modal -->
-<div class="modal fade" id="customerdetailmodal" tabindex="-1" role="dialog" aria-hidden="true">
+﻿<!--自有客户详情 Modal -->
+<div class="modal fade" id="owncustomerdetailmodal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal_radius modal-content">
             <!--<div class="modal-header">
@@ -23,28 +23,28 @@
                         <div class="tab-content">
                             <div class="tab-pane active" ng-show="kind?true:false">
                                 <h3>王晓</h3>
-                                <h5 class="logo-title">GOGO客户</h5>
+                                <h5 class="logo-title">自有客户</h5>
                                 <hr>
                                 <div class="form-horizontal">
                                     <div class="form-group">
                                         <label class="col-sm-3">年龄</label>
-                                        <label class="titlefont col-sm-8">14</label>
+                                        <label class="titlefont col-sm-8">{{customerage}}</label>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3">性别</label>
-                                        <label class="titlefont col-sm-8">男</label>
+                                        <label class="titlefont col-sm-8">{{onecustomer.Sex==2?"女":"男"}}</label>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3">联系方式</label>
-                                        <label class="titlefont col-sm-8">18628188705</label>
+                                        <label class="titlefont col-sm-8">{{onecustomer.Phone}}</label>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3">会员等级</label>
-                                        <label class="titlefont col-sm-8">白金会员</label>
+                                        <label class="titlefont col-sm-8">{{onecustomer.shoprankname}}</label>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3">备注</label>
-                                        <label class="titlefont col-sm-8">白金会员</label>
+                                        <label class="titlefont col-sm-8">{{onecustomer.Remark}}</label>
                                     </div>
                                     <p class="pull-right red"><i class="icon-heart"></i></p>
                                 </div>

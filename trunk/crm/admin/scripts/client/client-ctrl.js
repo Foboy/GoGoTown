@@ -114,9 +114,26 @@
     }
    
     //客户数据详情modal
-    $scope.ShowClientDetailModal = function (data) {
+    $scope.ShowClientDetailModal = function (data, event) {
+        if (event != undefined) {
+            if (event && event.stopPropagation) {
+                event.stopPropagation();
+            }
+            else {
+                window.event.cancelBubble = true;
+            }
+        }
         $scope.onecustomer = data;
-        $("#customerdetailmodal").modal('show');
+       
+        if (data.from_type == 1) {
+            $scope.customerage = $scope.CalculateAge(data.Birthady);
+            $("#owncustomerdetailmodal").modal('show');//自有客户详细弹窗
+        } else {
+           
+            $("#gogocustomerdetailmodal").modal('show');//gogo客户详细弹窗
+        }
+        
+       
     }
     //给gogo发送信息modal
     $scope.ShowSendMessageModal = function (data, event) {
