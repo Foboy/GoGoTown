@@ -20,7 +20,7 @@
                         <button type="button" class="close pull-left close_btn" aria-hidden="true" ng-click="DeleteMemberShipLevel(mebershiplevel)">&times;</button>
                     </div> -->
                     <div class="alert alert-warning alert-dismissable" ng-repeat="mebershiplevel in mebershiplevels">
-                        <button class="close" ng-click="DeleteMemberShipLevel(mebershiplevel)">×</button>
+                        <button class="close" ng-click="DeleteMemberShipLevelModal(mebershiplevel)">×</button>
                         {{mebershiplevel.Name}}
                     </div>
                 </div>
@@ -30,3 +30,4 @@
 
 </div>
 <div ng-include="'partials/merchant/addmeberlevel-modal.html'"></div>
+<div ng-include="'partials/merchant/confirmdeletelevel-modal.html'"></div>

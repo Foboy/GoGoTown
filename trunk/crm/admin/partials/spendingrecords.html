@@ -1,9 +1,9 @@
-﻿<div id="page-wrapper">
+﻿<!--消费记录-->
+<div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="titlefont font20 page-header">公海客户</h1>
+            <h1 class="titlefont font20 page-header">消费记录</h1>
         </div>
-        <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
     <div class="row">
@@ -14,9 +14,9 @@
                     <div class="col-sm-8">
                         <input type="text" ng-show="false" ng-model="text" />
                         <div class="input-group custom-search-form">
-                            <input type="text" class="form-control input-sm" ng-model="searchparamters" placeholder="Search...">
+                            <input type="text" class="form-control input-sm" ng-model="searchpSRparameter" placeholder="Search...">
                             <span class="input-group-btn">
-                                <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SearchSeaCustomerList(searchparamters)"><i class="fa fa-search"></i></button>
+                                <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SerchSpendingRecordList(searchpSRparameter)"><i class="fa fa-search"></i></button>
                             </span>
                         </div>
                     </div>
@@ -31,27 +31,24 @@
                                 <tr>
                                     <th>#</th>
                                     <th>姓名</th>
-                                    <th>昵称</th>
-                                    <th>年龄</th>
-                                    <th>性别</th>
                                     <th>手机号</th>
-                                    <th></th>
+                                     <th>消费金额</th>
+                                     <th>消费时间</th>
+                                     <th>消费方式</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd gradeX" ng-repeat="seacustomer in seacustomers ">
+                                 <tr class="odd gradeX" ng-repeat="salesOpportunity in salesOpportunitys ">
                                     <td>{{$index+1}}</td>
-                                    <td>{{seacustomer.Name}}
+                                    <td>{{SpendingRecords.Name}}
                                     </td>
                                     <td>xxx
                                     </td>
-                                    <td>{{seacustomer.Birthady}}
+                                    <td>{{SpendingRecords.Birthady}}
                                     </td>
-                                    <td>{{seacustomer.Sex==1?'男':'女'}}
+                                    <td>{{SpendingRecords.Sex==1?'男':'女'}}
                                     </td>
-                                    <td class="center">{{seacustomer.Phone}}
-                                    </td>
-                                    <td><a ng-click="TransforSaleChanceModal(seacustomer)">转化为销售机会</a>
+                                    <td class="center">{{SpendingRecords.Phone}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -61,6 +58,7 @@
             </div>
         </div>
     </div>
+
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
@@ -72,4 +70,3 @@
         </div>
     </div>
 </div>
-<div ng-include="'partials/seacustomer/confirmtransforsalechance-modal.html'"></div>

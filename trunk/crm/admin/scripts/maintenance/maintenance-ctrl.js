@@ -69,7 +69,7 @@
                             $("#SendMessageMoadl").modal('hide');
                         } else {
                             $scope.showerror = true;
-                            $.scojs_message('发送失败，请稍候重发', $.scojs_message.TYPE_OK);
+                            $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_OK);
                         }
                     });
                 } else {
@@ -82,14 +82,5 @@
             return;
         }
     }
-    $scope.trimEnd = function (temp,str) {
-        if (!str) { return temp; }
-        while (true) {
-            if (temp.substr(temp.length - str.length, str.length) != str) {
-                break;
-            }
-            temp = temp.substr(0, temp.length - str.length);
-        }
-        return temp;
-    }
+   
 }

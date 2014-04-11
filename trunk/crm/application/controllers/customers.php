@@ -110,6 +110,14 @@ class Customers extends Controller {
 		$customers_model = $this->loadModel ( 'Customers' );
 		
 		$result->Data = $customers_model->delete ( $_POST ['customer_id'] );
+		
+		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
+		$shopcustomers_model->delete($_SESSION["user_shop"], $_POST ['customer_id'] );
+		
+		$rank_model = $this->loadModel ( 'Rank' );
+		$rank_model->delete(CustomerFromType::PrivateCustomer, $_POST ['customer_id'] ,$_SESSION["user_shop"]);
+		
+		
 		$result->Error = ErrorType::Success;
 		
 		print  json_encode ( $result );
@@ -142,7 +150,7 @@ class Customers extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['birthday'] ) or empty ( $_POST ['birthday'] )) {
+		if (! isset ( $_POST ['birthday'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
 			print json_encode ( $result );
 			return ;
