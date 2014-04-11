@@ -1,33 +1,30 @@
 ﻿angular.module('gogotowncrm', ['ngRoute', 'ui.router', 'ngRestUrls']).
 config(['$provide', '$httpProvider', '$routeProvider', '$stateProvider', '$urlRouterProvider', '$resturls', function ($provide, $httpProvider, $routeProvider, $stateProvider, $urlRouterProvider, $resturls) {
     $routeProvider
-        .when('/user', { template: '', controller: function () { } })
+        .when('/client/:sorts?/:pageIndex?/:parameters?', { template: '', controller: function () { } })
+         .when('/spendingrecords/:pageIndex?', { template: '', controller: function () { } })
         .when('/seacustomer/:pageIndex?', { template: '', controller: function () { } })
+        .when('/salesopportunity/:pageIndex?', { template: '', controller: function () { } })
+        .when('/salesanalysis', { template: '', controller: function () { } })
+        .when('/maintenance/:pageIndex?', { template: '', controller: function () { } })
         .when('/merchantinfo', { template: '', controller: function () { } })
         .when('/mebershiplevel', { template: '', controller: function () { } })
         .when('/permissions/:sorts?/:pageIndex?', { template: '', controller: function () { } })
-        .when('/client/:sorts?/:pageIndex?/:parameters?', { template: '', controller: function () { } })
-        .when('/maintenance/:pageIndex?', { template: '', controller: function () { } })
-        .when('/salesopportunity/:pageIndex?', { template: '', controller: function () { }})
         .otherwise({ redirectTo: '/home' });
     $stateProvider
-         .state("main", {
-             url: "",
-             templateUrl: 'partials/main.html'
-         })
-         .state('main.home', {
-             url: '/home',
-             templateUrl: 'partials/home.html',
-             controller: DataStatisticsCtrl
-         })
-         .state('main.user', { url: '/user*path', templateUrl: 'partials/userinfo.html', controller: function () { } })
+         .state("main", { url: "", templateUrl: 'partials/main.html' })
+         .state('main.home', { url: '/home',templateUrl: 'partials/home.html',controller: DataStatisticsCtrl })
          .state('main.client', { url: '/client*path', templateUrl: 'partials/client.html', controller: ClientMainCtrl })
+         .state('main.spendingrecords', { url: '/spendingrecords*path', templateUrl: 'partials/spendingrecords.html', controller: SpendingRecordsCtrl })
          .state('main.seacustomer', { url: '/seacustomer*path', templateUrl: 'partials/seacustomer.html', controller: SeaCustomerMainCtrl })
+         .state('main.salesopportunity', { url: '/salesopportunity*path', templateUrl: 'partials/salesopportunity.html', controller: SalesOpportunityCtrl })
+         .state('main.salesanalysis', { url: '/salesanalysis*path', templateUrl: 'partials/salesanalysis.html', controller: SaleAnalyzeCtrl })
+         .state('main.maintenance', { url: '/maintenance*path', templateUrl: 'partials/maintenance.html', controller: MaintenanceCtrl })
          .state('main.merchantinfo', { url: '/merchantinfo*path', templateUrl: 'partials/merchantinfo.html', controller: MerchantInfoMainCtrl })
          .state('main.mebershiplevel', { url: '/mebershiplevel*path', templateUrl: 'partials/mebershiplevel.html', controller: MemberShipLevelCtrl })
-         .state('main.permissions', { url: '/permissions*path', templateUrl: 'partials/authoritymanagement.html', controller: AuthorityManagementCtrl })
-         .state('main.maintenance', { url: '/maintenance*path', templateUrl: 'partials/maintenance.html', controller: MaintenanceCtrl })
-         .state('main.salesopportunity', { url: '/salesopportunity*path', templateUrl: 'partials/salesopportunity.html', controller: SalesOpportunityCtrl });
+         .state('main.permissions', { url: '/permissions*path', templateUrl: 'partials/authoritymanagement.html', controller: AuthorityManagementCtrl });
+
+
 
 
     $httpProvider.interceptors.push(function () {

@@ -7,12 +7,12 @@
     angular.module('ngRestUrls', ['ng']).
       config(['$provide', function ($provide) {
           var resturls = {};
-          resturls.base = "http://localhost/GoGoTown/trunk/crm/index.php";
+          //resturls.base = "http://localhost/GoGoTown/trunk/crm/index.php";
          //resturls.base = "http://localhost/index.php";
           //resturls.base = "http://localhost:8080/GoGoTown/trunk/crm/index.php";
           //resturls.base = "http://localhost/GoGoTown/trunk/crm/index.php";
          //resturls.base = "http://localhost/index.php";
-          //resturls.base = "http://localhost:8080/GoGoTown/trunk/crm/index.php";
+          resturls.base = "http://localhost:8080/GoGoTown/trunk/crm/index.php";
           resturls.add = function (name, url) {
               resturls[name] = resturls.base + "?url=" + url;
           };
@@ -55,7 +55,9 @@
 
           //销售机会
           resturls.add("LoadSaleChanceList", "Customers/searchGOGOBP"); //分页获取销售机会数据 type=2
-          $provide.constant('$resturls', resturls);
 
+          //消费记录
+          resturls.add("LoadSpendingRecordList", "");
+          $provide.constant('$resturls', resturls);
       } ]);
 })(window, window.angular);
