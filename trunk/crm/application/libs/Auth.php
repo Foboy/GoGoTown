@@ -24,7 +24,7 @@ class Auth
         	}
         	if(!$login_successful)
         	{
-            	Session::destroy();
+        		$_SESSION["feedback_negative"][] = "δ��½";
             	header('location: ' . URL . 'login/unloginresponse');
         	}
         }
@@ -37,7 +37,7 @@ class Auth
     	{
     		if($_SESSION['user_type'] !=$userType)
     		{
-	            Session::destroy();
+	            $_SESSION["feedback_negative"][] = "登陆账号权限不符!";
 	    		header('location: ' . URL . 'login/unloginresponse');
     		}
     	}

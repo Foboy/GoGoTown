@@ -11,22 +11,31 @@ class ValidationModel {
 		$this->db->query("SET NAMES utf8");//设置数据库编码
 	}
 	
-	// 新增validation
-	public function insert($code,$expire_time,$type,$usable,$customer_id) {
-		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_validation where code = :code and expire_time = :expire_time and type = :type and usable = :usable and customer_id = :customer_id" );
+	public function validation($code,$type,$customer_id)
+	{
+		$sql = " update crm_validation set usable = :disable where expire_time > :expire_time and customer_id = :customer_id and usable = :usable and code = :code and type = :type";
+		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
-':code' => $code,
-                   ':expire_time' => $expire_time,
-                   ':type' => $type,
-                   ':usable' => $usable,
-                   ':customer_id' => $customer_id
+				':disable' => EnableType::Disable,
+				':usable' => EnableType::Enable,
+				':expire_time' => time(),
+                ':code' => $code,
+                ':type' => $type,
+                ':customer_id' => $customer_id
 		) );
 		$count = $query->rowCount ();
-		if ($count > 0) {
-			return 0;
+		if ($count != 1) {
+			// 修改错误
+			return false;
 		}
+		return true;
+	}
+	
+	// 新增validation
+	public function insert($code,$type,$customer_id) {
+		// 判断是否已存在
 		
+		$expire_time = time() + VALIDATION_CODE_EXPIRE_TIME;
 		// 添加操作
 		$sql = "insert into crm_validation(code,expire_time,type,usable,customer_id) values (:code,:expire_time,:type,:usable,:customer_id)";
 		$query = $this->db->prepare ( $sql );
@@ -34,33 +43,15 @@ class ValidationModel {
 ':code' => $code,
                    ':expire_time' => $expire_time,
                    ':type' => $type,
-                   ':usable' => $usable,
+                   ':usable' => EnableType::Enable,
                    ':customer_id' => $customer_id
 		) );
 		$count = $query->rowCount ();
 		if ($count != 1) {
 			
-			return 0;
+			return false;
 		}
-		
-		// 获取ID
-		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-		$query = $this->db->prepare ( " select id from crm_validation where code = :code and expire_time = :expire_time and type = :type and usable = :usable and customer_id = :customer_id" );
-		$query->execute ( array (
-':code' => $code,
-                   ':expire_time' => $expire_time,
-                   ':type' => $type,
-                   ':usable' => $usable,
-                   ':customer_id' => $customer_id
-		) );
-		if ($query->rowCount () != 1) {
-			
-			return 0;
-		}
-		$result_user_row = $query->fetch ();
-		$customer_id = $result_user_row->id;
-		
-		return $customer_id;
+		return true;
 	}
 	// 修改validation
 	public function update($id,$code,$expire_time,$type,$usable,$customer_id) {

@@ -15,7 +15,8 @@ error_reporting(E_ALL);
 //error_reporting(0);
 ini_set("display_errors", 1);
 
-
+//验证码失效时间
+define('VALIDATION_CODE_EXPIRE_TIME', 120);
 /**
  * Configuration for: Folders
  * Here you define where your folders are. Unless you have renamed them, there's no need to change this.

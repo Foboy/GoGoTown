@@ -21,7 +21,11 @@ class Login extends Controller
     function unloginresponse(){
     	$result = new DataResult();
     	$result->Error = ErrorType::Unlogin;
-    	$result->ErrorMessage = "未登陆";
+    	$feedback_positive = Session::get('feedback_positive');
+    	$feedback_negative = Session::get('feedback_negative');
+    	$result->ExMessage = $feedback_positive;
+    	$result->ErrorMessage = $feedback_negative;
+    	Session::destroy();
     	print json_encode($result);
     }
 
@@ -73,6 +77,7 @@ class Login extends Controller
     function applogin()
     {
     	$this-> login();
+    	$result = new DataResult ();
     	Auth::handleLoginWithUserType(UserType::ShopApp);
     }
 

@@ -48,25 +48,39 @@ class user extends Controller
     */
     public  function  applogin()
     {
+    	//sleep(6);
     	$result = new DataResult ();
 
     	$login_model = $this->loadModel('Users');
     	$login_successful = $login_model->login();
     	$result->Data=$login_successful;
     	if ($login_successful) {
-    		if($_SESSION ['user_type']!=2)
+    		if($_SESSION ['user_type']!=UserType::ShopApp)
     		{
     			$result->Error = ErrorType::Accessdenied;
     			print json_encode ( $result ) ;
     			return ;
     		}else 
     		{
-    		$result->Data=$_SESSION ['user_type'];
-    		
-    		$result->Error = ErrorType::Success;
+    			$cash_model = $this->loadModel('Cash');
+    			$result->Id=$_SESSION ['user_shop'];
+    			$serverresult = $cash_model->getcatalogs($result->Id);
+    			if($serverresult->status == 1)
+    			{
+    				$result->Error = ErrorType::Success;
+    				$result->Data = $serverresult->data;
+    			}
+    			else
+    			{
+    				$result->Error = ErrorType::Failed;
+    				$result->ErrorMessage = $serverresult->info;
+    			}
     		}
     	
     	} else {
+    		$error= Session::get("feedback_negative");
+    		$result->ErrorMessage = $error[0];
+    		//$result->ExMessage = json_encode($_SERVER);
     		$result->Error = ErrorType::LoginFailed;
 
     	}
