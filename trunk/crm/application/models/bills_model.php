@@ -70,71 +70,118 @@ class BillsModel {
 		
 		return $customer_id;
 	}
-	// 修改bills
-	public function update($id,$shop_id,$customer_id,$pay_mothed,$cash,$go_coin,$type,$amount,$create_time) {
-		$sql = " update crm_bills set shop_id = :shop_id,customer_id = :customer_id,pay_mothed = :pay_mothed,cash = :cash,go_coin = :go_coin,type = :type,amount = :amount,create_time = :create_time where id = :id";
-		$query = $this->db->prepare ( $sql );
-		$query->execute ( array (
-':id' => $id,
-                   ':shop_id' => $shop_id,
-                   ':customer_id' => $customer_id,
-                   ':pay_mothed' => $pay_mothed,
-                   ':cash' => $cash,
-                   ':go_coin' => $go_coin,
-                   ':type' => $type,
-                   ':amount' => $amount,
-                   ':create_time' => $create_time
-		) );
-		$count = $query->rowCount ();
-		if ($count != 1) {
-			// 修改错误
-			return false;
-		}
-		return true;
-	}
-	// 根据ID删除bills
-	public function delete($id) {
-		$sql = " delete from crm_bills where id = :id ";
-		$query = $this->db->prepare ( $sql );
-		$query->execute ( array (
-				':id' => $id 
-		) );
-		$count = $query->rowCount ();
-		if ($count != 1) {
-			// 修改错误
-			return false;
-		}
-		return true;
-	}
+	
+	
 	// 分页查询bills
-	public function searchByPages($shop_id,$customer_id,$pay_mothed,$cash,$go_coin,$type,$amount,$create_time, $pageindex, $pagesize) {
+	public function searchByPages($sname,$shop_id,$customer_id,$pay_mothed,$cash1,$cash2,$go_coin1,$go_coin2,$type,$create_time1, $create_time2,$pageindex, $pagesize) {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = "select bills.*,crm_gogo_customers.username,crm_gogo_customers.mobile from (select * from (select id,shop_id,customer_id,pay_mothed,cash,go_coin,type,amount,create_time from crm_bills where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( pay_mothed = :pay_mothed or :pay_mothed=0 )  and  ( cash = :cash or :cash='' )  and  ( go_coin = :go_coin or :go_coin=0 )  and  ( type = :type or :type=0 )  and  ( amount = :amount or :amount='' )  and  ( create_time = :create_time or :create_time=0 ) order by create_time desc ) a  limit $lastpagenum,$pagesize ) bills left join crm_gogo_customers on crm_gogo_customers.id = bills.customer_id" ;
+		if(!empty($sname))
+		{
+			$sname=" where
+    (bb.username like '%".trim($sname)."%'
+        or bb.nickname like '%".trim($sname)."%'
+        or bb.mobile like '%".trim($sname)."%'
+        or aa.shop_name like '%".trim($sname)."%') ";
+		}else 
+		{
+			$sname="";
+		}
+		
+		$cash="";
+		$go_coin="";
+	     if($cash2>0)
+		{
+			$cash="  and cb.Cash between $cash1 and $cash2  ";
+		}else if($go_coin1>0)
+		{
+			$go_coin=" and cb.Go_Coin between $go_coin1 and $go_coin2 ";
+		}
+		
+		$create_time="";
+		if(!empty($create_time1) and !empty($create_time2))
+		{
+			$create_time="  and cb.Create_Time between $create_time1 and $create_time2 ";
+		}
+		
+		
+		$sql = " select 
+    *
+from
+    (select 
+        a.shop_Id,
+            a.customer_id,
+            a.Pay_Mothed,
+            a.Cash,
+            a.Go_Coin,
+            a.Type,
+            a.Amount,
+            a.Create_Time,
+            b.name shop_name
+    FROM
+        (select 
+        *
+    from
+        Crm_Bills cb
+    where
+             (cb.Pay_Mothed=:pay_mothed or :pay_mothed=0)
+            and (cb.Customer_ID = :customer_id or :customer_id=0)
+            and (cb.Shop_ID = :shop_id or :shop_id=0)
+            and (cb.type = :type or :type ='') 
+		    $create_time
+            $cash
+            $go_coin
+		) a
+    left join Crm_Shops b ON a.shop_id = b.id) aa
+        left join
+    Crm_Gogo_Customers bb ON aa.customer_id = bb.id
+$sname order by aa.create_time desc limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
                    ':pay_mothed' => $pay_mothed,
-                   ':cash' => $cash,
-                   ':go_coin' => $go_coin,
-                   ':type' => $type,
-                   ':amount' => $amount,
-                   ':create_time' => $create_time
+                   ':type' => $type
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_bills where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( pay_mothed = :pay_mothed or :pay_mothed=0 )  and  ( cash = :cash or :cash='' )  and  ( go_coin = :go_coin or :go_coin=0 )  and  ( type = :type or :type=0 )  and  ( amount = :amount or :amount='' )  and  ( create_time = :create_time or :create_time=0 ) " );
+		$query = $this->db->prepare ( " select 
+    *
+from
+    (select 
+        a.shop_Id,
+            a.customer_id,
+            a.Pay_Mothed,
+            a.Cash,
+            a.Go_Coin,
+            a.Type,
+            a.Amount,
+            a.Create_Time,
+            b.name shop_name
+    FROM
+        (select 
+        *
+    from
+        Crm_Bills cb
+    where
+             (cb.Pay_Mothed=:pay_mothed or :pay_mothed=0)
+            and (cb.Customer_ID = :customer_id or :customer_id=0)
+            and (cb.Shop_ID = :shop_id or :shop_id=0)
+            and (cb.type = :type or :type ='') 
+		    $create_time
+            $cash
+            $go_coin
+		) a
+    left join Crm_Shops b ON a.shop_id = b.id) aa
+        left join
+    Crm_Gogo_Customers bb ON aa.customer_id = bb.id
+$sname " );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
                    ':pay_mothed' => $pay_mothed,
-                   ':cash' => $cash,
-                   ':go_coin' => $go_coin,
-                   ':type' => $type,
-                   ':amount' => $amount,
-                   ':create_time' => $create_time
+                   ':type' => $type
 		) );
 		$totalcount = $query->fetchColumn ( 0 );
 		
@@ -156,19 +203,7 @@ class BillsModel {
 		$result->Data = $objects;
 		return $result;
 	}
-    //根据ID获取bills
-	public function get($id) {
-		$result = new DataResult ();
-		
-		$query = $this->db->prepare ( "SELECT * FROM Crm_Bills WHERE id = :id " );
-		$query->execute ( array (
-				':id' => $id 
-		) );
-		
-		$objects = $query->fetch ();
-		$result->Data = $objects;
-		return $result;
-	}
+  
 }
 
 ?>
