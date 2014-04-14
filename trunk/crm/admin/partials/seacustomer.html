@@ -32,8 +32,9 @@
                                     <th>#</th>
                                     <th>姓名</th>
                                     <th>昵称</th>
-                                    <th>年龄</th>
-                                    <th>性别</th>
+                                     <th>性别</th>
+                                    <th>邮箱</th>
+                                   
                                     <th>手机号</th>
                                     <th></th>
                                 </tr>
@@ -41,13 +42,16 @@
                             <tbody>
                                 <tr class="odd gradeX" ng-repeat="seacustomer in seacustomers ">
                                     <td>{{$index+1}}</td>
-                                    <td>{{seacustomer.Name}}
+                                    <td>{{seacustomer.username}}
                                     </td>
-                                    <td>xxx
+                                    <td>
+                                        {{seacustomer.nickname}}
                                     </td>
-                                    <td>{{seacustomer.Birthady}}
-                                    </td>
-                                    <td>{{seacustomer.Sex==1?'男':'女'}}
+                                     <td>
+                                         {{seacustomer.Sex==1?'男':'女'}}
+                                   </td>
+                                    <td>
+                                   {{seacustomer.email}}
                                     </td>
                                     <td class="center">{{seacustomer.Phone}}
                                     </td>

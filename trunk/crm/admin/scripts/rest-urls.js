@@ -57,7 +57,7 @@
           resturls.add("LoadSaleChanceList", "Customers/searchGOGOBP"); //分页获取销售机会数据 type=2
 
           //消费记录
-          resturls.add("LoadSpendingRecordList", "");//分页插叙消费记录
+          resturls.add("LoadSpendingRecordList", "bill/searchBillsByCrm");//分页插叙消费记录
           $provide.constant('$resturls', resturls);
       } ]);
 })(window, window.angular);
