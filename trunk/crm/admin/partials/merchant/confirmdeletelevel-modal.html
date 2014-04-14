@@ -3,17 +3,13 @@
     aria-hidden="true" ng-controller="DeleteMemberShipLevelCtrl">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <i class="titlefont fa fa-credit-card pull-left marginmodal"></i>
-                <h4 class="modal-title">确定是否删除此会员等级(若删除,与此等级相关联的客户将不存在等级)</h4>
-            </div>
             <div class="modal-body">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" ng-click="DeleteMemberShipLevel(mebershiplevel)">确 定</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">确定是否删除此会员等级</h4><!--(若删除,与此等级相关联的客户将不存在等级)-->
             </div>
             <div class="modal-footer">
-                
+                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary btn-sm" ng-click="DeleteMemberShipLevel(mebershiplevel)">确 定</button>
             </div>
         </div>
         <!-- /.modal-content -->
