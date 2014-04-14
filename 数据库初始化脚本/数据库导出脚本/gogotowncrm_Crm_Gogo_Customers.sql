@@ -57,7 +57,7 @@ CREATE TABLE `Crm_Gogo_Customers` (
 
 LOCK TABLES `Crm_Gogo_Customers` WRITE;
 /*!40000 ALTER TABLE `Crm_Gogo_Customers` DISABLE KEYS */;
-INSERT INTO `Crm_Gogo_Customers` VALUES (1,'123','1','1','1','1',1,'1','1',1,'1',1,1,1,1,1,'1',1,'2014-04-07 05:16:53');
+INSERT INTO `Crm_Gogo_Customers` VALUES (1,'123','1','1','1','1',1,'1','1',1,'1',1,1,1,1,1,'1',1,'2014-04-07 05:16:53'),(24,'24','24','24','24','1',11,'1','1',1,'1',1,1,1,1,1,'1',1,'2014-04-14 05:26:12'),(30,'30','30','30','30','30',30,'30','30',30,'1',1,1,1,1,1,'1',1,'2014-04-14 05:26:12');
 /*!40000 ALTER TABLE `Crm_Gogo_Customers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -70,4 +70,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-09 19:00:40
+-- Dump completed on 2014-04-14 20:40:02

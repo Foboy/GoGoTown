@@ -11,9 +11,9 @@ class BillsModel {
 	}
 	
 	// 新增bills
-	public function insert($shop_id,$customer_id,$pay_mothed,$cash,$go_coin,$type,$amount,$create_time) {
+	public function insert($shop_id,$customer_id,$pay_mothed,$cash,$go_coin,$type,$amount,$create_time,$app_user_id) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_bills where shop_id = :shop_id and customer_id = :customer_id and pay_mothed = :pay_mothed and cash = :cash and go_coin = :go_coin and type = :type and amount = :amount and create_time = :create_time" );
+		$query = $this->db->prepare ( " select *  from crm_bills where shop_id = :shop_id and customer_id = :customer_id and pay_mothed = :pay_mothed and cash = :cash and go_coin = :go_coin and type = :type and amount = :amount and create_time = :create_time and app_user_id=:app_user_id" );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
@@ -22,7 +22,8 @@ class BillsModel {
                    ':go_coin' => $go_coin,
                    ':type' => $type,
                    ':amount' => $amount,
-                   ':create_time' => $create_time
+                   ':create_time' => $create_time,
+				':app_user_id'=>$app_user_id
 		) );
 		$count = $query->rowCount ();
 		if ($count > 0) {
@@ -30,7 +31,7 @@ class BillsModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into crm_bills(shop_id,customer_id,pay_mothed,cash,go_coin,type,amount,create_time) values (:shop_id,:customer_id,:pay_mothed,:cash,:go_coin,:type,:amount,:create_time)";
+		$sql = "insert into crm_bills(shop_id,customer_id,pay_mothed,cash,go_coin,type,amount,create_time,app_user_id) values (:shop_id,:customer_id,:pay_mothed,:cash,:go_coin,:type,:amount,:create_time,:app_user_id)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
@@ -40,7 +41,8 @@ class BillsModel {
                    ':go_coin' => $go_coin,
                    ':type' => $type,
                    ':amount' => $amount,
-                   ':create_time' => $create_time
+                   ':create_time' => $create_time,
+				':app_user_id'=>$app_user_id
 		) );
 		$count = $query->rowCount ();
 		if ($count != 1) {
@@ -118,6 +120,7 @@ from
             a.Type,
             a.Amount,
             a.Create_Time,
+            a.app_user_id,
             b.name shop_name
     FROM
         (select 
@@ -158,6 +161,7 @@ from
             a.Type,
             a.Amount,
             a.Create_Time,
+				a.app_user_id,
             b.name shop_name
     FROM
         (select 
