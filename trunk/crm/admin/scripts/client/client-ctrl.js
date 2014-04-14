@@ -194,7 +194,6 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
     };
     //跟新自有客户信息
     $scope.UpdateOwnCustomer = function (data, choselevel) {
-        alert(choselevel);
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
             $http.post($resturls["SetCustomerRank"], { rank_id: choselevel.ID, from_type: data.from_type,customer_id:data.ID }).success(function (result) {
