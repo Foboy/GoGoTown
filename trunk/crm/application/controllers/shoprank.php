@@ -113,20 +113,11 @@ class ShopRank extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
-		if (! isset ( $_POST ['begin_time'] ) ) {
-			$result->Error = ErrorType::RequestParamsFailed;
-			print json_encode ( $result );
-			return ;
-		}
-		if (! isset ( $_POST ['end_time'] ) ) {
-			$result->Error = ErrorType::RequestParamsFailed;
-			print json_encode ( $result );
-			return ;
-		}
+
 	
 		$rank_model = $this->loadModel ( 'Rank' );
 		$result->Data = $rank_model->delete($_POST ['from_type'] ,$_POST ['customer_id'],$_SESSION["user_shop"] );
-		$result->Data = $rank_model->insert ($_POST ['from_type'],$_SESSION["user_shop"],$_POST ['customer_id'],$_POST ['rank_id'], $_POST ['begin_time'],$_POST ['end_time'] );
+		$result->Data = $rank_model->insert ($_POST ['from_type'],$_SESSION["user_shop"],$_POST ['customer_id'],$_POST ['rank_id']);
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );
