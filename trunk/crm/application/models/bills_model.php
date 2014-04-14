@@ -193,11 +193,20 @@ $sname " );
 		return $result;
 	}
     //查询全部bills
-	public function search() {
+	public function search($shop_id,$create_time1,$create_time2) {
 		$result = new DataResult ();
 		
-		$query = $this->db->prepare ( "SELECT * FROM Crm_Bills " );
-		$query->execute ();
+		$create_time="";
+		if(!empty($create_time1) and !empty($create_time2))
+		{
+			$create_time="  and Create_Time between $create_time1 and $create_time2 ";
+		}
+		
+		
+		$query = $this->db->prepare ( "SELECT * FROM Crm_Bills where Shop_ID=:shop_id $create_time " );
+		$query->execute ( array (
+':shop_id' => $shop_id
+		) );
 		$objects = $query->fetchAll ();
 		
 		$result->Data = $objects;
