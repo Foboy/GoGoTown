@@ -79,24 +79,21 @@
                         <tr>
                             <th>#</th>
                             <th>姓名</th>
-                            <th>年龄</th>
                             <th>性别</th>
+                            <th>会员等级</th>
                             <th>手机号</th>
-                            <th>备注</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="gogoclient in gogoclients " class="odd gradeX" ng-click="ShowClientDetailModal()">
                             <td>{{$index+1}}</td>
-                            <td>{{gogoclient.Name}}
+                            <td>{{gogoclient.username}}
                             </td>
-                            <td>{{gogoclient.Birthady}}
+                            <td>{{gogoclient.sex==1?'男':'女'}}
                             </td>
-                            <td>{{gogoclient.Sex==1?'男':'女'}}
+                            <td>{{gogoclient.shoprankname}}
                             </td>
-                            <td class="center">{{gogoclient.Phone}}
-                            </td>
-                            <td class="center">{{gogoclient.Remark}}
+                            <td class="center">{{gogoclient.mobile}}
                             </td>
                         </tr>
                     </tbody>

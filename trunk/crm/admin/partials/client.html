@@ -21,16 +21,16 @@
                     </div>
                     <button type="button" class="btn btn-primary btn-sm btn_left pull-right"  ng-click="ShowAddOwnCustomerModal()">添加客户</button>-->
                     <div class="col-sm-8">
-                        <input type="text" ng-show="false" ng-model="text"/>
+                        <input type="text" ng-show="false" ng-model="text" />
                         <div class="input-group custom-search-form">
                             <input type="text" class="form-control input-sm" ng-model="parameters" placeholder="Search...">
                             <span class="input-group-btn">
-                            <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SearchClientSortList(parameters)"><i class="fa fa-search"></i></button>
+                                <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SearchClientSortList(parameters)"><i class="fa fa-search"></i></button>
                             </span>
-                        </div>  
+                        </div>
                     </div>
                     <div class="col-sm-4">
-                             <button type="button" class="btn btn-primary btn-sm btn_left pull-right"  ng-click="ShowAddOwnCustomerModal()">添加客户</button>
+                        <button type="button" class="btn btn-primary btn-sm btn_left pull-right" ng-click="ShowAddOwnCustomerModal()">添加客户</button>
                     </div>
                 </li>
             </ul>
@@ -88,27 +88,27 @@
                                     <th>性别</th>
                                     <th>会员等级</th>
                                     <th>联系方式</th>
-                                    <th>所在地</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd gradeX public_cur"  ng-repeat="gogoclient in gogoclients" ng-click="ShowClientDetailModal(gogoclient)">
+                                <tr class="odd gradeX public_cur" ng-repeat="gogoclient in gogoclients" ng-click="ShowClientDetailModal(gogoclient)">
                                     <td>{{$index+1}}</td>
-                                    <td>{{gogoclient.Name}}
+                                    <td>{{gogoclient.username}}
                                     </td>
                                     <td>{{gogoclient.sex==1?'男':'女'}}
                                     </td>
                                     <td class="center">{{gogoclient.shoprankname}}</td>
                                     <td class="center">{{gogoclient.mobile}}
                                     </td>
-                                    <td class="center">X
-                                    </td>
                                     <td class="center">
                                         <a ng-click="ShowSendMessageModal(gogoclient,$event)">发送信息</a>
                                         <b class="graycolor1">|</b>
-                                        <a ng-click="ShowClientDetailModal(gogoclient,$event)">详情</a></td>
+                                        <a ng-click="ShowClientDetailModal(gogoclient,$event)">详情</a>
+                                        <b class="graycolor1">|</b>
+                                        <a ng-click="ShowSetMemberShipLevel(gogoclient,$event)" >设置会员等级</a>
                                     </td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -135,4 +135,4 @@
 <div ng-include="'partials/client/gogocustomerdetail-modal.html'"></div>
 <div ng-include="'partials/client/sendmessage-modal.html'"></div>
 <div ng-include="'partials/client/confirmdeleteowncustomer-modal.html'"></div>
-
+<div ng-include="'partials/client/setmembershiplevel-modal.html'"></div>

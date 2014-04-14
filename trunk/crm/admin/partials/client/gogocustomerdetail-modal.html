@@ -22,17 +22,13 @@
                         <button type="button" class="close_postion close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <div class="tab-content">
                             <div class="tab-pane active" ng-show="kind?true:false">
-                                <h3>王晓</h3>
+                                <h3>{{onecustomer.username}}</h3>
                                 <h5 class="logo-title">GOGO客户</h5>
                                 <hr>
                                 <div class="form-horizontal">
                                     <div class="form-group">
-                                        <label class="col-sm-3">年龄</label>
-                                        <label class="titlefont col-sm-8">18</label>
-                                    </div>
-                                    <div class="form-group">
                                         <label class="col-sm-3">性别</label>
-                                        <label class="titlefont col-sm-8">{{onecustomer==2?'女':"男"}}</label>
+                                        <label class="titlefont col-sm-8">{{onecustomer.sex==2?'女':"男"}}</label>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3">联系方式</label>
@@ -40,11 +36,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3">会员等级</label>
-                                        <label class="titlefont col-sm-8">白金会员</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3">备注</label>
-                                        <label class="titlefont col-sm-8">白金会员</label>
+                                        <label class="titlefont col-sm-8">{{onecustomer.shoprankname}}</label>
                                     </div>
                                     <p class="pull-right red"><i class="icon-heart"></i></p>
                                 </div>

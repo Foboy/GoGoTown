@@ -161,6 +161,39 @@
         $scope.ownclient = data;
         $("#DeleteOwnCustomerModal").modal('show');
     }
+    //弹出设置会员等级(暂时gogo客户在用)
+    $scope.ShowSetMemberShipLevel = function (data, $event) {
+        if (event != undefined) {
+            if (event && event.stopPropagation) {
+                event.stopPropagation();
+            }
+            else {
+                window.event.cancelBubble = true;
+            }
+        }
+        //获取用户等级设置信息
+        $scope.GetCustomerMemberShip = function (data) {
+            $http.post($resturls["SearchMerchantSetLevels"], {}).success(function (result) {
+                if (result.Error == 0) {
+                    $scope.mebershiplevels = result.Data;
+                    if (data) {
+                        if (!data.rank_id) {
+                            $scope.choselevel = { Name: "未设置等级", ID: 0 };
+                        } else {
+                            $scope.choselevel = { Name: data.shoprankname, ID: data.rank_id };
+                        }
+                    } else {
+                        $scope.choselevel = { Name: "未设置等级", ID: 0 };
+                    }
+                } else {
+                    $scope.mebershiplevels = [];
+                }
+            });
+        }
+        $scope.GetCustomerMemberShip(data);
+        $scope.oneclient = data;
+        $("#SetMemeberShipModal").modal('show');
+    }
 }
 
 //增加自有客户scope
@@ -250,6 +283,24 @@ function DeleteOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls
                 $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
             }
         });
+    }
+}
+
+function SetMemeberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) {
+    $scope.ChoseMemberRank = function (data) {
+        $scope.choselevel = { Name: data.Name, ID: data.ID };
+    };
+    $scope.SaveSetMemeberShipLevel = function (data, choselevel) {
+        console.log(data);
+        $http.post($resturls["SetCustomerRank"], { rank_id: choselevel.ID, from_type: data.from_type, customer_id: data.Customer_ID }).success(function (result) {
+            $("#SetMemeberShipModal").modal('hide');
+            if (result.Error == 0) {
+                $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
+                $.scojs_message('设置成功', $.scojs_message.TYPE_OK);
+            } else {
+                $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
+            }
+        })
     }
 }
 
