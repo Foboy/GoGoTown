@@ -39,7 +39,11 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
                 tickFormatter: function (rule) {
                     if (type == 1) {
                         return rule + '时';
-                    } else {
+                    }
+                    else if (type==3) {
+                        return rule;
+                    }
+                    else {
                         return rule + '日';
                     }
                 }
