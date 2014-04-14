@@ -12,6 +12,14 @@ class Bills extends Controller {
 		// Auth::handleLogin();
 	}
 	
+	
+	/*
+	/* 商家分页查询消费记录 crm系统
+	 * parms sname （模糊查询客户名称手机号昵称）,pay_mothed（0:查所有 1:刷卡2:GO币 3:现金）,customer_id,type,create_time1, create_time2,pageindex, pagesize
+	 */
+
+
+
 	/*
 	/* 分页查询交易记录
 	 * parms sname （模糊查询商户名称客户名称手机号昵称）,shop_id,customer_id,pay_mothed（1:刷卡2:GO币）,cash1,cash2,go_coin1,go_coin2,type,create_time1, create_time2,pageindex, pagesize
