@@ -133,7 +133,7 @@ from
         cr.Customer_ID cid, cr.rank_id, crs.Name shoprankname
     from
         Crm_Rank cr
-    left join Crm_Rank_Set crs ON cr.id = crs.ID
+    left join Crm_Rank_Set crs ON cr.rank_id = crs.ID
     where
         cr.Shop_ID = :shop_id ) bb ON aa.customer_id = bb.cid 
         where ($name or $phone) and (aa.sex = :sex or 0=:sex) and (bb.rank_id=:rank_id or :rank_id=0)
@@ -166,7 +166,7 @@ from
         cr.Customer_ID, cr.rank_id, crs.Name
     from
         Crm_Rank cr
-    left join Crm_Rank_Set crs ON cr.id = crs.ID
+    left join Crm_Rank_Set crs ON cr.rank_id = crs.ID
     where
         cr.Shop_ID = :shop_id) bb ON aa.customer_id = bb.customer_id where ($name or $phone) and (aa.sex = :sex or 0=:sex) and (bb.rank_id=:rank_id or :rank_id=0) " );
 		$query->execute ( array (
@@ -231,7 +231,7 @@ from
         cr.Customer_ID ccid, cr.rank_id, crs.Name shoprankname
     from
         Crm_Rank cr
-    left join Crm_Rank_Set crs ON cr.id = crs.ID
+    left join Crm_Rank_Set crs ON cr.rank_id = crs.ID
     where
         cr.Shop_ID = :shop_id) dd ON cc.Customer_ID = dd.ccid 
         where ($name or $phone) and (cc.sex = :sex or 0=:sex) and (dd.rank_id=:rank_id or :rank_id=0)
@@ -273,7 +273,7 @@ from
         cr.Customer_ID, cr.rank_id, crs.Name
     from
         Crm_Rank cr
-    left join Crm_Rank_Set crs ON cr.id = crs.ID
+    left join Crm_Rank_Set crs ON cr.rank_id = crs.ID
     where
         cr.Shop_ID = :shop_id) dd ON cc.cid = dd.Customer_ID  where ($name or $phone) and (cc.sex = :sex or 0=:sex) and (dd.rank_id=:rank_id or :rank_id=0) " );
 		$query->execute ( array (
