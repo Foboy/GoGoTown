@@ -35,6 +35,7 @@
           resturls.add("UpdateOwnCustomer", "Customers/update");//跟新商家自有客户信息
           resturls.add("SensMessage", "Messages/send");//发送消息
           resturls.add("DeleteOwnCustomer", "Customers/del");//删除自有客户
+          resturls.add("SetCustomerRank", "ShopRank/setCustomerRank");//客户会员等级 from_type 1自有 2 gogo
 
           //基本信息设置
           resturls.add("GetMerchantInfo", "ShopInfo/get"); //获取商家基本信息

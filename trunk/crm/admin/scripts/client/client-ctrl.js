@@ -168,8 +168,7 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
     $scope.ChoseCustomerRank = function (data) {
         $scope.choselevel = { Name: data.Name,ID:data.ID };
     };
-    $scope.SaveAddOwnCustomer = function (data) {
-        
+    $scope.SaveAddOwnCustomer = function (data, choselevel) {
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
             $http.post($resturls["AddOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.TimeStamp, remark: data.Remark }).success(function (result) {
@@ -177,6 +176,11 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
                 if (result.Error == 0) {
                     $.scojs_message('新增成功', $.scojs_message.TYPE_OK);
                     $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
+                    if (choselevel.ID != 0) {
+                        $http.post($resturls["SetCustomerRank"], { rank_id: choselevel.ID, from_type: result.from_type, customer_id: result.ID }).success(function (result) {
+                            console.log(result);
+                        });
+                    }
                 }
                 else {
                     $scope.showerror = true;
@@ -189,10 +193,14 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
         }
     };
     //跟新自有客户信息
-    $scope.UpdateOwnCustomer = function (data) {
+    $scope.UpdateOwnCustomer = function (data, choselevel) {
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
+            $http.post($resturls["SetCustomerRank"], { rank_id: choselevel.ID, from_type: data.from_type,customer_id:data.ID }).success(function (result) {
+                console.log(result);
+            })
             $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.TimeStamp, remark: data.Remark, customer_id: data.ID }).success(function (result) {
+             
                 $("#addcustomermodal").modal('hide');
                 if (result.Error == 0) {
                     $.scojs_message('更新成功', $.scojs_message.TYPE_OK);
