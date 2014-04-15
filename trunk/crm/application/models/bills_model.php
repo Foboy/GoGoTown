@@ -97,7 +97,7 @@ class BillsModel {
 	     if($cash2>0)
 		{
 			$cash="  and cb.Cash between $cash1 and $cash2  ";
-		}else if($go_coin1>0)
+		}else if($go_coin2>0)
 		{
 			$go_coin=" and cb.Go_Coin between $go_coin1 and $go_coin2 ";
 		}
