@@ -6,5 +6,18 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="funnel-img">
+                <div class="f-shade"></div>
+                <div style="width: 400px; height: 350px; margin-top: 16px;">
+                    <div style="width: 400px;" ng-repeat="item in salesFunnelList" ng-style="item.style">
+                        &nbsp;
+                    </div>
+                </div>
+                <!--lines-->
+                <div style="width: 200px; height: 350px; position: absolute; top: 0; left: 200px; z-index: 2" id="salesLines"></div>
+            </div>
+        </div>
+    </div>
 </div>

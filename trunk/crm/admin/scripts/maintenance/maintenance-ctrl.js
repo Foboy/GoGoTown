@@ -1,4 +1,5 @@
-﻿function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $rootScope) {
+﻿//客户维护scope
+function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $rootScope) {
     var $parent = $scope.$parent;
     $scope.choselevel = $rootScope.selectedLevel;
     $scope.show = $rootScope.dropShow;
@@ -20,7 +21,7 @@
             }
         });
     }
-
+    //查询gogo客户列表
     $scope.LoadGogoCustomerList = function (pageIndex, rankId) {
         if (!rankId) rankId = 0;
         if (pageIndex == 0) pageIndex = 1;
@@ -53,14 +54,19 @@
     $scope.LoadMemberShipLeveList();
     $scope.LoadGogoCustomerList($routeParams.pageIndex || 1, 0);
 
+    //发送消息
     $scope.SendMessage = function (data,message) {
         if (data) {
             if (data.length > 0) {
-                var customerids = "";
+                debugger;
+                var customerids = ""; 
                 for (var i = 0; i < data.length; i++) {
-                    customerids = data[i].customer_id + ',' + customerids;
+                    customerids = data[i].Customer_ID + ',' + customerids;
                 }
                 customerids = $scope.trimEnd(customerids, ',');
+                console.log(data);
+                console.log(message);
+                console.log(customerids);
                 if ($scope.SendGogoMessageForm.$valid) {
                     $scope.showerror = false;
                     $http.post($resturls["SensMessage"], { customer_ids: customerids, title: message.content, content: message.content }).success(function (result) {
@@ -69,7 +75,7 @@
                             $("#SendMessageMoadl").modal('hide');
                         } else {
                             $scope.showerror = true;
-                            $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_OK);
+                            $.scojs_message(result.ErrorMessage, $.scojs_message.TYPE_ERROR);
                         }
                     });
                 } else {
