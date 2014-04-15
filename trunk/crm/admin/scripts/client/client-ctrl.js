@@ -167,7 +167,7 @@
             if (event && event.stopPropagation) {
                 event.stopPropagation();
             }
-            else {
+            else { 
                 window.event.cancelBubble = true;
             }
         }
