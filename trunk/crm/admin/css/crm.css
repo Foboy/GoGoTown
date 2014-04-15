@@ -19,6 +19,9 @@ a{
 .titlefont{
 	color: #428BCA;
 }
+.whitecolor{
+	color: #fff;
+}
 .textmiddle{
 	text-align: center;
 }
@@ -69,6 +72,15 @@ a{
 }
 .lable-top{
 	padding-top: 7px;
+}
+.well-bg{
+	background-color: #3C8DBC;
+}
+.margin_topnull{
+	margin-top: 0px;
+}
+.margin_btnnull{
+	margin-bottom: 0px;
 }
 
 
