@@ -79,9 +79,11 @@
                         <tr>
                             <th>#</th>
                             <th>姓名</th>
+                            <th>昵称</th>
+                            <th>手机号</th>
                             <th>性别</th>
                             <th>会员等级</th>
-                            <th>手机号</th>
+                            <th>内容</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,12 +91,15 @@
                             <td>{{$index+1}}</td>
                             <td>{{gogoclient.username}}
                             </td>
+                            <td>{{gogoclient.nickname}}
+                            </td>
+                             <td >{{gogoclient.mobile}}
+                            </td>
                             <td>{{gogoclient.sex==1?'男':'女'}}
                             </td>
                             <td>{{gogoclient.shoprankname}}
                             </td>
-                            <td class="center">{{gogoclient.mobile}}
-                            </td>
+                           <td><i class="fa fa-picture-o"></i>123</td>
                         </tr>
                     </tbody>
                 </table>
