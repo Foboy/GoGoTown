@@ -162,7 +162,7 @@
         $("#DeleteOwnCustomerModal").modal('show');
     }
     //弹出设置会员等级(暂时gogo客户在用)
-    $scope.ShowSetMemberShipLevel = function (data, $event) {
+    $scope.ShowSetMemberShipLevel = function (data, event) {
         if (event != undefined) {
             if (event && event.stopPropagation) {
                 event.stopPropagation();
