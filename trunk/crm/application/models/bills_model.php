@@ -81,6 +81,7 @@ class BillsModel {
 		
 		if(!empty($sname))
 		{
+			
 			$sname=" where
     (bb.username like '%".trim($sname)."%'
         or bb.nickname like '%".trim($sname)."%'
@@ -120,7 +121,6 @@ from
             a.Type,
             a.Amount,
             a.Create_Time,
-            a.app_user_id,
             b.name shop_name
     FROM
         (select 
@@ -131,7 +131,7 @@ from
              (cb.Pay_Mothed=:pay_mothed or :pay_mothed=0)
             and (cb.Customer_ID = :customer_id or :customer_id=0)
             and (cb.Shop_ID = :shop_id or :shop_id=0)
-            and (cb.type = :type or :type ='') 
+            and (cb.type = :ptype or :ptype =0) 
 		    $create_time
             $cash
             $go_coin
@@ -140,17 +140,17 @@ from
         left join
     Crm_Gogo_Customers bb ON aa.customer_id = bb.id
 $sname order by aa.create_time desc limit $lastpagenum,$pagesize" ;
+		
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
                    ':pay_mothed' => $pay_mothed,
-                   ':type' => $type
+                   ':ptype' => $type
 		) );
 		$objects = $query->fetchAll ();
-		
 		$query = $this->db->prepare ( " select 
-    *
+    count(*)
 from
     (select 
         a.shop_Id,
@@ -161,7 +161,6 @@ from
             a.Type,
             a.Amount,
             a.Create_Time,
-				a.app_user_id,
             b.name shop_name
     FROM
         (select 
@@ -172,7 +171,7 @@ from
              (cb.Pay_Mothed=:pay_mothed or :pay_mothed=0)
             and (cb.Customer_ID = :customer_id or :customer_id=0)
             and (cb.Shop_ID = :shop_id or :shop_id=0)
-            and (cb.type = :type or :type ='') 
+            and (cb.type = :ptype or :ptype =0) 
 		    $create_time
             $cash
             $go_coin
@@ -185,7 +184,7 @@ $sname " );
 ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
                    ':pay_mothed' => $pay_mothed,
-                   ':type' => $type
+                   ':ptype' => $type
 		) );
 		$totalcount = $query->fetchColumn ( 0 );
 		
