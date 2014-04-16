@@ -56,6 +56,10 @@
 
           //消费记录
           resturls.add("LoadSpendingRecordList", "bill/searchBillsByCrm");//分页插叙消费记录
+
+          //图片
+          resturls.add("UpLoadImage", "upload/UpLoadImage");//上传图片
+          resturls.add("ResizeImage", "upload/ResizeImage");//调整图片
           $provide.constant('$resturls', resturls);
       } ]);
 })(window, window.angular);

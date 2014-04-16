@@ -25,7 +25,7 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
     $scope.LoadGogoCustomerList = function (pageIndex, rankId) {
         if (!rankId) rankId = 0;
         if (pageIndex == 0) pageIndex = 1;
-        $http.post($resturls["LoadGoGoCustomerList"], { rank_id: rankId, name: "", phone: "", sex: 0, pageindex: pageIndex - 1, pagesize: 2 ,type:3}).success(function (result) {
+        $http.post($resturls["LoadGoGoCustomerList"], { rank_id: rankId, name: "", phone: "", sex: 0, pageindex: pageIndex - 1, pagesize: 2, type: 3 }).success(function (result) {
             if (result.Error == 0) {
                 $scope.gogoclients = result.Data;
                 $parent.gogocustomerActpageIndex = pageIndex;
@@ -55,11 +55,11 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
     $scope.LoadGogoCustomerList($routeParams.pageIndex || 1, 0);
 
     //发送消息
-    $scope.SendMessage = function (data,message) {
+    $scope.SendMessage = function (data, message) {
         if (data) {
             if (data.length > 0) {
                 debugger;
-                var customerids = ""; 
+                var customerids = "";
                 for (var i = 0; i < data.length; i++) {
                     customerids = data[i].Customer_ID + ',' + customerids;
                 }
@@ -88,5 +88,30 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
             return;
         }
     }
-   
+
+    $scope.UpLoadImage = function () {
+        $('#file_upload').uploadify({
+            'swf': 'js/plugins/uploadify/uploadify.swf',
+            'uploader': $resturls['UpLoadImage'],
+            'buttonText': '',
+            'width': 91,
+            'height':91,
+            'buttonClass': 'img-thumbnail upload_btn_css',
+            'fileSizeLimit': '1024kB',
+            'fileTypeExts': '*.jpg;*.gif;*.png',
+            'fileTypeDesc': 'Web Image Files (.JPG, .GIF, .PNG)',
+            onUploadSuccess: function (fileObj, data, response) {
+                if (response) {
+                    $("#imagezone").attr('src',"upload/" + $.trim(data));
+                    $scope.$apply(function () {
+                        $scope.showing = true;
+                    });
+                }
+            }
+        });
+    }
+    $scope.DeleteUpLoadImage = function () {
+        $scope.showing = false;
+    }
+    $scope.UpLoadImage();
 }

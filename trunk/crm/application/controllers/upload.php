@@ -1,7 +1,7 @@
 <?php
 class UpLoad extends Controller {
 	/**
-	 * 商家客户等级相关操作
+	 * 图片操作等级相关操作
 	 */
 	public function __construct() {
 		parent::__construct ();
@@ -11,26 +11,40 @@ class UpLoad extends Controller {
 		// be usable by logged-in users: Put this line into libs/Controller->__construct
 		// Auth::handleLogin();
 	}
+	/**
+	 * 上传图片  输出参数：图片保存名称
+	 */
 	public function UpLoadImage(){
 		$targetFolder = '/GoGoTown/trunk/crm/admin/upload'; // Relative to the root
-		$verifyToken = md5('unique_salt' . $_POST['timestamp']);
-		if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
-			$tempFile = $_FILES['Filedata']['tmp_name'];
-			$targetPath = $_SERVER['DOCUMENT_ROOT'] . $targetFolder;
-			$targetFile = rtrim($targetPath,'/') . '/' . $_FILES['Filedata']['name'];
+		if (! empty ( $_FILES )) {
+			$tempFile = $_FILES ['Filedata'] ['tmp_name'];
+			$targetPath = $_SERVER ['DOCUMENT_ROOT'] . $targetFolder;
+			if (! file_exists ( $targetPath )) {
+				mkdir ( $_SERVER ['DOCUMENT_ROOT'] . $targetFolder );
+			}
+			$fileName = time () . $_FILES ['Filedata'] ['name'];
+			$targetFile = rtrim ( $targetPath, '/' ) . '/' . $fileName;
 			// Validate the file type
-			$fileTypes = array('jpg','jpeg','gif','png'); // File extensions
-			$fileParts = pathinfo($_FILES['Filedata']['name']);
-		
-			if (in_array($fileParts['extension'],$fileTypes)) {
-				move_uploaded_file($tempFile,$targetFile);
-				echo '1';
+			$fileTypes = array (
+					'jpg',
+					'jpeg',
+					'gif',
+					'png' 
+			); // File extensions
+			$fileParts = pathinfo ( $_FILES ['Filedata'] ['name'] );
+			
+			if (in_array ( $fileParts ['extension'], $fileTypes )) {
+				move_uploaded_file ( $tempFile, $targetFile );
+				echo $fileName;
 			} else {
 				echo 'Invalid file type.';
 			}
 		}
 	}
 	
+	/**
+	 * 修整图片   
+	 */
 	public function ResizeImage(){
 		$filename = $_POST['filename'];
 		$src = $_SERVER['DOCUMENT_ROOT'].'/GoGoTown/trunk/crm/admin/upload/'.$filename;
@@ -60,6 +74,9 @@ class UpLoad extends Controller {
 		}
 	}
 	
+	/**
+	 * 保存截屏图片
+	 */
 	public function SaveScreenshotImage(){
 		$targ_w = $targ_h = 150;
 		$jpeg_quality = 90;

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
 SWFObject v2.2 <http://code.google.com/p/swfobject/> 
 is released under the MIT License <http://www.opensource.org/licenses/mit-license.php> 
 */
@@ -62,7 +62,7 @@ SWFUpload: http://www.swfupload.org, http://swfupload.googlecode.com
 
 mmSWFUpload 1.0: Flash upload dialog - http://profandesign.se/swfupload/,  http://www.vinterwebb.se/
 
-SWFUpload is (c) 2006-2007 Lars Huring, Olov NilzÃ©n and Mammon Media and is released under the MIT License:
+SWFUpload is (c) 2006-2007 Lars Huring, Olov NilzèŒ…n and Mammon Media and is released under the MIT License:
 http://www.opensource.org/licenses/mit-license.php
  
 SWFUpload 2 is (c) 2007-2008 Jake Roberts and is released under the MIT License:
@@ -962,7 +962,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 
 			// Call the default event handler
 			if ($.inArray('onUploadSuccess', settings.overrideEvents) < 0) {
-				$('#' + file.id).find('.data').html('Íê ³É');
+				$('#' + file.id).find('.data').html('å®Œ æˆ');
 			}
 
 			// Call the user-defined event handler

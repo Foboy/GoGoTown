@@ -68,7 +68,7 @@ a{
 	margin-right: 7px;
 }
 .lable-text{
-	text-align: left;;
+	text-align: left;
 }
 .lable-top{
 	padding-top: 7px;
@@ -215,7 +215,7 @@ transition: 0.25s;
 
 /*dashborad*/
 .searchpo{
-	position: relative;;
+	position: relative;
 }
 
 /*会员等级设置*/
@@ -224,6 +224,12 @@ transition: 0.25s;
 }
 .levelbtn{
 	margin-right: 20px;
+}
+
+.upload_btn_css {
+    width:91px;
+    height:91px;
+    background:url(../img/default.png) center center no-repeat;
 }
 
 
