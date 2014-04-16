@@ -72,7 +72,7 @@ class BillsModel {
     (bb.username like '%".trim($sname)."%'
         or bb.nickname like '%".trim($sname)."%'
         or bb.mobile like '%".trim($sname)."%'
-        or aa.shop_name like '%".trim($sname)."%') 
+        or aa.shop_name like '%".trim($sname)."%' 
         or aa.lakala_order_no like '%".trim($sname)."%') ";
 		}else 
 		{
