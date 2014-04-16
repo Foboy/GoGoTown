@@ -11,19 +11,11 @@ class BillsModel {
 	}
 	
 	// 新增bills
-	public function insert($shop_id,$customer_id,$pay_mothed,$cash,$go_coin,$type,$amount,$create_time,$app_user_id) {
-		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_bills where shop_id = :shop_id and customer_id = :customer_id and pay_mothed = :pay_mothed and cash = :cash and go_coin = :go_coin and type = :type and amount = :amount and create_time = :create_time and app_user_id=:app_user_id" );
+	public function insert($lakala_order_no,$shop_id,$customer_id,$pay_mothed,$cash,$go_coin,$type,$amount,$create_time,$app_user_id) {
+			// 判断是否已存在
+		$query = $this->db->prepare ( " select *  from crm_bills where lakala_order_no = :lakala_order_no" );
 		$query->execute ( array (
-':shop_id' => $shop_id,
-                   ':customer_id' => $customer_id,
-                   ':pay_mothed' => $pay_mothed,
-                   ':cash' => $cash,
-                   ':go_coin' => $go_coin,
-                   ':type' => $type,
-                   ':amount' => $amount,
-                   ':create_time' => $create_time,
-				':app_user_id'=>$app_user_id
+':lakala_order_no' => $lakala_order_no
 		) );
 		$count = $query->rowCount ();
 		if ($count > 0) {
@@ -31,7 +23,7 @@ class BillsModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into crm_bills(shop_id,customer_id,pay_mothed,cash,go_coin,type,amount,create_time,app_user_id) values (:shop_id,:customer_id,:pay_mothed,:cash,:go_coin,:type,:amount,:create_time,:app_user_id)";
+		$sql = "insert into crm_bills(lakala_order_no,shop_id,customer_id,pay_mothed,cash,go_coin,type,amount,create_time,app_user_id) values (:lakala_order_no,:shop_id,:customer_id,:pay_mothed,:cash,:go_coin,:type,:amount,:create_time,:app_user_id)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
@@ -42,7 +34,8 @@ class BillsModel {
                    ':type' => $type,
                    ':amount' => $amount,
                    ':create_time' => $create_time,
-				':app_user_id'=>$app_user_id
+				':app_user_id'=>$app_user_id,
+				':lakala_order_no'=>$lakala_order_no
 		) );
 		$count = $query->rowCount ();
 		if ($count != 1) {
@@ -52,16 +45,9 @@ class BillsModel {
 		
 		// 获取ID
 		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-		$query = $this->db->prepare ( " select id from crm_bills where shop_id = :shop_id and customer_id = :customer_id and pay_mothed = :pay_mothed and cash = :cash and go_coin = :go_coin and type = :type and amount = :amount and create_time = :create_time" );
+		$query = $this->db->prepare ( " select id from crm_bills where lakala_order_no = :lakala_order_no" );
 		$query->execute ( array (
-':shop_id' => $shop_id,
-                   ':customer_id' => $customer_id,
-                   ':pay_mothed' => $pay_mothed,
-                   ':cash' => $cash,
-                   ':go_coin' => $go_coin,
-                   ':type' => $type,
-                   ':amount' => $amount,
-                   ':create_time' => $create_time
+':lakala_order_no' => $lakala_order_no
 		) );
 		if ($query->rowCount () != 1) {
 			
@@ -86,7 +72,8 @@ class BillsModel {
     (bb.username like '%".trim($sname)."%'
         or bb.nickname like '%".trim($sname)."%'
         or bb.mobile like '%".trim($sname)."%'
-        or aa.shop_name like '%".trim($sname)."%') ";
+        or aa.shop_name like '%".trim($sname)."%' 
+        or aa.lakala_order_no like '%".trim($sname)."%') ";
 		}else 
 		{
 			$sname="";
@@ -113,6 +100,7 @@ class BillsModel {
     *
 from
     (select 
+    	a.lakala_order_no,
         a.shop_Id,
             a.customer_id,
             a.Pay_Mothed,
@@ -140,7 +128,7 @@ from
         left join
     Crm_Gogo_Customers bb ON aa.customer_id = bb.id
 $sname order by aa.create_time desc limit $lastpagenum,$pagesize" ;
-		
+		//print $sql;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
@@ -153,6 +141,7 @@ $sname order by aa.create_time desc limit $lastpagenum,$pagesize" ;
     count(*)
 from
     (select 
+				a.lakala_order_no,
         a.shop_Id,
             a.customer_id,
             a.Pay_Mothed,
@@ -196,20 +185,11 @@ $sname " );
 		return $result;
 	}
     //查询全部bills
-	public function search($shop_id,$create_time1,$create_time2) {
+	public function search() {
 		$result = new DataResult ();
 		
-		$create_time="";
-		if(!empty($create_time1) and !empty($create_time2))
-		{
-			$create_time="  and Create_Time between $create_time1 and $create_time2 ";
-		}
-		
-		
-		$query = $this->db->prepare ( "SELECT * FROM Crm_Bills where Shop_ID=:shop_id $create_time " );
-		$query->execute ( array (
-':shop_id' => $shop_id
-		) );
+		$query = $this->db->prepare ( "SELECT * FROM Crm_Bills " );
+		$query->execute ();
 		$objects = $query->fetchAll ();
 		
 		$result->Data = $objects;
