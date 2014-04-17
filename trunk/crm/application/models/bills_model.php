@@ -11,7 +11,7 @@ class BillsModel {
 	}
 	
 	// 新增bills
-	public function insert($lakala_order_no,$shop_id,$customer_id,$pay_mothed,$cash,$go_coin,$type,$amount,$create_time,$app_user_id) {
+	public function insert($shop_id,$customer_id,$pay_mothed,$cash,$go_coin,$type,$amount,$create_time,$app_user_id,$lakala_order_no) {
 			// 判断是否已存在
 		$query = $this->db->prepare ( " select *  from crm_bills where lakala_order_no = :lakala_order_no" );
 		$query->execute ( array (
