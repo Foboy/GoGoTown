@@ -62,12 +62,16 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
             grid: {
                 hoverable: true
             },
+            shadowSize: 10,
             tooltip: true,
             tooltipOpts: {
                 content: "%x的销售总额：%y",
                 shifts: {
                     x: -60,
-                    y: 70
+                    y: 25
+                },
+                onHover: function(flotItem, $tooltipEl) {
+                    // console.log(flotItem, $tooltipEl);
                 }
             }
         }
@@ -111,7 +115,10 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
                     x: 20,
                     y: 0
                 },
-                defaultTheme: false
+                defaultTheme: false,
+                 onHover: function(flotItem, $tooltipEl) {
+                    // console.log(flotItem, $tooltipEl);
+                }
             }
         }
         $.plot($("#flot-pie-chart"), data, options);
@@ -124,27 +131,27 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
             case 1://今日
                 $scope.CashierSaleConditionChose="今日"
                 var todayDatas = [[0, 7000], [2, 9000], [4, 6000], [6, 6000], [8, 4000], [10, 9000], [12, 15000], [14, 15000], [16, 15000]];
-                Datas = [{ data: todayDatas, color: '#1ABC9C' }];
+                Datas = [{ label: "收银员今日销售情况", data: todayDatas, color: '#1ABC9C' }];
                 break;
             case 2://昨日
                 $scope.CashierSaleConditionChose = "昨日";
                 var yesterdayDatas = [[0, 4000], [2, 12000], [4, 6000], [6, 6000], [8, 8000], [10, 9000], [12, 15000], [14, 15000], [16, 8000]];
-                Datas = [{  data: yesterdayDatas, color: "#1ABC9C" }];
+                Datas = [{ label: "收银员昨日销售情况", data: yesterdayDatas, color: "#1ABC9C" }];
                 break;
             case 3://最近七天
                 $scope.CashierSaleConditionChose = "最近一周";
                 var weekDatas = [[0, 6000], [2, 1200], [4, 3000], [6, 6000], [8, 7000], [10, 9000], [12, 1500], [14, 15000], [16, 3000]];
-                Datas = [{  data: weekDatas, color: "#1ABC9C" }];
+                Datas = [{ label: "收银员近一周销售总额", data: weekDatas, color: "#1ABC9C" }];
                 break;
             case 4://最近一个月
                 $scope.CashierSaleConditionChose = "最近一个月";
                 var monthDatas = [[0, 3000], [2, 5000], [4, 4000], [6, 6000], [8, 7000], [10, 12000], [12, 3000], [14, 6000], [16, 3000]];
-                Datas = [{  data: monthDatas, color: "#1ABC9C" }];
+                Datas = [{ label: "收银员近一月销售总额", data: monthDatas, color: "#1ABC9C" }];
                 break;
             default:
                 $scope.CashierSaleConditionChose = "今日"
                 var todayDatas = [[0, 7000], [2, 9000], [4, 6000], [6, 6000], [8, 4000], [10, 9000], [12, 15000], [14, 15000], [16, 15000]];
-                Datas = [{ data: todayDatas, color: '#1ABC9C' }];
+                Datas = [{ label: "收银员今日销售情况", data: todayDatas, color: '#1ABC9C' }];
                 break;
         }
         var names = ['王晓', '杨超', '陈锐', '小强', '小宝', '小李子', '小飞刀', '小勺子', '小品'];
@@ -177,12 +184,16 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
             grid: {
                 hoverable: true
             },
+            shadowSize: 10,
             tooltip: true,
             tooltipOpts: {
                 content: "%x的销售总额：%y",
                 shifts: {
                     x: -60,
                     y: 25
+                },
+                 onHover: function(flotItem, $tooltipEl) {
+                    console.log(flotItem, $tooltipEl);
                 }
             }
         };

@@ -11,7 +11,7 @@ class BillsModel {
 	}
 	
 	// 新增bills
-	public function insert($lakala_order_no,$shop_id,$customer_id,$pay_mothed,$cash,$go_coin,$type,$amount,$create_time,$app_user_id) {
+	public function insert($shop_id,$customer_id,$pay_mothed,$cash,$go_coin,$type,$amount,$create_time,$app_user_id,$lakala_order_no) {
 			// 判断是否已存在
 		$query = $this->db->prepare ( " select *  from crm_bills where lakala_order_no = :lakala_order_no" );
 		$query->execute ( array (
@@ -57,6 +57,46 @@ class BillsModel {
 		$customer_id = $result_user_row->id;
 		
 		return $customer_id;
+	}
+	
+	// 分页查询bills
+	public function searchByMobiles($shop_id,$customer_id,$pay_mothed,$cash,$go_coin,$type,$amount,$create_time, $pageindex, $pagesize) {
+		$result = new PageDataResult ();
+		$lastpagenum = $pageindex*$pagesize;
+		
+		$sql = "select bills.*,crm_gogo_customers.username,crm_gogo_customers.mobile from (select * from (select id,shop_id,customer_id,pay_mothed,cash,go_coin,type,amount,create_time from crm_bills where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( pay_mothed = :pay_mothed or :pay_mothed=0 )  and  ( cash = :cash or :cash='' )  and  ( go_coin = :go_coin or :go_coin=0 )  and  ( type = :type or :type=0 )  and  ( amount = :amount or :amount='' )  and  ( create_time = :create_time or :create_time=0 ) order by create_time desc ) a  limit $lastpagenum,$pagesize ) bills left join crm_gogo_customers on crm_gogo_customers.id = bills.customer_id" ;
+		$query = $this->db->prepare ( $sql );
+		$query->execute ( array (
+':shop_id' => $shop_id,
+                   ':customer_id' => $customer_id,
+                   ':pay_mothed' => $pay_mothed,
+                   ':cash' => $cash,
+                   ':go_coin' => $go_coin,
+                   ':type' => $type,
+                   ':amount' => $amount,
+                   ':create_time' => $create_time
+		) );
+		$objects = $query->fetchAll ();
+		
+		$query = $this->db->prepare ( " select count(*)  from crm_bills where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( pay_mothed = :pay_mothed or :pay_mothed=0 )  and  ( cash = :cash or :cash='' )  and  ( go_coin = :go_coin or :go_coin=0 )  and  ( type = :type or :type=0 )  and  ( amount = :amount or :amount='' )  and  ( create_time = :create_time or :create_time=0 ) " );
+		$query->execute ( array (
+':shop_id' => $shop_id,
+                   ':customer_id' => $customer_id,
+                   ':pay_mothed' => $pay_mothed,
+                   ':cash' => $cash,
+                   ':go_coin' => $go_coin,
+                   ':type' => $type,
+                   ':amount' => $amount,
+                   ':create_time' => $create_time
+		) );
+		$totalcount = $query->fetchColumn ( 0 );
+		
+		$result->pageindex = $pageindex;
+		$result->pagesize = $pagesize;
+		$result->Data = $objects;
+		$result->totalcount = $totalcount;
+		
+		return $result;
 	}
 	
 	

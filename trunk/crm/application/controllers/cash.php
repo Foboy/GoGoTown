@@ -92,36 +92,52 @@ class Cash extends Controller
 			print json_encode($result);
 			return;
 		}
-		$customer_id = $_POST['customer_id'];
-		$amount = $_POST['amount'];
-		$shop_id = $_SESSION ['user_shop'];
-		$code = $_POST['code'];
-		$type_ids = json_decode($_POST['type_ids']);
 		
-		$validate_model = $this->loadModel('Validation');
-		if(!$validate_model->validation($code,ValidateType::GoPay,$customer_id))
+
+		try
 		{
+			
+			$customer_id = $_POST['customer_id'];
+			$amount = $_POST['amount'];
+			$shop_id = $_SESSION ['user_shop'];
+			$user_id = $_SESSION ['user_id'];
+			$code = $_POST['code'];
+			$type_ids = json_decode($_POST['type_ids']);
+			
+			$validate_model = $this->loadModel('Validation');
+			if(!$validate_model->validation($code,ValidateType::GoPay,$customer_id))
+			{
+				$result->Error = ErrorType::Failed;
+				$result->ErrorMessage ="验证码不正确";
+				print json_encode($result);
+				return;
+			}
+			//扣除GO币
+			$bill_model = $this->loadModel('Bills');
+			$bill_id = $bill_model->insert($shop_id,$customer_id,PayMethodType::GoGoPay,0,ceil($amount),$type_ids[0],$amount,time(),$user_id,time());
+			if($bill_id > 0)
+			{
+				$result->Error = ErrorType::Success;
+				print json_encode($result);
+				return;
+			}
+			else
+			{
+				$result->Error = ErrorType::Failed;
+				$result->ErrorMessage ="生成订单失败";
+				print json_encode($result);
+				return;
+			}
+		}
+		catch(Exception $e)
+		{ 
 			$result->Error = ErrorType::Failed;
-			$result->ErrorMessage ="验证码不正确";
+			$result->ErrorMessage =$e->getMessage();
 			print json_encode($result);
 			return;
 		}
-		//扣除GO币
-		$bill_model = $this->loadModel('Bills');
-		$bill_id = $bill_model->insert($shop_id,$customer_id,PayMethodType::GoGoPay,0,ceil($amount),$type_ids[0],$amount,time());
-		if($bill_id > 0)
-		{
-			$result->Error = ErrorType::Success;
-			print json_encode($result);
-			return;
-		}
-		else 
-		{
-			$result->Error = ErrorType::Failed;
-			$result->ErrorMessage ="生成订单失败";
-			print json_encode($result);
-			return;
-		}
+		
+
 		
 	}
 	
@@ -137,8 +153,7 @@ class Cash extends Controller
 		}
 		$shop_id = $_SESSION ['user_shop'];
 		$bill_model = $this->loadModel('Bills');
-		//$bills = $bill_model->searchByPages($shop_id,0,0,'',0,0,'',0,$page_index,20);
-		$bills= $bill_model->searchByPages ( '',$shop_id,0,0,0,0,0,0,0,'','',$page_index,20 );
+		$bills = $bill_model->searchByMobiles($shop_id,0,0,'',0,0,'',0,$page_index,20);
 		$result->Id = $bills->totalcount;
 		$result->Data = $bills->Data;
 		print json_encode($result);

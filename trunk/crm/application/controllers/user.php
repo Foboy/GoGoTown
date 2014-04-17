@@ -172,4 +172,5 @@ class user extends Controller
     	$result->Error = ErrorType::Success;
     	print  json_encode ( $result ) ;
     }
+    
 }
