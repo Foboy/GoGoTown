@@ -153,8 +153,7 @@ class Cash extends Controller
 		}
 		$shop_id = $_SESSION ['user_shop'];
 		$bill_model = $this->loadModel('Bills');
-		//$bills = $bill_model->searchByPages($shop_id,0,0,'',0,0,'',0,$page_index,20);
-		$bills= $bill_model->searchByPages ( '',$shop_id,0,0,0,0,0,0,0,'','',$page_index,2 );
+		$bills = $bill_model->searchByMobiles($shop_id,0,0,'',0,0,'',0,$page_index,20);
 		$result->Id = $bills->totalcount;
 		$result->Data = $bills->Data;
 		print json_encode($result);
