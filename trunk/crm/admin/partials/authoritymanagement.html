@@ -32,7 +32,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="clerk in clerks " ng-class="clerk.State==1?'odd gradeX danger':'odd gradeX success'">
+                            <tr ng-repeat="clerk in clerks " ng-class="clerk.State==1?'odd gradeX danger':'odd gradeX '">
                                 <td>{{$index+1}}</td>
                                 <td>{{clerk.Name}}
                                 </td>
@@ -62,7 +62,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="odd gradeX" ng-repeat="cashier in cashiers " ng-class="cashier.State==1?'odd gradeX danger':'odd gradeX success'">
+                            <tr class="odd gradeX" ng-repeat="cashier in cashiers " ng-class="cashier.State==1?'odd gradeX danger':'odd gradeX '">
                                 <td>{{$index+1}}</td>
                                 <td>{{cashier.Name}}
                                 </td>

@@ -124,16 +124,27 @@
             }
         }
         $scope.onecustomer = data;
-       
+        $scope.onecustomerspends = [];
         if (data.from_type == 1) {
             $scope.customerage = $scope.CalculateAge(data.Birthady);
-            $("#owncustomerdetailmodal").modal('show');//自有客户详细弹窗
+            $http.post($resturls["LoadSpendingRecordList"], { sname: '', pay_mothed: 0, customer_id: data.ID, type: 0, create_time1: '', create_time2: '', pageindex: 0, pagesize: 5 }).success(function (result) {
+                if (result.Error == 0) {
+                    $scope.onecustomerspends = result.Data;
+                } else {
+                    $scope.onecustomerspends = [];
+                }
+                $("#owncustomerdetailmodal").modal('show');//自有客户详细弹窗
+            });
         } else {
-           
-            $("#gogocustomerdetailmodal").modal('show');//gogo客户详细弹窗
+            $http.post($resturls["LoadSpendingRecordList"], { sname: '', pay_mothed: 0, customer_id: data.Customer_ID, type: 0, create_time1: '', create_time2: '', pageindex: 0, pagesize: 5 }).success(function (result) {
+                if (result.Error == 0) {
+                    $scope.onecustomerspends = result.Data;
+                } else {
+                    $scope.onecustomerspends = [];
+                }
+                $("#gogocustomerdetailmodal").modal('show');//gogo客户详细弹窗
+            });
         }
-        
-       
     }
     //给gogo发送信息modal
     $scope.ShowSendMessageModal = function (data, event) {
@@ -256,7 +267,7 @@ function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.SendMessage = function (data) {
         if ($scope.SendMessageForm.$valid) {
             $scope.showerror = false;
-            $http.post($resturls["SensMessage"], { customer_ids: data.Customer_ID, title: data.Title, content: data.Content }).success(function (result) {
+            $http.post($resturls["SensMessage"], { customer_ids: data.Customer_ID, title: data.Content, content: data.Content }).success(function (result) {
                 $("#SendMessageMoadl").modal('hide');
                 if (result.Error == 0) {
                     $.scojs_message('发送成功', $.scojs_message.TYPE_OK);

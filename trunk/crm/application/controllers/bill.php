@@ -70,7 +70,7 @@ class Bill extends Controller {
 	
 		$bills_model = $this->loadModel ( 'Bills' );
 	
-		$result= $bills_model->searchByPages ( $_POST ['sname'],$_POST ['shop_id'],$_POST ['customer_id'],$_POST ['pay_mothed'],0,0,0,0,$_POST ['type'],$_POST ['create_time1'],$_POST ['create_time2'],$_POST ['pageindex'],$_POST ['pagesize'] );
+		$result= $bills_model->searchByPages ( $_POST ['sname'], $_SESSION["user_shop"],$_POST ['customer_id'],$_POST ['pay_mothed'],0,0,0,0,$_POST ['type'],$_POST ['create_time1'],$_POST ['create_time2'],$_POST ['pageindex'],$_POST ['pagesize'] );
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );

@@ -34,18 +34,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr class="odd gradeX" ng-repeat="salesOpportunity in salesOpportunitys ">
+                                 <tr class="odd gradeX" ng-repeat="SpendingRecord in SpendingRecords ">
                                     <td>{{$index+1}}</td>
-                                    <td>{{SpendingRecords.Name}}
+                                    <td>{{SpendingRecord.username}}
                                     </td>
-                                    <td>xxx
+                                    <td>{{SpendingRecord.mobile}}
                                     </td>
-                                    <td>{{SpendingRecords.Birthady}}
+                                    <td>{{SpendingRecord.Cash}}
                                     </td>
-                                    <td>{{SpendingRecords.Sex==1?'男':'女'}}
+                                    <td>{{timestamptostr(SpendingRecord.Create_Time)}}
                                     </td>
-                                    <td class="center">{{SpendingRecords.Phone}}
-                                    </td>
+                                    <td class="center">{{ SpendingRecord.Pay_Mothed==2?"刷卡消费":"GO币支付"}}
+                                   
                                 </tr>
                             </tbody>
                         </table>

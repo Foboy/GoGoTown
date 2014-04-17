@@ -57,13 +57,13 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr ng-repeat="ownclient in ownclients " class="odd gradeX public_cur" ng-click="ShowClientDetailModal()">
+                                                    <tr ng-repeat="onecustomerspend in onecustomerspends " class="odd gradeX public_cur" ng-click="ShowClientDetailModal()">
                                                         <td>{{$index+1}}</td>
-                                                        <td>{{ownclient.Name}}
+                                                        <td>{{onecustomerspend.Cash}}
                                                         </td>
-                                                        <td>{{CalculateAge(ownclient.Birthady)}}
+                                                        <td>{{timestamptostr(onecustomerspend.Create_Time)}}
                                                         </td>
-                                                        <td>{{ownclient.Sex==1?'男':'女'}}
+                                                        <td>{{ onecustomerspend.Pay_Mothed==2?"刷卡消费":"GO币支付"}}
                                                         </td>
                                                     </tr>
                                                 </tbody>
