@@ -18,32 +18,32 @@ USE `gogotowncrm`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Crm_Customers`
+-- Table structure for table `Crm_area_district`
 --
 
-DROP TABLE IF EXISTS `Crm_Customers`;
+DROP TABLE IF EXISTS `Crm_area_district`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Crm_Customers` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `Name` varchar(16) DEFAULT NULL COMMENT '姓名',
-  `Sex` int(11) DEFAULT NULL COMMENT '性别',
-  `Phone` varchar(16) DEFAULT NULL COMMENT '手机',
-  `Birthady` bigint(20) DEFAULT NULL COMMENT '出生日期',
-  `Remark` varchar(128) DEFAULT NULL COMMENT '备注',
-  `sys_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '数据修改以及新增时候改变',
-  PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COMMENT='商家客户表';
+CREATE TABLE `Crm_area_district` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  `desc` varchar(1000) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `area_id` int(11) NOT NULL DEFAULT '0',
+  `is_hot` tinyint(1) NOT NULL DEFAULT '0',
+  `picture_id` int(11) NOT NULL,
+  `sort` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Crm_Customers`
+-- Dumping data for table `Crm_area_district`
 --
 
-LOCK TABLES `Crm_Customers` WRITE;
-/*!40000 ALTER TABLE `Crm_Customers` DISABLE KEYS */;
-INSERT INTO `Crm_Customers` VALUES (1,'自由客户',1,'1',1,'是的范德萨发','2014-04-07 05:16:19'),(30,'yc2',1,'18608046444',1396915200,'稍等','2014-04-09 15:15:24'),(22,'ee',1,'13558871855',NULL,'123','2014-04-07 05:16:19'),(23,'第三方',1,'13558871877',12,'地方','2014-04-07 05:16:19'),(24,'地方',1,'13558871877',11,'反倒是','2014-04-07 05:16:19'),(25,'D大调',1,'13882014677',32,'第三方','2014-04-07 05:16:19'),(26,'test',1,'13448871866',1397088000,'test','2014-04-08 15:13:10'),(27,'yc',2,'18608046466',1396483200,'水电费发生大幅度发','2014-04-08 15:14:41'),(31,'yyyy',1,'13811111111',1396483200,'111','2014-04-14 09:56:23');
-/*!40000 ALTER TABLE `Crm_Customers` ENABLE KEYS */;
+LOCK TABLES `Crm_area_district` WRITE;
+/*!40000 ALTER TABLE `Crm_area_district` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Crm_area_district` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
