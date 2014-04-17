@@ -462,7 +462,7 @@ class UsersModel {
 			
 			// write new users data into database
 			$sql = "INSERT INTO crm_users ( Name, Account, Shop_ID, Password, Type, State, Create_Time)
-		VALUES (:user_name,:user_acount, :user_shop_id, :user_password_hash, :user_type, 1, :user_create_time)";
+		VALUES (:user_name,:user_acount, :user_shop_id, :user_password_hash, :user_type, 2, :user_create_time)";
 			$query = $this->db->prepare ( $sql );
 			$query->execute ( array (':user_name' => $user_name,
 					':user_acount' => $user_account,

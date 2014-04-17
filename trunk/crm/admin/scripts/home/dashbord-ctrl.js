@@ -69,6 +69,9 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
                 shifts: {
                     x: -60,
                     y: 25
+                },
+                onHover: function(flotItem, $tooltipEl) {
+                    // console.log(flotItem, $tooltipEl);
                 }
             }
         }
@@ -112,7 +115,10 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
                     x: 20,
                     y: 0
                 },
-                defaultTheme: false
+                defaultTheme: false,
+                 onHover: function(flotItem, $tooltipEl) {
+                    // console.log(flotItem, $tooltipEl);
+                }
             }
         }
         $.plot($("#flot-pie-chart"), data, options);
@@ -185,6 +191,9 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
                 shifts: {
                     x: -60,
                     y: 25
+                },
+                 onHover: function(flotItem, $tooltipEl) {
+                    console.log(flotItem, $tooltipEl);
                 }
             }
         };
