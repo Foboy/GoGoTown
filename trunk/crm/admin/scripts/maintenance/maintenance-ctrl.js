@@ -102,10 +102,10 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
             'fileTypeDesc': 'Web Image Files (.JPG, .GIF, .PNG)',
             onUploadSuccess: function (fileObj, data, response) {
                 if (response) {
-                    $("#imagezone").attr('src',"upload/" + $.trim(data));
+                  /*  $("#imagezone").attr('src',"upload/" + $.trim(data));
                     $scope.$apply(function () {
                         $scope.showing = true;
-                    });
+                    });*/
                 }
             }
         });
