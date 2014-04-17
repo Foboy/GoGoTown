@@ -143,7 +143,6 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
     $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
     //弹出添加或编辑用户账号窗口
     $scope.ShowAddUserAccountModal = function (data, usertype) {
-        console.log(data);
         if (data) {
             $scope.UserAccount = data;
         } else {
@@ -183,7 +182,9 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
         } else {
             $scope.showerror = true;
         }
+        console.log($scope.AddUserAccountForm.$setPristine());
     }
+   
     //编辑用户账号
     $scope.EditUserAccount = function (data) {
         if ($scope.AddUserAccountForm.$valid) {
