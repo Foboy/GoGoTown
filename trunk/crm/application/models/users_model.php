@@ -14,7 +14,7 @@ class UsersModel {
 	
 	// 根据ID删除users
 	public function delete($id) {
-		$sql = " delete from crm_users where id = :id ";
+		$sql = " delete from Crm_Users where id = :id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':id' => $id 
@@ -31,7 +31,7 @@ class UsersModel {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex * $pagesize;
 		
-		$sql = " select id,name,shop_id,type,account,password,last_login,state,faileds,last_failed,token,create_time from crm_users where  ( name = :name or :name=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and  ( account = :account or :account='' )  and  ( password = :password or :password='' )  and  ( last_login = :last_login or :last_login=0 )  and  ( state = :state or :state=0 )  and  ( faileds = :faileds or :faileds=0 )  and  ( last_failed = :last_failed or :last_failed=0 )  and  ( token = :token or :token='' )  and  ( create_time = :create_time or :create_time=0 )  limit $lastpagenum,$pagesize";
+		$sql = " select id,name,shop_id,type,account,password,last_login,state,faileds,last_failed,token,create_time from Crm_Users where  ( name = :name or :name=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and  ( account = :account or :account='' )  and  ( password = :password or :password='' )  and  ( last_login = :last_login or :last_login=0 )  and  ( state = :state or :state=0 )  and  ( faileds = :faileds or :faileds=0 )  and  ( last_failed = :last_failed or :last_failed=0 )  and  ( token = :token or :token='' )  and  ( create_time = :create_time or :create_time=0 )  limit $lastpagenum,$pagesize";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':name' => $name,
@@ -41,7 +41,7 @@ class UsersModel {
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_users where  ( name = :name or :name=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and   ( state = :state or :state=0 )   " );
+		$query = $this->db->prepare ( " select count(*)  from Crm_Users where  ( name = :name or :name=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and   ( state = :state or :state=0 )   " );
 		$query->execute ( array (
 				':name' => $name,
 				':shop_id' => $shop_id,
@@ -87,7 +87,7 @@ class UsersModel {
 	}
 	// 修改usersState
 	public function updateUserState($state, $id) {
-		$sql = " update crm_users set state = :state where id = :id ";
+		$sql = " update Crm_Users set state = :state where id = :id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':id' => $id,
@@ -102,7 +102,7 @@ class UsersModel {
 	}
 	// 修改usersName
 	public function updateShopName($name, $id) {
-		$sql = " update crm_users set name = :name where id = :id ";
+		$sql = " update Crm_Users set name = :name where id = :id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':id' => $id,
@@ -117,7 +117,7 @@ class UsersModel {
 	}
 	public function setNewPassword($user_id, $user_password_hash) {
 		// write users new password hash into database, reset user_password_reset_hash
-		$query = $this->db->prepare ( "UPDATE crm_users
+		$query = $this->db->prepare ( "UPDATE Crm_Users
                                         SET password = :user_password_hash
                                       WHERE id = :id" );
 		
@@ -148,16 +148,16 @@ class UsersModel {
 		// get user's data
 		// (we check if the password fits the password_hash via password_verify() some lines below)
 		$sth = $this->db->prepare ( "SELECT
-									`crm_users`.`ID`,
-									`crm_users`.`Shop_ID`,
-									`crm_users`.`Type`,
-									`crm_users`.`Account`,
-									`crm_users`.`Password`,
-									`crm_users`.`Last_Login`,
-									`crm_users`.`State`,
-									`crm_users`.`Faileds`,
-									`crm_users`.`Last_Failed`
-									FROM `gogotowncrm`.`crm_users`
+									`Crm_Users`.`ID`,
+									`Crm_Users`.`Shop_ID`,
+									`Crm_Users`.`Type`,
+									`Crm_Users`.`Account`,
+									`Crm_Users`.`Password`,
+									`Crm_Users`.`Last_Login`,
+									`Crm_Users`.`State`,
+									`Crm_Users`.`Faileds`,
+									`Crm_Users`.`Last_Failed`
+									FROM `Crm_Users`
                                    WHERE Account = :user_name" );
 		// DEFAULT is the marker for "normal" accounts (that have a password etc.)
 		// There are other types of accounts that don't have passwords etc. (FACEBOOK)
@@ -205,7 +205,7 @@ class UsersModel {
 			
 			// reset the failed login counter for that user (if necessary)
 			if ($result->Last_Failed > 0) {
-				$sql = "UPDATE crm_users SET Faileds = 0, Last_Failed = NULL
+				$sql = "UPDATE Crm_Users SET Faileds = 0, Last_Failed = NULL
 						WHERE ID = :user_id AND Faileds != 0";
 				$sth = $this->db->prepare ( $sql );
 				$sth->execute ( array (
@@ -217,7 +217,7 @@ class UsersModel {
 			$user_last_login_timestamp = time ();
 			// write timestamp of this login into database (we only write "real" logins via login form into the
 			// database, not the session-login on every page request
-			$sql = "UPDATE crm_users SET Last_Login = :user_last_login_timestamp WHERE ID = :user_id";
+			$sql = "UPDATE Crm_Users SET Last_Login = :user_last_login_timestamp WHERE ID = :user_id";
 			$sth = $this->db->prepare ( $sql );
 			$sth->execute ( array (
 					':user_id' => $result->ID,
@@ -231,7 +231,7 @@ class UsersModel {
 				$random_token_string = hash ( 'sha256', mt_rand () );
 				
 				// write that token into database
-				$sql = "UPDATE crm_users SET Token = :user_rememberme_token WHERE ID = :user_id";
+				$sql = "UPDATE Crm_Users SET Token = :user_rememberme_token WHERE ID = :user_id";
 				$sth = $this->db->prepare ( $sql );
 				$sth->execute ( array (
 						':user_rememberme_token' => $random_token_string,
@@ -251,7 +251,7 @@ class UsersModel {
 			return true;
 		} else {
 			// increment the failed login counter for that user
-			$sql = "UPDATE crm_users
+			$sql = "UPDATE Crm_Users
 									SET Faileds = Faileds+1, Last_Failed = :user_last_failed_login
 									WHERE Account = :user_name";
 			$sth = $this->db->prepare ( $sql );
@@ -297,16 +297,16 @@ class UsersModel {
 		
 		// get real token from database (and all other data)
 		$query = $this->db->prepare ( "SELECT
-	`crm_users`.`ID`,
-	`crm_users`.`Shop_ID`,
-	`crm_users`.`Type`,
-	`crm_users`.`Account`,
-	`crm_users`.`Password`,
-	`crm_users`.`Last_Login`,
-	`crm_users`.`State`,
-		`crm_users`.`Faileds`,
-									`crm_users`.`Last_Failed`
-										FROM `gogotowncrm`.`crm_users`
+	`Crm_Users`.`ID`,
+	`Crm_Users`.`Shop_ID`,
+	`Crm_Users`.`Type`,
+	`Crm_Users`.`Account`,
+	`Crm_Users`.`Password`,
+	`Crm_Users`.`Last_Login`,
+	`Crm_Users`.`State`,
+		`Crm_Users`.`Faileds`,
+									`Crm_Users`.`Last_Failed`
+										FROM `Crm_Users`
 										WHERE ID = :user_id
 										AND Token = :user_rememberme_token
 										AND Token IS NOT NULL" );
@@ -335,7 +335,7 @@ class UsersModel {
 			$user_last_login_timestamp = time ();
 			// write timestamp of this login into database (we only write "real" logins via login form into the
 			// database, not the session-login on every page request
-			$sql = "UPDATE crm_users SET Last_Login = :user_last_login_timestamp WHERE ID = :user_id";
+			$sql = "UPDATE Crm_Users SET Last_Login = :user_last_login_timestamp WHERE ID = :user_id";
 			$sth = $this->db->prepare ( $sql );
 			$sth->execute ( array (
 					':user_id' => $result->ID,
@@ -445,7 +445,7 @@ class UsersModel {
 			) );
 			
 			// check if username already exists
-			$query = $this->db->prepare ( "SELECT * FROM crm_users WHERE Account = :user_name" );
+			$query = $this->db->prepare ( "SELECT * FROM Crm_Users WHERE Account = :user_name" );
 			$query->execute ( array (
 					':user_name' => $user_account 
 			) );
@@ -461,7 +461,7 @@ class UsersModel {
 			$user_creation_timestamp = time ();
 			
 			// write new users data into database
-			$sql = "INSERT INTO crm_users ( Name, Account, Shop_ID, Password, Type, State, Create_Time)
+			$sql = "INSERT INTO Crm_Users ( Name, Account, Shop_ID, Password, Type, State, Create_Time)
 		VALUES (:user_name,:user_acount, :user_shop_id, :user_password_hash, :user_type, 2, :user_create_time)";
 			$query = $this->db->prepare ( $sql );
 			$query->execute ( array (':user_name' => $user_name,
@@ -479,7 +479,7 @@ class UsersModel {
 			}
 			
 			// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-			$query = $this->db->prepare ( "SELECT ID FROM crm_users WHERE Account = :user_account" );
+			$query = $this->db->prepare ( "SELECT ID FROM Crm_Users WHERE Account = :user_account" );
 			$query->execute ( array (
 					':user_account' => $user_account 
 			) );

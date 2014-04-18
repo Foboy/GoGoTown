@@ -14,7 +14,7 @@ class ShopCustomersModel {
 	// 新增shop_customers
 	public function insert($shop_id,$customer_id,$from_type,$type,$create_time) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_shop_customers where shop_id = :shop_id and customer_id = :customer_id and from_type = :from_type" );
+		$query = $this->db->prepare ( " select *  from Crm_Shop_Customers where shop_id = :shop_id and customer_id = :customer_id and from_type = :from_type" );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
@@ -26,7 +26,7 @@ class ShopCustomersModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into crm_shop_customers(shop_id,customer_id,from_type,type,create_time) values (:shop_id,:customer_id,:from_type,:type,:create_time)";
+		$sql = "insert into Crm_Shop_Customers(shop_id,customer_id,from_type,type,create_time) values (:shop_id,:customer_id,:from_type,:type,:create_time)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
@@ -43,7 +43,7 @@ class ShopCustomersModel {
 		
 		// 获取ID
 		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-		$query = $this->db->prepare ( " select id from crm_shop_customers where shop_id = :shop_id and customer_id = :customer_id and from_type = :from_type and type = :type and create_time = :create_time" );
+		$query = $this->db->prepare ( " select id from Crm_Shop_Customers where shop_id = :shop_id and customer_id = :customer_id and from_type = :from_type and type = :type and create_time = :create_time" );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
@@ -62,7 +62,7 @@ class ShopCustomersModel {
 	}
 	// 修改shop_customers
 	public function update($shop_id,$customer_id,$from_type,$type,$create_time) {
-		$sql = " update crm_shop_customers set type = :type,create_time = :create_time where shop_id = :shop_id and customer_id = :customer_id and from_type = :from_type";
+		$sql = " update Crm_Shop_Customers set type = :type,create_time = :create_time where shop_id = :shop_id and customer_id = :customer_id and from_type = :from_type";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
                    ':shop_id' => $shop_id,
@@ -80,7 +80,7 @@ class ShopCustomersModel {
 	}
 	// 根据ID删除shop_customers
 	public function delete($shop_id,$customer_id) {
-		$sql = " delete from crm_shop_customers where shop_id = :shop_id and customer_id = :customer_id ";
+		$sql = " delete from Crm_Shop_Customers where shop_id = :shop_id and customer_id = :customer_id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':shop_id' => $shop_id,
@@ -122,7 +122,7 @@ from
         (select 
         *
     from
-        crm_shop_customers
+        Crm_Shop_Customers
     where
         shop_id = :shop_id and from_type = 1) a
     left join Crm_Customers b ON a.customer_id = b.ID) aa
@@ -155,7 +155,7 @@ from
         (select 
         *
     from
-        crm_shop_customers
+        Crm_Shop_Customers
     where
         shop_id = :shop_id and from_type = 1) a
     left join Crm_Customers b ON a.customer_id = b.ID) aa
@@ -304,7 +304,7 @@ from
 		(select
 		*
 		from
-		crm_shop_customers
+		Crm_Shop_Customers
 		where
 		shop_id = :shop_id and from_type = 2
 		and type = 3) a
@@ -342,7 +342,7 @@ from
 						(select
 								*
 								from
-								crm_shop_customers
+								Crm_Shop_Customers
 								where
 								shop_id = :shop_id and from_type = 2
 								and type = :type) a
@@ -417,21 +417,21 @@ from
     (SELECT 
             count(*) 
         FROM
-                 gogotowncrm.Crm_PShop_Customers a
+                 Crm_PShop_Customers a
         where
            a.Shop_ID=:shop_id
                $time1  ) mshop_num,
     (SELECT 
             count(*) 
         FROM
-            gogotowncrm.Crm_Shop_Customers a
+            Crm_Shop_Customers a
         where
             a.From_Type = 2 and a.type = 2 and a.Shop_ID=:shop_id
                 $time2) chance_num,
     (SELECT 
             count(*) 
         FROM
-            gogotowncrm.Crm_Shop_Customers a
+            Crm_Shop_Customers a
         where
             a.From_Type = 2 and a.type = 3 and a.Shop_ID=:shop_id
                 $time3 ) private_gogo_num

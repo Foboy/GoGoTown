@@ -13,7 +13,7 @@ class ValidationModel {
 	
 	public function validation($code,$type,$customer_id)
 	{
-		$sql = " update crm_validation set usable = :disable where expire_time > :expire_time and customer_id = :customer_id and usable = :usable and code = :code and type = :type";
+		$sql = " update Crm_Validation set usable = :disable where expire_time > :expire_time and customer_id = :customer_id and usable = :usable and code = :code and type = :type";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':disable' => EnableType::Disable,
@@ -37,7 +37,7 @@ class ValidationModel {
 		
 		$expire_time = time() + VALIDATION_CODE_EXPIRE_TIME;
 		// 添加操作
-		$sql = "insert into crm_validation(code,expire_time,type,usable,customer_id) values (:code,:expire_time,:type,:usable,:customer_id)";
+		$sql = "insert into Crm_Validation(code,expire_time,type,usable,customer_id) values (:code,:expire_time,:type,:usable,:customer_id)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':code' => $code,
@@ -55,7 +55,7 @@ class ValidationModel {
 	}
 	// 修改validation
 	public function update($id,$code,$expire_time,$type,$usable,$customer_id) {
-		$sql = " update crm_validation set code = :code,expire_time = :expire_time,type = :type,usable = :usable,customer_id = :customer_id where id = :id";
+		$sql = " update Crm_Validation set code = :code,expire_time = :expire_time,type = :type,usable = :usable,customer_id = :customer_id where id = :id";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':id' => $id,
@@ -74,7 +74,7 @@ class ValidationModel {
 	}
 	// 根据ID删除validation
 	public function delete($id) {
-		$sql = " delete from crm_validation where id = :id ";
+		$sql = " delete from Crm_Validation where id = :id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':id' => $id 
@@ -91,7 +91,7 @@ class ValidationModel {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = " select id,code,expire_time,type,usable,customer_id from crm_validation where  ( code = :code or :code='' )  and  ( expire_time = :expire_time or :expire_time=0 )  and  ( type = :type or :type=0 )  and  ( usable = :usable or :usable=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  limit $lastpagenum,$pagesize" ;
+		$sql = " select id,code,expire_time,type,usable,customer_id from Crm_Validation where  ( code = :code or :code='' )  and  ( expire_time = :expire_time or :expire_time=0 )  and  ( type = :type or :type=0 )  and  ( usable = :usable or :usable=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':code' => $code,
@@ -102,7 +102,7 @@ class ValidationModel {
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_validation where  ( code = :code or :code='' )  and  ( expire_time = :expire_time or :expire_time=0 )  and  ( type = :type or :type=0 )  and  ( usable = :usable or :usable=0 )  and  ( customer_id = :customer_id or :customer_id=0 ) " );
+		$query = $this->db->prepare ( " select count(*)  from Crm_Validation where  ( code = :code or :code='' )  and  ( expire_time = :expire_time or :expire_time=0 )  and  ( type = :type or :type=0 )  and  ( usable = :usable or :usable=0 )  and  ( customer_id = :customer_id or :customer_id=0 ) " );
 		$query->execute ( array (
 ':code' => $code,
                    ':expire_time' => $expire_time,

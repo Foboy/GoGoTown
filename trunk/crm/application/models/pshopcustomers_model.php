@@ -14,7 +14,7 @@ class PshopCustomersModel {
 	// 新增pshop_customers
 	public function insert($shop_id,$customer_id,$times,$last_time) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_pshop_customers where shop_id = :shop_id and customer_id = :customer_id and times = :times and last_time = :last_time" );
+		$query = $this->db->prepare ( " select *  from Crm_Pshop_Customers where shop_id = :shop_id and customer_id = :customer_id and times = :times and last_time = :last_time" );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
@@ -27,7 +27,7 @@ class PshopCustomersModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into crm_pshop_customers(shop_id,customer_id,times,last_time) values (:shop_id,:customer_id,:times,:last_time)";
+		$sql = "insert into Crm_Pshop_Customers(shop_id,customer_id,times,last_time) values (:shop_id,:customer_id,:times,:last_time)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
@@ -43,7 +43,7 @@ class PshopCustomersModel {
 		
 		// 获取ID
 		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-		$query = $this->db->prepare ( " select id from crm_pshop_customers where shop_id = :shop_id and customer_id = :customer_id and times = :times and last_time = :last_time" );
+		$query = $this->db->prepare ( " select id from Crm_Pshop_Customers where shop_id = :shop_id and customer_id = :customer_id and times = :times and last_time = :last_time" );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
@@ -61,7 +61,7 @@ class PshopCustomersModel {
 	}
 	// 修改pshop_customers
 	public function update($id,$shop_id,$customer_id,$times,$last_time) {
-		$sql = " update crm_pshop_customers set shop_id = :shop_id,customer_id = :customer_id,times = :times,last_time = :last_time where id = :id";
+		$sql = " update Crm_Pshop_Customers set shop_id = :shop_id,customer_id = :customer_id,times = :times,last_time = :last_time where id = :id";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':id' => $id,
@@ -79,7 +79,7 @@ class PshopCustomersModel {
 	}
 	// 根据ID删除pshop_customers
 	public function delete($id) {
-		$sql = " delete from crm_pshop_customers where id = :id ";
+		$sql = " delete from Crm_Pshop_Customers where id = :id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':id' => $id 
@@ -96,7 +96,7 @@ class PshopCustomersModel {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = " select id,shop_id,customer_id,times,last_time from crm_pshop_customers where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( times = :times or :times=0 )  and  ( last_time = :last_time or :last_time=0 )  limit $lastpagenum,$pagesize" ;
+		$sql = " select id,shop_id,customer_id,times,last_time from Crm_Pshop_Customers where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( times = :times or :times=0 )  and  ( last_time = :last_time or :last_time=0 )  limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
@@ -106,7 +106,7 @@ class PshopCustomersModel {
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_pshop_customers where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( times = :times or :times=0 )  and  ( last_time = :last_time or :last_time=0 ) " );
+		$query = $this->db->prepare ( " select count(*)  from Crm_Pshop_Customers where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( times = :times or :times=0 )  and  ( last_time = :last_time or :last_time=0 ) " );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
@@ -126,7 +126,7 @@ class PshopCustomersModel {
 	public function search() {
 		$result = new DataResult ();
 		
-		$query = $this->db->prepare ( "SELECT * FROM Crm_PShop_Customers " );
+		$query = $this->db->prepare ( "SELECT * FROM Crm_Pshop_Customers " );
 		$query->execute ();
 		$objects = $query->fetchAll ();
 		
