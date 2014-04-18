@@ -87,11 +87,11 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
             return;
         }
     }
-  //  $resturls['UpLoadImage']
+ 
     $scope.UpLoadImage = function () {
         $('#file_upload').uploadify({
             'swf': 'js/plugins/uploadify/uploadify.swf',
-            'uploader': 'http://192.168.0.47/Api32/GoCurrency/uploadImg',
+            'uploader': $resturls['UpLoadImage'],
             'buttonText': '',
             'width': 91,
             'height':91,
@@ -101,11 +101,17 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
             'fileTypeDesc': 'Web Image Files (.JPG, .GIF, .PNG)',
             onUploadSuccess: function (fileObj, data, response) {
                 if (response) {
-                    $.scojs_message('上传完成!', $.scojs_message.TYPE_OK);
-                    $("#imagezone").attr('src', "upload/" + $.trim(data));
-                    $scope.$apply(function () {
-                        $scope.showing = true;
-                    });
+                    var result = $.parseJSON(data);
+                    if (result.status == 1) {
+                        $.scojs_message('上传完成!', $.scojs_message.TYPE_OK);
+                        $("#imagezone").attr('src', $.trim(result.data.uploadResult.url));
+                        $scope.$apply(function () {
+                            $scope.showing = true;
+                        });
+                    } else {
+                        $.scojs_message('服务器忙，请稍后重试!', $.scojs_message.TYPE_ERROR);
+                    }
+                    
                 } else {
                     $.scojs_message('服务器忙，请稍后重试!', $.scojs_message.TYPE_ERROR);
                 }

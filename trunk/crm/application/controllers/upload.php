@@ -17,7 +17,6 @@ class UpLoad extends Controller {
 	public function UpLoadImage() {
 		$targetFolder = '/GoGoTown/trunk/crm/admin/upload'; // Relative to the root
 		if (! empty ( $_FILES )) {
-			print_r($_FILES);
 			$tempFile = $_FILES ['Filedata'] ['tmp_name'];
 			$targetPath = $_SERVER ['DOCUMENT_ROOT'] . $targetFolder;
 			if (! file_exists ( $targetPath )) {
@@ -34,30 +33,25 @@ class UpLoad extends Controller {
 			); // File extensions
 			$fileParts = pathinfo ( $_FILES ['Filedata'] ['name'] );
 			if (in_array ( $fileParts ['extension'], $fileTypes )) {
-				move_uploaded_file ( $tempFile,iconv('UTF-8', 'gb2312', $targetFile));
-			    //echo $fileName; 
+				if(move_uploaded_file ( $tempFile, iconv ( 'UTF-8', 'gb2312', $targetFile ) )){
+					
+					$src = realpath (iconv ( 'UTF-8', 'gb2312', $targetFile ));
+					$url = "http://192.168.0.47/Api32/GoCurrency/uploadImg";
+					$data = array (
+							'file' => '@' . $src ,
+							'fileObjName'=>'file'
+					);
+					UpLoad::UploadByCURL ( $data, $url );
+				}
 			} else {
 				echo 'Invalid file type.';
 			}
-			$src=realpath($targetFile);
 			
-         	/* $url="http://192.168.0.47/Api32/GoCurrency/uploadImg"; */
-         	$url="http://localhost:8080/GoGoTown/trunk/crm/app.php";
-			/* $data = array(
-					'filepath'  => @$targetFile,
-					'filename'=>'@'.$src
+			/*php 5.5 $cfile = new CURLFile ( $targetFile, $fileParts ['extension'], 'name' );
+			$data = array (
+					'file' => $cfile 
 			); */
-            $cfile = new CURLFile($targetFile,$fileParts ['extension'],'name');
-            $data= array(
-                'fileObjName'=>$cfile
-            );
-            UpLoad::uploadByCURL($data,$url);
 		}
-	}
-	
-	public function  TestUpLoadImg(){
-		
-		
 	}
 	
 	/**
@@ -110,7 +104,7 @@ class UpLoad extends Controller {
 	}
 	
 	/* 手动post提交 */
-	private function uploadByCURL($post_data, $post_url) {
+	private function UploadByCURL($post_data, $post_url) {
 		$curl = curl_init ();
 		curl_setopt ( $curl, CURLOPT_URL, $post_url );
 		curl_setopt ( $curl, CURLOPT_POST, 1 );
@@ -118,8 +112,8 @@ class UpLoad extends Controller {
 		curl_setopt ( $curl, CURLOPT_RETURNTRANSFER, 1 );
 		curl_setopt ( $curl, CURLOPT_USERAGENT, "Mozilla/5.0" );
 		$result = curl_exec ( $curl );
-		$error = curl_error($curl);
-		curl_close($curl);
-		 print_r($result);
+		$error = curl_error ( $curl );
+		curl_close ( $curl );
+		print_r($result);
 	}
 }
