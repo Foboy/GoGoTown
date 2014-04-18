@@ -14,13 +14,12 @@ class ShopCustomersModel {
 	// 新增shop_customers
 	public function insert($shop_id,$customer_id,$from_type,$type,$create_time) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_shop_customers where shop_id = :shop_id and customer_id = :customer_id and from_type = :from_type and type = :type and create_time = :create_time" );
+		$query = $this->db->prepare ( " select *  from crm_shop_customers where shop_id = :shop_id and customer_id = :customer_id and from_type = :from_type and type = :type " );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
                    ':from_type' => $from_type,
-                   ':type' => $type,
-                   ':create_time' => $create_time
+                   ':type' => $type
 		) );
 		$count = $query->rowCount ();
 		if ($count > 0) {
