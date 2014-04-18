@@ -117,6 +117,10 @@ class Cash extends Controller
 			$bill_id = $bill_model->insert($shop_id,$customer_id,PayMethodType::GoGoPay,0,ceil($amount),$type_ids[0],$amount,time(),$user_id,time());
 			if($bill_id > 0)
 			{
+				$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
+				
+				$shopcustomers_model->insert ($shop_id, $customer_id,CustomerFromType::GOGOCustomer,CustomerType::PurchaseCustomer,time() );
+				$shopcustomers_model->update ($shop_id, $customer_id,CustomerFromType::GOGOCustomer,CustomerType::PurchaseCustomer,time() );
 				$result->Error = ErrorType::Success;
 				print json_encode($result);
 				return;
