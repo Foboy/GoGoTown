@@ -33,23 +33,23 @@ class UpLoad extends Controller {
 			); // File extensions
 			$fileParts = pathinfo ( $_FILES ['Filedata'] ['name'] );
 			if (in_array ( $fileParts ['extension'], $fileTypes )) {
-				move_uploaded_file ( $tempFile, $targetFile );
+				move_uploaded_file ( $tempFile,iconv('UTF-8', 'gb2312', $targetFile)  );
 			    echo $fileName; 
 			} else {
 				echo 'Invalid file type.';
 			}
-			
-            //$url="http://localhost:8080/GoGoTown/trunk/crm/app.php";
-			/* $data = array(
+			/* $c=realpath($targetFile);
+			print_r($c); */
+         	 /* $url="http://192.168.0.47/Api32/GoCurrency/uploadImg";
+			$data = array(
 					'filepath'  => @$targetFile,
-					'filename'=>@$fileName
-			); */
-            //$cfile = new CURLFile($targetFile,$fileParts ['extension'],'name');
-            //$data= array(
-            //    'id'=>123,
-            //    'file'=>$cfile
-            //);
-            //UpLoad::uploadByCURL($data,$url);
+					'filename'=>'@'.$c
+			);
+            $cfile = new CURLFile($targetFile,$fileParts ['extension'],'name');
+            $data= array(
+                'file'=>$cfile
+            );
+            UpLoad::uploadByCURL($data,$url); */
 		}
 	}
 	
@@ -112,6 +112,7 @@ class UpLoad extends Controller {
 		curl_setopt ( $curl, CURLOPT_USERAGENT, "Mozilla/5.0" );
 		$result = curl_exec ( $curl );
 		$error = curl_error($curl);
-		print_r($result);
+		curl_close($curl);
+		/* print_r($result); */
 	}
 }

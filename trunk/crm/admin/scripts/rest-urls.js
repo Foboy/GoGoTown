@@ -9,7 +9,7 @@
           var resturls = {};
           //resturls.base = "http://localhost/GoGoTown/trunk/crm/index.php";
          //resturls.base = "http://localhost/index.php";
-          resturls.base = "http://192.168.8.110:8080/GoGoTown/trunk/crm/index.php";
+          resturls.base = "http://localhost:8080/GoGoTown/trunk/crm/index.php";
           resturls.add = function (name, url) {
               resturls[name] = resturls.base + "?url=" + url;
           };
@@ -60,6 +60,9 @@
           //图片
           resturls.add("UpLoadImage", "upload/UpLoadImage");//上传图片
           resturls.add("ResizeImage", "upload/ResizeImage");//调整图片
+          //销售分析
+          resturls.add("DisplaySalesFunnel", "Customers/getCustomerCount");//销售分析
+
           $provide.constant('$resturls', resturls);
       } ]);
 })(window, window.angular);

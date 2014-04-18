@@ -591,7 +591,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 			// Run the default event handler
 			if ($.inArray('onDialogClose', settings.overrideEvents) < 0) {
 				if (this.queueData.filesErrored > 0) {
-					alert(this.queueData.errorMsg);
+					//alert(this.queueData.errorMsg);
 				}
 			}
 
@@ -703,7 +703,7 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 						}
 						break;
 					case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
-						this.queueData.errorMsg += '\nThe file "' + file.name + '" exceeds the size limit (' + settings.fileSizeLimit + ').';
+						//this.queueData.errorMsg += '\nThe file "' + file.name + '" exceeds the size limit (' + settings.fileSizeLimit + ').';
 						break;
 					case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
 						this.queueData.errorMsg += '\nThe file "' + file.name + '" is empty.';
@@ -816,8 +816,8 @@ Released under the MIT License <http://www.opensource.org/licenses/mit-license.p
 					errorString = 'Security Error';
 					break;
 				case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
-					alert('The upload limit has been reached (' + errorMsg + ').');
-					errorString = 'Exceeds Upload Limit';
+					//alert('The upload limit has been reached (' + errorMsg + ').');
+					errorString = '上传文件不能超过2MB';
 					break;
 				case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
 					errorString = 'Failed';

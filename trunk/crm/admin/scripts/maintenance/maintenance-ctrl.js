@@ -97,7 +97,7 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
             'width': 91,
             'height':91,
             'buttonClass': 'img-thumbnail upload_btn_css',
-            'fileSizeLimit': '1024kB',
+            'fileSizeLimit': '2048kB',
             'fileTypeExts': '*.jpg;*.gif;*.png',
             'fileTypeDesc': 'Web Image Files (.JPG, .GIF, .PNG)',
             onUploadSuccess: function (fileObj, data, response) {
@@ -109,6 +109,16 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
                     });
                 } else {
                     $.scojs_message('服务器忙，请稍后重试!', $.scojs_message.TYPE_ERROR);
+                }
+            },
+            onSelectError: function (file, errorCode, errorMsg) {
+                switch (errorCode) {
+                    case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+                        $.scojs_message('上传文件不能超过2MB', $.scojs_message.TYPE_ERROR);
+                        break;
+                    case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+                        $.scojs_message('不能上传空文件', $.scojs_message.TYPE_ERROR);
+                        break;
                 }
             }
         });

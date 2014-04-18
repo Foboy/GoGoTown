@@ -50,7 +50,7 @@ class user extends Controller
     {
     	//sleep(6);
     	$result = new DataResult ();
-        $result->Data = [];
+        $result->Data =array();
     	$login_model = $this->loadModel('Users');
     	$login_successful = $login_model->login();
     	if ($login_successful) {
