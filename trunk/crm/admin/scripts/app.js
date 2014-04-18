@@ -132,15 +132,4 @@ function MainCtrl($scope, $routeParams, $http, $location, $filter, $resturls) {
         }
         return temp;
     }
-    //转化手机号 ey:13458680566 为 134*****566
-    $scope.ModifiedPhoneNum = function (str) {
-        if (str.length == 11) {
-            var mphone = str.substr(3, 5);
-            var phone = str.replace(mphone, "*****");
-            return phone;
-        }
-        else {
-            return str;
-        }
-    }
 }

@@ -58,6 +58,7 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
     $scope.SendMessage = function (data, message) {
         if (data) {
             if (data.length > 0) {
+                debugger;
                 var customerids = "";
                 for (var i = 0; i < data.length; i++) {
                     customerids = data[i].Customer_ID + ',' + customerids;
@@ -87,7 +88,7 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
             return;
         }
     }
- 
+
     $scope.UpLoadImage = function () {
         $('#file_upload').uploadify({
             'swf': 'js/plugins/uploadify/uploadify.swf',
@@ -101,17 +102,11 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
             'fileTypeDesc': 'Web Image Files (.JPG, .GIF, .PNG)',
             onUploadSuccess: function (fileObj, data, response) {
                 if (response) {
-                    var result = $.parseJSON(data);
-                    if (result.status == 1) {
-                        $.scojs_message('上传完成!', $.scojs_message.TYPE_OK);
-                        $("#imagezone").attr('src', $.trim(result.data.uploadResult.url));
-                        $scope.$apply(function () {
-                            $scope.showing = true;
-                        });
-                    } else {
-                        $.scojs_message('服务器忙，请稍后重试!', $.scojs_message.TYPE_ERROR);
-                    }
-                    
+                    $.scojs_message('上传完成!', $.scojs_message.TYPE_OK);
+                    $("#imagezone").attr('src', "upload/" + $.trim(data));
+                    $scope.$apply(function () {
+                        $scope.showing = true;
+                    });
                 } else {
                     $.scojs_message('服务器忙，请稍后重试!', $.scojs_message.TYPE_ERROR);
                 }
