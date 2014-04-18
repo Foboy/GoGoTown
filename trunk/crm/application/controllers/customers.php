@@ -276,8 +276,15 @@ class Customers extends Controller {
 		}
 	
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
-	
+		
+		if($_POST['type']==1)
+		{
+			$result = $shopcustomers_model->searchPCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['rank_id'], $_POST ['pageindex'] , $_POST ['pagesize'] );
+			
+		}else 
+		{
 		$result = $shopcustomers_model->searchGOGOCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['rank_id'], $_POST ['pageindex'] , $_POST ['pagesize'] );
+		}
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );
@@ -304,7 +311,7 @@ class Customers extends Controller {
 	
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
 	
-		$result->Data = $shopcustomers_model->update ($_SESSION["user_shop"], $_POST ['customer_id'],CustomerFromType::GOGOCustomer,CustomerType::ChanceCustomer,time() );
+		$result->Data = $shopcustomers_model->insert ($_SESSION["user_shop"], $_POST ['customer_id'],CustomerFromType::GOGOCustomer,CustomerType::ChanceCustomer,time() );
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );

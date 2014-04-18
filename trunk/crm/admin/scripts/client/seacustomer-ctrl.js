@@ -32,7 +32,7 @@ function SeaCustomerMainCtrl($scope, $http, $location, $routeParams, $resturls, 
 }
 function ShowModalAboutSeaCustomrCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.TransforSaleChance = function (data) {
-        $http.post($resturls['TransforChance'], { customer_id: data.Customer_ID }).success(function (result) {
+        $http.post($resturls['TransforChance'], { customer_id: data.customer_id }).success(function (result) {
             $("#TransforSaleOpModal").modal('hide');
             if (result.Error == 0) {
                 $.scojs_message('转化成功', $.scojs_message.TYPE_OK);
