@@ -41,7 +41,7 @@ class UpLoad extends Controller {
 							'file' => '@' . $src ,
 							'fileObjName'=>'file'
 					);
-					UpLoad::UploadByCURL ( $data, $url );
+					UpLoad::UploadByCURL ( $data, $url ); 
 				}
 			} else {
 				echo 'Invalid file type.';
