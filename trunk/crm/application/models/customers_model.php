@@ -15,7 +15,7 @@ class CustomersModel {
 	// 新增customers
 	public function insert($name,$sex,$phone,$birthady,$remark) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_customers where name = :name and sex = :sex and phone = :phone and birthady = :birthady and remark = :remark" );
+		$query = $this->db->prepare ( " select *  from Crm_Customers where name = :name and sex = :sex and phone = :phone and birthady = :birthady and remark = :remark" );
 		$query->execute ( array (
 ':name' => $name,
                    ':sex' => $sex,
@@ -29,7 +29,7 @@ class CustomersModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into crm_customers(name,sex,phone,birthady,remark) values (:name,:sex,:phone,:birthady,:remark)";
+		$sql = "insert into Crm_Customers(name,sex,phone,birthady,remark) values (:name,:sex,:phone,:birthady,:remark)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':name' => $name,
@@ -46,7 +46,7 @@ class CustomersModel {
 		
 		// 获取ID
 		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-		$query = $this->db->prepare ( " select id from crm_customers where name = :name and sex = :sex and phone = :phone and birthady = :birthady and remark = :remark" );
+		$query = $this->db->prepare ( " select id from Crm_Customers where name = :name and sex = :sex and phone = :phone and birthady = :birthady and remark = :remark" );
 		$query->execute ( array (
 ':name' => $name,
                    ':sex' => $sex,
@@ -65,7 +65,7 @@ class CustomersModel {
 	}
 	// 修改customers
 	public function update($id,$name,$sex,$phone,$birthady,$remark) {
-		$sql = " update crm_customers set name = :name,sex = :sex,phone = :phone,birthady = :birthady,remark = :remark where id = :id";
+		$sql = " update Crm_Customers set name = :name,sex = :sex,phone = :phone,birthady = :birthady,remark = :remark where id = :id";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':id' => $id,
@@ -84,7 +84,7 @@ class CustomersModel {
 	}
 	// 根据ID删除customers
 	public function delete($id) {
-		$sql = " delete from crm_customers where id = :id ";
+		$sql = " delete from Crm_Customers where id = :id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':id' => $id 
@@ -101,7 +101,7 @@ class CustomersModel {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = " select id,name,sex,phone,birthady,remark from crm_customers where  ( name = :name or :name='' )  and  ( sex = :sex or :sex=0 )  and  ( phone = :phone or :phone='' )  and  ( birthady = :birthady or :birthady=0 )  limit $lastpagenum,$pagesize" ;
+		$sql = " select id,name,sex,phone,birthady,remark from Crm_Customers where  ( name = :name or :name='' )  and  ( sex = :sex or :sex=0 )  and  ( phone = :phone or :phone='' )  and  ( birthady = :birthady or :birthady=0 )  limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':name' => $name,
@@ -111,7 +111,7 @@ class CustomersModel {
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_customers where  ( name = :name or :name='' )  and  ( sex = :sex or :sex=0 )  and  ( phone = :phone or :phone='' )  and  ( birthady = :birthady or :birthady=0 )   " );
+		$query = $this->db->prepare ( " select count(*)  from Crm_Customers where  ( name = :name or :name='' )  and  ( sex = :sex or :sex=0 )  and  ( phone = :phone or :phone='' )  and  ( birthady = :birthady or :birthady=0 )   " );
 		$query->execute ( array (
 ':name' => $name,
                    ':sex' => $sex,

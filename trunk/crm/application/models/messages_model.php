@@ -14,7 +14,7 @@ class MessagesModel {
 	// 新增messages
 	public function insert($shop_id,$type,$title,$content,$send_time,$create_time,$state) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_messages where shop_id = :shop_id and type = :type and title = :title and content = :content and send_time = :send_time and create_time = :create_time and state = :state" );
+		$query = $this->db->prepare ( " select *  from Crm_Messages where shop_id = :shop_id and type = :type and title = :title and content = :content and send_time = :send_time and create_time = :create_time and state = :state" );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':type' => $type,
@@ -30,7 +30,7 @@ class MessagesModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into crm_messages(shop_id,type,title,content,send_time,create_time,state) values (:shop_id,:type,:title,:content,:send_time,:create_time,:state)";
+		$sql = "insert into Crm_Messages(shop_id,type,title,content,send_time,create_time,state) values (:shop_id,:type,:title,:content,:send_time,:create_time,:state)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
@@ -49,7 +49,7 @@ class MessagesModel {
 		
 		// 获取ID
 		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-		$query = $this->db->prepare ( " select id from crm_messages where shop_id = :shop_id and type = :type and title = :title and content = :content and send_time = :send_time and create_time = :create_time and state = :state" );
+		$query = $this->db->prepare ( " select id from Crm_Messages where shop_id = :shop_id and type = :type and title = :title and content = :content and send_time = :send_time and create_time = :create_time and state = :state" );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':type' => $type,
@@ -70,7 +70,7 @@ class MessagesModel {
 	}
 	// 修改messages
 	public function update($id,$shop_id,$type,$title,$content,$send_time,$create_time,$state) {
-		$sql = " update crm_messages set shop_id = :shop_id,type = :type,title = :title,content = :content,send_time = :send_time,create_time = :create_time,state = :state where id = :id";
+		$sql = " update Crm_Messages set shop_id = :shop_id,type = :type,title = :title,content = :content,send_time = :send_time,create_time = :create_time,state = :state where id = :id";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':id' => $id,
@@ -91,7 +91,7 @@ class MessagesModel {
 	}
 	// 根据ID删除messages
 	public function delete($id) {
-		$sql = " delete from crm_messages where id = :id ";
+		$sql = " delete from Crm_Messages where id = :id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':id' => $id 
@@ -108,7 +108,7 @@ class MessagesModel {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = " select id,shop_id,type,title,content,send_time,create_time,state from crm_messages where  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and   ( state = :state or :state=0 ) order by  create_time desc limit $lastpagenum,$pagesize" ;
+		$sql = " select id,shop_id,type,title,content,send_time,create_time,state from Crm_Messages where  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and   ( state = :state or :state=0 ) order by  create_time desc limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
@@ -117,7 +117,7 @@ class MessagesModel {
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_messages where  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and  ( state = :state or :state=0 ) " );
+		$query = $this->db->prepare ( " select count(*)  from Crm_Messages where  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and  ( state = :state or :state=0 ) " );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':type' => $type,

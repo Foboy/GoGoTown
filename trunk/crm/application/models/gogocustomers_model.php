@@ -14,7 +14,7 @@ class GogoCustomersModel {
 	// 新增gogo_customers
 	public function insert($mobile,$email,$password,$username,$nickname,$sex,$salt,$reg_ip,$reg_time,$last_login_ip,$last_login_time,$error_login_num,$address_num,$email_approve,$mobile_approve,$headimg,$status) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_gogo_customers where mobile = :mobile and email = :email and password = :password and username = :username and nickname = :nickname and sex = :sex and salt = :salt and reg_ip = :reg_ip and reg_time = :reg_time and last_login_ip = :last_login_ip and last_login_time = :last_login_time and error_login_num = :error_login_num and address_num = :address_num and email_approve = :email_approve and mobile_approve = :mobile_approve and headimg = :headimg and status = :status" );
+		$query = $this->db->prepare ( " select *  from Crm_Gogo_Customers where mobile = :mobile and email = :email and password = :password and username = :username and nickname = :nickname and sex = :sex and salt = :salt and reg_ip = :reg_ip and reg_time = :reg_time and last_login_ip = :last_login_ip and last_login_time = :last_login_time and error_login_num = :error_login_num and address_num = :address_num and email_approve = :email_approve and mobile_approve = :mobile_approve and headimg = :headimg and status = :status" );
 		$query->execute ( array (
 ':mobile' => $mobile,
                    ':email' => $email,
@@ -40,7 +40,7 @@ class GogoCustomersModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into crm_gogo_customers(mobile,email,password,username,nickname,sex,salt,reg_ip,reg_time,last_login_ip,last_login_time,error_login_num,address_num,email_approve,mobile_approve,headimg,status) values (:mobile,:email,:password,:username,:nickname,:sex,:salt,:reg_ip,:reg_time,:last_login_ip,:last_login_time,:error_login_num,:address_num,:email_approve,:mobile_approve,:headimg,:status)";
+		$sql = "insert into Crm_Gogo_Customers(mobile,email,password,username,nickname,sex,salt,reg_ip,reg_time,last_login_ip,last_login_time,error_login_num,address_num,email_approve,mobile_approve,headimg,status) values (:mobile,:email,:password,:username,:nickname,:sex,:salt,:reg_ip,:reg_time,:last_login_ip,:last_login_time,:error_login_num,:address_num,:email_approve,:mobile_approve,:headimg,:status)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':mobile' => $mobile,
@@ -69,7 +69,7 @@ class GogoCustomersModel {
 		
 		// 获取ID
 		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-		$query = $this->db->prepare ( " select id from crm_gogo_customers where mobile = :mobile and email = :email and password = :password and username = :username and nickname = :nickname and sex = :sex and salt = :salt and reg_ip = :reg_ip and reg_time = :reg_time and last_login_ip = :last_login_ip and last_login_time = :last_login_time and error_login_num = :error_login_num and address_num = :address_num and email_approve = :email_approve and mobile_approve = :mobile_approve and headimg = :headimg and status = :status" );
+		$query = $this->db->prepare ( " select id from Crm_Gogo_Customers where mobile = :mobile and email = :email and password = :password and username = :username and nickname = :nickname and sex = :sex and salt = :salt and reg_ip = :reg_ip and reg_time = :reg_time and last_login_ip = :last_login_ip and last_login_time = :last_login_time and error_login_num = :error_login_num and address_num = :address_num and email_approve = :email_approve and mobile_approve = :mobile_approve and headimg = :headimg and status = :status" );
 		$query->execute ( array (
 ':mobile' => $mobile,
                    ':email' => $email,
@@ -100,7 +100,7 @@ class GogoCustomersModel {
 	}
 	// 修改gogo_customers
 	public function update($id,$mobile,$email,$password,$username,$nickname,$sex,$salt,$reg_ip,$reg_time,$last_login_ip,$last_login_time,$error_login_num,$address_num,$email_approve,$mobile_approve,$headimg,$status) {
-		$sql = " update crm_gogo_customers set mobile = :mobile,email = :email,password = :password,username = :username,nickname = :nickname,sex = :sex,salt = :salt,reg_ip = :reg_ip,reg_time = :reg_time,last_login_ip = :last_login_ip,last_login_time = :last_login_time,error_login_num = :error_login_num,address_num = :address_num,email_approve = :email_approve,mobile_approve = :mobile_approve,headimg = :headimg,status = :status where id = :id";
+		$sql = " update Crm_Gogo_Customers set mobile = :mobile,email = :email,password = :password,username = :username,nickname = :nickname,sex = :sex,salt = :salt,reg_ip = :reg_ip,reg_time = :reg_time,last_login_ip = :last_login_ip,last_login_time = :last_login_time,error_login_num = :error_login_num,address_num = :address_num,email_approve = :email_approve,mobile_approve = :mobile_approve,headimg = :headimg,status = :status where id = :id";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':id' => $id,
@@ -131,7 +131,7 @@ class GogoCustomersModel {
 	}
 	// 根据ID删除gogo_customers
 	public function delete($id) {
-		$sql = " delete from crm_gogo_customers where id = :id ";
+		$sql = " delete from Crm_Gogo_Customers where id = :id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':id' => $id 
@@ -148,7 +148,7 @@ class GogoCustomersModel {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = " select id,mobile,email,password,username,nickname,sex,salt,reg_ip,reg_time,last_login_ip,last_login_time,error_login_num,address_num,email_approve,mobile_approve,headimg,status from crm_gogo_customers where  ( mobile = :mobile or :mobile='' )  and  ( email = :email or :email='' )  and  ( password = :password or :password='' )  and  ( username = :username or :username='' )  and  ( nickname = :nickname or :nickname='' )  and  ( sex = :sex or :sex='' )  and  ( salt = :salt or :salt='' )  and  ( reg_ip = :reg_ip or :reg_ip='' )  and  ( reg_time = :reg_time or :reg_time=0 )  and  ( last_login_ip = :last_login_ip or :last_login_ip='' )  and  ( last_login_time = :last_login_time or :last_login_time=0 )  and  ( error_login_num = :error_login_num or :error_login_num='' )  and  ( address_num = :address_num or :address_num='' )  and  ( email_approve = :email_approve or :email_approve='' )  and  ( mobile_approve = :mobile_approve or :mobile_approve='' )  and  ( headimg = :headimg or :headimg='' )  and  ( status = :status or :status='' )  limit $lastpagenum,$pagesize" ;
+		$sql = " select id,mobile,email,password,username,nickname,sex,salt,reg_ip,reg_time,last_login_ip,last_login_time,error_login_num,address_num,email_approve,mobile_approve,headimg,status from Crm_Gogo_Customers where  ( mobile = :mobile or :mobile='' )  and  ( email = :email or :email='' )  and  ( password = :password or :password='' )  and  ( username = :username or :username='' )  and  ( nickname = :nickname or :nickname='' )  and  ( sex = :sex or :sex='' )  and  ( salt = :salt or :salt='' )  and  ( reg_ip = :reg_ip or :reg_ip='' )  and  ( reg_time = :reg_time or :reg_time=0 )  and  ( last_login_ip = :last_login_ip or :last_login_ip='' )  and  ( last_login_time = :last_login_time or :last_login_time=0 )  and  ( error_login_num = :error_login_num or :error_login_num='' )  and  ( address_num = :address_num or :address_num='' )  and  ( email_approve = :email_approve or :email_approve='' )  and  ( mobile_approve = :mobile_approve or :mobile_approve='' )  and  ( headimg = :headimg or :headimg='' )  and  ( status = :status or :status='' )  limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':mobile' => $mobile,
@@ -171,7 +171,7 @@ class GogoCustomersModel {
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_gogo_customers where  ( mobile = :mobile or :mobile='' )  and  ( email = :email or :email='' )  and  ( password = :password or :password='' )  and  ( username = :username or :username='' )  and  ( nickname = :nickname or :nickname='' )  and  ( sex = :sex or :sex='' )  and  ( salt = :salt or :salt='' )  and  ( reg_ip = :reg_ip or :reg_ip='' )  and  ( reg_time = :reg_time or :reg_time=0 )  and  ( last_login_ip = :last_login_ip or :last_login_ip='' )  and  ( last_login_time = :last_login_time or :last_login_time=0 )  and  ( error_login_num = :error_login_num or :error_login_num='' )  and  ( address_num = :address_num or :address_num='' )  and  ( email_approve = :email_approve or :email_approve='' )  and  ( mobile_approve = :mobile_approve or :mobile_approve='' )  and  ( headimg = :headimg or :headimg='' )  and  ( status = :status or :status='' ) " );
+		$query = $this->db->prepare ( " select count(*)  from Crm_Gogo_Customers where  ( mobile = :mobile or :mobile='' )  and  ( email = :email or :email='' )  and  ( password = :password or :password='' )  and  ( username = :username or :username='' )  and  ( nickname = :nickname or :nickname='' )  and  ( sex = :sex or :sex='' )  and  ( salt = :salt or :salt='' )  and  ( reg_ip = :reg_ip or :reg_ip='' )  and  ( reg_time = :reg_time or :reg_time=0 )  and  ( last_login_ip = :last_login_ip or :last_login_ip='' )  and  ( last_login_time = :last_login_time or :last_login_time=0 )  and  ( error_login_num = :error_login_num or :error_login_num='' )  and  ( address_num = :address_num or :address_num='' )  and  ( email_approve = :email_approve or :email_approve='' )  and  ( mobile_approve = :mobile_approve or :mobile_approve='' )  and  ( headimg = :headimg or :headimg='' )  and  ( status = :status or :status='' ) " );
 		$query->execute ( array (
 ':mobile' => $mobile,
                    ':email' => $email,
