@@ -437,7 +437,7 @@ from
                 $time3 ) private_gogo_num
 from dual " ;
 		$query = $this->db->prepare ($sql);
-		print $sql;
+		//print $sql;
 		$query->execute ( array (
 				':shop_id' => $shop_id,
 				':stime' => $stime,
