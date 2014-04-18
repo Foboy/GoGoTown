@@ -39,16 +39,16 @@ class LoginModel
         // get user's data
         // (we check if the password fits the password_hash via password_verify() some lines below)
         $sth = $this->db->prepare("SELECT
-									`crm_users`.`ID`,
-									`crm_users`.`Shop_ID`,
-									`crm_users`.`Type`,
-									`crm_users`.`Account`,
-									`crm_users`.`Password`,
-									`crm_users`.`Last_Login`,
-									`crm_users`.`State`,
-									`crm_users`.`Faileds`,
-									`crm_users`.`Last_Failed`
-									FROM `gogotowncrm`.`crm_users`
+									`Crm_Users`.`ID`,
+									`Crm_Users`.`Shop_ID`,
+									`Crm_Users`.`Type`,
+									`Crm_Users`.`Account`,
+									`Crm_Users`.`Password`,
+									`Crm_Users`.`Last_Login`,
+									`Crm_Users`.`State`,
+									`Crm_Users`.`Faileds`,
+									`Crm_Users`.`Last_Failed`
+									FROM `Crm_Users`
                                    WHERE Account = :user_name");
         // DEFAULT is the marker for "normal" accounts (that have a password etc.)
         // There are other types of accounts that don't have passwords etc. (FACEBOOK)
@@ -93,7 +93,7 @@ class LoginModel
 
             // reset the failed login counter for that user (if necessary)
             if ($result->Last_Failed > 0) {
-                $sql = "UPDATE crm_users SET Faileds = 0, Last_Failed = NULL
+                $sql = "UPDATE Crm_Users SET Faileds = 0, Last_Failed = NULL
                         WHERE ID = :user_id AND Faileds != 0";
                 $sth = $this->db->prepare($sql);
                 $sth->execute(array(':user_id' => $result->ID));
@@ -103,7 +103,7 @@ class LoginModel
             $user_last_login_timestamp = time();
             // write timestamp of this login into database (we only write "real" logins via login form into the
             // database, not the session-login on every page request
-            $sql = "UPDATE crm_users SET Last_Login = :user_last_login_timestamp WHERE ID = :user_id";
+            $sql = "UPDATE Crm_Users SET Last_Login = :user_last_login_timestamp WHERE ID = :user_id";
             $sth = $this->db->prepare($sql);
             $sth->execute(array(':user_id' => $result->ID, ':user_last_login_timestamp' => $user_last_login_timestamp));
 
@@ -114,7 +114,7 @@ class LoginModel
                 $random_token_string = hash('sha256', mt_rand());
 
                 // write that token into database
-                $sql = "UPDATE crm_users SET Token = :user_rememberme_token WHERE ID = :user_id";
+                $sql = "UPDATE Crm_Users SET Token = :user_rememberme_token WHERE ID = :user_id";
                 $sth = $this->db->prepare($sql);
                 $sth->execute(array(':user_rememberme_token' => $random_token_string, ':user_id' => $result->ID));
 
@@ -134,7 +134,7 @@ class LoginModel
 
         } else {
             // increment the failed login counter for that user
-            $sql = "UPDATE crm_users
+            $sql = "UPDATE Crm_Users
                     SET Faileds = Faileds+1, Last_Failed = :user_last_failed_login
                     WHERE Account = :user_name";
             $sth = $this->db->prepare($sql);
@@ -177,16 +177,16 @@ class LoginModel
 
         // get real token from database (and all other data)
         $query = $this->db->prepare("SELECT
-									`crm_users`.`ID`,
-									`crm_users`.`Shop_ID`,
-									`crm_users`.`Type`,
-									`crm_users`.`Account`,
-									`crm_users`.`Password`,
-									`crm_users`.`Last_Login`,
-									`crm_users`.`State`,
-									`crm_users`.`Faileds`,
-									`crm_users`.`Last_Failed`
-									FROM `gogotowncrm`.`crm_users`
+									`Crm_Users`.`ID`,
+									`Crm_Users`.`Shop_ID`,
+									`Crm_Users`.`Type`,
+									`Crm_Users`.`Account`,
+									`Crm_Users`.`Password`,
+									`Crm_Users`.`Last_Login`,
+									`Crm_Users`.`State`,
+									`Crm_Users`.`Faileds`,
+									`Crm_Users`.`Last_Failed`
+									FROM `Crm_Users`
                                      WHERE ID = :user_id
                                        AND Token = :user_rememberme_token
                                        AND Token IS NOT NULL");
@@ -212,7 +212,7 @@ class LoginModel
             $user_last_login_timestamp = time();
             // write timestamp of this login into database (we only write "real" logins via login form into the
             // database, not the session-login on every page request
-            $sql = "UPDATE crm_users SET Last_Login = :user_last_login_timestamp WHERE ID = :user_id";
+            $sql = "UPDATE Crm_Users SET Last_Login = :user_last_login_timestamp WHERE ID = :user_id";
             $sth = $this->db->prepare($sql);
             $sth->execute(array(':user_id' => $result->ID, ':user_last_login_timestamp' => $user_last_login_timestamp));
 
@@ -310,7 +310,7 @@ class LoginModel
             $user_password_hash = password_hash($_POST['user_password_new'], PASSWORD_DEFAULT, array('cost' => $hash_cost_factor));
 
             // check if username already exists
-            $query = $this->db->prepare("SELECT * FROM crm_users WHERE Account = :user_name");
+            $query = $this->db->prepare("SELECT * FROM Crm_Users WHERE Account = :user_name");
             $query->execute(array(':user_name' => $user_name));
             $count =  $query->rowCount();
             if ($count == 1) {
@@ -324,7 +324,7 @@ class LoginModel
             $user_creation_timestamp = time();
 
             // write new users data into database
-            $sql = "INSERT INTO crm_users (Account, Shop_ID, Password, Type, State, Create_Time)
+            $sql = "INSERT INTO Crm_Users (Account, Shop_ID, Password, Type, State, Create_Time)
                     VALUES (:user_name, :user_shop_id, :user_password_hash, 1, :user_type, :user_create_time)";
             $query = $this->db->prepare($sql);
             $query->execute(array(':user_name' => $user_name,
@@ -339,7 +339,7 @@ class LoginModel
             }
 
             // get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-            $query = $this->db->prepare("SELECT ID FROM crm_users WHERE Account = :user_name");
+            $query = $this->db->prepare("SELECT ID FROM Crm_Users WHERE Account = :user_name");
             $query->execute(array(':user_name' => $user_name));
             if ($query->rowCount() != 1) {
                 $_SESSION["feedback_negative"][] = FEEDBACK_UNKNOWN_ERROR;
@@ -377,7 +377,7 @@ class LoginModel
         $user_name = strip_tags($_POST['user_name']);
 
         // check if that username exists
-        $query = $this->db->prepare("SELECT user_id, user_email FROM crm_users
+        $query = $this->db->prepare("SELECT user_id, user_email FROM Crm_Users
                                      WHERE user_name = :user_name AND user_provider_type = :provider_type");
         $query->execute(array(':user_name' => $user_name, ':provider_type' => 'DEFAULT'));
         $count = $query->rowCount();
@@ -410,7 +410,7 @@ class LoginModel
      */
     public function setPasswordResetDatabaseToken($user_name, $user_password_reset_hash, $temporary_timestamp)
     {
-        $query_two = $this->db->prepare("UPDATE crm_users
+        $query_two = $this->db->prepare("UPDATE Crm_Users
                                             SET user_password_reset_hash = :user_password_reset_hash,
                                                 user_password_reset_timestamp = :user_password_reset_timestamp
                                           WHERE user_name = :user_name AND user_provider_type = :provider_type");
@@ -439,7 +439,7 @@ class LoginModel
     {
         // check if user-provided username + verification code combination exists
         $query = $this->db->prepare("SELECT user_id, user_password_reset_timestamp
-                                       FROM crm_users
+                                       FROM Crm_Users
                                       WHERE user_name = :user_name
                                         AND user_password_reset_hash = :user_password_reset_hash
                                         AND user_provider_type = :user_provider_type");

@@ -13,7 +13,7 @@ class BillsModel {
 	// 新增bills
 	public function insert($shop_id,$customer_id,$pay_mothed,$cash,$go_coin,$type,$amount,$create_time,$app_user_id,$lakala_order_no) {
 			// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_bills where lakala_order_no = :lakala_order_no" );
+		$query = $this->db->prepare ( " select *  from Crm_Bills where lakala_order_no = :lakala_order_no" );
 		$query->execute ( array (
 ':lakala_order_no' => $lakala_order_no
 		) );
@@ -23,7 +23,7 @@ class BillsModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into crm_bills(lakala_order_no,shop_id,customer_id,pay_mothed,cash,go_coin,type,amount,create_time,app_user_id) values (:lakala_order_no,:shop_id,:customer_id,:pay_mothed,:cash,:go_coin,:type,:amount,:create_time,:app_user_id)";
+		$sql = "insert into Crm_Bills(lakala_order_no,shop_id,customer_id,pay_mothed,cash,go_coin,type,amount,create_time,app_user_id) values (:lakala_order_no,:shop_id,:customer_id,:pay_mothed,:cash,:go_coin,:type,:amount,:create_time,:app_user_id)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
@@ -45,7 +45,7 @@ class BillsModel {
 		
 		// 获取ID
 		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-		$query = $this->db->prepare ( " select id from crm_bills where lakala_order_no = :lakala_order_no" );
+		$query = $this->db->prepare ( " select id from Crm_Bills where lakala_order_no = :lakala_order_no" );
 		$query->execute ( array (
 ':lakala_order_no' => $lakala_order_no
 		) );
@@ -64,7 +64,7 @@ class BillsModel {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = "select bills.*,crm_gogo_customers.username,crm_gogo_customers.mobile from (select * from (select id,shop_id,customer_id,pay_mothed,cash,go_coin,type,amount,create_time from crm_bills where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( pay_mothed = :pay_mothed or :pay_mothed=0 )  and  ( cash = :cash or :cash='' )  and  ( go_coin = :go_coin or :go_coin=0 )  and  ( type = :type or :type=0 )  and  ( amount = :amount or :amount='' )  and  ( create_time = :create_time or :create_time=0 ) order by create_time desc ) a  limit $lastpagenum,$pagesize ) bills left join crm_gogo_customers on crm_gogo_customers.id = bills.customer_id" ;
+		$sql = "select bills.*,Crm_Gogo_Customers.username,Crm_Gogo_Customers.mobile from (select * from (select id,shop_id,customer_id,pay_mothed,cash,go_coin,type,amount,create_time from Crm_Bills where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( pay_mothed = :pay_mothed or :pay_mothed=0 )  and  ( cash = :cash or :cash='' )  and  ( go_coin = :go_coin or :go_coin=0 )  and  ( type = :type or :type=0 )  and  ( amount = :amount or :amount='' )  and  ( create_time = :create_time or :create_time=0 ) order by create_time desc ) a  limit $lastpagenum,$pagesize ) bills left join Crm_Gogo_Customers on Crm_Gogo_Customers.id = bills.customer_id" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
@@ -78,7 +78,7 @@ class BillsModel {
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_bills where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( pay_mothed = :pay_mothed or :pay_mothed=0 )  and  ( cash = :cash or :cash='' )  and  ( go_coin = :go_coin or :go_coin=0 )  and  ( type = :type or :type=0 )  and  ( amount = :amount or :amount='' )  and  ( create_time = :create_time or :create_time=0 ) " );
+		$query = $this->db->prepare ( " select count(*)  from Crm_Bills where  ( shop_id = :shop_id or :shop_id=0 )  and  ( customer_id = :customer_id or :customer_id=0 )  and  ( pay_mothed = :pay_mothed or :pay_mothed=0 )  and  ( cash = :cash or :cash='' )  and  ( go_coin = :go_coin or :go_coin=0 )  and  ( type = :type or :type=0 )  and  ( amount = :amount or :amount='' )  and  ( create_time = :create_time or :create_time=0 ) " );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,

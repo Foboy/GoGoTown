@@ -13,7 +13,7 @@ class LogsModel {
 	// 新增logs
 	public function insert($type,$content,$target,$create_time) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_logs where type = :type and content = :content and target = :target and create_time = :create_time" );
+		$query = $this->db->prepare ( " select *  from Crm_Logs where type = :type and content = :content and target = :target and create_time = :create_time" );
 		$query->execute ( array (
 ':type' => $type,
                    ':content' => $content,
@@ -26,7 +26,7 @@ class LogsModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into crm_logs(type,content,target,create_time) values (:type,:content,:target,:create_time)";
+		$sql = "insert into Crm_Logs(type,content,target,create_time) values (:type,:content,:target,:create_time)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':type' => $type,
@@ -42,7 +42,7 @@ class LogsModel {
 		
 		// 获取ID
 		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-		$query = $this->db->prepare ( " select id from crm_logs where type = :type and content = :content and target = :target and create_time = :create_time" );
+		$query = $this->db->prepare ( " select id from Crm_Logs where type = :type and content = :content and target = :target and create_time = :create_time" );
 		$query->execute ( array (
 ':type' => $type,
                    ':content' => $content,
@@ -60,7 +60,7 @@ class LogsModel {
 	}
 	// 修改logs
 	public function update($id,$type,$content,$target,$create_time) {
-		$sql = " update crm_logs set type = :type,content = :content,target = :target,create_time = :create_time where id = :id";
+		$sql = " update Crm_Logs set type = :type,content = :content,target = :target,create_time = :create_time where id = :id";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':id' => $id,
@@ -78,7 +78,7 @@ class LogsModel {
 	}
 	// 根据ID删除logs
 	public function delete($id) {
-		$sql = " delete from crm_logs where id = :id ";
+		$sql = " delete from Crm_Logs where id = :id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':id' => $id 
@@ -95,7 +95,7 @@ class LogsModel {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = " select id,type,content,target,create_time from crm_logs where  ( type = :type or :type=0 )  and  ( content = :content or :content='' )  and  ( target = :target or :target='' )  and  ( create_time = :create_time or :create_time=0 )  limit $lastpagenum,$pagesize" ;
+		$sql = " select id,type,content,target,create_time from Crm_Logs where  ( type = :type or :type=0 )  and  ( content = :content or :content='' )  and  ( target = :target or :target='' )  and  ( create_time = :create_time or :create_time=0 )  limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':type' => $type,
@@ -105,7 +105,7 @@ class LogsModel {
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_logs where  ( type = :type or :type=0 )  and  ( content = :content or :content='' )  and  ( target = :target or :target='' )  and  ( create_time = :create_time or :create_time=0 ) " );
+		$query = $this->db->prepare ( " select count(*)  from Crm_Logs where  ( type = :type or :type=0 )  and  ( content = :content or :content='' )  and  ( target = :target or :target='' )  and  ( create_time = :create_time or :create_time=0 ) " );
 		$query->execute ( array (
 ':type' => $type,
                    ':content' => $content,

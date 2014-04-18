@@ -15,7 +15,7 @@ class MessageSendListModel {
 	public function insert($customer_id,$shop_id,$message_id,$title,$content,$state,$type) {
 		$create_time=time();
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_message_send_list where customer_id = :customer_id and shop_id = :shop_id and message_id = :message_id and type = :type" );
+		$query = $this->db->prepare ( " select *  from Crm_Message_Send_List where customer_id = :customer_id and shop_id = :shop_id and message_id = :message_id and type = :type" );
 		$query->execute ( array (
 ':customer_id' => $customer_id,
                    ':shop_id' => $shop_id,
@@ -28,7 +28,7 @@ class MessageSendListModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into crm_message_send_list(customer_id,shop_id,message_id,title,content,create_time,state,type) values (:customer_id,:shop_id,:message_id,:title,:content,:create_time,:state,:type)";
+		$sql = "insert into Crm_Message_Send_List(customer_id,shop_id,message_id,title,content,create_time,state,type) values (:customer_id,:shop_id,:message_id,:title,:content,:create_time,:state,:type)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':customer_id' => $customer_id,
@@ -48,7 +48,7 @@ class MessageSendListModel {
 		
 		// 获取ID
 		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-		$query = $this->db->prepare ( " select id from crm_message_send_list where customer_id = :customer_id and shop_id = :shop_id and message_id = :message_id and title = :title and content = :content and create_time = :create_time  and state = :state and type = :type" );
+		$query = $this->db->prepare ( " select id from Crm_Message_Send_List where customer_id = :customer_id and shop_id = :shop_id and message_id = :message_id and title = :title and content = :content and create_time = :create_time  and state = :state and type = :type" );
 		$query->execute ( array (
 ':customer_id' => $customer_id,
                    ':shop_id' => $shop_id,
@@ -70,7 +70,7 @@ class MessageSendListModel {
 	}
 	// 修改message_send_list
 	public function update($id,$customer_id,$shop_id,$message_id,$title,$content,$create_time,$read_time,$state,$type) {
-		$sql = " update crm_message_send_list set customer_id = :customer_id,shop_id = :shop_id,message_id = :message_id,title = :title,content = :content,create_time = :create_time,read_time = :read_time,state = :state,type = :type where id = :id";
+		$sql = " update Crm_Message_Send_List set customer_id = :customer_id,shop_id = :shop_id,message_id = :message_id,title = :title,content = :content,create_time = :create_time,read_time = :read_time,state = :state,type = :type where id = :id";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':id' => $id,
@@ -93,7 +93,7 @@ class MessageSendListModel {
 	}
 	// 根据ID删除message_send_list
 	public function delete($id) {
-		$sql = " delete from crm_message_send_list where id = :id ";
+		$sql = " delete from Crm_Message_Send_List where id = :id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':id' => $id 
@@ -110,7 +110,7 @@ class MessageSendListModel {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = " select id,customer_id,shop_id,message_id,title,content,create_time,read_time,state,type from crm_message_send_list where  ( customer_id = :customer_id or :customer_id=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( message_id = :message_id or :message_id=0 )  and  ( title = :title or :title='' )  and  ( content = :content or :content='' )  and  ( create_time = :create_time or :create_time=0 )  and  ( read_time = :read_time or :read_time=0 )  and  ( state = :state or :state=0 )  and  ( type = :type or :type=0 )  limit $lastpagenum,$pagesize" ;
+		$sql = " select id,customer_id,shop_id,message_id,title,content,create_time,read_time,state,type from Crm_Message_Send_List where  ( customer_id = :customer_id or :customer_id=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( message_id = :message_id or :message_id=0 )  and  ( title = :title or :title='' )  and  ( content = :content or :content='' )  and  ( create_time = :create_time or :create_time=0 )  and  ( read_time = :read_time or :read_time=0 )  and  ( state = :state or :state=0 )  and  ( type = :type or :type=0 )  limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':customer_id' => $customer_id,
@@ -125,7 +125,7 @@ class MessageSendListModel {
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from crm_message_send_list where  ( customer_id = :customer_id or :customer_id=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( message_id = :message_id or :message_id=0 )  and  ( title = :title or :title='' )  and  ( content = :content or :content='' )  and  ( create_time = :create_time or :create_time=0 )  and  ( read_time = :read_time or :read_time=0 )  and  ( state = :state or :state=0 )  and  ( type = :type or :type=0 ) " );
+		$query = $this->db->prepare ( " select count(*)  from Crm_Message_Send_List where  ( customer_id = :customer_id or :customer_id=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( message_id = :message_id or :message_id=0 )  and  ( title = :title or :title='' )  and  ( content = :content or :content='' )  and  ( create_time = :create_time or :create_time=0 )  and  ( read_time = :read_time or :read_time=0 )  and  ( state = :state or :state=0 )  and  ( type = :type or :type=0 ) " );
 		$query->execute ( array (
 ':customer_id' => $customer_id,
                    ':shop_id' => $shop_id,
