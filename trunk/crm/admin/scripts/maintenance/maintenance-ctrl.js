@@ -102,10 +102,13 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
             'fileTypeDesc': 'Web Image Files (.JPG, .GIF, .PNG)',
             onUploadSuccess: function (fileObj, data, response) {
                 if (response) {
-                  /*  $("#imagezone").attr('src',"upload/" + $.trim(data));
+                    $.scojs_message('上传完成!', $.scojs_message.TYPE_OK);
+                    $("#imagezone").attr('src', "upload/" + $.trim(data));
                     $scope.$apply(function () {
                         $scope.showing = true;
-                    });*/
+                    });
+                } else {
+                    $.scojs_message('服务器忙，请稍后重试!', $.scojs_message.TYPE_ERROR);
                 }
             }
         });

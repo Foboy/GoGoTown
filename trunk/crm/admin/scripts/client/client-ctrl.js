@@ -264,6 +264,34 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
 
 //发送信息scope
 function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
+    $scope.UpLoadImage = function () {
+        $('#file_upload').uploadify({
+            'swf': 'js/plugins/uploadify/uploadify.swf',
+            'uploader': $resturls['UpLoadImage'],
+            'buttonText': '',
+            'width': 91,
+            'height': 91,
+            'buttonClass': 'img-thumbnail upload_btn_css',
+            'fileSizeLimit': '1024kB',
+            'fileTypeExts': '*.jpg;*.gif;*.png',
+            'fileTypeDesc': 'Web Image Files (.JPG, .GIF, .PNG)',
+            onUploadSuccess: function (fileObj, data, response) {
+                if (response) {
+                    $.scojs_message('上传完成!', $.scojs_message.TYPE_OK);
+                    $("#imagezone").attr('src', "upload/" + $.trim(data));
+                    $scope.$apply(function () {
+                        $scope.showing = true;
+                    });
+                } else {
+                    $.scojs_message('服务器忙，请稍后重试!', $.scojs_message.TYPE_ERROR);
+                }
+            }
+        });
+    }
+    $scope.DeleteUpLoadImage = function () {
+        $scope.showing = false;
+    }
+    $scope.UpLoadImage();
     $scope.SendMessage = function (data) {
         if ($scope.SendMessageForm.$valid) {
             $scope.showerror = false;

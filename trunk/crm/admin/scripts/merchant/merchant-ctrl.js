@@ -103,7 +103,7 @@ function AddMemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturl
     }
 }
 
-function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $resturls) {
+function AuthorityManagementCtrl($scope, $rootScope, $http, $location, $routeParams, $resturls) {
     var $parent = $scope.$parent;
     $scope.sorts = $routeParams.sorts;
     if (!$scope.sorts) {
@@ -149,7 +149,7 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
             $scope.UserAccount = { user_id: 0, Type: usertype };
         }
         $("#AddUsermodal").modal("show");
-
+        $rootScope.$broadcast("ShowAddUserAccountModalEvent");
     }
     //弹出修改用户账号密码窗口
     $scope.ShowRestUserAccountPwdModal = function (data) {
@@ -165,6 +165,9 @@ function AuthorityManagementCtrl($scope, $http, $location, $routeParams, $restur
 }
 
 function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
+    $scope.$on("ShowAddUserAccountModalEvent", function () {
+        $scope.showerror = false;
+    });
     //添加账户
     $scope.AddUserAccount = function (data) {
         if ($scope.AddUserAccountForm.$valid) {
@@ -182,7 +185,6 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
         } else {
             $scope.showerror = true;
         }
-        console.log($scope.AddUserAccountForm.$setPristine());
     }
    
     //编辑用户账号

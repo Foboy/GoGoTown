@@ -34,22 +34,22 @@ class UpLoad extends Controller {
 			$fileParts = pathinfo ( $_FILES ['Filedata'] ['name'] );
 			if (in_array ( $fileParts ['extension'], $fileTypes )) {
 				move_uploaded_file ( $tempFile, $targetFile );
-				/* echo $fileName; */
+			    echo $fileName; 
 			} else {
 				echo 'Invalid file type.';
 			}
 			
-			$url="http://localhost:8080/GoGoTown/trunk/crm/app.php";
+            //$url="http://localhost:8080/GoGoTown/trunk/crm/app.php";
 			/* $data = array(
 					'filepath'  => @$targetFile,
 					'filename'=>@$fileName
 			); */
-			$cfile = new CURLFile($targetFile,$fileParts ['extension'],'name');
-			$data= array(
-				'id'=>123,
-				'file'=>$cfile
-			);
-			UpLoad::uploadByCURL($data,$url);
+            //$cfile = new CURLFile($targetFile,$fileParts ['extension'],'name');
+            //$data= array(
+            //    'id'=>123,
+            //    'file'=>$cfile
+            //);
+            //UpLoad::uploadByCURL($data,$url);
 		}
 	}
 	
