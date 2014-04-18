@@ -1,6 +1,4 @@
-
 <?php
-print_r($_FILES);
  $uploaddir = 'F:/test/';
 $uploadfile = $uploaddir .time().'.'.$_FILES['file']['type'] ;
 if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
