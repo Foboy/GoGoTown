@@ -50,10 +50,9 @@ class user extends Controller
     {
     	//sleep(6);
     	$result = new DataResult ();
-
+        $result->Data =array();
     	$login_model = $this->loadModel('Users');
     	$login_successful = $login_model->login();
-    	$result->Data=$login_successful;
     	if ($login_successful) {
     		if($_SESSION ['user_type']!=UserType::ShopApp)
     		{

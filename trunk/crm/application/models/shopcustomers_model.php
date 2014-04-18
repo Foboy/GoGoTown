@@ -14,12 +14,11 @@ class ShopCustomersModel {
 	// 新增shop_customers
 	public function insert($shop_id,$customer_id,$from_type,$type,$create_time) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from crm_shop_customers where shop_id = :shop_id and customer_id = :customer_id and from_type = :from_type and type = :type " );
+		$query = $this->db->prepare ( " select *  from crm_shop_customers where shop_id = :shop_id and customer_id = :customer_id and from_type = :from_type" );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
                    ':customer_id' => $customer_id,
-                   ':from_type' => $from_type,
-                   ':type' => $type
+                   ':from_type' => $from_type
 		) );
 		$count = $query->rowCount ();
 		if ($count > 0) {
@@ -182,8 +181,8 @@ from
 		
 		return $result;
 	}
-	// 分页查询有消费记录GOGO客户shop_customers $type 1:公海客户 2：销售机会 3：有消费记录gogo客户
-	public function searchGOGOCustomerByPages($shop_id,$name,$sex,$phone,$type,$rank_id, $pageindex, $pagesize) {
+	//查询公海客户
+	public function searchPCustomerByPages($shop_id,$name,$sex,$phone,$type,$rank_id, $pageindex, $pagesize) {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		if(empty($name))
@@ -209,21 +208,11 @@ from
         aa . *, bb . *
     from
         (select 
-        a.Customer_ID, from_type, type, create_time
-    from
-        (select 
-        *
-    from
-        crm_shop_customers
-    where
-        shop_id = :shop_id and from_type = 2
-            and type = :type) a
-    left join (select 
-        *
+        shop_id,customer_id,times,last_time,sys_time update_time
     from
         Crm_PShop_Customers
     where
-        shop_id = :shop_id) b ON a.Customer_ID = b.customer_id) aa
+        shop_id = :shop_id) aa
     left join Crm_Gogo_Customers bb ON aa.Customer_ID = bb.id) cc
         left join
     (select 
@@ -234,7 +223,8 @@ from
     where
         cr.Shop_ID = :shop_id) dd ON cc.Customer_ID = dd.ccid 
         where ($name or $phone) and (cc.sex = :sex or 0=:sex) and (dd.rank_id=:rank_id or :rank_id=0)
-		order by cc.create_time limit $lastpagenum,$pagesize" ;
+		order by cc.update_time desc limit $lastpagenum,$pagesize" ;
+		//print $sql;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':shop_id' => $shop_id,
@@ -251,30 +241,21 @@ from
         aa . *, bb . *
     from
         (select 
-        a.Customer_ID cid, from_type, type, create_time
-    from
-        (select 
-        *
-    from
-        crm_shop_customers
-    where
-        shop_id = :shop_id and from_type = 2
-            and type = :type) a
-    left join (select 
-        *
+        shop_id,customer_id,times,last_time,sys_time update_time
     from
         Crm_PShop_Customers
     where
-        shop_id = :shop_id) b ON a.Customer_ID = b.customer_id) aa
-    left join Crm_Gogo_Customers bb ON aa.cid = bb.id) cc
+        shop_id = :shop_id) aa
+    left join Crm_Gogo_Customers bb ON aa.Customer_ID = bb.id) cc
         left join
     (select 
-        cr.Customer_ID, cr.rank_id, crs.Name
+        cr.Customer_ID ccid, cr.rank_id, crs.Name shoprankname
     from
         Crm_Rank cr
     left join Crm_Rank_Set crs ON cr.rank_id = crs.ID
     where
-        cr.Shop_ID = :shop_id) dd ON cc.cid = dd.Customer_ID  where ($name or $phone) and (cc.sex = :sex or 0=:sex) and (dd.rank_id=:rank_id or :rank_id=0) " );
+        cr.Shop_ID = :shop_id) dd ON cc.Customer_ID = dd.ccid 
+        where ($name or $phone) and (cc.sex = :sex or 0=:sex) and (dd.rank_id=:rank_id or :rank_id=0)" );
 		$query->execute ( array (
 				':shop_id' => $shop_id,
 				':type' => $type,
@@ -289,6 +270,107 @@ from
 		$result->totalcount = $totalcount;
 	
 		return $result;
+	}
+	
+	// 分页查询有消费记录GOGO客户shop_customers $type 1:公海客户 2：销售机会 3：有消费记录gogo客户
+	public function searchGOGOCustomerByPages($shop_id,$name,$sex,$phone,$type,$rank_id, $pageindex, $pagesize) {
+		$result = new PageDataResult ();
+		$lastpagenum = $pageindex*$pagesize;
+		if(empty($name))
+		{
+			$name= "  1=1  ";
+		}else
+		{
+			$name=" cc.username like '%".$name."%' ";
+		}
+		if(empty($phone))
+		{
+			$phone= "  1=1  ";
+		}else
+		{
+			$phone=" cc.mobile like '%".$phone."%'  ";
+		}
+	
+	
+		$sql = " select
+		*
+		from
+		(select
+		aa . *, bb . *
+		from
+		(select
+		a.Customer_ID, from_type, type, create_time
+		from
+		(select
+		*
+		from
+		crm_shop_customers
+		where
+		shop_id = :shop_id and from_type = 2
+		and type = 3) a
+		) aa
+		left join Crm_Gogo_Customers bb ON aa.Customer_ID = bb.id) cc
+		left join
+		(select
+		cr.Customer_ID ccid, cr.rank_id, crs.Name shoprankname
+		from
+		Crm_Rank cr
+		left join Crm_Rank_Set crs ON cr.rank_id = crs.ID
+		where
+		cr.Shop_ID = :shop_id) dd ON cc.Customer_ID = dd.ccid
+		where ($name or $phone) and (cc.sex = :sex or 0=:sex) and (dd.rank_id=:rank_id or :rank_id=0)
+		order by cc.create_time limit $lastpagenum,$pagesize" ;
+		//print $sql;
+		$query = $this->db->prepare ( $sql );
+				$query->execute ( array (
+				':shop_id' => $shop_id,
+				':type' => $type,
+				':sex' => $sex,
+				':rank_id'=>$rank_id
+		) );
+		$objects = $query->fetchAll ();
+	
+		$query = $this->db->prepare ( " select
+    count(*)
+				from
+				(select
+						aa . *, bb . *
+						from
+						(select
+						a.Customer_ID cid, from_type, type, create_time
+						from
+						(select
+								*
+								from
+								crm_shop_customers
+								where
+								shop_id = :shop_id and from_type = 2
+								and type = :type) a
+								) aa
+								left join Crm_Gogo_Customers bb ON aa.cid = bb.id) cc
+								left join
+								(select
+								cr.Customer_ID, cr.rank_id, crs.Name
+								from
+								Crm_Rank cr
+								left join Crm_Rank_Set crs ON cr.rank_id = crs.ID
+								where
+								cr.Shop_ID = :shop_id) dd ON cc.cid = dd.Customer_ID  where ($name or $phone) and (cc.sex = :sex or 0=:sex) and (dd.rank_id=:rank_id or :rank_id=0) " );
+								$query->execute ( array (
+								':shop_id' => $shop_id,
+								':type' => $type,
+								':sex' => $sex,
+								':rank_id'=>$rank_id
+						) );
+								
+								$totalcount = $query->fetchColumn ( 0 );
+	
+								$result->pageindex = $pageindex;
+								$result->pagesize = $pagesize;
+		$result->Data = $objects;
+			$result->totalcount = $totalcount;
+	
+						return $result;
 	}
 	
     //查询全部shop_customers
@@ -319,30 +401,43 @@ from
 	//根据实际查询商户客户数量
 	public function getCustomerCount($shop_id,$stime,$etime) {
 		$result = new DataResult ();
-	
-		$query = $this->db->prepare ( "select 
+		
+		$time1="";
+		$time2="";
+		$time3="";
+
+		
+		if(!empty($stime))
+		{
+			$time1=" and a.last_time between $stime and $etime ";
+			$time2=" and a.create_time between $stime and $etime ";
+			$time3=" and a.create_time between $stime and $etime ";
+		}
+	$sql= "select 
     (SELECT 
             count(*) 
         FROM
-            gogotowncrm.Crm_Shop_Customers a
+                 gogotowncrm.Crm_PShop_Customers a
         where
-            a.From_Type = 2 and a.type = 1 and a.Shop_ID=:shop_id
-                and a.create_time between :stime and :etime) mshop_num,
+           a.Shop_ID=:shop_id
+               $time1  ) mshop_num,
     (SELECT 
             count(*) 
         FROM
             gogotowncrm.Crm_Shop_Customers a
         where
             a.From_Type = 2 and a.type = 2 and a.Shop_ID=:shop_id
-                and a.create_time between :stime and :etime) chance_num,
+                $time2) chance_num,
     (SELECT 
             count(*) 
         FROM
             gogotowncrm.Crm_Shop_Customers a
         where
             a.From_Type = 2 and a.type = 3 and a.Shop_ID=:shop_id
-                and a.create_time between :stime and :etime) private_gogo_num
-from dual " );
+                $time3 ) private_gogo_num
+from dual " ;
+		$query = $this->db->prepare ($sql);
+		//print $sql;
 		$query->execute ( array (
 				':shop_id' => $shop_id,
 				':stime' => $stime,
