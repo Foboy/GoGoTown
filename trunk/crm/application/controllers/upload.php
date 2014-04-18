@@ -17,6 +17,7 @@ class UpLoad extends Controller {
 	public function UpLoadImage() {
 		$targetFolder = '/GoGoTown/trunk/crm/admin/upload'; // Relative to the root
 		if (! empty ( $_FILES )) {
+			print_r($_FILES);
 			$tempFile = $_FILES ['Filedata'] ['tmp_name'];
 			$targetPath = $_SERVER ['DOCUMENT_ROOT'] . $targetFolder;
 			if (! file_exists ( $targetPath )) {
@@ -33,24 +34,30 @@ class UpLoad extends Controller {
 			); // File extensions
 			$fileParts = pathinfo ( $_FILES ['Filedata'] ['name'] );
 			if (in_array ( $fileParts ['extension'], $fileTypes )) {
-				move_uploaded_file ( $tempFile,iconv('UTF-8', 'gb2312', $targetFile)  );
-			    echo $fileName; 
+				move_uploaded_file ( $tempFile,iconv('UTF-8', 'gb2312', $targetFile));
+			    //echo $fileName; 
 			} else {
 				echo 'Invalid file type.';
 			}
-			/* $c=realpath($targetFile);
-			print_r($c); */
-         	 /* $url="http://192.168.0.47/Api32/GoCurrency/uploadImg";
-			$data = array(
+			$src=realpath($targetFile);
+			
+         	/* $url="http://192.168.0.47/Api32/GoCurrency/uploadImg"; */
+         	$url="http://localhost:8080/GoGoTown/trunk/crm/app.php";
+			/* $data = array(
 					'filepath'  => @$targetFile,
-					'filename'=>'@'.$c
-			);
+					'filename'=>'@'.$src
+			); */
             $cfile = new CURLFile($targetFile,$fileParts ['extension'],'name');
             $data= array(
-                'file'=>$cfile
+                'fileObjName'=>$cfile
             );
-            UpLoad::uploadByCURL($data,$url); */
+            UpLoad::uploadByCURL($data,$url);
 		}
+	}
+	
+	public function  TestUpLoadImg(){
+		
+		
 	}
 	
 	/**
@@ -113,6 +120,6 @@ class UpLoad extends Controller {
 		$result = curl_exec ( $curl );
 		$error = curl_error($curl);
 		curl_close($curl);
-		/* print_r($result); */
+		 print_r($result);
 	}
 }

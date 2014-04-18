@@ -50,7 +50,7 @@
                 if (mshopnum == 0 && chancenum == 0 && gogonum == 0) {
                     $scope.displaySalesFunnel([1, 0, 0]);
                 } else {
-                    $scope.displaySalesFunnel([mshopnum, rchancenum, gogonum]);
+                    $scope.displaySalesFunnel([mshopnum*1, chancenum*1, gogonum*1]);
                 }
             } else {
                 $scope.displaySalesFunnel([1, 0, 0]);

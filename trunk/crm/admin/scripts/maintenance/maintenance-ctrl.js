@@ -58,7 +58,6 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
     $scope.SendMessage = function (data, message) {
         if (data) {
             if (data.length > 0) {
-                debugger;
                 var customerids = "";
                 for (var i = 0; i < data.length; i++) {
                     customerids = data[i].Customer_ID + ',' + customerids;
@@ -88,11 +87,11 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
             return;
         }
     }
-
+  //  $resturls['UpLoadImage']
     $scope.UpLoadImage = function () {
         $('#file_upload').uploadify({
             'swf': 'js/plugins/uploadify/uploadify.swf',
-            'uploader': $resturls['UpLoadImage'],
+            'uploader': 'http://192.168.0.47/Api32/GoCurrency/uploadImg',
             'buttonText': '',
             'width': 91,
             'height':91,
