@@ -307,13 +307,8 @@ from
 		crm_shop_customers
 		where
 		shop_id = :shop_id and from_type = 2
-		and type = :type) a
-		left join (select
-		*
-		from
-		Crm_PShop_Customers
-		where
-		shop_id = :shop_id) b ON a.Customer_ID = b.customer_id) aa
+		and type = 3) a
+		) aa
 		left join Crm_Gogo_Customers bb ON aa.Customer_ID = bb.id) cc
 		left join
 		(select
@@ -325,6 +320,7 @@ from
 		cr.Shop_ID = :shop_id) dd ON cc.Customer_ID = dd.ccid
 		where ($name or $phone) and (cc.sex = :sex or 0=:sex) and (dd.rank_id=:rank_id or :rank_id=0)
 		order by cc.create_time limit $lastpagenum,$pagesize" ;
+		//print $sql;
 		$query = $this->db->prepare ( $sql );
 				$query->execute ( array (
 				':shop_id' => $shop_id,
@@ -350,12 +346,7 @@ from
 								where
 								shop_id = :shop_id and from_type = 2
 								and type = :type) a
-								left join (select
-								*
-								from
-								Crm_PShop_Customers
-								where
-								shop_id = :shop_id) b ON a.Customer_ID = b.customer_id) aa
+								) aa
 								left join Crm_Gogo_Customers bb ON aa.cid = bb.id) cc
 								left join
 								(select
@@ -371,6 +362,7 @@ from
 								':sex' => $sex,
 								':rank_id'=>$rank_id
 						) );
+								
 								$totalcount = $query->fetchColumn ( 0 );
 	
 								$result->pageindex = $pageindex;
