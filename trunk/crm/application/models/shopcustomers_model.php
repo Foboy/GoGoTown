@@ -401,30 +401,43 @@ from
 	//根据实际查询商户客户数量
 	public function getCustomerCount($shop_id,$stime,$etime) {
 		$result = new DataResult ();
-	
-		$query = $this->db->prepare ( "select 
+		
+		$time1="";
+		$time2="";
+		$time3="";
+
+		
+		if(!empty($stime))
+		{
+			$time1=" and a.last_time between $stime and $etime ";
+			$time2=" and a.create_time between $stime and $etime ";
+			$time3=" and a.create_time between $stime and $etime ";
+		}
+	$sql= "select 
     (SELECT 
             count(*) 
         FROM
                  gogotowncrm.Crm_PShop_Customers a
         where
            a.Shop_ID=:shop_id
-                and a.last_time between :stime and :etime) mshop_num,
+               $time1  ) mshop_num,
     (SELECT 
             count(*) 
         FROM
             gogotowncrm.Crm_Shop_Customers a
         where
             a.From_Type = 2 and a.type = 2 and a.Shop_ID=:shop_id
-                and a.create_time between :stime and :etime) chance_num,
+                $time2) chance_num,
     (SELECT 
             count(*) 
         FROM
             gogotowncrm.Crm_Shop_Customers a
         where
             a.From_Type = 2 and a.type = 3 and a.Shop_ID=:shop_id
-                and a.create_time between :stime and :etime) private_gogo_num
-from dual " );
+                $time3 ) private_gogo_num
+from dual " ;
+		$query = $this->db->prepare ($sql);
+		print $sql;
 		$query->execute ( array (
 				':shop_id' => $shop_id,
 				':stime' => $stime,
