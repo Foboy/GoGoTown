@@ -34,7 +34,7 @@ CREATE TABLE `Crm_area_district` (
   `picture_id` int(11) NOT NULL,
   `sort` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `Crm_area_district` (
 
 LOCK TABLES `Crm_area_district` WRITE;
 /*!40000 ALTER TABLE `Crm_area_district` DISABLE KEYS */;
+INSERT INTO `Crm_area_district` VALUES (1,'万达广场','佛挡杀佛',1,1,1,1,1),(2,'春熙路','第三方打算',1,1,1,1,1);
 /*!40000 ALTER TABLE `Crm_area_district` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-17 15:19:31
+-- Dump completed on 2014-04-18 17:27:47
