@@ -276,9 +276,10 @@ function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
             'fileTypeExts': '*.jpg;*.gif;*.png',
             'fileTypeDesc': 'Web Image Files (.JPG, .GIF, .PNG)',
             onUploadSuccess: function (fileObj, data, response) {
-                if (response) {
+                var result = $.parseJSON(data);
+                if (result.status == 1) {
                     $.scojs_message('上传完成!', $.scojs_message.TYPE_OK);
-                    $("#imagezone").attr('src', "upload/" + $.trim(data));
+                    $("#imagezone").attr('src', $.trim(result.data.uploadResult.url));
                     $scope.$apply(function () {
                         $scope.showing = true;
                     });
