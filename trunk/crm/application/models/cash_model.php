@@ -7,7 +7,7 @@ class CashModel
 		require 'libs/phprpc/phprpc_client.php';
 		$rpc_client = new PHPRPC_Client();
 		$rpc_client->setProxy(NULL);
-		$rpc_client->useService('http://192.168.8.110/phprpctest.php');
+		$rpc_client->useService('http://192.168.0.47/Api32/GoCurrency');
 		//$rpc_client->setKeyLength(1024);
 		//$rpc_client->setEncryptMode(3);
 		return $rpc_client;
@@ -17,7 +17,7 @@ class CashModel
 		/*
 		$rpc_client = $this->getrpcclient();
 		$name = array($phone);
-		return $rpc_client->invoke('hello',$name);
+		return $rpc_client->invoke('getBalance',$name);
 		*/
 
 		if($phone == "15882323654")
