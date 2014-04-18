@@ -33,23 +33,24 @@ class UpLoad extends Controller {
 			); // File extensions
 			$fileParts = pathinfo ( $_FILES ['Filedata'] ['name'] );
 			if (in_array ( $fileParts ['extension'], $fileTypes )) {
-				move_uploaded_file ( $tempFile,iconv('UTF-8', 'gb2312', $targetFile)  );
-			    echo $fileName; 
+				if(move_uploaded_file ( $tempFile, iconv ( 'UTF-8', 'gb2312', $targetFile ) )){
+					
+					$src = realpath (iconv ( 'UTF-8', 'gb2312', $targetFile ));
+					$url = "http://192.168.0.47/Api32/GoCurrency/uploadImg";
+					$data = array (
+							'file' => '@' . $src ,
+							'fileObjName'=>'file'
+					);
+					UpLoad::UploadByCURL ( $data, $url ); 
+				}
 			} else {
 				echo 'Invalid file type.';
 			}
-			/* $c=realpath($targetFile);
-			print_r($c); */
-         	 /* $url="http://192.168.0.47/Api32/GoCurrency/uploadImg";
-			$data = array(
-					'filepath'  => @$targetFile,
-					'filename'=>'@'.$c
-			);
-            $cfile = new CURLFile($targetFile,$fileParts ['extension'],'name');
-            $data= array(
-                'file'=>$cfile
-            );
-            UpLoad::uploadByCURL($data,$url); */
+			
+			/*php 5.5 $cfile = new CURLFile ( $targetFile, $fileParts ['extension'], 'name' );
+			$data = array (
+					'file' => $cfile 
+			); */
 		}
 	}
 	
@@ -103,7 +104,7 @@ class UpLoad extends Controller {
 	}
 	
 	/* 手动post提交 */
-	private function uploadByCURL($post_data, $post_url) {
+	private function UploadByCURL($post_data, $post_url) {
 		$curl = curl_init ();
 		curl_setopt ( $curl, CURLOPT_URL, $post_url );
 		curl_setopt ( $curl, CURLOPT_POST, 1 );
@@ -111,8 +112,8 @@ class UpLoad extends Controller {
 		curl_setopt ( $curl, CURLOPT_RETURNTRANSFER, 1 );
 		curl_setopt ( $curl, CURLOPT_USERAGENT, "Mozilla/5.0" );
 		$result = curl_exec ( $curl );
-		$error = curl_error($curl);
-		curl_close($curl);
-		/* print_r($result); */
+		$error = curl_error ( $curl );
+		curl_close ( $curl );
+		print_r($result);
 	}
 }
