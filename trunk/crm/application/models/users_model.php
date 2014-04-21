@@ -166,7 +166,7 @@ class UsersModel {
 		) );
 		//print json_encode($sth->fetch());
 		//print_r($sth->fetch ());
-		$count = $sth->columnCount();
+		$count = $sth->rowCount();
 		
 		// if there's NOT one result
 		if ($count <= 0) {

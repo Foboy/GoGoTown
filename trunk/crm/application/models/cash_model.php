@@ -20,7 +20,7 @@ class CashModel
 		return $rpc_client->invoke('getBalance',$name);
 		*/
 
-		if($phone == "15882323654")
+		if(true)
 		{
 			$result = json_decode('{"status":1,"info":"version:3.2","data":{"balance":{"balance":500,"name":"Mr. Zhang","limit":400,"proportion":0.8,"id":2,"hash":""}}}');
 			
@@ -41,5 +41,14 @@ class CashModel
 		*/
 		$result = json_decode('{"status":1,"info":"version:3.2","data":[{"name":"衣服","id":1},{"name":"裤子","id":2},{"name":"鞋子","id":3},{"name":"帽子","id":4},{"name":"其他","id":5}]}');
 		return  $result;
+	}
+	
+	public function sendValidCode($phone,$code)
+	{
+		if($phone == "15882323654")
+			return;
+		$rpc_client = $this->getrpcclient();
+		$name = array($phone,$code);
+		return $rpc_client->invoke('sendSms',$name);
 	}
 }

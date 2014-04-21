@@ -101,6 +101,12 @@ class Login extends Controller
         }
     }
 
+    function rpctest()
+    {
+    	$cash_model = $this->loadModel('Cash');
+    	$cash_model->sendValidCode("15882323654","878235");
+    }
+    
     /**
      * The logout action, login/logout
      */
