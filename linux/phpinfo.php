@@ -1,0 +1,4 @@
+<?php
+print time();
+date_default_timezone_set("PRC");
+phpinfo();

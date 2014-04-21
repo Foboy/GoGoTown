@@ -1,0 +1,76 @@
+﻿<!--新增编辑自有客户 Modal -->
+
+<div class="modal fade" id="addcustomermodal" tabindex="-1" role="dialog" 
+    aria-hidden="true" ng-controller="AddOwnCustomerCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <i class="titlefont glyphicon glyphicon-plus pull-left marginmodal"></i>
+                <h4 class="titlefont modal-title">
+                    {{OwnCustomer.ID==0?'新增客户':'编辑客户'}}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal"  ng-class="showerror?'showerror':''" name="AddOwnCustomerForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">姓名</label>
+                        <div class="col-sm-6">
+                            <input class="form-control"  ng-required="true" ng-model="OwnCustomer.Name" name="name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">会员等级</label>
+                        <div class="col-sm-6">
+                            <div class="btn-group btn-group-right">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    {{choselevel.Name}}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li ng-repeat="mebershiplevel in mebershiplevels"><a ng-click="ChoseCustomerRank(mebershiplevel)">{{mebershiplevel.Name}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">出生日期</label>
+                        <div class="input-group date form_date col-sm-6 .form_date" >
+                            <input class="form-control" size="16" type="text" ng-model="OwnCustomer.Birthady" readonly>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>   
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">性别</label>
+                        <label class="radio-inline col-sm-3">
+                            <input type="radio" class="col-sm-5" ng-model="OwnCustomer.Sex" name="sex" value="1" >男
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio"  ng-model="OwnCustomer.Sex" name="sex" value="2">女
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">手机号</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" placeholder="联系方式" ng-required="true"  ng-pattern="/^[1][358]\d{9}$/" name="phone"
+                            ng-model="OwnCustomer.Phone">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">备注</label>
+                        <div class="col-sm-6">
+                            <textarea class="form-control" rows="3"  ng-required="true" ng-model="OwnCustomer.Remark"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" ng-click="OwnCustomer.ID==0?SaveAddOwnCustomer(OwnCustomer,choselevel):UpdateOwnCustomer(OwnCustomer,choselevel)">
+                    保 存</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,0 +1,100 @@
+﻿<!--权限管理管理-->
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="titlefont font20 page-header">账号管理</h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li ng-class="sorts=='clerk'?'active':''"><a ng-href="#/permissions/clerk">CRM管理账号</a></li>
+                <li ng-class="sorts=='cashier'?'active':''"><a ng-href="#/permissions/cashier">收银App账号</a></li>
+                <li class="navbar-right">
+                    <button type="button" class="btn-group-right btn btn-primary btn-sm pull-left" ng-click="ShowAddUserAccountModal(0,3)">添加crm账号</button>
+                    <button type="button" class="btn btn-primary btn-sm btn_left pull-right" ng-click="ShowAddUserAccountModal(0,2)">添加收银账号</button>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <!-- <div class="tab-content">
+                <!--店员显示区域-->
+            <div class="panel-body" ng-show="sorts=='clerk'?'true':'false'">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>姓名</th>
+                                <th>账号名</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="clerk in clerks " ng-class="clerk.State==1?'odd gradeX danger':'odd gradeX '">
+                                <td>{{$index+1}}</td>
+                                <td>{{clerk.Name}}
+                                </td>
+                                <td>{{clerk.Account}}
+                                </td>
+                                <td class="center">
+                                    <a ng-click="ShowUpdateUserStateModel(clerk)">{{clerk.State==1?'启用':'禁用'}}</a>
+                                    <!-- <a ng-click="ShowAddUserAccountModal(clerk,3)">编辑账号</a>-->
+                                    <b class="graycolor1">|</b>
+                                    <a ng-click="ShowRestUserAccountPwdModal(clerk)">修改密码</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--收银员显示区域-->
+            <div class="panel-body" ng-show="sorts=='cashier'?'true':'false'">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>姓名</th>
+                                <th>账号名</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd gradeX" ng-repeat="cashier in cashiers " ng-class="cashier.State==1?'odd gradeX danger':'odd gradeX '">
+                                <td>{{$index+1}}</td>
+                                <td>{{cashier.Name}}
+                                </td>
+                                <td>{{cashier.Account}}
+                                </td>
+                                <td class="center">
+                                    <a ng-click="ShowUpdateUserStateModel(cashier)">{{cashier.State==1?'启用':'禁用'}}</a>
+                                    <!--<a ng-click="ShowAddUserAccountModal(cashier,2)">编辑账号</a>-->
+                                    <b class="graycolor1">|</b>
+                                    <a ng-click="ShowRestUserAccountPwdModal(cashier)">修改密码</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- <div class="row">
+        <div class="col-lg-12">
+            <ul class="pagination">
+                <li ng-repeat="page in pages | filter:'pre'"><a ng-href="{{page.url}}"><<</a></li>
+                <li ng-class="{{page.active}}?'active':''" ng-repeat="page in pages | filter:'page'"><a ng-href="{{page.url}}">{{page.index}}</a></li>
+                <li ng-repeat="page in pages | filter:'next'"><a ng-href="{{page.url}}">>></a></li>
+            </ul>
+        </div>
+    </div>-->
+</div>
+
+
+<div ng-include="'partials/user/adduseraccount-modal.html'">
+</div>
+<div ng-include="'partials/user/restpassword-modal.html'"></div>
+<div ng-include="'partials/user/confirmchangeuserstate-modal.html'"></div>

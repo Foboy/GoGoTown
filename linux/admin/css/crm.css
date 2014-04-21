@@ -1,0 +1,269 @@
+/* CSS Document */
+/*公共*/
+a{
+	cursor: pointer;
+}
+.public_cur{
+	cursor: pointer;
+}
+.graycolor{
+	color: #888;
+}
+.graycolor1{
+	color: #DDD;
+	margin: 0 5px;
+}
+.logo-title{
+	color: #f39c12;
+}
+.titlefont{
+	color: #428BCA;
+}
+.whitecolor{
+	color: #fff;
+}
+.textmiddle{
+	text-align: center;
+}
+.font24{ font-size: 24px; font-weight: 500; color: #FF6666;}
+.font18{ 
+	font-size: 18px;
+}
+.font20{
+	font-size: 20px;
+}
+.font16{
+	font-size: 16px;
+}
+.font14{
+	font-size: 14px;
+}
+
+.font500{
+	font-weight: 400;
+}
+.hidedisplay{
+	display: none;
+}
+.marginmodal{
+	margin-top: 7px;
+	margin-right: 7px;
+}
+.margin_bot{
+	margin-bottom: 15px;
+}
+.margin_bot a{
+	cursor: pointer;;
+}
+.padding_null{
+	padding: 0px;
+}
+.padding_right{
+	padding: 0 15px 0 0;
+}
+.btn-group-top{
+	margin-top: 8px;
+}
+.btn-group-right{
+	margin-right: 7px;
+}
+.lable-text{
+	text-align: left;
+}
+.lable-top{
+	padding-top: 7px;
+}
+.well-bg{
+	background-color: #3C8DBC;
+}
+.margin_topnull{
+	margin-top: 0px;
+}
+.margin_btnnull{
+	margin-bottom: 0px;
+}
+
+
+
+/*自定义model框*/
+.modal_radius{
+	border-radius: 0px;
+}
+.modal_content{
+	padding: 0px;
+}
+.modal_radius .nav-tabs > li.active > a,.modal_radius .nav-tabs > li.active > a:hover,.modal_radius .nav-tabs > li.active > a:focus {
+	color: #555555;
+	cursor: default;
+	background-color: #ffffff;
+	border-left: 5px solid #1abc9c;
+	border-top: 0px;
+	border-bottom: 0px;
+	border-right: 0px;
+	width: 100%;
+	border-radius: 0px;
+}
+.close_postion{
+	margin-right: 8px;
+}
+.canlepadding{
+	padding: 0px;
+}
+
+
+/*登陆*/
+.inmiddle{text-align: center; height: 100px; margin-top: 30px;}
+
+.logo-go{
+	width: 200px;
+	height: 150px;
+	line-height: 150px;
+}
+
+.form-group{
+	position: relative;
+}
+
+.login-field-icon {
+color: #bfc9ca;
+font-size: 16px;
+position: absolute;
+right: 15px;
+top: 15px;
+-webkit-transition: 0.25s;
+transition: 0.25s;
+}
+
+.footer{text-align: center; height: 40px; margin-top: 60px;}
+
+/*index*/
+.navbg{ background-color: #2c3e50;}
+.nav{
+	font-size: 14px;
+}
+.navbar-static-side{
+	width: 200px;
+}
+#side-menu li a i{
+	margin-right: 10px;
+}
+
+/*客户管理*/
+.page-header{
+	margin-top: 20px;
+}
+.client_tools{
+	margin-bottom: 15px;
+}
+.btn_left{
+	margin-left: 8px;
+}
+
+/*客户维护*/
+.group-bot{
+	margin-bottom: 10px;
+}
+.send-btn-top{
+	margin-top: 15px;
+}
+.img
+
+
+/*基本信息设置*/
+.mer_ul{
+	list-style: none;
+}
+.mer_ul li{
+	list-style: none;
+}
+.mer_content{
+	height: 100px;
+	line-height: 100px;
+}
+.mer_title{
+	float: left;
+	width: 90px;
+}
+.mer_title_content{
+	float: right;
+	width: 50%;
+}
+.mer_edit{
+	cursor: pointer;
+	height: 40px;
+	line-height: 40px;
+	color: #CCC;
+}
+.mer_infofrom{
+	width: 100%;
+	height: 100px;
+	line-height: 100px;
+	display: table;
+}
+.margin_input{
+	margin-top: 28px;
+}
+.but-header{
+	margin-top: 20px;
+}
+.mer_padding{
+	padding: 20px 20px 10px 20px
+}
+.mer_lable{
+	padding: 7px 15px 0 15px;
+}
+
+/*dashborad*/
+.searchpo{
+	position: relative;
+}
+
+/*会员等级设置*/
+.close_btn{
+	margin-left: -18px;
+}
+.levelbtn{
+	margin-right: 20px;
+}
+
+.upload_btn_css {
+    width:91px;
+    height:91px;
+    background:url(../img/default.png) center center no-repeat;
+}
+
+/*tishi*/
+#flotTip{
+	padding: 3px 5px;
+	background-color: #000;
+	z-index: 100;
+	color: #fff;
+	box-shadow: 0 0 10px #555;
+	opacity: .7;
+	filter: alpha(opacity=70);
+	border: 2px solid #fff;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+/*老板模式*/
+
+.funnel-box{width:100%; height:360px; background:#f0f0f0;}
+.funnel-box h1{height:30px; line-height:30px; font-size:18px; font-weight:normal; padding-left:320px; margin:20px 0 0 0;}
+.funnel-box .funnel-img{width:400px; height:350px; float:left; position:relative; background:#FFFFFF;}
+.funnel-box .funnel-img .f-shade{width:400px; height:350px; background:url(../img/funnel.png) no-repeat; position:absolute;}
+.funnel-box .funnel-num{float:left; padding-top:35px;}
+.funnel-box .funnel-num li{height:45px; line-height:45px; list-style:none;}
+.funnel-box .funnel-num li .f-t{width:80px; text-align:right; display:inline-block;}
+.time-change{width:130px; height:31px; line-height:31px; position:relative; float:right; background:#FFFFFF; text-align:center; border:1px solid #cccccc; cursor:pointer; margin-top:15px;}
+.time-change i{display:inline-block;width:11px; height:6px; background:url(../img/icon.png) no-repeat -152px -320px; position:absolute; right:10px; top:12px;}
+.time-change ul{position:absolute; padding:0px; top:30px; left:-1px; width:130px; border:1px solid #cccccc; border-bottom:0; background:#FFFFFF; margin:0;}
+.time-change ul li{height:30px; line-height:30px; border-bottom:1px solid #cccccc; width:130px; list-style:none;}
+.loudou_title { float:left; width:120px; font-size:18px; font-weight:bold; margin:15px 0 0 15px;}
+.menu_cw { right:10px; top:0px; position:absolute; }
+
+/*老板模式 END*/
+
+
+
