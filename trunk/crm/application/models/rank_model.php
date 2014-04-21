@@ -154,6 +154,20 @@ class RankModel {
 		$result->Data = $objects;
 		return $result;
 	}
+	//查询customeridbyrankid
+	public function searchCustomerIDByRank($rank_id) {
+		$result = new DataResult ();
+	
+		$query = $this->db->prepare ( "SELECT customer_id FROM Crm_Rank where
+    From_Type = 2 and Rank_ID=:rank_id " );
+		$query->execute ( array (
+				':rank_id' => $rank_id
+		) );
+		$objects = $query->fetchAll ();
+	
+		$result->Data = $objects;
+		return $result;
+	
 }
 
 ?>
