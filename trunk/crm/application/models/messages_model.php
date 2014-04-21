@@ -12,7 +12,7 @@ class MessagesModel {
 	}
 	
 	// 新增messages
-	public function insert($shop_id,$type,$title,$content,$send_time,$create_time,$state) {
+	public function insert($shop_id,$type,$title,$content,$send_time,$create_time,$state,$pic_Id,$pic_url) {
 		// 判断是否已存在
 		$query = $this->db->prepare ( " select *  from Crm_Messages where shop_id = :shop_id and type = :type and title = :title and content = :content and send_time = :send_time and create_time = :create_time and state = :state" );
 		$query->execute ( array (
@@ -30,7 +30,7 @@ class MessagesModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into Crm_Messages(shop_id,type,title,content,send_time,create_time,state) values (:shop_id,:type,:title,:content,:send_time,:create_time,:state)";
+		$sql = "insert into Crm_Messages(shop_id,type,title,content,send_time,create_time,state,pic_id,pic_url) values (:shop_id,:type,:title,:content,:send_time,:create_time,:state,:pic_id,:pic_url)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
@@ -39,6 +39,8 @@ class MessagesModel {
                    ':content' => $content,
                    ':send_time' => $send_time,
                    ':create_time' => $create_time,
+				':pic_ic' => $pic_id,
+				':pic_url' => $pic_url,
                    ':state' => $state
 		) );
 		$count = $query->rowCount();
@@ -108,7 +110,7 @@ class MessagesModel {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = " select id,shop_id,type,title,content,send_time,create_time,state from Crm_Messages where  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and   ( state = :state or :state=0 ) order by  create_time desc limit $lastpagenum,$pagesize" ;
+		$sql = " select id,shop_id,type,title,content,send_time,create_time,state,pic_id,pic_url from Crm_Messages where  ( shop_id = :shop_id or :shop_id=0 )  and  ( type = :type or :type=0 )  and   ( state = :state or :state=0 ) order by  create_time desc limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,

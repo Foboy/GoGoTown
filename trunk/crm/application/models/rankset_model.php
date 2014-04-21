@@ -12,7 +12,7 @@ class RankSetModel {
 	}
 	
 	// 新增rank_set
-	public function insert($rank,$name,$shop_id,$remark) {
+	public function insert($rank,$name,$shop_id,$remark,$pic_Id,$pic_url) {
 		// 判断是否已存在
 		$query = $this->db->prepare ( " select *  from Crm_Rank_Set where rank = :rank and name = :name and shop_id = :shop_id and remark = :remark" );
 		$query->execute ( array (

@@ -167,7 +167,7 @@ class RankModel {
 	
 		$result->Data = $objects;
 		return $result;
-	
+	}
 }
 
 ?>
