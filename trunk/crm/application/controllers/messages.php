@@ -74,7 +74,7 @@ class Messages extends Controller {
 				}
 				//插入商铺客户对应信息表
 				for($index = 0; $index < count ( $ids ); $index ++) {
-					$mslist_model->insert( $ids [$index], $_SESSION ["user_shop"], $mid, $_POST ['title'], $_POST ['content'],  MessageState::IsSent, MessageType::GOGO );
+					$mslist_model->insert( $ids [$index]->customer_id, $_SESSION ["user_shop"], $mid, $_POST ['title'], $_POST ['content'],  MessageState::IsSent, MessageType::GOGO );
 				}
 		
 				$result->Error = ErrorType::Success;
