@@ -12,7 +12,7 @@ class MessageSendListModel {
 	}
 	
 	// 新增message_send_list
-	public function insert($customer_id,$shop_id,$message_id,$title,$content,$state,$type) {
+	public function insert($customer_id,$shop_id,$message_id,$title,$content,$state,$type,$pic_Id,$pic_url) {
 		$create_time=time();
 		// 判断是否已存在
 		$query = $this->db->prepare ( " select *  from Crm_Message_Send_List where customer_id = :customer_id and shop_id = :shop_id and message_id = :message_id and type = :type" );
@@ -28,7 +28,7 @@ class MessageSendListModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into Crm_Message_Send_List(customer_id,shop_id,message_id,title,content,create_time,state,type) values (:customer_id,:shop_id,:message_id,:title,:content,:create_time,:state,:type)";
+		$sql = "insert into Crm_Message_Send_List(customer_id,shop_id,message_id,title,content,create_time,state,type,pic_id,pic_url) values (:customer_id,:shop_id,:message_id,:title,:content,:create_time,:state,:type,:pic_id,:pic_url)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':customer_id' => $customer_id,
@@ -37,6 +37,8 @@ class MessageSendListModel {
                    ':title' => $title,
                    ':content' => $content,
                    ':create_time' => $create_time,
+				':pic_id' => $pic_Id,
+				':pic_url' => $pic_url,
                    ':state' => $state,
                    ':type' => $type
 		) );
@@ -110,7 +112,7 @@ class MessageSendListModel {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = " select id,customer_id,shop_id,message_id,title,content,create_time,read_time,state,type from Crm_Message_Send_List where  ( customer_id = :customer_id or :customer_id=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( message_id = :message_id or :message_id=0 )  and  ( title = :title or :title='' )  and  ( content = :content or :content='' )  and  ( create_time = :create_time or :create_time=0 )  and  ( read_time = :read_time or :read_time=0 )  and  ( state = :state or :state=0 )  and  ( type = :type or :type=0 )  limit $lastpagenum,$pagesize" ;
+		$sql = " select id,customer_id,shop_id,message_id,title,content,create_time,read_time,state,type,pic_id,pic_url from Crm_Message_Send_List where  ( customer_id = :customer_id or :customer_id=0 )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( message_id = :message_id or :message_id=0 )  and  ( title = :title or :title='' )  and  ( content = :content or :content='' )  and  ( create_time = :create_time or :create_time=0 )  and  ( read_time = :read_time or :read_time=0 )  and  ( state = :state or :state=0 )  and  ( type = :type or :type=0 )  limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':customer_id' => $customer_id,
