@@ -71,14 +71,11 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
                     showDropdowns: true,
                     format: 'YYYY/MM/DD',
                     ranges: {
-                        '今天/昨天': [moment(), moment()],
-                        '昨天': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                        '今天/昨天': [moment().subtract('days', 1), moment()],
                         '最近7天': [moment().subtract('days', 6), moment()],
-                        '最近30天': [moment().subtract('days', 29), moment()],
-                        '这个月': [moment().startOf('month'), moment().endOf('month')],
-                        '上个月': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                        '最近30天': [moment().subtract('days', 29), moment()]
                     },
-                    startDate: moment().subtract('days', 29),
+                    startDate: moment().subtract('days', 1),
                     endDate: moment()
                 },
                    function (start, end) {
@@ -265,13 +262,11 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
                     format: 'YYYY/MM/DD',
                     ranges: {
                         '今天': [moment(), moment()],
-                        '昨天': [moment().subtract('days', 1), moment().subtract('days', 1)],
                         '最近7天': [moment().subtract('days', 6), moment()],
-                        '最近30天': [moment().subtract('days', 29), moment()],
-                        '这个月': [moment().startOf('month'), moment().endOf('month')],
-                        '上个月': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                        '最近30天': [moment().subtract('days', 29), moment()]
+                        
                     },
-                    startDate: moment().subtract('days', 29),
+                    startDate: moment(),
                     endDate: moment()
                 },
                    function (start, end) {
