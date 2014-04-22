@@ -1,12 +1,30 @@
 ﻿//数据统计scope
 function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
     //商家销售总额趋势图（最近7天 一个月 时间区间显示 横坐标时间以天为单位）
-    $scope.SaleTotalTrendGraph = function (type) {
+    $scope.SaleTotalTrendGraph = function (starttime,endtime) {
+        console.log(starttime);
+        console.log(endtime);
+        return;
+        $("#reservation").val('');
+        $('#reservation').daterangepicker({
+            showDropdowns: true,
+            format: 'YYYY/MM/DD',
+            ranges: {
+                '今天/昨天': [moment().subtract('days', 1), moment()],
+                '最近7天': [moment().subtract('days', 6), moment()],
+                '最近30天': [moment().subtract('days', 29), moment()]
+            },
+            startDate: moment().subtract('days', 1),
+            endDate: moment()
+        },
+           function (start, end) {
+               create_time1 = start / 1000;
+               create_time2 = end / 1000;
+               $scope.SaleTotalTrendGraphByTime(2, create_time1, create_time2);
+           });
         var Datas = [];
         switch (type) {
             case 1://昨日今日
-                $scope.ChoseSaleTotalTrendGraph = '默认(昨日今日)';
-                $scope.spendshow = false;
                 var twodaysData = {
                     today: [[0, 0], [2, 0], [3, 0], [4, 0], [7, 100], [9, 700], [10, 1500], [11, 3000], [12, 3200], [13, 4000], [14, 4300], [16, 4500], [17, 5000], [19, 6000], [24, 7000]],
                     yesterday: [[0, 110.0], [2, 200], [3, 400], [4, 800], [7, 900], [9, 1000], [10, 2500], [11, 3000], [12, 3200], [13, 4000], [14, 4300], [16, 5000], [17, 6000], [19, 8000], [24, 10000]]
@@ -64,25 +82,7 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
                 $.plot($("#flot-line-chart"), Datas, options);
                 break;
             case 2://自定义时间区间
-                $("#reservation").val('');
-                $scope.ChoseSaleTotalTrendGraph = '自定义时间';
-                $scope.spendshow = true;
-                $('#reservation').daterangepicker({
-                    showDropdowns: true,
-                    format: 'YYYY/MM/DD',
-                    ranges: {
-                        '今天/昨天': [moment().subtract('days', 1), moment()],
-                        '最近7天': [moment().subtract('days', 6), moment()],
-                        '最近30天': [moment().subtract('days', 29), moment()]
-                    },
-                    startDate: moment().subtract('days', 1),
-                    endDate: moment()
-                },
-                   function (start, end) {
-                       create_time1 = start / 1000;
-                       create_time2 = end / 1000;
-                       $scope.SaleTotalTrendGraphByTime(2, create_time1, create_time2);
-                   });
+
                 break;
         }
 
@@ -192,6 +192,27 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
 
     //柱状图（收银员销售情况）
     $scope.CashierSaleBarChart = function (type) {
+        $("#CashierTimeControl").val('');
+        $scope.CashierSaleConditionChose = '自定义时间';
+        $scope.cashiersaleshow = true;
+        $('#CashierTimeControl').daterangepicker({
+            showDropdowns: true,
+            format: 'YYYY/MM/DD',
+            ranges: {
+                '今天': [moment(), moment()],
+                '最近7天': [moment().subtract('days', 6), moment()],
+                '最近30天': [moment().subtract('days', 29), moment()]
+
+            },
+            startDate: moment(),
+            endDate: moment()
+        },
+           function (start, end) {
+               create_time1 = start / 1000;
+               create_time2 = end / 1000;
+               $scope.CashierSaleBarChartByTime(2, create_time1, create_time2);
+
+           });
         var Datas = [];
         switch (type) {
             case 1://今日
@@ -254,27 +275,7 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
                 $.plot($("#flot-bar-chart"), Datas, barOptions);
                 break;
             case 2://昨日
-                $("#CashierTimeControl").val('');
-                $scope.CashierSaleConditionChose = '自定义时间';
-                $scope.cashiersaleshow = true;
-                $('#CashierTimeControl').daterangepicker({
-                    showDropdowns: true,
-                    format: 'YYYY/MM/DD',
-                    ranges: {
-                        '今天': [moment(), moment()],
-                        '最近7天': [moment().subtract('days', 6), moment()],
-                        '最近30天': [moment().subtract('days', 29), moment()]
-                        
-                    },
-                    startDate: moment(),
-                    endDate: moment()
-                },
-                   function (start, end) {
-                       create_time1 = start / 1000;
-                       create_time2 = end / 1000;
-                       $scope.CashierSaleBarChartByTime(2, create_time1, create_time2);
-
-                   });
+               
                 break;
         }
 
@@ -337,11 +338,9 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
         };
         $.plot($("#flot-bar-chart"), Datas, barOptions);
     }
-
-
-
+   
+    $scope.SaleTotalTrendGraph(Date.parse(new Date((new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+(new Date().getDate()-1))))/1000, Date.parse(new Date())/ 1000);
     $scope.ConsumerYear();
-    $scope.SaleTotalTrendGraph(1);
     $scope.CashierSaleBarChart(1);
 
 }
