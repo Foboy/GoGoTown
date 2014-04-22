@@ -15,7 +15,7 @@ class UpLoad extends Controller {
 	 * 上传图片 输出参数：图片保存名称
 	 */
 	public function UpLoadImage() {
-		$targetFolder = '/GoGoTown/trunk/crm/admin/upload'; // Relative to the root
+		$targetFolder = '/crm/admin/upload'; // Relative to the root
 		if (! empty ( $_FILES )) {
 			$tempFile = $_FILES ['Filedata'] ['tmp_name'];
 			$targetPath = $_SERVER ['DOCUMENT_ROOT'] . $targetFolder;

@@ -79,7 +79,7 @@ function MainCtrl($scope, $routeParams, $http, $location, $filter, $resturls) {
             var birthday = new Date(time);
             if ((now.getFullYear() - birthday.getFullYear()) > 0) {
                 if ((now.getMonth() - birthday.getMonth()) > 0) {
-                    age = (now.getFullYear() - birthday.getFullYear()) + 1;
+                    age = (now.getFullYear() - birthday.getFullYear());
                 }
                 else if ((now.getMonth() - birthday.getMonth()) == 0) {
                     age = now.getFullYear() - birthday.getFullYear();

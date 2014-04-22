@@ -55,14 +55,15 @@
                 window.event.cancelBubble = true;
             }
         }
-        
+
         //获取用户等级设置信息
         $scope.GetCustomerMemberShip = function (data) {
             $http.post($resturls["SearchMerchantSetLevels"], {}).success(function (result) {
                 if (result.Error == 0) {
                     $scope.mebershiplevels = result.Data;
                     if (data) {
-                        if (!data.rank_id) {
+                        debugger;
+                        if (!data.rank_id || data.rank_id==0) {
                             $scope.choselevel = { Name: "未设置等级", ID: 0 };
                         } else {
                             $scope.choselevel = { Name: data.shoprankname, ID: data.rank_id };
@@ -75,7 +76,7 @@
                 }
             });
         }
-        
+
         if (data) {
             $scope.OwnCustomer = angular.copy(data);
             $scope.GetCustomerMemberShip($scope.OwnCustomer);
@@ -112,7 +113,7 @@
         }
         $("#addcustomermodal").modal('show');
     }
-   
+
     //客户数据详情modal
     $scope.ShowClientDetailModal = function (data, event) {
         if (event != undefined) {
@@ -160,7 +161,7 @@
         $("#SendMessageMoadl").modal('show');
     }
     //弹出删除自有客户modal
-    $scope.ShowDeleteOwnCustomerModal = function (data,event) {
+    $scope.ShowDeleteOwnCustomerModal = function (data, event) {
         if (event != undefined) {
             if (event && event.stopPropagation) {
                 event.stopPropagation();
@@ -178,7 +179,7 @@
             if (event && event.stopPropagation) {
                 event.stopPropagation();
             }
-            else { 
+            else {
                 window.event.cancelBubble = true;
             }
         }
@@ -188,7 +189,7 @@
                 if (result.Error == 0) {
                     $scope.mebershiplevels = result.Data;
                     if (data) {
-                        if (!data.rank_id) {
+                        if (!data.rank_id || data.rank_id==0) {
                             $scope.choselevel = { Name: "未设置等级", ID: 0 };
                         } else {
                             $scope.choselevel = { Name: data.shoprankname, ID: data.rank_id };
@@ -205,12 +206,44 @@
         $scope.oneclient = data;
         $("#SetMemeberShipModal").modal('show');
     }
+    //checkbox选中对象
+    $scope.toggle = function (data, event) {
+        if (event != undefined) {
+            if (event && event.stopPropagation) {
+                event.stopPropagation();
+            }
+            else {
+                window.event.cancelBubble = true;
+            }
+        }
+        data.checked = !data.checked;
+    }
+    //弹出批量设置会员等级
+    $scope.ShowBatchSetMemberShipLevel = function () {
+        //获取等级设置信息
+        $scope.GetCustomerMemberShip = function () {
+            $http.post($resturls["SearchMerchantSetLevels"], {}).success(function (result) {
+                if (result.Error == 0) {
+                    $scope.mebershiplevels = result.Data;
+                } else {
+                    $scope.mebershiplevels = [];
+                }
+                if ($scope.mebershiplevels.length == 0) {
+                    $scope.choselevel = { Name: "未设置等级", ID: 0 };
+                } else {
+                    $scope.choselevel = $scope.mebershiplevels[0];
+                }
+            });
+        }
+        $scope.GetCustomerMemberShip();
+        $("#BacthSetMemeberShipModal").modal('show');
+    }
 }
 
 //增加自有客户scope
 function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $rootScope) {
     $scope.ChoseCustomerRank = function (data) {
-        $scope.choselevel = { Name: data.Name,ID:data.ID };
+        $scope.choselevel = { Name: data.Name, ID: data.ID };
     };
     $scope.SaveAddOwnCustomer = function (data, choselevel) {
         if ($scope.AddOwnCustomerForm.$valid) {
@@ -240,11 +273,11 @@ function AddOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls, $
     $scope.UpdateOwnCustomer = function (data, choselevel) {
         if ($scope.AddOwnCustomerForm.$valid) {
             $scope.showerror = false;
-            $http.post($resturls["SetCustomerRank"], { rank_id: choselevel.ID, from_type: data.from_type,customer_id:data.ID }).success(function (result) {
+            $http.post($resturls["SetCustomerRank"], { rank_id: choselevel.ID, from_type: data.from_type, customer_id: data.ID }).success(function (result) {
                 console.log(result);
             })
             $http.post($resturls["UpdateOwnCustomer"], { name: data.Name, sex: data.Sex, phone: data.Phone, birthday: data.TimeStamp, remark: data.Remark, customer_id: data.ID }).success(function (result) {
-             
+
                 $("#addcustomermodal").modal('hide');
                 if (result.Error == 0) {
                     $.scojs_message('更新成功', $.scojs_message.TYPE_OK);
@@ -312,7 +345,7 @@ function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
                     $.scojs_message('发送成功', $.scojs_message.TYPE_OK);
                 } else {
                     $scope.showerror = true;
-                    $.scojs_message(result.ErrorMessage,$.scojs_message.TYPE_ERROR);
+                    $.scojs_message(result.ErrorMessage, $.scojs_message.TYPE_ERROR);
                 }
             });
         } else {
@@ -336,12 +369,12 @@ function DeleteOwnCustomerCtrl($scope, $http, $location, $routeParams, $resturls
     }
 }
 
+//设置会员等级scope
 function SetMemeberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.ChoseMemberRank = function (data) {
         $scope.choselevel = { Name: data.Name, ID: data.ID };
     };
     $scope.SaveSetMemeberShipLevel = function (data, choselevel) {
-        console.log(data);
         $http.post($resturls["SetCustomerRank"], { rank_id: choselevel.ID, from_type: data.from_type, customer_id: data.Customer_ID }).success(function (result) {
             $("#SetMemeberShipModal").modal('hide');
             if (result.Error == 0) {
@@ -351,6 +384,20 @@ function SetMemeberShipLevelCtrl($scope, $http, $location, $routeParams, $restur
                 $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
             }
         })
+    }
+    //批量设置会员等级
+    $scope.SaveBatchSetMemeberShipLevel = function (data, choselevel) {
+        var type = 1;
+        type = $scope.sorts == 'gogocustomer' ? 2 : type;
+        //$http.post($resturls["SetCustomerRank"], { rank_id: choselevel.ID, from_type: type, customer_id: data.Customer_ID }).success(function (result) {
+        //    $("#BacthSetMemeberShipModal").modal('hide');
+        //    if (result.Error == 0) {
+        //        $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
+        //        $.scojs_message('设置成功', $.scojs_message.TYPE_OK);
+        //    } else {
+        //        $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
+        //    }
+        //})
     }
 }
 

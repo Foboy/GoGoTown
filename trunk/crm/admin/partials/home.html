@@ -46,16 +46,20 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="fa fa-bar-chart-o fa-fw"></i>消费趋势图
-                    <div class="pull-right">
+                     <div class="btn-group btn-group-right">
+                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                            {{ChoseSaleTotalTrendGraph}}<span class="caret"></span>
+                         </button>
+                         <ul class="dropdown-menu" role="menu">
+                             <li><a ng-click="SaleTotalTrendGraph(1)">默认(昨日今日)</a></li>
+                             <li><a ng-click="SaleTotalTrendGraph(2)">自定义时间</a></li>
+                         </ul>
+                     </div>
+                    <div class="pull-right" ng-show="spendshow?'true':'false'">
                         <div class="form-group">
-                            <label class="radio-inline">
-                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" ng-click="SaleTotalTrendGraph(1)" value="" checked="">昨日今日分析
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" ng-click="SaleTotalTrendGraph(2)" value="">最近七日分析
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" ng-click="SaleTotalTrendGraph(3)" value="">最近一个月分析
+                            <label class="control-label ">
+                                时间范围
+                               <i class="fa fa-calendar"></i><input type="text" id="reservation" style="width:200px"  class="ng-pristine ng-valid">
                             </label>
                         </div>
                     </div>
@@ -96,12 +100,18 @@
                              {{CashierSaleConditionChose}}<span class="caret"></span>
                          </button>
                          <ul class="dropdown-menu" role="menu">
-                             <li><a ng-click="CashierSaleBarChart(1)">今日</a></li>
-                             <li><a ng-click="CashierSaleBarChart(2)">昨日</a></li>
-                             <li><a ng-click="CashierSaleBarChart(3)">最近一周</a></li>
-                             <li><a ng-click="CashierSaleBarChart(4)">最近一月</a></li>
+                             <li><a ng-click="CashierSaleBarChart(1)">默认(今日)</a></li>
+                             <li><a ng-click="CashierSaleBarChart(2)">自定义时间</a></li>
                          </ul>
                      </div>
+                    <div class="pull-right" ng-show="cashiersaleshow?'true':'false'">
+                        <div class="form-group">
+                            <label class="control-label ">
+                                时间范围
+                               <i class="fa fa-calendar"></i><input type="text" id="CashierTimeControl" style="width:200px"  class="ng-pristine ng-valid">
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
