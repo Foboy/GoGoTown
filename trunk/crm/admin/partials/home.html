@@ -45,8 +45,23 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o fa-fw"></i>消费趋势图
-                     <div class="btn-group btn-group-right">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <i class="fa fa-bar-chart-o fa-fw"></i>消费趋势图
+                        </div>
+                        <div class="col-sm-5 pull-right padding_rightnull">
+                            <div class="form-horizontal">
+                                <label class="control-label col-sm-5 lable-sm padding_rightnull">自定义时间：</label>
+                                <div class="input-group col-sm-7 padding_leftnull">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input id="reservation" class="form-control input-sm pull-right ng-pristine ng-valid" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!--                      <div class="btn-group btn-group-right">
                          <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                             {{ChoseSaleTotalTrendGraph}}<span class="caret"></span>
                          </button>
@@ -54,18 +69,21 @@
                              <li><a ng-click="SaleTotalTrendGraph(1)">默认(昨日今日)</a></li>
                              <li><a ng-click="SaleTotalTrendGraph(2)">自定义时间</a></li>
                          </ul>
-                     </div>
-                    <div class="form-horizontal col-sm-5 pull-right">
-                        <div class="form-group">
-                            <label class="control-label col-sm-5 padding_rightnull">自定义时间：</label>
-                            <div class="input-group col-sm-7 padding_leftnull">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                     </div> -->
+                <!--     <div class="col-sm-5 pull-right">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-5 lable-sm padding_rightnull">自定义时间：</label>
+                                <div class="input-group col-sm-7 padding_leftnull">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input id="reservation" class="form-control input-sm pull-right ng-pristine ng-valid" type="text">
                                 </div>
-                                <input id="reservation" class="form-control pull-right ng-pristine ng-valid" type="text">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+     
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -97,8 +115,22 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    收银员销售情况
-                     <div class="btn-group btn-group-right">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            收银员销售情况
+                        </div>
+                        <div class="col-sm-8 pull-right padding_rightnull">
+                            <div class="form-horizontal">
+                                <label class="control-label col-sm-5 padding_rightnull">自定义时间：</label>
+                                <div class="input-group col-sm-7 padding_leftnull">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input id="CashierTimeControl" class="form-control input-sm pull-right ng-pristine ng-valid" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    <!--  <div class="btn-group btn-group-right">
                          <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                              {{CashierSaleConditionChose}}<span class="caret"></span>
                          </button>
@@ -106,18 +138,7 @@
                              <li><a ng-click="CashierSaleBarChart(1)">默认(今日)</a></li>
                              <li><a ng-click="CashierSaleBarChart(2)">自定义时间</a></li>
                          </ul>
-                     </div>
-                    <div class="form-horizontal col-sm-6 pull-right padding_null">
-                        <div class="form-group">
-                            <label class="control-label col-sm-5 padding_rightnull">自定义时间：</label>
-                            <div class="input-group col-sm-7 padding_leftnull">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input id="CashierTimeControl" class="form-control pull-right ng-pristine ng-valid" type="text">
-                            </div>
-                        </div>
-                    </div>
+                     </div> -->
 
 
                 </div>

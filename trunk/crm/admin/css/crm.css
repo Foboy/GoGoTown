@@ -88,6 +88,10 @@ a{
 .margin_btnnull{
 	margin-bottom: 0px;
 }
+.pl_height{
+	height: 30px;
+	line-height: 30px;
+}
 
 
 
