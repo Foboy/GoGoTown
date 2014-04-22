@@ -55,12 +55,22 @@
                              <li><a ng-click="SaleTotalTrendGraph(2)">自定义时间</a></li>
                          </ul>
                      </div>
-                    <div class="pull-right" ng-show="spendshow?'true':'false'">
-                        <div class="form-group">
+                    <div class="form-horizontal col-sm-5 pull-right">
+                      <!--   <div class="form-group">
                             <label class="control-label ">
                                 时间范围
-                               <i class="fa fa-calendar"></i><input type="text" id="reservation" style="width:200px"  class="ng-pristine ng-valid">
+                               <i class="fa fa-calendar"></i>
+                               <input type="text" id="reservation" style="width:200px"  class="ng-pristine ng-valid">
                             </label>
+                        </div> -->
+                        <div class="form-group">
+                            <label class="control-label col-sm-5 padding_rightnull">自定义时间：</label>
+                            <div class="input-group col-sm-7 padding_leftnull">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input id="reservation" class="form-control pull-right ng-pristine ng-valid" type="text">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -104,14 +114,28 @@
                              <li><a ng-click="CashierSaleBarChart(2)">自定义时间</a></li>
                          </ul>
                      </div>
-                    <div class="pull-right" ng-show="cashiersaleshow?'true':'false'">
+<!--                 <div class="pull-right" ng-show="cashiersaleshow?'true':'false'">
                         <div class="form-group">
                             <label class="control-label ">
                                 时间范围
                                <i class="fa fa-calendar"></i><input type="text" id="CashierTimeControl" style="width:200px"  class="ng-pristine ng-valid">
                             </label>
                         </div>
+                    </div> -->
+
+                    <div class="form-horizontal col-sm-6 pull-right padding_null">
+                        <div class="form-group">
+                            <label class="control-label col-sm-5 padding_rightnull">自定义时间：</label>
+                            <div class="input-group col-sm-7 padding_leftnull">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input id="reservation" class="form-control pull-right ng-pristine ng-valid" type="text">
+                            </div>
+                        </div>
                     </div>
+
+
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">

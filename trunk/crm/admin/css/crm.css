@@ -58,6 +58,12 @@ a{
 .padding_null{
 	padding: 0px;
 }
+.padding_rightnull{
+	padding-right: 0px;
+}
+.padding_leftnull{
+	padding-left: 0px;
+}
 .padding_right{
 	padding: 0 15px 0 0;
 }

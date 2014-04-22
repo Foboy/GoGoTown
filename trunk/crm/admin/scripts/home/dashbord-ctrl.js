@@ -71,7 +71,7 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
                     showDropdowns: true,
                     format: 'YYYY/MM/DD',
                     ranges: {
-                        '今天': [moment(), moment()],
+                        '今天/昨天': [moment(), moment()],
                         '昨天': [moment().subtract('days', 1), moment().subtract('days', 1)],
                         '最近7天': [moment().subtract('days', 6), moment()],
                         '最近30天': [moment().subtract('days', 29), moment()],
