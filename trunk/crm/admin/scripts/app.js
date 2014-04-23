@@ -103,7 +103,7 @@ function MainCtrl($scope, $routeParams, $http, $location, $filter, $resturls) {
                     month = '0' + (unixTimestamp.getMonth() + 1);
                 }
                 if (unixTimestamp.getDay() < 9) {
-                    day = '0' + unixTimestamp.getDay();
+                    day = '0' + unixTimestamp.getDate();
                 }
                 var str = unixTimestamp.getFullYear() + '-' + month + '-' + day;
                 return str;
