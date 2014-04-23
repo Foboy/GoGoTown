@@ -88,12 +88,9 @@ a{
 .margin_btnnull{
 	margin-bottom: 0px;
 }
-.pl_height{
-	height: 30px;
-	line-height: 30px;
+.search_right{
+	margin-right: 15px;
 }
-
-
 
 /*自定义model框*/
 .modal_radius{
