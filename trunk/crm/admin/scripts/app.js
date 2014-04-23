@@ -99,11 +99,13 @@ function MainCtrl($scope, $routeParams, $http, $location, $filter, $resturls) {
             var day = 0;
             if (timestamp) {
                 var unixTimestamp = new Date(timestamp * 1000);
+                month = (unixTimestamp.getMonth() + 1);
+                day = unixTimestamp.getDate();
                 if (unixTimestamp.getMonth() < 9) {
-                    month = '0' + (unixTimestamp.getMonth() + 1);
+                    month = "0" + month;
                 }
-                if (unixTimestamp.getDay() < 9) {
-                    day = '0' + unixTimestamp.getDate();
+                if (unixTimestamp.getDate() < 9) {
+                    day = '0' + day;
                 }
                 var str = unixTimestamp.getFullYear() + '-' + month + '-' + day;
                 return str;
