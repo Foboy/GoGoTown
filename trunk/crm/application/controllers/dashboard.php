@@ -17,13 +17,7 @@ class Dashboard extends Controller
         // this controller should only be visible/usable by logged in users, so we put login-check here
         Auth::handleLogin();
     }
-    /**
-     * This method controls what happens when you move to /dashboard/index in your app.
-     */
-    function index()
-    {
-    	$this->view->render('dashboard/index');
-    }
+  
     /**
      * 昨日今日销售分析统计 (每天24小时)
      * 返回数据格式: var twodaysData = {
@@ -31,9 +25,50 @@ class Dashboard extends Controller
      yesterday: [[0, 110.0], [2, 200], [3, 400], [4, 800], [7, 900], [9, 1000], [10, 2500], [11, 3000], [12, 3200], [13, 4000], [14, 4300], [16, 5000], [17, 6000], [19, 8000], [24, 10000]]
      };
      */
-    public function twodaysalesstatistics()
+    public function twoday()
     {
+    	$result = new DataResult ();
+    	print json_encode($result);
     	
+    	if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
+    		$result->Error = ErrorType::Unlogin;
+    		print json_encode ( $result );
+    		return ;
+    	}
+    	if (! isset ( $_POST ['create_time1'] ) ) {
+    		$result->Error = ErrorType::RequestParamsFailed;
+    		print json_encode ( $result );
+    		return ;
+    	}
+    	if (! isset ( $_POST ['create_time2'] ) ) {
+    		$result->Error = ErrorType::RequestParamsFailed;
+    		print json_encode ( $result );
+    		return ;
+    	}
+    	$sdate = $_POST ['create_time1'];
+    	$edate = $_POST ['create_time2'];
+    	$stime = strtotime ( $sdate );
+    	$etime = strtotime ( $edate );
+    	
+    	
+    	$bills_model = $this->loadModel ( 'Bills' );
+    	
+    	$data = $bills_model->searchReport ( date ( "Y-m-d H:i:s", $etime ), date ( "Y-m-d H:i:s", $etime + 24 * 3600 - 1 ), $_SESSION["user_shop"] );
+    	$today = report_handle::reportinit ( "", $data, $etime, $etime );
+    	
+    	
+    	$data = $bills_model->searchReport ( date ( "Y-m-d H:i:s", $stime ), date ( "Y-m-d H:i:s", $stime + 24 * 3600 - 1 ), $_SESSION["user_shop"] );
+    	$yesterday=report_handle::reportinit ( "", $data, $stime, $stime );
+    	
+    	echo json_encode($today["data"]);
+
+    	$result->Data=array(
+    	"type"=>$today["type"]
+//     			,
+//     			"today"=>$today["data"],
+//     			"yesterday"=>$yesterday["data"]
+    	);
+  
     }
     
     /**

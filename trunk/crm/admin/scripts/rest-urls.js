@@ -7,9 +7,9 @@
     angular.module('ngRestUrls', ['ng']).
       config(['$provide', function ($provide) {
           var resturls = {};
-
+        resturls.base = "http://localhost/GoGoTown/trunk/crm/index.php";
           //resturls.base = "http://localhost:8080/GoGoTown/trunk/crm/index.php";
-         resturls.base = "http://172.27.35.2/GoGoTown/trunk/crm/index.php";
+         //resturls.base = "http://172.27.35.2/GoGoTown/trunk/crm/index.php";
 
          // resturls.base = "/crm/index.php";
           resturls.add = function (name, url) {
@@ -64,6 +64,9 @@
           resturls.add("ResizeImage", "upload/ResizeImage");//调整图片
           //销售分析
           resturls.add("DisplaySalesFunnel", "customers/getCustomerCount");//销售分析
+          //主页
+          resturls.add("SaleTotalTrendGraphByTime", "home/SaleTotalTrendGraphByTime");//昨日今日销售分析统计 (每天24小时)
+          resturls.add("AppuserTrendGraphByTime", "home/AppuserTrendGraphByTime");//昨日今日销售分析统计 (每天24小时)
 
           $provide.constant('$resturls', resturls);
       } ]);
