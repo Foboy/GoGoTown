@@ -94,6 +94,7 @@ function MainCtrl($scope, $routeParams, $http, $location, $filter, $resturls) {
     }
     // unix时间戳转化为 eg:'2014-04-08'
     $scope.timestamptostr = function (timestamp) {
+    	timestamp=timestamp+"";
         if (timestamp.indexOf('-') == -1) {
             var month = 0;
             var day = 0;

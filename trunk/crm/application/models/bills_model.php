@@ -235,6 +235,35 @@ $sname " );
 		$result->Data = $objects;
 		return $result;
 	}
+	//查询全部bills
+	public function searchReport($stime,$etime,$shop_id) {
+		$sql="SELECT 
+    a.*,b.Name appusername
+FROM
+    Crm_Bills a left join Crm_Users b on a.app_user_id=b.ID
+		 where a.sys_time >= '$stime' and a.sys_time <= '$etime' and a.shop_id=:shop_id ";
+		$query = $this->db->prepare ( $sql);
+		$query->execute (array(
+				":shop_id"=>$shop_id
+		));
+		$objects = $query->fetchAll ();
+		return  $objects;
+	}
+	//查询全部bills
+	public function searchReportofAppUser($shop_id) {
+		$sql="SELECT 
+       u.Name appusername
+    FROM
+        Crm_Users u
+    where
+        u.type = 2  and u.shop_id=:shop_id ";
+		$query = $this->db->prepare ( $sql);
+		$query->execute (array(
+				":shop_id"=>$shop_id
+		));
+		$objects = $query->fetchAll ();
+		return  $objects;
+	}
   
 }
 
