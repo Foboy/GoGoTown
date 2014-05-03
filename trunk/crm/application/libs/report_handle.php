@@ -8,7 +8,7 @@ class report_handle {
 	/*
 	 * params type: "appuser"查询app用户销售记录,"ages"按年龄查询消费记录,""默认按年月日查询销售记录 data: 账单数据
 	 */
-	public function reportinit($type, $data, $stime, $etime,$arr_users) {
+	public static function reportinit($type, $data, $stime, $etime,$arr_users) {
 		$bdata = array (
 				"Amount" => 0,
 				"sys_time" => "" 
@@ -56,7 +56,7 @@ class report_handle {
 				break;
 		}
 	}
-	public function report_hours($data, $stime, $etime,$type) {
+	public static function report_hours($data, $stime, $etime,$type) {
 		$resut = array ();
 		for($i = 0; $i <= 24; $i ++) {
 			$arr = array ();
@@ -77,7 +77,7 @@ class report_handle {
 			"data"=>$resut
 		);
 	}
-	public function report_days($data, $stime, $etime,$type) {
+	public static function report_days($data, $stime, $etime,$type) {
 		$days = round ( ($etime - $stime) / (24 * 3600) );
 		
 		$resut = array ();
@@ -102,7 +102,7 @@ class report_handle {
 			"data"=>$resut
 		);
 	}
-	public function report_months($data, $stime, $etime,$type) {
+	public static function report_months($data, $stime, $etime,$type) {
 		// echo strtotime(date("Y-m",$stime));
 		$resut = array ();
 		
@@ -153,7 +153,7 @@ class report_handle {
 			"data"=>$resut
 		);
 	}
-	public function report_appuser($arr_users,$data, $stime, $etime) {
+	public static function report_appuser($arr_users,$data, $stime, $etime) {
 		 //echo strtotime(date("Y-m",$stime));
 // 		$arr_users = array (); // appusername数组
 		
@@ -175,39 +175,13 @@ class report_handle {
 		);
 		//echo json_encode($arr_users);
 		
-// 		for($j = 0; $j < count ( $data ); $j ++) {
-// 			$appusername = "";
-// 			 //echo json_encode($data[$j]);
-// 			if (! empty ( $data [$j]->appusername )) {
-// 				$appusername = $data [$j]->appusername;
-// 			} else {
-// 				$appusername = "";
-// 				continue;
-// 			}
-// 			//echo  $appusername;
-// 			if (! in_array ( $appusername, $arr_users )) {
-// 				//print 1;
-// 				//array_push ( $arr_users, $appusername );
-// 				// $amount = $arr_app_nums [$i] [1] + $data [$j]->Amount;
-// 				array_push ( $arr_app_num, $num * 2 );
-// 				array_push ( $arr_app_num, 0 );
-// 				array_push ( $arr_app_nums, $arr_app_num );
-// 				$arr_app_num = array ();
-// 				$num ++;
-// 			}
-// 			// else
-// 			// {
-			
-// 			// $amount = $amount + $data [$j] ["Amount"];
-			
-// 			// }
-// 		}
+
 		// echo json_encode($arr_users);
 		// echo json_encode($arr_app_nums);
 		$num = 0; // 销售额偏移量
 		for($i = 0; $i < count ( $arr_users ); $i ++) {
 			
-			if($arr_app_nums [$i]==null)
+			if(Count($arr_app_nums)<count ( $arr_users ))
 			{
 				array_push ( $arr_app_num, $num * 2 );
 				array_push ( $arr_app_num, 0 );
@@ -251,7 +225,7 @@ class report_handle {
 		);
 		return   $resut ;
 	}
-	function format($a, $b) {
+	static function format($a, $b) {
 		// 检查两个日期大小，默认前小后大，如果前大后小则交换位置以保证前小后大
 		if (strtotime ( $a ) > strtotime ( $b ))
 			list ( $a, $b ) = array (
