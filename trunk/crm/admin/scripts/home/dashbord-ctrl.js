@@ -350,9 +350,10 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
                      xaxis: {
                          labelWidth: 10,
                          tickFormatter: function (number, obj) {
+                        	 console.log(number);
                              return names[number / this.tickSize];
                          },
-                         tickSize: 20,
+                         tickSize: 2,
                          min: 0,
                          tickLabel: names
                      },

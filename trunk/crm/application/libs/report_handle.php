@@ -156,7 +156,7 @@ class report_handle {
 	public function report_appuser($arr_users,$data, $stime, $etime) {
 		 //echo strtotime(date("Y-m",$stime));
 // 		$arr_users = array (); // appusername数组
-		$num = 0; // 销售额偏移量
+		
 		$arr_app_num = array (); // 单个销售额data数组
 		$arr_app_nums = array (); // 销售额data数组
 		$amount = 0;
@@ -173,39 +173,51 @@ class report_handle {
 				"#BDC3C7",
 				"#7F8C8D" 
 		);
+		//echo json_encode($arr_users);
 		
-		
-		for($j = 0; $j < count ( $data ); $j ++) {
-			$appusername = "";
-			 //echo json_encode($data[$j]);
-			if (! empty ( $data [$j]->appusername )) {
-				$appusername = $data [$j]->appusername;
-			} else {
-				$appusername = "";
-				continue;
-			}
-			//echo  $appusername;
-			if (! in_array ( $appusername, $arr_users )) {
-				//print 1;
-				array_push ( $arr_users, $appusername );
-				// $amount = $arr_app_nums [$i] [1] + $data [$j]->Amount;
+// 		for($j = 0; $j < count ( $data ); $j ++) {
+// 			$appusername = "";
+// 			 //echo json_encode($data[$j]);
+// 			if (! empty ( $data [$j]->appusername )) {
+// 				$appusername = $data [$j]->appusername;
+// 			} else {
+// 				$appusername = "";
+// 				continue;
+// 			}
+// 			//echo  $appusername;
+// 			if (! in_array ( $appusername, $arr_users )) {
+// 				//print 1;
+// 				//array_push ( $arr_users, $appusername );
+// 				// $amount = $arr_app_nums [$i] [1] + $data [$j]->Amount;
+// 				array_push ( $arr_app_num, $num * 2 );
+// 				array_push ( $arr_app_num, 0 );
+// 				array_push ( $arr_app_nums, $arr_app_num );
+// 				$arr_app_num = array ();
+// 				$num ++;
+// 			}
+// 			// else
+// 			// {
+			
+// 			// $amount = $amount + $data [$j] ["Amount"];
+			
+// 			// }
+// 		}
+		// echo json_encode($arr_users);
+		// echo json_encode($arr_app_nums);
+		$num = 0; // 销售额偏移量
+		for($i = 0; $i < count ( $arr_users ); $i ++) {
+			
+			if($arr_app_nums [$i]==null)
+			{
 				array_push ( $arr_app_num, $num * 2 );
 				array_push ( $arr_app_num, 0 );
 				array_push ( $arr_app_nums, $arr_app_num );
 				$arr_app_num = array ();
 				$num ++;
 			}
-			// else
-			// {
 			
-			// $amount = $amount + $data [$j] ["Amount"];
-			
-			// }
-		}
-		// echo json_encode($arr_users);
-		// echo json_encode($arr_app_nums);
-		for($i = 0; $i < count ( $arr_users ); $i ++) {
 			for($j = 0; $j < count ( $data ); $j ++) {
+				$appusername = "";
 				// echo json_encode($arr_app_nums [$i])."_____";
 				if (! empty ( $data [$j]->appusername )) {
 					$appusername = $data [$j]->appusername;
@@ -213,16 +225,17 @@ class report_handle {
 					$appusername = "";
 					continue;
 				}
+				//echo $appusername."||". $arr_users [$i]."......";
 				if ($appusername == $arr_users [$i]) {
-					// echo json_encode($arr_app_nums [$i][1]);
-					// echo $data [$j]->Amount;
+					
 					$arr_app_nums [$i] [1] = $arr_app_nums [$i] [1] + $data [$j]->Amount;
+					//echo json_encode($arr_app_nums [$i]);
 				}
 			}
 			
 			$arr_res_data = array (
 					"data" => array (
-							$arr_app_nums [$i]==null?array($i*2,0):$arr_app_nums [$i]
+							$arr_app_nums [$i]
 					),
 					"color" => $colors [array_rand ( $colors )] 
 			);
