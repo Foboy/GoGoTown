@@ -9,9 +9,13 @@ class Bill extends Controller {
 		// VERY IMPORTANT: All controllers/areas that should only be usable by logged-in users
 		// need this line! Otherwise not-logged in users could do actions. If all of your pages should only
 		// be usable by logged-in users: Put this line into libs/Controller->__construct
-		// Auth::handleLogin();
+		 Auth::handleLogin();
 	}
-	
+	public function twoday()
+	{
+		$result = new DataResult ();
+		print json_encode($result);
+	}
 	
 	/*
 	/* 商家分页查询消费记录 crm系统
