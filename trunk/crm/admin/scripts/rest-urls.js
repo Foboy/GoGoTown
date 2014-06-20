@@ -7,7 +7,7 @@
     angular.module('ngRestUrls', ['ng']).
       config(['$provide', function ($provide) {
           var resturls = {};
-        resturls.base = "http://localhost/GoGoTown/trunk/crm/index.php";
+        resturls.base = "http://localhost/index.php";
           //resturls.base = "http://localhost:8080/GoGoTown/trunk/crm/index.php";
          //resturls.base = "http://172.27.35.2/GoGoTown/trunk/crm/index.php";
 
@@ -51,7 +51,7 @@
           //公海客户
           resturls.add("LoadSeaCustomerList", "customers/searchGOGOBP"); //分页获取公海客户数据 type=1
           resturls.add("TransforChance", 'customers/setPshopToChance');//公海客户转化为销售机会
-          
+
 
           //销售机会
           resturls.add("LoadSaleChanceList", "customers/searchGOGOBP"); //分页获取销售机会数据 type=2

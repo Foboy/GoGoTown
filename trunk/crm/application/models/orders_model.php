@@ -19,7 +19,7 @@ class OrdersModel {
 		}
 
 		// 添加操作
-		$sql = "insert into crm_orders(lakala_order_no,shop_id,customer_id,pay_method,go_cash,go_coin,lakala_cash,status,amount,create_time,app_user_id,go_order_no) values (:lakala_order_no,:shop_id,:customer_id,:pay_mothed,:go_cash,:go_coin,:lakala_cash,:status,:amount,:create_time,:app_user_id,:go_order_no)";
+		$sql = "insert into crm_orders(lakala_order_no,shop_id,customer_id,pay_method,go_cash,go_coin,lakala_cash,status,amount,create_time,app_user_id,go_order_no) values (:lakala_order_no,:shop_id,:customer_id,:pay_method,:go_cash,:go_coin,:lakala_cash,:status,:amount,:create_time,:app_user_id,:go_order_no)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,
@@ -37,18 +37,15 @@ class OrdersModel {
 		) );
 		$count = $query->rowCount();
 		if ($count != 1) {
-
 			return 0;
 		}
 
 		// 获取ID
-		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
 		$query = $this->db->prepare ( " select id from crm_orders where go_order_no = :go_order_no" );
 		$query->execute ( array (
 ':go_order_no' => $go_order_no
 		) );
 		if ($query->rowCount() != 1) {
-
 			return 0;
 		}
 		$result_user_row = $query->fetch ();
@@ -59,7 +56,7 @@ class OrdersModel {
 
 	public function updateStatus($shop_id,$go_order_no,$status)
 	{
-		$sql = "update crm_orders set status=:status where shop_id = :shop_id and go_order_no = :go_order_no";
+		$sql = "update crm_orders set status=:status where id>0 and shop_id = :shop_id and go_order_no = :go_order_no";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':shop_id' => $shop_id,

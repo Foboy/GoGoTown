@@ -81,6 +81,8 @@ class Cash extends Controller
 
 	public function gopayvalid()
 	{
+		$logger = new Logger();
+
 		$result = new DataResult ();
 		if (!isset($_POST['code']) OR empty($_POST['code'])) {
 			$result->Error = ErrorType::Failed;
@@ -111,6 +113,7 @@ class Cash extends Controller
 				print json_encode($result);
 				return;
 			}
+			$logger->debug("insert bill");
 			//扣除GO币
 			$go_pay_success = true;
 			if($go_pay_success)
@@ -120,8 +123,11 @@ class Cash extends Controller
 				{
 					$pay_status = OrderStatus::Success;
 				}
+				$logger->debug("insert bill");
 				$order_model = $this->loadModel('Orders');
-				$order_model = $this->updateStatus($shop_id,$go_order_no,$pay_status);
+				$logger->debug("updatestatus");
+				$order_model = $order_model->updateStatus($shop_id,$go_order_no,$pay_status);
+				$logger->debug("update end");
 			}
 			else
 			{
@@ -133,6 +139,7 @@ class Cash extends Controller
 			if($pay_method == PayMethodType::GoGoPay)
 			{
 				$bill_model = $this->loadModel('Bills');
+
 				$bill_id = $bill_model->insert($shop_id,$customer_id,PayMethodType::GoGoPay,0,$pay_go_coin,$type_id,$amount,time(),$user_id,$lakala_order_no);
 				if($bill_id > 0)
 				{
@@ -172,6 +179,7 @@ class Cash extends Controller
 
 	public function submitorder()
 	{
+		try {
 		$result = new DataResult ();
 		if (!isset($_POST['pay_method']) OR empty($_POST['pay_method'])) {
 			$result->Error = ErrorType::Failed;
@@ -265,6 +273,15 @@ class Cash extends Controller
 				print json_encode($result);
 				return;
 		}
+
+		}
+		catch(Exception $e)
+		{
+				$result->Error = ErrorType::Failed;
+				$result->ErrorMessage ="生成订单失败" . $e->getMessage();
+				print json_encode($result);
+				return;
+		}
 	}
 
 	//订单流水号生成
@@ -272,12 +289,14 @@ class Cash extends Controller
 	//1396972800（时间戳10位）+商铺ID（6位）+随机码（4位）
 	private function neworder($pay_method,$go_cash,$go_coin,$lakala_cash,$amount,$go_order_no,$lakala_order_no)
 	{
-		$customer_id = $_SESSION["app_custormer_id"];
-		$shop_id = $_SESSION ['user_shop'];
-		$app_user_id = $_SESSION ['user_id'];
-		$status = OrderStatus::Init;
-		$order_model = $this->loadModel('Orders');
-		return $order_model->insert($shop_id,$customer_id,$pay_method,$go_cash,$go_coin,$lakala_cash,$status,$amount,$app_user_id,$lakala_order_no,$go_order_no);
+
+			$customer_id = $_SESSION["app_custormer_id"];
+			$shop_id = $_SESSION ['user_shop'];
+			$app_user_id = $_SESSION ['user_id'];
+			$status = OrderStatus::Init;
+			$order_model = $this->loadModel('Orders');
+			return $order_model->insert($shop_id,$customer_id,$pay_method,$go_cash,$go_coin,$lakala_cash,$status,$amount,$app_user_id,$lakala_order_no,$go_order_no);
+
 	}
 
 	public function getbills()
