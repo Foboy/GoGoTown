@@ -24,6 +24,7 @@
             $http.post($resturls["EditMerchantInfo"], { name: data.name }).success(function (result) {
                 if (result.Error == 0) {
                     $.scojs_message('修改成功', $.scojs_message.TYPE_OK);
+                    setTimeout("location.reload()", 2000);
                 }
                 else {
                     $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
