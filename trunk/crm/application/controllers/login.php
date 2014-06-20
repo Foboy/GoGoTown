@@ -81,25 +81,7 @@ class Login extends Controller
     	Auth::handleLoginWithUserType(UserType::ShopApp);
     }
 
-    /**
-     * The login action, this is where the user is directed after being checked by the Facebook server by
-     * clicking the facebook-login button
-     */
-    function loginWithFacebook()
-    {
-        // run the login() method in the login-model, put the result in $login_successful (true or false)
-        $login_model = $this->loadModel('Login');
-        $login_successful = $login_model->loginWithFacebook();
-
-        // check login status
-        if ($login_successful) {
-            // if YES, then move user to dashboard/index (this is a browser-redirection, not a rendered view)
-            header('location: ' . URL . 'dashboard/index');
-        } else {
-            // if NO, then move user to login/index (login form) (this is a browser-redirection, not a rendered view)
-            header('location: ' . URL . 'login/index');
-        }
-    }
+   
 
     function rpctest()
     {
@@ -262,24 +244,7 @@ class Login extends Controller
         }
     }
 
-    /**
-     * Register a user via Facebook-authentication
-     */
-    function registerWithFacebook()
-    {
-        $login_model = $this->loadModel('Login');
-        // perform the register method, put result (true or false) into $registration_successful
-        $registration_successful = $login_model->registerWithFacebook();
-
-        // check registration status
-        if ($registration_successful) {
-            // if YES, then move user to login/index (this is a browser-redirection, not a rendered view)
-            header('location: ' . URL . 'login/index');
-        } else {
-            // if NO, then move user to login/register (this is a browser-redirection, not a rendered view)
-            header('location: ' . URL . 'login/register');
-        }
-    }
+  
 
     /**
      * Verify user after activation mail link opened

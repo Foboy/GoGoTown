@@ -122,5 +122,48 @@ class ShopRank extends Controller {
 	
 		print  json_encode ( $result );
 	}
+	/*
+	 * 设置商家客户等级
+	* parms: rank_id from_type 1自有 2gogo  customer_ids begin_time end_time
+	*/
+	public function setCustomerRankBat() {
+		$result = new DataResult ();
+	
+		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
+			$result->Error = ErrorType::Unlogin;
+			print json_encode ( $result );
+			return ;
+		}
+	
+		if (! isset ( $_POST ['rank_id'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
+	
+		if (! isset ( $_POST ['from_type'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
+		if (! isset ( $_POST ['customer_ids'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
+	
+		$ids = explode ( ',', trim ( $_POST ['customer_ids'] ) );
+		if(count ( $ids )>0)
+		{
+			$rank_model = $this->loadModel ( 'Rank' );
+			for($index = 0; $index < count ( $ids ); $index ++) {
+				$result->Data = $rank_model->delete($_POST ['from_type'] ,$ids [$index],$_SESSION["user_shop"] );
+				$result->Data = $rank_model->insert ($_POST ['from_type'],$_SESSION["user_shop"],$ids [$index],$_POST ['rank_id']);
+			}
+		}
+		$result->Error = ErrorType::Success;
+	
+		print  json_encode ( $result );
+	}
 }
 ?>
