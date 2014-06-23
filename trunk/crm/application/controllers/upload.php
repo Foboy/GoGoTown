@@ -1,7 +1,7 @@
 <?php
 class UpLoad extends Controller {
 	/**
-	 * 图片操作等级相关操作
+	 * 鍥剧墖鎿嶄綔绛夌骇鐩稿叧鎿嶄綔
 	 */
 	public function __construct() {
 		parent::__construct ();
@@ -12,15 +12,15 @@ class UpLoad extends Controller {
 		// Auth::handleLogin();
 	}
 	/**
-	 * 上传图片 输出参数：图片保存名称
+	 * 涓婁紶鍥剧墖 杈撳嚭鍙傛暟锛氬浘鐗囦繚瀛樺悕绉�
 	 */
 	public function UpLoadImage() {
 		$targetFolder = '/crm/admin/upload'; // Relative to the root
 		if (! empty ( $_FILES )) {
 			$tempFile = $_FILES ['Filedata'] ['tmp_name'];
 			$targetPath = $_SERVER ['DOCUMENT_ROOT'] . $targetFolder;
-			if (! file_exists ( $targetPath )) {
-				mkdir ( $_SERVER ['DOCUMENT_ROOT'] . $targetFolder );
+			if (!file_exists ( $targetPath )) {
+				mkdir ($targetPath);
 			}
 			$fileName = time () . $_FILES ['Filedata'] ['name'];
 			$targetFile = rtrim ( $targetPath, '/' ) . '/' . $fileName;
@@ -55,7 +55,7 @@ class UpLoad extends Controller {
 	}
 	
 	/**
-	 * 修整图片
+	 * 淇暣鍥剧墖
 	 */
 	public function ResizeImage() {
 		$filename = $_POST ['filename'];
@@ -81,7 +81,7 @@ class UpLoad extends Controller {
 	}
 	
 	/**
-	 * 保存截屏图片
+	 * 淇濆瓨鎴睆鍥剧墖
 	 */
 	public function SaveScreenshotImage() {
 		$targ_w = $targ_h = 150;
@@ -103,7 +103,7 @@ class UpLoad extends Controller {
 		imagedestroy ( $dst_r );
 	}
 	
-	/* 手动post提交 */
+	/* 鎵嬪姩post鎻愪氦 */
 	private function UploadByCURL($post_data, $post_url) {
 		$curl = curl_init ();
 		curl_setopt ( $curl, CURLOPT_URL, $post_url );
