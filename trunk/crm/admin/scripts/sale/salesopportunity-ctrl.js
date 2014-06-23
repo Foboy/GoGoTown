@@ -5,7 +5,7 @@
         if (!$scope.searchpSOPparameter) {
             $scope.searchpSOPparameter = '';
         }
-        var pageSize = 1;
+        var pageSize = 15;
         if (pageIndex == 0) pageIndex = 1;
         $http.post($resturls["LoadSaleChanceList"], { rank_id: 0, name: $scope.searchpSOPparameter, phone: $scope.searchpSOPparameter, sex: 0, type: 2, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
             if (result.Error == 0) {

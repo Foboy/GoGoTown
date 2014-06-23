@@ -1,4 +1,4 @@
-﻿<!--消费记录-->
+<!--消费记录-->
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -7,45 +7,42 @@
     </div>
     <!-- /.row -->
     <div class="row margin_bot">
-        <div class="col-sm-3 pull-right">
+        <div class="col-sm-3 pull-left">
             <div class="input-group custom-search-form">
-                <input type="text" class="form-control input-sm" ng-model="searchpSRparameter" placeholder="姓名/手机号">
+                <input type="text" class="form-control input-sm" ng-model="shopinfo.skey" placeholder="姓名/手机号">
                 <span class="input-group-btn">
-                    <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SerchSpendingRecordList(searchpSRparameter)"><i class="fa fa-search"></i></button>
+                    <button class="btn_left btn btn-default btn-sm " type="button" ng-click="SearchlakalaBills()"><i class="fa fa-search"></i></button>
                 </span>
             </div>
         </div>
+        	<div class="margin_top padding_null col-sm-3" >
+                	<a title="高级查询" data-toggle="tooltip" id="Masterserach" class="graycolor margin_left" data-original-title="高级查询">高级查询</a>
+             </div>
     </div>
 
-    <div class="panel panel-default">
+    <div class="panel panel-default" id="MasterZone" style="display:none">
     	<div class="panel-body">
-    		<p>
-	    		<div class="btn-group col-sm-3 btn-group-sm">
+	    		<div class="form-group col-sm-5 btn-group-sm">
 					<button type="button" class="btn btn-default dropdown-toggle ng-binding" data-toggle="dropdown">
 						支付类型
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
 						<li ng-repeat="pt in PayType" class="ng-scope">
-							<a ng-click="ChoosePayType(pt)" class="ng-binding">GO币支付</a>
-						</li>
-						<li ng-repeat="pt in PayType" class="ng-scope">
-							<a ng-click="ChoosePayType(pt)" class="ng-binding">刷卡消费</a>
+							<a ng-click="ChoosePayType(pt)" class="ng-binding">{{pt.name}}</a>
 						</li>
 					</ul>
 				</div>
-		    	<div class="form-group col-sm-5">
+		    	<div class="form-group col-sm-5 pull-right">
 		    		<label class="col-md-4  lable-top" style="text-align:right;">时间范围:</label>
 					<div class="input-group">
 						<div class="input-group-addon">
 							<i class="fa fa-calendar"></i>
 						</div>
-						<input type="text" id="Text1" ng-model="shopinfo.daterange" class="form-control  ng-pristine ng-valid input-sm">
+						<input type="text" id="reservation" ng-model="shopinfo.daterange" class="form-control  ng-pristine ng-valid input-sm">
 					</div>
 	    		</div>
-	    	</p>
-	    	<p>
-	    		<div class="form-group col-sm-6">
+	    		<div class="form-group col-sm-5">
 		    		<label class="col-md-3  lable-top padding_null" style="text-align: left;">GO币区间:</label>
 					<div class="col-md-4 padding_null">
 						<input type="text" class="form-control  input-sm ng-pristine ng-valid" ng-model="shopinfo.GO1">
@@ -55,7 +52,7 @@
 						<input type="text" class="form-control input-sm ng-pristine ng-valid" ng-model="shopinfo.GO2">
 					</div>
 				</div>
-				<div class="form-group col-sm-6">
+				<div class="form-group col-sm-5 pull-right">
 		    		<label class="col-md-2 lable-top padding_null">刷卡区间:</label>
 					<div class="col-md-4 padding_rightnull">
 						<input type="text" class="form-control input-sm ng-pristine ng-valid ng-valid-pattern" ng-model="shopinfo.cash1" ng-pattern="/^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/">
@@ -65,7 +62,6 @@
 						<input type="text" class="form-control input-sm ng-pristine ng-valid ng-valid-pattern" ng-model="shopinfo.cash2" ng-pattern="/^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/">
 					</div>
     			</div>	
-	    	</p>
     	</div>
     	<div class="panel-footer">
     		<div class="row">
@@ -77,8 +73,8 @@
 					<button id="tag_ct" type="button" class="btn btn-primary btn-flat btn-sm hidden ng-binding" ng-click="Hiddencttag()" data-toggle="dropdown">
 						 <span class="fa fa-fw fa-times whitecolor"></span>
 						</button>
-						<button id="tag_pt" type="button" class="btn btn-primary btn-flat btn-sm hidden ng-binding" ng-click="Hiddenpttag()" data-toggle="dropdown">
-						 <span class="fa fa-fw fa-times whitecolor"></span>
+						<button id="tag_pt" type="button" class="btn btn-primary btn-flat btn-sm hidden ng-binding"  ng-click="Hiddenpttag()" data-toggle="dropdown">
+						{{tag_pt_text}} <span class="fa fa-fw fa-times whitecolor"></span>
 						</button>
 				</div>
 			</div>
@@ -100,24 +96,27 @@
                                     <th>#</th>
                                     <th>姓名</th>
                                     <th>手机号</th>
-                                    <th>消费金额</th>
+                                    <th>刷卡消费金额</th>
+                                     <th>GO币消费金额</th>
                                     <th>消费时间</th>
                                     <th>消费方式</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd gradeX" ng-repeat="SpendingRecord in SpendingRecords ">
+                                <tr class="odd gradeX" ng-repeat="bill in shopBills ">
                                     <td>{{$index+1}}</td>
-                                    <td>{{SpendingRecord.username}}
+                                    <td>{{bill.username}}
                                     </td>
-                                    <td>{{SpendingRecord.mobile}}
+                                    <td>{{ModifiedPhoneNum(bill.mobile)}}
                                     </td>
-                                    <td>{{SpendingRecord.Amount}}
+                                    <td>{{bill.Cash}}
                                     </td>
-                                    <td>{{timestamptostr(SpendingRecord.Create_Time)}}
+                                    <td>{{bill.Go_Coin}}
+                                    </td>
+                                    <td>{{timestamptostr(bill.Create_Time)}}
                                     </td>
                                     <td class="center">
-                                    {{ SpendingRecord.Pay_Mothed==2?"刷卡消费":"GO币支付"}}
+                                    {{ bill.Pay_Mothed==2?"刷卡消费":"GO币支付"}}
                                    
                                 </tr>
                             </tbody>

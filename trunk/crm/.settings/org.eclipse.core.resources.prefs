@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
+encoding//admin/partials/client.html=UTF-8
+encoding//admin/partials/client/addowncustomer-modal.html=UTF-8
 encoding//application/config/config.php=UTF-8
 encoding//application/controllers/login.php=UTF-8
-encoding//application/controllers/user.php=UTF-8
-encoding/<project>=UTF-8
+encoding//application/controllers/upload.php=UTF-8
