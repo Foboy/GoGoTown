@@ -10,7 +10,7 @@
     }
     //客户
     $scope.loadClientSortList = function (pageIndex, parameters) {
-        var pageSize = 5;
+        var pageSize = 15;
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'owncustomer':

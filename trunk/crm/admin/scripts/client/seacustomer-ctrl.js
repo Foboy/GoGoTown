@@ -6,7 +6,7 @@ function SeaCustomerMainCtrl($scope, $http, $location, $routeParams, $resturls, 
         if (!$scope.searchparamters) {
             $scope.searchparamters = '';
         }
-        var pageSize = 1;
+        var pageSize = 15;
         if (pageIndex == 0) pageIndex = 1;
         $http.post($resturls["LoadSeaCustomerList"], { rank_id: 0, name: $scope.searchparamters, phone: $scope.searchparamters, type: 1, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
             if (result.Error == 0) {
