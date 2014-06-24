@@ -37,7 +37,7 @@
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'owncustomer':
-                $http.post($resturls["LoadOwnCustomersList"], { rank_id: rank_id, name: parameters, phone: parameters, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+                $http.post($resturls["LoadOwnCustomersList"], { rank_id: rank_id, name: parameters, phone: parameters, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize,create_time1:'',create_time2:'' }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.ownclients = result.Data;
                         $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#client/' + $scope.sorts + '/{0}' + '/{1}', encodeURIComponent(parameters));
@@ -48,7 +48,7 @@
                 });
                 break;
             case 'gogocustomer':
-                $http.post($resturls["LoadGoGoCustomerList"], { rank_id: rank_id, name: parameters, phone: parameters, sex: 0, type: 3, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+                $http.post($resturls["LoadGoGoCustomerList"], { rank_id: rank_id, name: parameters, phone: parameters, sex: 0, type: 3, pageindex: pageIndex - 1, pagesize: pageSize, create_time1: '', create_time2: '' }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.gogoclients = result.Data;
                         $parent.gogocustomerActpageIndex = pageIndex;
