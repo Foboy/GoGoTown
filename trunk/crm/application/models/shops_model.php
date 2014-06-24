@@ -180,6 +180,53 @@ class ShopsModel {
 		$result->Data = $objects;
 		return $result;
 	}
+	public function searchIndexNum() {
+		$result = new DataResult ();
+	
+		$query = $this->db->prepare ( "select 
+    (SELECT 
+            count(*) 
+        FROM
+            Crm_Shop_Customers zy
+        where
+            zy.type = 4 and zy.Shop_ID = 1) zy_num,
+    (SELECT 
+            count(*) 
+        FROM
+            Crm_Shop_Customers gogo
+        where
+            gogo.type = 3 and gogo.Shop_ID = 1) gogo_num,
+    (SELECT 
+            count(*) 
+        FROM
+            Crm_Shop_Customers chance
+        where
+            chance.type = 2 and chance.Shop_ID = 1) chance_num,
+    (SELECT 
+            count(*) 
+        FROM
+            Crm_PShop_Customers gh
+        where
+            gh.Shop_ID = 1) gh_num,
+    (SELECT 
+            sum(cs.cash) 
+        FROM
+            Crm_Bills cs
+        where
+            cs.Shop_ID = 1) sum_cash,
+    (SELECT 
+            sum(cc.Go_Coin) 
+        FROM
+            Crm_Bills cc
+        where
+            cc.Shop_ID = 1) sum_gocoin
+from dual " );
+		$query->execute ();
+		$objects = $query->fetchAll ();
+	
+		$result->Data = $objects;
+		return $result;
+	}
 }
 
 ?>
