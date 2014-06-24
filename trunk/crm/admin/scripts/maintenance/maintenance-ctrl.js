@@ -76,7 +76,7 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
                             $("#SendMessageMoadl").modal('hide');
                         } else {
                             $scope.showerror = true;
-                            $.scojs_message(result.ErrorMessage, $.scojs_message.TYPE_ERROR);
+                            $.scojs_message("服务器忙，请稍后重试!", $.scojs_message.TYPE_ERROR);
                         }
                     });
                 } else {

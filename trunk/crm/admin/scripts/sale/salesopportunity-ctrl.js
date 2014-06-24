@@ -7,7 +7,7 @@
         }
         var pageSize = 15;
         if (pageIndex == 0) pageIndex = 1;
-        $http.post($resturls["LoadSaleChanceList"], { rank_id: 0, name: $scope.searchpSOPparameter, phone: $scope.searchpSOPparameter, sex: 0, type: 2, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+        $http.post($resturls["LoadSaleChanceList"], { rank_id: 0, name: $scope.searchpSOPparameter, phone: $scope.searchpSOPparameter, sex: 0, type: 2, pageindex: pageIndex - 1, pagesize: pageSize, create_time1: '', create_time2: '' }).success(function (result) {
             if (result.Error == 0) {
                 $scope.salesOpportunitys = result.Data;
                 $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#salesopportunity' + '/{0}');
