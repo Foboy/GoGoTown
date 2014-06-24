@@ -12,14 +12,13 @@ class RankSetModel {
 	}
 	
 	// 新增rank_set
-	public function insert($rank,$name,$shop_id,$remark,$pic_Id,$pic_url) {
+	public function insert($rank,$name,$shop_id,$remark) {
 		// 判断是否已存在
-		$query = $this->db->prepare ( " select *  from Crm_Rank_Set where rank = :rank and name = :name and shop_id = :shop_id and remark = :remark" );
+		$query = $this->db->prepare ( " select *  from Crm_Rank_Set where rank = :rank and name = :name and shop_id = :shop_id " );
 		$query->execute ( array (
 ':rank' => $rank,
                    ':name' => $name,
-                   ':shop_id' => $shop_id,
-                   ':remark' => $remark
+                   ':shop_id' => $shop_id
 		) );
 		$count = $query->rowCount();
 		if ($count > 0) {
@@ -27,7 +26,7 @@ class RankSetModel {
 		}
 		
 		// 添加操作
-		$sql = "insert into Crm_Rank(rank,name,shop_id,remark) values (:rank,:name,:shop_id,:remark)";
+		$sql = "insert into Crm_Rank_Set(rank,name,shop_id,remark) values (:rank,:name,:shop_id,:remark)";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':rank' => $rank,
@@ -43,12 +42,11 @@ class RankSetModel {
 		
 		// 获取ID
 		// get user_id of the user that has been created, to keep things clean we DON'T use lastInsertId() here
-		$query = $this->db->prepare ( " select id from Crm_Rank where rank = :rank and name = :name and shop_id = :shop_id and remark = :remark" );
+		$query = $this->db->prepare ( " select id from Crm_Rank_Set where rank = :rank and name = :name and shop_id = :shop_id " );
 		$query->execute ( array (
 ':rank' => $rank,
                    ':name' => $name,
-                   ':shop_id' => $shop_id,
-                   ':remark' => $remark
+                   ':shop_id' => $shop_id
 		) );
 		if ($query->rowCount() != 1) {
 			
@@ -61,7 +59,7 @@ class RankSetModel {
 	}
 	// 修改rank_set
 	public function update($id,$rank,$name,$shop_id,$remark) {
-		$sql = " update Crm_Rank set rank = :rank,name = :name,shop_id = :shop_id,remark = :remark where id = :id";
+		$sql = " update Crm_Rank_Set set rank = :rank,name = :name,shop_id = :shop_id,remark = :remark where id = :id";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':id' => $id,
@@ -79,7 +77,7 @@ class RankSetModel {
 	}
 	// 修改rank_setname
 	public function updateRankName($id,$name) {
-		$sql = " update Crm_Rank set name = :name where id = :id";
+		$sql = " update Crm_Rank_Set set name = :name where id = :id";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':id' => $id,
@@ -94,7 +92,7 @@ class RankSetModel {
 	}
 	// 根据ID删除rank_set
 	public function delete($id) {
-		$sql = " delete from Crm_Rank where id = :id ";
+		$sql = " delete from Crm_Rank_Set where id = :id ";
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 				':id' => $id 
@@ -111,7 +109,7 @@ class RankSetModel {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex*$pagesize;
 		
-		$sql = " select id,rank,name,shop_id,remark from Crm_Rank where  ( rank = :rank or :rank=0 )  and  ( name = :name or :name='' )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( remark = :remark or :remark='' )  limit $lastpagenum,$pagesize" ;
+		$sql = " select id,rank,name,shop_id,remark from Crm_Rank_Set where  ( rank = :rank or :rank=0 )  and  ( name = :name or :name='' )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( remark = :remark or :remark='' )  limit $lastpagenum,$pagesize" ;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':rank' => $rank,
@@ -121,7 +119,7 @@ class RankSetModel {
 		) );
 		$objects = $query->fetchAll ();
 		
-		$query = $this->db->prepare ( " select count(*)  from Crm_Rank where  ( rank = :rank or :rank=0 )  and  ( name = :name or :name='' )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( remark = :remark or :remark='' ) " );
+		$query = $this->db->prepare ( " select count(*)  from Crm_Rank_Set where  ( rank = :rank or :rank=0 )  and  ( name = :name or :name='' )  and  ( shop_id = :shop_id or :shop_id=0 )  and  ( remark = :remark or :remark='' ) " );
 		$query->execute ( array (
 ':rank' => $rank,
                    ':name' => $name,

@@ -123,7 +123,7 @@ class ShopRank extends Controller {
 		print  json_encode ( $result );
 	}
 	/*
-	 * 设置商家客户等级
+	 * 批量设置商家客户等级
 	* parms: rank_id from_type 1自有 2gogo  customer_ids begin_time end_time
 	*/
 	public function setCustomerRankBat() {
