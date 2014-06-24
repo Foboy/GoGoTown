@@ -187,7 +187,7 @@ class ShopRank extends Controller {
 	
 		$rankset_model = $this->loadModel ( 'RankSet' );
 		
-		$result = $rankset_model->search (  $_POST ['rank_id'],$_POST ['rank_name'] );
+		$result->Data = $rankset_model->updateRankName(  $_POST ['rank_id'],$_POST ['rank_name'] );
 		$result->Error = ErrorType::Success;
 	
 		print  json_encode ( $result );
