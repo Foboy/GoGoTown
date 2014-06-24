@@ -25,7 +25,7 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
     $scope.LoadGogoCustomerList = function (pageIndex, rankId) {
         if (!rankId) rankId = 0;
         if (pageIndex == 0) pageIndex = 1;
-        $http.post($resturls["LoadGoGoCustomerList"], { rank_id: rankId, name: "", phone: "", sex: 0, pageindex: pageIndex - 1, pagesize: 2, type: 3 }).success(function (result) {
+        $http.post($resturls["LoadGoGoCustomerList"], { rank_id: rankId, name: "", phone: "", sex: 0, pageindex: pageIndex - 1, pagesize: 15, type: 3 }).success(function (result) {
             if (result.Error == 0) {
                 $scope.gogoclients = result.Data;
                 $parent.gogocustomerActpageIndex = pageIndex;

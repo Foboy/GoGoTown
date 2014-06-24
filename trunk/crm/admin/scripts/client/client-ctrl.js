@@ -10,7 +10,7 @@
     }
     //客户
     $scope.loadClientSortList = function (pageIndex, parameters) {
-        var pageSize = 5;
+        var pageSize = 15;
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'owncustomer':
@@ -62,7 +62,6 @@
                 if (result.Error == 0) {
                     $scope.mebershiplevels = result.Data;
                     if (data) {
-                        debugger;
                         if (!data.rank_id || data.rank_id==0) {
                             $scope.choselevel = { Name: "未设置等级", ID: 0 };
                         } else {
@@ -220,6 +219,7 @@
     }
     //弹出批量设置会员等级
     $scope.ShowBatchSetMemberShipLevel = function () {
+    	console.log($rootScope.CheckList);
         //获取等级设置信息
         $scope.GetCustomerMemberShip = function () {
             $http.post($resturls["SearchMerchantSetLevels"], {}).success(function (result) {

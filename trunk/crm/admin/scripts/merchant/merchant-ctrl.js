@@ -112,7 +112,7 @@ function AuthorityManagementCtrl($scope, $rootScope, $http, $location, $routePar
     }
     //账户列表
     $scope.loadUserAccountSortList = function (pageIndex) {
-        var pageSize = 1;
+        var pageSize = 15;
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             //店员
@@ -211,7 +211,6 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
 //修改密码
 function RestPasswordCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.RestPassword = function (data) {
-        console.log(data);
         if ($scope.RestPasswordForm.$valid) {
             $scope.showerror = false;
             $http.post($resturls["RestPassword"], { user_id: data.ID, user_password_new: data.NewPassword, user_password_repeat: data.NewPassword }).success(function (result) {

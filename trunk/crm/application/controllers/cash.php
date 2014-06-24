@@ -199,13 +199,14 @@ class Cash extends Controller
 			print json_encode($result);
 			return;
 		}
-		if (!isset($_POST['go_coin']) OR empty($_POST['go_coin'])) {
+		//var_dump($_POST);
+		if (!isset($_POST['go_coin'])) {
 			$result->Error = ErrorType::Failed;
 			$result->ErrorMessage ="GO币支付数量不能为空";
 			print json_encode($result);
 			return;
 		}
-		if (!isset($_POST['lakala_cash']) OR empty($_POST['lakala_cash'])) {
+		if (!isset($_POST['lakala_cash'])) {
 			$result->Error = ErrorType::Failed;
 			$result->ErrorMessage ="刷卡金额不能为空";
 			print json_encode($result);

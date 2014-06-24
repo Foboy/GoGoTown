@@ -8,7 +8,7 @@
       config(['$provide', function ($provide) {
           var resturls = {};
 
-          resturls.base = "http://localhost:8080/GoGoTown/trunk/crm/index.php";
+          resturls.base = "/index.php";
          //resturls.base = "http://172.27.35.2/GoGoTown/trunk/crm/index.php";
 
          // resturls.base = "/crm/index.php";
@@ -51,20 +51,21 @@
           //公海客户
           resturls.add("LoadSeaCustomerList", "customers/searchGOGOBP"); //分页获取公海客户数据 type=1
           resturls.add("TransforChance", 'customers/setPshopToChance');//公海客户转化为销售机会
-          
+
 
           //销售机会
           resturls.add("LoadSaleChanceList", "customers/searchGOGOBP"); //分页获取销售机会数据 type=2
 
           //消费记录
-          resturls.add("LoadSpendingRecordList", "bill/searchBillsByCrm");//分页插叙消费记录
+          resturls.add("LoadSpendingRecordList", "bill/searchBills");//分页插叙消费记录
 
           //图片
           resturls.add("UpLoadImage", "upload/UpLoadImage");//上传图片
           resturls.add("ResizeImage", "upload/ResizeImage");//调整图片
           //销售分析
           resturls.add("DisplaySalesFunnel", "customers/getCustomerCount");//销售分析
-
+          resturls.add("SaleTotalTrendGraphByTime", "home/SaleTotalTrendGraphByTime");//昨日今日销售分析统计 (每天24小时)
+          resturls.add("AppuserTrendGraphByTime", "home/AppuserTrendGraphByTime");//收银员APP
           $provide.constant('$resturls', resturls);
       } ]);
 })(window, window.angular);
