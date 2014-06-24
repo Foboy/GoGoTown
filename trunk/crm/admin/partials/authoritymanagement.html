@@ -40,7 +40,8 @@
                                 </td>
                                 <td class="center">
                                     <a ng-click="ShowUpdateUserStateModel(clerk)">{{clerk.State==1?'启用':'禁用'}}</a>
-                                    <!-- <a ng-click="ShowAddUserAccountModal(clerk,3)">编辑账号</a>-->
+                                    <b class="graycolor1">|</b>
+                                    <a ng-click="ShowEditUserNameModal(clerk)">编辑姓名</a>
                                     <b class="graycolor1">|</b>
                                     <a ng-click="ShowRestUserAccountPwdModal(clerk)">修改密码</a>
                                 </td>
@@ -70,7 +71,8 @@
                                 </td>
                                 <td class="center">
                                     <a ng-click="ShowUpdateUserStateModel(cashier)">{{cashier.State==1?'启用':'禁用'}}</a>
-                                    <!--<a ng-click="ShowAddUserAccountModal(cashier,2)">编辑账号</a>-->
+                                    <b class="graycolor1">|</b>
+                                    <a ng-click="ShowEditUserNameModal(cashier)">编辑姓名</a>
                                     <b class="graycolor1">|</b>
                                     <a ng-click="ShowRestUserAccountPwdModal(cashier)">修改密码</a>
                                 </td>
@@ -98,3 +100,4 @@
 </div>
 <div ng-include="'partials/user/restpassword-modal.html'"></div>
 <div ng-include="'partials/user/confirmchangeuserstate-modal.html'"></div>
+<div ng-include="'partials/user/editusername-modal.html'"></div>

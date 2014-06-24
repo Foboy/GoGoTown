@@ -1,0 +1,43 @@
+﻿<!--新增编辑账号 Modal -->
+
+<div class="modal fade" id="EditUsermodal" tabindex="-1" role="dialog" aria-hidden="true" ng-controller="AddUserAccountCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button><!--{{UserAccount.user_id==0?'新增':'编辑'}}{{UserAccount.Type==3?'店员':'收银员'}}-->
+                <i class="titlefont glyphicon glyphicon-plus pull-left marginmodal"></i>
+                <h4 class="modal-title">编辑{{OneUser.Type==3?'CRM账号':'收银账号'}}名字</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" ng-class="showerror?'showerror':''" name="EditUserNameForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">账号名</label>
+                        <div class="col-sm-6">
+                            <label style="margin-top:5px">{{OneUser.Account}}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">姓名</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" ng-required="true" ng-model="OneUser.Name" name="user_name">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    取消
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="EditUserName(OneUser)">
+                    保 存
+                </button>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

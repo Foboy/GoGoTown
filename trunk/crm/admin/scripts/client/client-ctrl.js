@@ -8,13 +8,36 @@
     if (!$scope.parameters) {
         $scope.parameters = decodeURIComponent($routeParams.parameters || "");
     }
+    $scope.GetCustomerMemberShip = function () {
+        $http.post($resturls["SearchMerchantSetLevels"], {}).success(function (result) {
+            if (result.Error == 0) {
+                $scope.mebershiplevels = result.Data;
+            } else {
+                $scope.mebershiplevels = [];
+            }
+            if ($scope.mebershiplevels.length == 0) {
+                $scope.choselevel = { Name: "未设置等级", ID: 0 };
+            } else {
+                $scope.choselevel = $scope.mebershiplevels[0];
+            }
+        });
+    }
+    $scope.GetCustomerMemberShip();
+    $scope.ChoseMemberRank = function (data) {
+        $scope.choselevel = { Name: data.Name, ID: data.ID };
+    };
     //客户
-    $scope.loadClientSortList = function (pageIndex, parameters) {
+    $scope.loadClientSortList = function (pageIndex, parameters, choselevel) {
+        var rank_id = 0;
+        if (choselevel != null)
+        {
+            rank_id = choselevel.ID;
+        }
         var pageSize = 15;
         if (pageIndex == 0) pageIndex = 1;
         switch ($scope.sorts) {
             case 'owncustomer':
-                $http.post($resturls["LoadOwnCustomersList"], { rank_id: 0, name: parameters, phone: parameters, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+                $http.post($resturls["LoadOwnCustomersList"], { rank_id: rank_id, name: parameters, phone: parameters, sex: 0, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.ownclients = result.Data;
                         $parent.pages = utilities.paging(result.totalcount, pageIndex, pageSize, '#client/' + $scope.sorts + '/{0}' + '/{1}', encodeURIComponent(parameters));
@@ -25,7 +48,7 @@
                 });
                 break;
             case 'gogocustomer':
-                $http.post($resturls["LoadGoGoCustomerList"], { rank_id: 0, name: parameters, phone: parameters, sex: 0, type: 3, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
+                $http.post($resturls["LoadGoGoCustomerList"], { rank_id: rank_id, name: parameters, phone: parameters, sex: 0, type: 3, pageindex: pageIndex - 1, pagesize: pageSize }).success(function (result) {
                     if (result.Error == 0) {
                         $scope.gogoclients = result.Data;
                         $parent.gogocustomerActpageIndex = pageIndex;
@@ -39,8 +62,8 @@
         }
     }
     $scope.loadClientSortList($routeParams.pageIndex || 1, $routeParams.parameters || '');
-    $scope.SearchClientSortList = function (condtion) {
-        $scope.loadClientSortList(1, condtion);
+    $scope.SearchClientSortList = function (condtion, choselevel) {
+        $scope.loadClientSortList(1, condtion, choselevel);
         $rootScope.searchText = $scope.text;
     }
 
@@ -62,7 +85,7 @@
                 if (result.Error == 0) {
                     $scope.mebershiplevels = result.Data;
                     if (data) {
-                        if (!data.rank_id || data.rank_id==0) {
+                        if (!data.rank_id || data.rank_id == 0) {
                             $scope.choselevel = { Name: "未设置等级", ID: 0 };
                         } else {
                             $scope.choselevel = { Name: data.shoprankname, ID: data.rank_id };
@@ -188,7 +211,7 @@
                 if (result.Error == 0) {
                     $scope.mebershiplevels = result.Data;
                     if (data) {
-                        if (!data.rank_id || data.rank_id==0) {
+                        if (!data.rank_id || data.rank_id == 0) {
                             $scope.choselevel = { Name: "未设置等级", ID: 0 };
                         } else {
                             $scope.choselevel = { Name: data.shoprankname, ID: data.rank_id };
@@ -219,7 +242,6 @@
     }
     //弹出批量设置会员等级
     $scope.ShowBatchSetMemberShipLevel = function () {
-    	console.log($rootScope.CheckList);
         //获取等级设置信息
         $scope.GetCustomerMemberShip = function () {
             $http.post($resturls["SearchMerchantSetLevels"], {}).success(function (result) {

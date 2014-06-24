@@ -116,7 +116,7 @@ function EditMemberShipLevelCtrl($scope, $http, $location, $routeParams, $restur
             $http.post($resturls["UpdateRankName"], { rank_id: data.ID, rank_name: data.Name }).success(function (result) {
                 $("#editmeberlevelmodal").modal('hide');
                 if (result.Error == 0) {
-                    $.scojs_message('新增成功', $.scojs_message.TYPE_OK);
+                    $.scojs_message('编辑成功', $.scojs_message.TYPE_OK);
                     $scope.LoadMemberShipLeveList();
                 } else {
                     $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
@@ -186,6 +186,11 @@ function AuthorityManagementCtrl($scope, $rootScope, $http, $location, $routePar
          $scope.Userinfos = data;
         $("#ChangeStateModal").modal("show");
     }
+    //编辑用户姓名
+    $scope.ShowEditUserNameModal = function (data) {
+        $scope.OneUser= data;
+        $("#EditUsermodal").modal("show");
+    }
     
 }
 
@@ -230,7 +235,24 @@ function AddUserAccountCtrl($scope, $http, $location, $routeParams, $resturls) {
             $scope.showerror = true;
         }
     }
-
+    //编辑用户账号姓名
+    $scope.EditUserName = function (data) {
+        if ($scope.EditUserNameForm.$valid) {
+            $scope.showerror = false;
+            $http.post($resturls["UpdateUserName"], { user_id: data.ID, name: data.Name }).success(function (result) {
+                $("#EditUsermodal").modal("hide");
+                if (result.Error == 0) {
+                    $.scojs_message('编辑成功', $.scojs_message.TYPE_OK);
+                    $scope.loadUserAccountSortList($routeParams.pageIndex || 1);
+                } else {
+                    $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
+                    $scope.showerror = true;
+                }
+            });
+        } else {
+            $scope.showerror = true;
+        }
+    }
 };
 //修改密码
 function RestPasswordCtrl($scope, $http, $location, $routeParams, $resturls) {

@@ -47,6 +47,7 @@
           resturls.add("UpdateUserState", "user/updateUserState");//启用禁用用户 1 启用 0禁用
           resturls.add("LoadUserAccountList", "shopinfo/searchApps");//分页查询用户账号列表  user_type 1 ADMIN 2 APP 3 STAFF
           resturls.add("RestPassword", "shopinfo/updateAppPass");//修改用户账号密码
+          resturls.add("UpdateUserName", "user/updateUserName");//修改用户名姓名
           resturls.add("UpdateRankName", "shoprank/updateRankName");//编辑会员等级名称
 
           //公海客户
