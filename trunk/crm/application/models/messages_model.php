@@ -39,7 +39,7 @@ class MessagesModel {
                    ':content' => $content,
                    ':send_time' => $send_time,
                    ':create_time' => $create_time,
-				':pic_ic' => $pic_id,
+				':pic_id' => $pic_Id,
 				':pic_url' => $pic_url,
                    ':state' => $state
 		) );
