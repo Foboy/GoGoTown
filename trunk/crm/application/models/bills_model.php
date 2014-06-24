@@ -168,7 +168,7 @@ from
         left join
     Crm_Gogo_Customers bb ON aa.customer_id = bb.id
 $sname order by aa.create_time desc limit $lastpagenum,$pagesize" ;
-		//print $sql;
+		//print $shop_id;
 		$query = $this->db->prepare ( $sql );
 		$query->execute ( array (
 ':shop_id' => $shop_id,

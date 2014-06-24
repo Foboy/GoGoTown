@@ -59,7 +59,7 @@
           resturls.add("LoadSaleChanceList", "customers/searchGOGOBP"); //分页获取销售机会数据 type=2
 
           //消费记录
-          resturls.add("LoadSpendingRecordList", "bill/searchBills");//分页插叙消费记录
+          resturls.add("LoadSpendingRecordList", "bill/searchBillsByCrm");//分页插叙消费记录
 
           //图片
           resturls.add("UpLoadImage", "upload/UpLoadImage");//上传图片
