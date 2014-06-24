@@ -62,7 +62,6 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
         }
         if (data) {
             if (data.length > 0) {
-                debugger;
                 var customerids = "";
                 for (var i = 0; i < data.length; i++) {
                     customerids = data[i].Customer_ID + ',' + customerids;
@@ -74,9 +73,13 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
                         if (result.Error == 0) {
                             $.scojs_message('发送成功', $.scojs_message.TYPE_OK);
                             $("#SendMessageMoadl").modal('hide');
-                        } else {
+                        } else if (result.Error == 3) {
                             $scope.showerror = true;
-                            $.scojs_message("服务器忙，请稍后重试!", $.scojs_message.TYPE_ERROR);
+                            $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
+                        }
+                        else {
+                            $scope.showerror = true;
+                            $.scojs_message(result.ErrorMessage, $.scojs_message.TYPE_ERROR);
                         }
                     });
                 } else {
