@@ -359,15 +359,19 @@ function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
     }
     $scope.UpLoadImage();
     $scope.SendMessage = function (data) {
+        var random_picid="";
+        for(var i=0;i<10;i++){
+            random_picid+=Math.floor(Math.random()*10);
+        }
         if ($scope.SendMessageForm.$valid) {
             $scope.showerror = false;
-            $http.post($resturls["SensMessage"], { customer_ids: data.Customer_ID, title: data.Content, content: data.Content }).success(function (result) {
+            $http.post($resturls["SendMessage"], { customer_ids: data.Customer_ID, title: data.Content, content: data.Content, pic_id: random_picid, pic_url: $("#imagezone").attr("src") }).success(function (result) {
                 $("#SendMessageMoadl").modal('hide');
                 if (result.Error == 0) {
                     $.scojs_message('发送成功', $.scojs_message.TYPE_OK);
                 } else {
                     $scope.showerror = true;
-                    $.scojs_message(result.ErrorMessage, $.scojs_message.TYPE_ERROR);
+                    $.scojs_message("服务器忙，请稍后重试!", $.scojs_message.TYPE_ERROR);
                 }
             });
         } else {

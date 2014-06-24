@@ -32,7 +32,7 @@
           resturls.add("LoadGoGoCustomerList", "customers/searchGOGOBP"); //分页获取商家有消费记录gogo客户
           resturls.add("AddOwnCustomer", "customers/addPrivateCustomer");//添加商家自有客户信息
           resturls.add("UpdateOwnCustomer", "customers/update");//跟新商家自有客户信息
-          resturls.add("SensMessage", "messages/send");//发送消息
+          resturls.add("SendMessage", "messages/send");//发送消息
           resturls.add("DeleteOwnCustomer", "customers/del");//删除自有客户
           resturls.add("SetCustomerRank", "shoprank/setCustomerRank");//客户会员等级 from_type 1自有 2 gogo
 

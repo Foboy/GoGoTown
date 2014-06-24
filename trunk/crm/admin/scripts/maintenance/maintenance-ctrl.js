@@ -25,7 +25,7 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
     $scope.LoadGogoCustomerList = function (pageIndex, rankId) {
         if (!rankId) rankId = 0;
         if (pageIndex == 0) pageIndex = 1;
-        $http.post($resturls["LoadGoGoCustomerList"], { rank_id: rankId, name: "", phone: "", sex: 0, pageindex: pageIndex - 1, pagesize: 15, type: 3 }).success(function (result) {
+        $http.post($resturls["LoadGoGoCustomerList"], { rank_id: rankId, name: "", phone: "", sex: 0, pageindex: pageIndex - 1, pagesize: 15, type: 3, create_time1: '', create_time2: '' }).success(function (result) {
             if (result.Error == 0) {
                 $scope.gogoclients = result.Data;
                 $parent.gogocustomerActpageIndex = pageIndex;
@@ -56,6 +56,10 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
 
     //发送消息
     $scope.SendMessage = function (data, message) {
+        var random_picid = "";
+        for (var i = 0; i < 10; i++) {
+            random_picid += Math.floor(Math.random() * 10);
+        }
         if (data) {
             if (data.length > 0) {
                 debugger;
@@ -64,12 +68,9 @@ function MaintenanceCtrl($scope, $http, $location, $routeParams, $resturls, $roo
                     customerids = data[i].Customer_ID + ',' + customerids;
                 }
                 customerids = $scope.trimEnd(customerids, ',');
-                console.log(data);
-                console.log(message);
-                console.log(customerids);
                 if ($scope.SendGogoMessageForm.$valid) {
                     $scope.showerror = false;
-                    $http.post($resturls["SensMessage"], { customer_ids: customerids, title: message.content, content: message.content }).success(function (result) {
+                    $http.post($resturls["SendMessage"], { customer_ids: customerids, title: message.content, content: message.content, pic_id: random_picid, pic_url: $("#imagezone").attr("src") }).success(function (result) {
                         if (result.Error == 0) {
                             $.scojs_message('发送成功', $.scojs_message.TYPE_OK);
                             $("#SendMessageMoadl").modal('hide');
