@@ -198,4 +198,23 @@ if( $user->Data)
 	
 		print  json_encode ( $result );
 	}
+	/*
+	 * 获取首页统计数据
+	*
+	*/
+	public function getIndexNum() {
+		
+		$result = new DataResult ();
+		if (! isset ( $_SESSION["user_shop"] ) or empty ( $_SESSION["user_shop"] )) {
+			$result->Error = ErrorType::Unlogin;
+			print json_encode ( $result );
+			return ;
+		}
+		
+		$shops_model = $this->loadModel ( 'Shops' );
+	
+		$result = $shops_model->searchIndexNum ();
+	
+		print  json_encode ( $result );
+	}
 }
