@@ -155,9 +155,12 @@ class Messages extends Controller {
 		if(count ( $ids )>0)
 		{
 			$lastmsg=$messages_model->get($_SESSION ["user_shop"]);
-			
+			$days=8;
+			if($lastmsg->Data!=null)
+			{
 			$lasttime=$lastmsg->Data->Create_Time;
 		 $days =(int)(($stime-$lasttime)/(24*3600));
+			}
 			if($days<7)
 			{
 				$result->Error = ErrorType::Failed;
