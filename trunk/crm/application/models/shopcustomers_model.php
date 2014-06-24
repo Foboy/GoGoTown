@@ -94,7 +94,7 @@ class ShopCustomersModel {
 		return true;
 	}
 	// 分页查询商家自有客户shop_customers
-	public function searchPrivateByPages($shop_id, $name, $sex, $phone, $rank_id, $pageindex, $pagesize) {
+	public function searchPrivateByPages($shop_id, $name, $sex, $phone, $rank_id, $create_time1,$create_time2,$pageindex, $pagesize) {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex * $pagesize;
 		if (empty ( $name )) {
@@ -106,6 +106,11 @@ class ShopCustomersModel {
 			$phone = "  1=1  ";
 		} else {
 			$phone = " aa.phone like '%" . $phone . "%'  ";
+		}
+		$create_time="";
+		if(!empty($create_time1) and !empty($create_time2))
+		{
+			$create_time="  and create_time between $create_time1 and $create_time2 ";
 		}
 		
 		$sql = " select 
@@ -119,7 +124,7 @@ from
     from
         Crm_Shop_Customers
     where
-        shop_id = :shop_id and from_type = 1) a
+        shop_id = :shop_id and from_type = 1 $create_time ) a
     left join Crm_Customers b ON a.customer_id = b.ID) aa
         left join
     (select 
@@ -151,7 +156,7 @@ from
     from
         Crm_Shop_Customers
     where
-        shop_id = :shop_id and from_type = 1) a
+        shop_id = :shop_id and from_type = 1 $create_time) a
     left join Crm_Customers b ON a.customer_id = b.ID) aa
         left join
     (select 
@@ -176,7 +181,7 @@ from
 		return $result;
 	}
 	// 查询公海客户
-	public function searchPCustomerByPages($shop_id, $name, $sex, $phone, $type, $rank_id, $pageindex, $pagesize) {
+	public function searchPCustomerByPages($shop_id, $name, $sex, $phone, $type, $rank_id, $create_time1,$create_time2, $pageindex, $pagesize) {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex * $pagesize;
 		if (empty ( $name )) {
@@ -188,6 +193,11 @@ from
 			$phone = "  1=1  ";
 		} else {
 			$phone = " cc.mobile like '%" . $phone . "%'  ";
+		}
+		$create_time="";
+		if(!empty($create_time1) and !empty($create_time2))
+		{
+			$create_time="  and sys_time between $create_time1 and $create_time2 ";
 		}
 		
 		$sql = " select 
@@ -201,7 +211,7 @@ from
     from
         Crm_PShop_Customers
     where
-        shop_id = :shop_id) aa
+        shop_id = :shop_id $create_time ) aa
     left join Crm_Gogo_Customers bb ON aa.Customer_ID = bb.id) cc
         left join
     (select 
@@ -233,7 +243,7 @@ from
     from
         Crm_PShop_Customers
     where
-        shop_id = :shop_id) aa
+        shop_id = :shop_id $create_time ) aa
     left join Crm_Gogo_Customers bb ON aa.Customer_ID = bb.id) cc
         left join
     (select 
@@ -260,7 +270,7 @@ from
 	}
 	
 	// 分页查询有消费记录GOGO客户shop_customers $type 1:公海客户 2：销售机会 3：有消费记录gogo客户
-	public function searchGOGOCustomerByPages($shop_id, $name, $sex, $phone, $type, $rank_id, $pageindex, $pagesize) {
+	public function searchGOGOCustomerByPages($shop_id, $name, $sex, $phone, $type, $rank_id,$create_time1,$create_time2, $pageindex, $pagesize) {
 		$result = new PageDataResult ();
 		$lastpagenum = $pageindex * $pagesize;
 		if (empty ( $name )) {
@@ -273,6 +283,13 @@ from
 		} else {
 			$phone = " ee.mobile like '%" . $phone . "%'  ";
 		}
+		
+		$create_time="";
+		if(!empty($create_time1) and !empty($create_time2))
+		{
+			$create_time="  and create_time between $create_time1 and $create_time2 ";
+		}
+		
 		$sql = "  select ee.*,crs.Name shoprankname from (select
 		cc.*,cr.Rank_ID
 		from
@@ -287,7 +304,7 @@ from
 		from
 		Crm_Shop_Customers
 		where
-		shop_id = :shop_id and from_type = 2
+		shop_id = :shop_id and from_type = 2 $create_time
 		and type = :type) as a
 		) as aa
 		left join Crm_Gogo_Customers as bb ON aa.Customer_ID = bb.id) as cc
@@ -372,7 +389,7 @@ Crm_Rank_Set crs on ee.rank_id =crs.ID
 								from
 								Crm_Shop_Customers
 								where
-								shop_id = :shop_id and from_type = 2
+								shop_id = :shop_id and from_type = 2 $create_time
 								and type = :type) a
 								) aa
 								left join Crm_Gogo_Customers bb ON aa.cid = bb.id) cc
