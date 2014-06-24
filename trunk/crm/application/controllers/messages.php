@@ -152,12 +152,15 @@ class Messages extends Controller {
 		$stime = time ();
 		
 		//判断群发只能一周发一次
-		if(count ( $ids )>0)
+		if(count ( $ids )>1)
 		{
 			$lastmsg=$messages_model->get($_SESSION ["user_shop"]);
-			
+			$days=8;
+			if($lastmsg->Data!=null)
+			{
 			$lasttime=$lastmsg->Data->Create_Time;
 		 $days =(int)(($stime-$lasttime)/(24*3600));
+			}
 			if($days<7)
 			{
 				$result->Error = ErrorType::Failed;
