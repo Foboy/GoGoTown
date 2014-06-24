@@ -173,5 +173,28 @@ class user extends Controller
     	$result->Error = ErrorType::Success;
     	print  json_encode ( $result ) ;
     }
+    /*
+     * 修改用户名称
+    * parms: name
+    */
+    public function updateUserName() {
+    	$result = new DataResult ();
+    	if (! isset ( $_POST["user_id"] ) or empty ( $_POST["user_id"] )) {
+    		$result->Error = ErrorType::Unlogin;
+    		print json_encode ( $result );
+    		return ;
+    	}
+    	if (! isset ( $_POST ['name'] ) or empty ( $_POST ['name'] )) {
+    		$result->Error = ErrorType::RequestParamsFailed;
+    		print json_encode ( $result );
+    		return ;
+    	}
+    	$user_model = $this->loadModel('Users');
+    
+    	$result->Data = $user_model->updateShopName ($_POST ['name'],$_POST["user_id"]);
+    	$result->Error = ErrorType::Success;
+    
+    	print  json_encode ( $result );
+    }
     
 }

@@ -77,6 +77,21 @@ class RankSetModel {
 		}
 		return true;
 	}
+	// 修改rank_setname
+	public function updateRankName($id,$name) {
+		$sql = " update Crm_Rank set name = :name where id = :id";
+		$query = $this->db->prepare ( $sql );
+		$query->execute ( array (
+				':id' => $id,
+				':name' => $name
+		) );
+		$count = $query->rowCount();
+		if ($count != 1) {
+			// 修改错误
+			return false;
+		}
+		return true;
+	}
 	// 根据ID删除rank_set
 	public function delete($id) {
 		$sql = " delete from Crm_Rank where id = :id ";

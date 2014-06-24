@@ -165,5 +165,31 @@ class ShopRank extends Controller {
 	
 		print  json_encode ( $result );
 	}
+	/*
+	 * 修改等级名称
+	*   rank_id rankname
+	*/
+	public function updateRankName() {
+		$result = new DataResult ();
+	
+	
+		if (! isset ( $_POST ['rank_id'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
+	
+		if (! isset ( $_POST ['rank_name'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
+	
+		$rankset_model = $this->loadModel ( 'RankSet' );
+		
+		$result = $rankset_model->search (  $_POST ['rank_id'],$_POST ['rank_name'] );
+		$result->Error = ErrorType::Success;
+	
+		print  json_encode ( $result );
+	}
 }
-?>
