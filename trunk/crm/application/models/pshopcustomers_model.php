@@ -77,6 +77,20 @@ class PshopCustomersModel {
 		}
 		return true;
 	}
+	public function updatePchance($customer_id,$is_chance) {
+		$sql = " update Crm_Pshop_Customers set is_chance = :is_chance where customer_id = :customer_id";
+		$query = $this->db->prepare ( $sql );
+		$query->execute ( array (
+				':is_chance' => $is_chance,
+				':customer_id' => $customer_id
+		) );
+		$count = $query->rowCount();
+		if ($count != 1) {
+			// 修改错误
+			return false;
+		}
+		return true;
+	}
 	// 根据ID删除pshop_customers
 	public function delete($id) {
 		$sql = " delete from Crm_Pshop_Customers where id = :id ";

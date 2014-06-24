@@ -310,7 +310,9 @@ class Customers extends Controller {
 		}
 	
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
-	
+		$PshopCustomers_model = $this->loadModel ( 'PshopCustomers' );
+		$PshopCustomers_model->updatePchance($_POST ['customer_id'],1);
+		
 		$result->Data = $shopcustomers_model->insert ($_SESSION["user_shop"], $_POST ['customer_id'],CustomerFromType::GOGOCustomer,CustomerType::ChanceCustomer,time() );
 		$result->Error = ErrorType::Success;
 	

@@ -197,7 +197,7 @@ from
         aa . *, bb . *
     from
         (select 
-        shop_id,customer_id,times,last_time,sys_time update_time
+        shop_id,customer_id,times,last_time,is_chance,sys_time update_time
     from
         Crm_PShop_Customers
     where
