@@ -35,22 +35,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="odd gradeX" ng-repeat="seacustomer in seacustomers ">
+                                <tr class="odd gradeX" ng-repeat="seacustomer in seacustomers " ng-class="seacustomer.is_chance==1?'odd gradeX danger':'odd gradeX '">
                                     <td>{{$index+1}}</td>
-                                    <td>{{seacustomer.username}}
+                                    <td>
+                                        {{seacustomer.username}}
                                     </td>
                                     <td>
                                         {{seacustomer.nickname}}
                                     </td>
-                                     <td>
-                                         {{seacustomer.sex==1?'男':'女'}}
-                                   </td>
                                     <td>
-                                   {{seacustomer.email}}
+                                        {{seacustomer.sex==1?'男':'女'}}
                                     </td>
-                                    <td class="center">{{seacustomer.mobile}}
+                                    <td>
+                                        {{seacustomer.email}}
                                     </td>
-                                    <td><a ng-click="TransforSaleChanceModal(seacustomer)">转化为销售机会</a>
+                                    <td class="center">
+                                        {{seacustomer.mobile}}
+                                    </td>
+                                    <td>
+                                        <a ng-click="TransforSaleChanceModal(seacustomer)">转化为销售机会</a>
                                     </td>
                                 </tr>
                             </tbody>

@@ -80,7 +80,11 @@ function MemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) 
         $("#DeleteLevelModal").modal('show');
 
     }
-
+    //弹出修改会员等级名称框
+    $scope.EditMembershipNameModal = function (data) {
+        $scope.Eidtmebershiplevel = data;
+        $("#editmeberlevelmodal").modal('show');
+    }
     $scope.LoadMemberShipLeveList();
 }
 
@@ -91,6 +95,26 @@ function AddMemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturl
             $scope.showerror = false;
             $http.post($resturls["AddMemberLevels"], { name: data.name }).success(function (result) {
                 $("#addmeberlevelmodal").modal('hide');
+                if (result.Error == 0) {
+                    $.scojs_message('新增成功', $.scojs_message.TYPE_OK);
+                    $scope.LoadMemberShipLeveList();
+                } else {
+                    $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
+                }
+            })
+        } else {
+            $scope.showerror = true;
+        }
+    }
+}
+
+function EditMemberShipLevelCtrl($scope, $http, $location, $routeParams, $resturls) {
+    //保存编辑会员等级名称
+    $scope.SaveEditMemberShipLevel = function (data) {
+        if ($scope.EditMemberShipLevelForm.$valid) {
+            $scope.showerror = false;
+            $http.post($resturls["UpdateRankName"], { rank_id: data.ID, rank_name: data.Name }).success(function (result) {
+                $("#editmeberlevelmodal").modal('hide');
                 if (result.Error == 0) {
                     $.scojs_message('新增成功', $.scojs_message.TYPE_OK);
                     $scope.LoadMemberShipLeveList();

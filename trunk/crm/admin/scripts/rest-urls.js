@@ -8,7 +8,7 @@
       config(['$provide', function ($provide) {
           var resturls = {};
 
-          resturls.base = "/index.php";
+          resturls.base = "/GoGoTown/trunk/crm/index.php";
          //resturls.base = "http://172.27.35.2/GoGoTown/trunk/crm/index.php";
 
          // resturls.base = "/crm/index.php";
@@ -47,6 +47,7 @@
           resturls.add("UpdateUserState", "user/updateUserState");//启用禁用用户 1 启用 0禁用
           resturls.add("LoadUserAccountList", "shopinfo/searchApps");//分页查询用户账号列表  user_type 1 ADMIN 2 APP 3 STAFF
           resturls.add("RestPassword", "shopinfo/updateAppPass");//修改用户账号密码
+          resturls.add("UpdateRankName", "shoprank/updateRankName");//编辑会员等级名称
 
           //公海客户
           resturls.add("LoadSeaCustomerList", "customers/searchGOGOBP"); //分页获取公海客户数据 type=1

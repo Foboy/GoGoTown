@@ -271,5 +271,15 @@ transition: 0.25s;
 
 /*老板模式 END*/
 
+.level-edit {
+    float:right;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:12px;
+    color:#428BCA;
+    position:relative;
+    right:30px;
+}
+
 
 
