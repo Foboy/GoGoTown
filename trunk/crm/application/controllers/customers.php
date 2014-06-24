@@ -206,6 +206,16 @@ class Customers extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
+		if (! isset ( $_POST ['create_time1'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
+		if (! isset ( $_POST ['create_time2'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
 		
 		if (! isset ( $_POST ['pageindex'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
@@ -220,7 +230,7 @@ class Customers extends Controller {
 
 		$shopcustomers_model = $this->loadModel ( 'ShopCustomers' );
 		
-		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'],   $_POST ['rank_id'], $_POST ['pageindex'] , $_POST ['pagesize'] );
+		$result = $shopcustomers_model->searchPrivateByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'],   $_POST ['rank_id'], $_POST ['create_time1'],$_POST ['create_time2'],$_POST ['pageindex'] , $_POST ['pagesize'] );
 		$result->Error = ErrorType::Success;
 		
 	
@@ -263,6 +273,17 @@ class Customers extends Controller {
 			print json_encode ( $result );
 			return ;
 		}
+		
+		if (! isset ( $_POST ['create_time1'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
+		if (! isset ( $_POST ['create_time2'] ) ) {
+			$result->Error = ErrorType::RequestParamsFailed;
+			print json_encode ( $result );
+			return ;
+		}
 	
 		if (! isset ( $_POST ['pageindex'] ) ) {
 			$result->Error = ErrorType::RequestParamsFailed;
@@ -279,11 +300,11 @@ class Customers extends Controller {
 		
 		if($_POST['type']==1)
 		{
-			$result = $shopcustomers_model->searchPCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['rank_id'], $_POST ['pageindex'] , $_POST ['pagesize'] );
+			$result = $shopcustomers_model->searchPCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['rank_id'], $_POST ['create_time1'],$_POST ['create_time2'],$_POST ['pageindex'] , $_POST ['pagesize'] );
 			
 		}else 
 		{
-		$result = $shopcustomers_model->searchGOGOCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['rank_id'], $_POST ['pageindex'] , $_POST ['pagesize'] );
+		$result = $shopcustomers_model->searchGOGOCustomerByPages ($_SESSION["user_shop"], $_POST ['name'], $_POST ['sex'], $_POST ['phone'], $_POST ['type'], $_POST ['rank_id'], $_POST ['create_time1'],$_POST ['create_time2'],$_POST ['pageindex'] , $_POST ['pagesize'] );
 		}
 		$result->Error = ErrorType::Success;
 	
