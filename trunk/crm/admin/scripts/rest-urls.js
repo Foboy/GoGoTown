@@ -8,7 +8,7 @@
       config(['$provide', function ($provide) {
           var resturls = {};
 
-          resturls.base = "/GoGoTown/trunk/crm/index.php";
+          resturls.base = "/index.php";
          //resturls.base = "http://172.27.35.2/GoGoTown/trunk/crm/index.php";
 
          // resturls.base = "/crm/index.php";
