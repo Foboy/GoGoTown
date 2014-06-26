@@ -48,7 +48,7 @@ class home extends Controller {
 			);
 		} else {
 			$data = $bills_model->searchReport ( date ( "Y-m-d H:i:s", $stime ), date ( "Y-m-d H:i:s", $etime ), $_SESSION ["user_shop"] );
-			$res = report_handle::reportinit ( "", $data, $stime, $etime );
+			$res = report_handle::reportinit ( "", $data, $stime, $etime,"" );
 
 			$result->Data = array (
 					"type" => $res ["type"],
