@@ -189,39 +189,41 @@ class ShopsModel {
         FROM
             Crm_Shop_Customers zy
         where
-            zy.type = 4 and zy.Shop_ID = 1) zy_num,
+            zy.type = 4 and zy.Shop_ID = :shop_id) zy_num,
     (SELECT 
             count(*) 
         FROM
             Crm_Shop_Customers gogo
         where
-            gogo.type = 3 and gogo.Shop_ID = 1) gogo_num,
+            gogo.type = 3 and gogo.Shop_ID = :shop_id) gogo_num,
     (SELECT 
             count(*) 
         FROM
             Crm_Shop_Customers chance
         where
-            chance.type = 2 and chance.Shop_ID = 1) chance_num,
+            chance.type = 2 and chance.Shop_ID = :shop_id) chance_num,
     (SELECT 
             count(*) 
         FROM
             Crm_PShop_Customers gh
         where
-            gh.Shop_ID = 1) gh_num,
+            gh.Shop_ID = :shop_id) gh_num,
     (SELECT 
             sum(cs.cash) 
         FROM
             Crm_Bills cs
         where
-            cs.Shop_ID = 1) sum_cash,
+            cs.Shop_ID = :shop_id) sum_cash,
     (SELECT 
             sum(cc.Go_Coin) 
         FROM
             Crm_Bills cc
         where
-            cc.Shop_ID = 1) sum_gocoin
+            cc.Shop_ID = :shop_id) sum_gocoin
 from dual " );
-		$query->execute ();
+		$query->execute (array(
+			':shop_id'=>$_SESSION["user_shop"]
+		));
 		$objects = $query->fetchAll ();
 	
 		$result->Data = $objects;
