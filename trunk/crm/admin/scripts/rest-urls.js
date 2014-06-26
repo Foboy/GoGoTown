@@ -68,6 +68,7 @@
           resturls.add("DisplaySalesFunnel", "customers/getCustomerCount");//销售分析
           resturls.add("SaleTotalTrendGraphByTime", "home/SaleTotalTrendGraphByTime");//昨日今日销售分析统计 (每天24小时)
           resturls.add("AppuserTrendGraphByTime", "home/AppuserTrendGraphByTime");//收银员APP
+          resturls.add("GetIndexNum", "shopinfo/getIndexNum");//收银员APP
           $provide.constant('$resturls', resturls);
       } ]);
 })(window, window.angular);

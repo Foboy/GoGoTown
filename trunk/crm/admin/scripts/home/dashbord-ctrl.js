@@ -414,4 +414,19 @@ function DataStatisticsCtrl($scope, $http, $location, $routeParams, $resturls) {
     $scope.SaleTotalTrendGraph();
     $scope.ConsumerYear();
     $scope.CashierSaleBarChart(Date.parse(new Date()) / 1000, Date.parse(new Date()) / 1000);
+
+    $scope.getIndexNum = function () {
+        $http.post($resturls["GetIndexNum"], {}).success(function (result) {
+            if (result.Error == 0) {
+                if (result.Data.length > 0) {
+                    $scope.dataCounts = result.Data[0];
+                } else {
+                    $scope.dataCounts = { zy_num: 0, gogo_num: 0, chance_num: 0, gh_num: 0, sum_cash: "00.00", sum_gocoin: 0 }
+                }
+            } else {
+                $scope.dataCounts = { zy_num: 0, gogo_num: 0, chance_num: 0, gh_num: 0, sum_cash: "00.00", sum_gocoin: 0 };
+            }
+        });
+    }
+    $scope.getIndexNum();
 }

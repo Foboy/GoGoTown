@@ -369,9 +369,13 @@ function SendMessageCtrl($scope, $http, $location, $routeParams, $resturls) {
                 $("#SendMessageMoadl").modal('hide');
                 if (result.Error == 0) {
                     $.scojs_message('发送成功', $.scojs_message.TYPE_OK);
-                } else {
+                } else if (result.Error == 3) {
                     $scope.showerror = true;
-                    $.scojs_message("服务器忙，请稍后重试!", $.scojs_message.TYPE_ERROR);
+                    $.scojs_message('服务器忙，请稍后重试', $.scojs_message.TYPE_ERROR);
+                }
+                else {
+                    $scope.showerror = true;
+                    $.scojs_message(result.ErrorMessage, $.scojs_message.TYPE_ERROR);
                 }
             });
         } else {
